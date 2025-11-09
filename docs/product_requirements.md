@@ -1,7 +1,8 @@
 # Product Requirements Document
 
-**Status**: DRAFT
+**Status**: APPROVED
 **Last Reviewed**: 2025-11-09
+**Approved By**: Ben Davies
 
 ---
 
@@ -74,30 +75,6 @@ Describe the primary users of this product.
 - Maintain coherent vision even through pivots and direction changes
 - Know when the product is ready to transition from exploration to production quality
 
-
-**Example**:
-> ### Primary User: Solo Developer
->
-> **Background**:
-> - Works on multiple projects simultaneously
-> - Frequently context-switches between tasks
-> - Values simple, focused tools over complex systems
->
-> **Needs**:
-> - Quick idea capture without breaking flow
-> - Organization that adapts to how they think
-> - Fast retrieval when context-switching
->
-> **Pain Points**:
-> - Markdown files get lost in directory trees
-> - Tags become inconsistent over time
-> - No good way to rediscover related ideas
->
-> **Goals**:
-> - Never lose a valuable insight
-> - Spend less time organizing, more time creating
-> - Build a personal knowledge base that grows with them
-
 ---
 
 ## Product Pillars
@@ -120,16 +97,6 @@ Clear, maintained connections from product vision → features → tasks → imp
 
 ### 4. **Living Documentation**
 Documentation evolves with understanding. DRAFT → APPROVED workflow ensures AI uses trusted context. Alignment checks catch drift before it becomes expensive. Knowledge notes capture learnings for future reference.
-
-**Example**:
-> ### 1. **Simplicity**
-> The interface should be intuitive enough for first-time users while powerful enough for daily use. Every feature must justify its complexity.
->
-> ### 2. **Traceability**
-> Clear connections from user needs → features → implementation. Nothing gets built without understanding why.
->
-> ### 3. **Privacy First**
-> User data stays local by default. Cloud sync is optional and encrypted. Users own their data.
 
 ---
 
@@ -163,13 +130,13 @@ Developers need to manage persistent product characteristics (features) through 
 
 ### Task Execution
 
-Developers need a clear workflow from task creation through completion with AI reading relevant documentation before planning implementation. Each task should have explicit acceptance criteria and implementation plans reviewed before work begins. The system should enforce quality gates while keeping developers in flow state.
+Developers need a clear workflow from task creation through completion with AI reading relevant documentation before planning implementation. Tasks should be planned and executed making optimal use of the AI to ensure implementation is aligned, using the optimum context, making best use of extended thinking or other AI features, including subagents where defined. Each task should have explicit acceptance criteria and implementation plans reviewed before work begins. The system should enforce quality gates while keeping developers in flow state.
 
 **Features**: [Leave empty initially]
 
 ### Quality Assurance
 
-Developers need confidence that implementations align with requirements without manually reviewing code. Strategic review gates at document approval, task planning, and task completion provide leverage points for quality. Alignment checks should catch drift between conceptual design and technical implementation.
+Developers need confidence that implementations align with requirements without manually reviewing code. Strategic review gates at document approval, task planning, and task completion provide leverage points for quality. Alignment checks should catch drift between conceptual design and technical implementation. Implementation and outputs should align to all of the style guides and development_design.md as applicable.
 
 **Features**: [Leave empty initially]
 
@@ -204,22 +171,6 @@ Remove this section if not needed.
 - Documentation must be readable as plain text (no complex tooling required)
 - Must work offline (local files only, no external services)
 
-**Example**:
-> ### In Scope
-> - Local-first idea capture and organization
-> - Fast full-text search
-> - Flexible tagging and collections
->
-> ### Out of Scope (for now)
-> - Real-time collaboration (future consideration)
-> - Mobile apps (v2.0+)
-> - Third-party integrations
->
-> ### Constraints
-> - Must work offline
-> - Must be fast enough for 10,000+ ideas
-> - Must use open formats (Markdown, JSON)
-
 ---
 
 ## Success Metrics
@@ -236,11 +187,6 @@ Remove this section if not needed for your project.
 - Task implementation plans are approved without changes 80%+ of the time (indicates AI read docs correctly)
 - Developers can resume work after weeks away and have full context within 10 minutes
 
-**Example**:
-> - User can capture an idea in under 5 seconds
-> - Users successfully find specific ideas 90%+ of the time
-> - Users continue using the product 3+ months after initial adoption
-
 ---
 
 ## Version History
@@ -256,18 +202,10 @@ Always include status (DRAFT or APPROVED with date)
 - Defined two personas: Architect Dev and Gardener Dev
 - Established four product pillars: Automated Context Management, Strategic Human Review, Complete Traceability, Living Documentation
 - Identified five capability areas: Project Initialization, Documentation Maintenance, Feature Development, Task Execution, Quality Assurance
-- Status: DRAFT (pending review)
-
-**Example**:
-> ### 2025-10-21 - v1.1
-> - Added "Collaboration" capability area
-> - Refined Solo Developer persona
-> - Updated success metrics
-> - Status: DRAFT (pending review)
->
-> ### 2025-10-06 - v1.0
-> - Initial product requirements created
-> - Status: APPROVED (2025-10-07)
+- Updated Task Execution to emphasize optimal AI usage (extended thinking, subagents, context)
+- Updated Quality Assurance to specify alignment with style guides and development_design.md
+- Removed all example blocks per template guidance
+- Status: APPROVED (2025-11-09)
 
 ---
 
