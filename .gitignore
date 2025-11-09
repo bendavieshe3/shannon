@@ -1,0 +1,39 @@
+# Claude configuration files (should not be committed)
+.claude/
+*.claude/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.vim/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archive files (in case configs are zipped)
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
