@@ -142,4 +142,6 @@ Plus, "Shannon Claude" has a nice ring to it. 😉
 
 ## License
 
-[License details TBD]
+MIT License - see [LICENSE](LICENSE) file for details.
+
+Shannon is free and open source. Use it, modify it, share it!
