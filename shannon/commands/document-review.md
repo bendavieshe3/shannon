@@ -45,8 +45,7 @@ If document-name omitted, lists all DRAFT documents.
 
 6. **Update document status** (if approved):
    - Change Status from DRAFT → APPROVED
-   - Set "Last Reviewed" to current date
-   - Set "Approved By" to user name (or prompt for name)
+   - Set "Last Reviewed" to current date (YYYY-MM-DD format)
    - Add entry to "Version History":
      ```
      ### [YYYY-MM-DD] - vX.X
@@ -85,7 +84,6 @@ AI walks through each section, user approves or requests changes.
 After approval:
 - Status: DRAFT → APPROVED
 - Last Reviewed: 2025-11-08
-- Approved By: [User Name]
 
 ## Example - Review Specific Document
 

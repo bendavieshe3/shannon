@@ -1,8 +1,7 @@
 # Documentation Style Guide
 
 **Status**: DRAFT
-**Last Reviewed**: 2025-01-09
-**Approved By**: [Name or "Not yet reviewed"]
+**Last Reviewed**: 2025-11-09
 
 ---
 

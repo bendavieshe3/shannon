@@ -1,8 +1,7 @@
 # Conceptual Design
 
 **Status**: DRAFT
-**Last Reviewed**: [YYYY-MM-DD or "Not yet reviewed"]
-**Approved By**: [Name or "Not yet reviewed"]
+**Last Reviewed**: [Current date in YYYY-MM-DD format]
 
 ---
 

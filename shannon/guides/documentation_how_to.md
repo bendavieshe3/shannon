@@ -453,7 +453,6 @@ Each mandated document has a status at the top:
 
 **Status**: DRAFT | APPROVED
 **Last Reviewed**: YYYY-MM-DD
-**Approved By**: [Name or "Not yet reviewed"]
 ```
 
 **DRAFT Status**:
@@ -994,8 +993,7 @@ Interactively review and approve mandated document.
 5. **Update Document**:
    - If approved: Status → APPROVED
    - If partially approved: Status → DRAFT (note which sections approved)
-   - Update "Last Reviewed" date
-   - Update "Approved By" field
+   - Update "Last Reviewed" date to current date
    - Add version history entry
 
 6. **Cascade Check**:
@@ -1039,7 +1037,6 @@ Interactively review and approve mandated document.
 
 # AI: "technical_design.md marked APPROVED.
 #      Last Reviewed: 2025-10-06
-#      Approved By: User
 #
 #      Note: product_requirements.md references this document.
 #      Consider reviewing for alignment if needed."

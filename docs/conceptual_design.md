@@ -1,8 +1,7 @@
 # Conceptual Design
 
 **Status**: DRAFT
-**Last Reviewed**: 2025-01-09
-**Approved By**: Not yet reviewed
+**Last Reviewed**: 2025-11-09
 
 ---
 
@@ -45,8 +44,8 @@ A persistent product characteristic (what the product IS, not a project task).
 - product_requirements_reference: Which section this implements
 
 **Lifecycle**:
-- Created ’ STABLE (no active work)
-- STABLE ” ACTIVE (phases being worked on)
+- Created ï¿½ STABLE (no active work)
+- STABLE ï¿½ ACTIVE (phases being worked on)
 - Never "completed" - features evolve with phases
 
 ### Task
@@ -60,11 +59,11 @@ A discrete work item with clear completion criteria.
 - acceptance_criteria: Checklist of requirements
 
 **Lifecycle**:
-- TODO ’ READY (via `/task-ready` - AI creates plan)
-- READY ’ IN_PROGRESS (via `/task-implement`)
-- IN_PROGRESS ’ REVIEW (mark complete)
-- REVIEW ’ COMPLETED (via `/task-review --approve`)
-- COMPLETED ’ Archived
+- TODO ï¿½ READY (via `/task-ready` - AI creates plan)
+- READY ï¿½ IN_PROGRESS (via `/task-implement`)
+- IN_PROGRESS ï¿½ REVIEW (mark complete)
+- REVIEW ï¿½ COMPLETED (via `/task-review --approve`)
+- COMPLETED ï¿½ Archived
 
 ### Phase
 A unit of work within a feature, consisting of multiple tasks.
@@ -78,7 +77,7 @@ A unit of work within a feature, consisting of multiple tasks.
 
 **Behavior**:
 - Phases are planned (via `/feature-phase-plan`)
-- Phases activate the parent feature (STABLE ’ ACTIVE)
+- Phases activate the parent feature (STABLE ï¿½ ACTIVE)
 - Phases complete when all tasks are COMPLETED
 
 ### Index
@@ -99,16 +98,16 @@ A navigation file that lists related items.
 ## Relationships
 
 ```
-Product Requirements § Section
-    “ implements
+Product Requirements ï¿½ Section
+    ï¿½ implements
 Feature (FEAT-XXX)
-    “ breaks into
+    ï¿½ breaks into
 Phase (Phase 1, 2, 3...)
-    “ consists of
+    ï¿½ consists of
 Tasks (TASK-XXX, TASK-YYY, ...)
-    “ produces
+    ï¿½ produces
 Implementation (code, docs, etc.)
-    “ generates
+    ï¿½ generates
 Knowledge Notes (learnings, gotchas)
 ```
 
@@ -124,7 +123,7 @@ Knowledge Notes (learnings, gotchas)
 
 ### Document Status Rules
 1. New documents start as DRAFT
-2. Only humans can approve documents (DRAFT ’ APPROVED)
+2. Only humans can approve documents (DRAFT ï¿½ APPROVED)
 3. Changes to APPROVED docs reset them to DRAFT
 4. AI should prefer APPROVED docs over DRAFT for authoritative guidance
 
@@ -135,7 +134,7 @@ Knowledge Notes (learnings, gotchas)
 4. Features never reach "COMPLETED" - they persist
 
 ### Task Lifecycle Rules
-1. Tasks cannot skip states (must go TODO ’ READY ’ IN_PROGRESS ’ REVIEW ’ COMPLETED)
+1. Tasks cannot skip states (must go TODO ï¿½ READY ï¿½ IN_PROGRESS ï¿½ REVIEW ï¿½ COMPLETED)
 2. `/task-ready` must be run before implementing (enforces Gate 2)
 3. Tasks in REVIEW require human approval to complete (enforces Gate 3)
 4. COMPLETED tasks are archived (moved to ./docs/tasks/archive/)
@@ -157,14 +156,14 @@ Knowledge Notes (learnings, gotchas)
 - **Who**: Human
 - **Command**: `/document-review [doc]`
 - **Purpose**: Ensure docs are accurate before AI uses them
-- **Transition**: DRAFT ’ APPROVED
+- **Transition**: DRAFT ï¿½ APPROVED
 
 **Gate 2: Task Planning**
 - **When**: Before implementing a task
 - **Who**: AI creates plan, human reviews
 - **Command**: `/task-ready TASK-XXX`
 - **Purpose**: Ensure AI read docs and has sound plan
-- **Transition**: TODO ’ READY
+- **Transition**: TODO ï¿½ READY
 - **Reads**: conceptual_design.md, technical_design.md, code_style_guide.md, knowledge notes
 
 **Gate 3: Task Completion**
@@ -172,7 +171,7 @@ Knowledge Notes (learnings, gotchas)
 - **Who**: Human
 - **Command**: `/task-review TASK-XXX --approve`
 - **Purpose**: Ensure acceptance criteria met
-- **Transition**: REVIEW ’ COMPLETED ’ archive
+- **Transition**: REVIEW ï¿½ COMPLETED ï¿½ archive
 
 ### AI Context Reading Rules
 
@@ -195,7 +194,7 @@ When AI executes `/feature-phase-plan`:
 
 ## Version History
 
-### 2025-01-09 - v1.0
+### 2025-11-09 - v1.0
 - Initial conceptual design
 - Defined core concepts: Document, Feature, Task, Phase, Index
 - Documented relationships and business rules
