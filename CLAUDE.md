@@ -10,7 +10,6 @@ This is a **documentation system for AI-assisted development**. It provides:
 2. **Feature and task tracking system** optimized for AI context management
 3. **Knowledge base structure** for capturing implementation details
 4. **Slash commands** that guide AI through the development workflow
-5. **Working examples** from real projects (project-a, project-b)
 
 This is NOT a traditional software project - it's a meta-system for organizing how AI (Claude Code) and humans collaborate on software projects.
 
@@ -55,9 +54,6 @@ docs/                              # Shannon's own documentation
 ├── features/                     # Shannon's features
 ├── tasks/                        # Shannon's tasks
 └── knowledge/                    # Shannon's knowledge base
-
-project-a/                         # Working example (simpler)
-project-b/                         # Working example (more complex)
 ```
 
 ## The Documentation System
@@ -142,7 +138,6 @@ When working on this repository:
 2. **Command changes**: Update files in `shannon/commands/`
 3. **Guide changes**: Update how-to guides in `shannon/guides/`
 4. **Shannon's own docs**: Update files in `docs/` (Shannon eats its own dog food!)
-5. **Examples**: Don't modify project-a/project-b (they're reference examples)
 
 ## Important Concepts
 
@@ -215,20 +210,18 @@ AI can read DRAFT docs but knows they're not final. Gate 1 is approving docs.
 - **System overview**: Read `shannon/guides/shannon_overview.md`
 - **Command reference**: Read `shannon/commands/README.md`
 - **Layer details**: Read individual how-to guides in `shannon/guides/`
-- **Examples**: Look at project-a (simple) or project-b (complex)
 
 ## This Repository Is For
 
 - ✅ Creating new projects with the documentation system
 - ✅ Understanding the AI context management approach
 - ✅ Copying templates and commands to other projects
-- ✅ Learning the workflow through examples
+- ✅ Learning the Shannon workflow
 
 ## This Repository Is NOT For
 
 - ❌ Running as an application (it's a template repository)
 - ❌ Building or testing code (no code to build)
-- ❌ Direct modification of examples (they're reference only)
 - ❌ Tracking actual work (use the templates in a real project)
 
 ---

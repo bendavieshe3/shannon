@@ -80,9 +80,6 @@ docs/                          # Shannon's own documentation
 ├── product_requirements.md   # What Shannon is
 ├── features/                 # Shannon's features
 └── tasks/                    # Shannon's tasks
-
-project-a/                     # Working example (simple)
-project-b/                     # Working example (complex)
 ```
 
 ## Core Philosophy
