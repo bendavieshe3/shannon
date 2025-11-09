@@ -131,7 +131,14 @@ You're exploring the problem space iteratively. Shannon keeps documentation cohe
 
 ## Why "Shannon"?
 
-Named after Claude Shannon, father of information theory. Shannon's work on efficient information transmission mirrors this framework's approach to AI context management.
+Named after **Claude Shannon** (1916-2001), the father of information theory. Shannon's groundbreaking work on efficient information transmission and storage directly mirrors this framework's approach to AI context management:
+
+- **Shannon's Theory**: How to transmit maximum information with minimum bandwidth
+- **Shannon Framework**: How to provide maximum context to AI with minimum overhead
+
+Shannon (the person) proved that you can communicate perfectly despite noise if you structure information correctly. Shannon (the framework) proves you can develop perfectly despite context limits if you structure documentation correctly.
+
+Plus, "Shannon Claude" has a nice ring to it. 😉
 
 ## License
 

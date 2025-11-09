@@ -1,7 +1,7 @@
 # Shannon - Complete System Overview
 
 **Version**: 3.0
-**Last Updated**: 2025-01-09
+**Last Updated**: 2025-11-09
 
 ## Purpose
 
@@ -26,6 +26,31 @@ cp -r shannon/guides /path/to/your-project/.claude/guides
 ```
 
 Then run `/project-setup` in your project to initialize the documentation structure.
+
+## Why "Shannon"?
+
+Shannon is named after **Claude Shannon** (1916-2001), the mathematician who founded information theory. The connection is more than just a clever name:
+
+**Shannon's Contribution to Computing:**
+- Proved the fundamental limits of data compression and transmission
+- Showed how to communicate reliably despite noise (error correction)
+- Established that information has measurable structure and can be optimized
+
+**How This Relates to Shannon Framework:**
+- **Context Management**: Just as Shannon (person) optimized signal transmission, Shannon (framework) optimizes context transmission to AI
+- **Structured Information**: Shannon proved structure enables efficiency—this framework structures documentation for efficient AI consumption
+- **Signal vs. Noise**: The framework filters signal (relevant documentation) from noise (redundant information)
+- **Lossless Compression**: Mandated docs compress project knowledge into dense, navigable format
+
+In essence: Shannon (person) figured out the math of efficient information transmission. Shannon (framework) applies those principles to AI-assisted development.
+
+**The Name Game:**
+- Claude Shannon: Father of information theory
+- Shannon Claude: Documentation framework for Claude Code
+- One revolutionized how machines process information
+- The other helps Claude Code process your project's information
+
+Perfect match. 🎯
 
 ## System Architecture
 
