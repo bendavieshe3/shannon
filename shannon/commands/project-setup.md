@@ -16,6 +16,36 @@ SHANNON_GUIDES_PATH="./.claude/guides"
 
 For global installation, use: `~/.claude/shannon/templates`, `~/.claude/shannon/commands`, `~/.claude/shannon/guides`
 
+## Pre-Execution Check
+
+**Before proceeding, check if project is under version control**:
+
+1. Run `git status` to check for uncommitted changes
+2. If there are uncommitted changes:
+   ```
+   ⚠️ You have uncommitted changes in your repository.
+
+   It's recommended to commit your work before running /project-setup.
+   This creates a clean checkpoint to revert to if needed.
+
+   Options:
+   a) Commit changes now (recommended)
+   b) Stash changes and proceed
+   c) Proceed anyway (not recommended)
+   d) Cancel /project-setup
+
+   Your choice: _
+   ```
+
+3. If user chooses (a), pause and wait for commit, then resume
+4. If user chooses (b), run `git stash` before proceeding
+5. If user chooses (c), warn and continue
+6. If user chooses (d), exit command
+
+**If not under version control**:
+- Note: "Project is not a git repository. Consider running `git init` to track documentation changes."
+- Proceed normally
+
 ## What it does (intelligent detection)
 
 This command adapts based on what already exists in your project:
@@ -370,26 +400,87 @@ Auto-updates Quick Reference in CLAUDE.md from modified style guides.
 
 ## Safety Features
 
-1. **Always creates backup** before modifying CLAUDE.md
+1. **Git safety checks** (if under version control)
+   - Checks for uncommitted changes before starting
+   - Offers to commit or stash before proceeding
+   - Prompts to commit documentation system after completion
+   - Creates clean checkpoints for easy rollback
+
+2. **Always creates backup** before modifying CLAUDE.md
    - Format: `CLAUDE.md.backup.YYYY-MM-DD-HH-MM-SS`
    - Timestamped to prevent overwriting previous backups
 
-2. **Shows preview** before major changes
+3. **Shows preview** before major changes
    - Displays what will be added/modified
    - User confirmation required
 
-3. **Never overwrites** mandated documents
+4. **Never overwrites** mandated documents
    - If document exists, asks before updating
    - Offers to show template changes
 
-4. **Detects contradictions** before merging
+5. **Detects contradictions** before merging
    - Reviews each contradictory section with user
    - Options to resolve (edit, remove, keep, skip)
 
-5. **Idempotent operation**
+6. **Idempotent operation**
    - Running multiple times is safe
    - Only updates what changed
    - Preserves custom content
+
+## Post-Execution: Commit Changes
+
+**After successful completion, commit the documentation system**:
+
+1. **Review what changed**:
+   ```bash
+   git status
+   git diff
+   ```
+
+2. **Show summary of created/modified files**:
+   ```
+   ✅ /project-setup completed successfully!
+
+   Created/modified files:
+   - ./docs/*.md (8 mandated documents)
+   - ./docs/tasks/TASK-XXX.md, task_index.md
+   - ./docs/features/FEAT-XXX.md, feature_index.md
+   - ./docs/knowledge/knowledge_note.md, knowledge_index.md
+   - CLAUDE.md [created|updated]
+
+   Recommendation: Commit these changes to create a documentation checkpoint.
+   ```
+
+3. **Prompt for commit**:
+   ```
+   Ready to commit documentation system? (y/n): _
+   ```
+
+4. **If yes, create commit**:
+   ```bash
+   git add ./docs/ CLAUDE.md .gitignore
+   git commit -m "Add Shannon documentation system
+
+   - Created 8 mandated documents (all DRAFT status)
+   - Deployed templates to ./docs/tasks/, ./docs/features/, ./docs/knowledge/
+   - [Created|Updated] CLAUDE.md with documentation system guidance
+
+   Next steps:
+   - Review/approve: /document-review product_requirements.md
+   - Create first feature: /feature-create
+
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+   Co-Authored-By: Claude <noreply@anthropic.com>"
+   ```
+
+5. **If no**:
+   ```
+   Skipped commit. Remember to commit these changes before continuing development.
+   ```
+
+**If not under version control**:
+- Remind: "Consider running `git init` and committing to track documentation changes over time."
 
 ## Notes
 
