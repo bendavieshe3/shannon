@@ -114,7 +114,7 @@ Section-based user stories (not numbered requirements).
 
 Developers need to start new projects quickly with all documentation structure in place. Whether starting from scratch or adding Shannon to existing projects, setup should be intelligent, safe, and idempotent. The system should guide developers through establishing their product vision and initial technical decisions.
 
-**Features**: [Leave empty initially, will be populated as features are created]
+**Features**: FEAT-001 (Easy to Setup)
 
 ### Documentation Maintenance
 

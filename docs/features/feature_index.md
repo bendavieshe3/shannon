@@ -1,6 +1,6 @@
 # Feature Index
 
-- [FEAT-XXX](./FEAT-XXX-slug.md) - [STATE] - [Feature Name] #tag1 #tag2
+- [FEAT-001](./FEAT-001-easy-to-setup.md) - STABLE - Easy to Setup #core #setup #cli
 
 **Example**:
 > - [FEAT-001](./FEAT-001-secures-data.md) - ACTIVE (Phase 2/4) - Secures User Data #core #backend
