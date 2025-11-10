@@ -315,25 +315,32 @@ def create_idea(content: str, user_id: int) -> Idea:
 
 ### documentation_style_guide.md
 
-**Scope**: Documentation writing standards for user-facing docs
+**Scope**: Writing quality standards for all project documentation
 
 **Contains**:
-- Writing style (tone, voice, person)
-- Documentation structure patterns
-- Markdown conventions
-- Code example formatting
+- Writing style (tone, voice, person, active voice)
+- Sentence structure and clarity guidelines
+- Text formatting conventions (bold, italic, code, links)
+- List and table formatting
+- Code example formatting (in documentation)
 - Screenshot/diagram guidelines
-
-**Does NOT apply to**:
-- Mandated documents (this file, conceptual_design.md, etc.)
-- Knowledge base notes
-- Code comments/docstrings (→ code_style_guide.md)
+- Common writing pitfalls to avoid
 
 **Applies to**:
-- README.md
-- User guides
-- API documentation
-- Tutorial/how-to content
+- README.md and installation guides
+- User guides and tutorials
+- API documentation and reference guides
+- **Mandated documents** (product_requirements.md, technical_design.md, all style guides, etc.)
+- Knowledge base notes and how-to articles
+- Release notes and troubleshooting guides
+
+**Does NOT cover**:
+- Document structure (defined by individual templates)
+- Code comments/docstrings (→ code_style_guide.md)
+- Markdown syntax basics (assumes knowledge)
+- Commit message format (→ development_design.md)
+
+**Key concept**: Templates define WHAT sections a document has; this guide defines HOW to write clear prose within those sections
 
 **Example sections**:
 ```markdown
