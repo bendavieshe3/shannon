@@ -11,7 +11,11 @@ Capture point for ideas, half-formed work, and unprocessed TODOs that don't yet 
 ## Items
 
 - **Create lightweight idea capture feature** — this scratchpad itself wants to become FEAT-002. Currently informal; would benefit from being a documented Shannon capability with a clear "process the scratchpad" workflow #framework
-- **V6 propagation: supervisor ≠ implementer constraint** — vision-level wording is done, but the constraint needs to propagate to `conceptual_design.md` (business rule about self-approval), `technical_design.md` (gates section + how the separation is enforced), all three skill definitions, the CLAUDE.md template, and 22 command files. Epic-scope follow-up, probably under a new feature about supervision #framework #v6
+- **V6 propagation: supervisor ≠ implementer constraint** — vision and conceptual_design are now done; still needs to propagate to `technical_design.md` (gates section + how the separation is enforced), all three skill definitions, the CLAUDE.md template, and 22 command files. Epic-scope follow-up, probably under a new feature about supervision #framework #v6
+- **Workflow: Alignment Drift Detection** — Vision commits to "drift surfaces in days, not refactors." Conceptual_design has no workflow for *how* drift is detected. Technical_design has a Document Alignment Check algorithm; conceptual_design should have a named workflow describing the process at domain level. Surfaced during conceptual_design Gate 1 review as G1 #framework #conceptual-design
+- **Workflow: Re-approval of APPROVED Docs After Upstream Change** — When a higher-authority doc changes (e.g. vision was just updated for V6), lower APPROVED docs may now be misaligned. The skill protocol mentions suggesting re-review, but there is no canonical workflow describing the cascade. Likely shares mechanism with alignment drift detection. Surfaced as G3 #framework #conceptual-design
+- **Business rule: Orphan Tasks** — The Task entity allows `Parent = orphan`, but no business rule sanctions this case. Either add a rule ("Tasks May Be Orphan When the Work Has No Parent Epic") or remove the orphan affordance. Surfaced as C4 #conceptual-design
+- **Rationale: Why Guides aren't updated by work items** — The Work Items Consume Guides rule and Higher Work Items May Update Mid-Level Docs rule together imply an asymmetry (Technical Design is updatable; Guides are not). One-line rationale missing. Surfaced as C5 #conceptual-design
 
 ---
 
