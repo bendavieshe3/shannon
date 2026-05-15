@@ -1,7 +1,8 @@
 # Conceptual Design
 
-**Status**: DRAFT
-**Last Reviewed**: 2026-05-15
+**Status**: APPROVED
+**Last Reviewed**: 2026-05-16
+**Approved**: 2026-05-16
 
 ---
 
@@ -11,11 +12,12 @@
 
 - **Work Item** — Any of the four types of work-tracking entity in Shannon: Feature, Epic, Task, Spike. All share a common lifecycle and file structure.
 - **Mandated Document** — One of the six core project documents that together describe the project. Vision, technology stack, conceptual design, technical design, development guide, UX guide.
-- **Quality Gate** — An explicit human approval point in a work item's lifecycle. Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
+- **Quality Gate** — An explicit approval point in a work item's lifecycle, decided by the directing party. Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
+- **Directing Party** — The role that directs, reviews, and approves at gates. May be a human, or a supervising agent distinct from the implementer. The framework treats supervision as a role, not a species.
+- **Implementer** — The agent that executes work (elaboration drafts, planning drafts, implementation). At any given gate, the implementer cannot be the directing party — independence of judgement is what the gate protects.
 - **Authority Graph** — The directed relationship between documents. Lower documents must align to and enable higher ones.
 - **Skill** — A reusable unit of framework logic, with templates, invoked by commands. Skills are where Shannon's behaviour lives.
 - **Command** — A user-invoked entry point. Thin — its job is to identify what to do and delegate to a skill.
-- **Subagent** — An ephemeral AI process spawned by a skill to handle context-heavy reading without bloating the main conversation.
 - **Knowledge Note** — A captured piece of research, implementation detail, or document extension. Lives in the knowledge base.
 
 ---
@@ -87,7 +89,6 @@ A coherent unit of work delivering part of a feature's ideal state. Epics replac
 
 - Belongs to a **Feature**
 - Contains zero or more **Tasks**
-- Remains as a historical record once APPROVED
 
 ### Task
 
@@ -159,11 +160,13 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Higher Work Items May Update Mid-Level Docs** — Features and Epics may elaborate the Technical Design when planning. Tasks only consume documents; they do not update them.
 
-- **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle.
+- **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle. Features additionally carry an orthogonal `Activity` attribute (STABLE / ACTIVE) describing whether an epic is in progress *under* the feature; this is descriptive state, not a lifecycle stage.
 
-- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit user approval. AI cannot self-approve across a gate.
+- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit approval by the directing party. The implementer cannot approve its own work across a gate; see *Supervisor Distinct From Implementer*.
 
-- **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, AI and user iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
+- **Supervisor Distinct From Implementer** — The directing party at any gate must not be the same agent as the implementer at that gate. A human is the most common directing party; a supervising agent (an AI distinct from the implementing AI) is also valid. Collapsing the two roles collapses the gate.
+
+- **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
 
 - **Spike Output Is Knowledge** — A spike's durable artefact is its knowledge note. The spike file itself is the activity record and is disposable.
 
@@ -181,14 +184,14 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 **Flow**:
 
-1. User invokes `/document-create [type]`
+1. Directing party invokes `/document-create [type]`
 2. Skill instantiates the relevant template into `./docs/`
-3. User and AI elaborate the document collaboratively
-4. User invokes `/document-review [path]`
+3. Directing party and implementer elaborate the document collaboratively
+4. Directing party invokes `/document-review [path]`
 5. Skill verifies alignment with higher documents
-6. User explicitly approves; status transitions DRAFT → APPROVED
+6. Directing party explicitly approves; status transitions DRAFT → APPROVED
 
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative.
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Supervisor Distinct From Implementer.
 
 ### Taking a Task from Idea to Approval
 
@@ -197,12 +200,27 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 **Flow**:
 
 1. `/task-create [hint]` — Task captured in DRAFT
-2. `/task-elaborate` — Subagent reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: user approves → ELABORATED
-3. `/task-plan` — Subagent reads Development Guide and Technical Design; drafts Plan; **Gate 2**: user approves → PLANNED
-4. `/task-implement` — AI executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
-5. `/task-review` — Verification against acceptance criteria; **Gate 3**: user approves → APPROVED; task moved to archive
+2. `/task-elaborate` — Implementer reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: directing party approves → ELABORATED
+3. `/task-plan` — Implementer reads Development Guide and Technical Design; drafts Plan; **Gate 2**: directing party approves → PLANNED
+4. `/task-implement` — Implementer executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
+5. `/task-review` — Verification against acceptance criteria; **Gate 3**: directing party approves → APPROVED; task moved to archive
 
-**Rules applied**: Three Hard Gates; Work Items Consume Guides; Approved Tasks Are Archived.
+**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Work Items Consume Guides; Approved Tasks Are Archived.
+
+### Capturing Knowledge as the Project Runs
+
+**Goal**: Preserve findings, decisions, and implementation details so the same investigation never has to happen twice. Elaborates Vision § Living Documentation.
+
+**Flow**:
+
+1. Implementer or directing party identifies a piece of knowledge worth persisting — a research finding, an implementation gotcha, a decision rationale, or an elaboration of a mandated-doc section that does not belong inline
+2. `/document-create knowledge` instantiates a Knowledge Note from the template into `./docs/knowledge/`
+3. Note is classified: **Research** (general comparison), **Implementation Details** (project-specific approach), or **Extension** (deep elaboration of a mandated-doc section)
+4. Implementer drafts the content and adds a one-line entry to `knowledge_index.md`
+5. Cross-references added from the originating work item (in its Implementation Notes or Activity Log) and from any mandated doc the note extends
+6. Future workflows discover the note via the index when reading context for elaboration or planning
+
+**Rules applied**: Spike Output Is Knowledge (when a spike is the source). Knowledge notes are not gated artefacts — they are working knowledge, not reviewed context.
 
 ### Running a Spike to Reduce Uncertainty
 
@@ -211,17 +229,27 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 **Flow**:
 
 1. `/spike-create [hint]` — Spike captured in DRAFT, time-box estimated
-2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1** → ELABORATED
-3. `/spike-plan` — Investigation approach defined; **Gate 2** → PLANNED
-4. `/spike-implement` — Investigation runs within time-box; findings captured in Investigation Notes
+2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1**: directing party approves → ELABORATED
+3. `/spike-plan` — Investigation approach defined; **Gate 2**: directing party approves → PLANNED
+4. `/spike-implement` — Implementer runs investigation within time-box; findings captured in Investigation Notes
 5. Knowledge note produced and indexed; recommendation captured in spike
-6. `/spike-review` — **Gate 3** → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
+6. `/spike-review` — **Gate 3**: directing party approves → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
 
-**Rules applied**: Spike Output Is Knowledge; Three Hard Gates.
+**Rules applied**: Spike Output Is Knowledge; Three Hard Gates; Supervisor Distinct From Implementer.
 
 ---
 
 ## Version History
+
+### 2026-05-16 - v1.1
+
+- Applied Gate 1 review findings:
+  - **V6 propagation**: Added Directing Party and Implementer glossary entries; updated Quality Gate definition; reworded Three Hard Gates rule to remove implementer self-approval rather than all AI approval; added new Business Rule "Supervisor Distinct From Implementer"; updated workflow steps to use "directing party" and "implementer" consistently
+  - **C1**: Reconciled Feature `Activity` attribute with the Unified Status Lifecycle rule — Activity is now named as an orthogonal descriptive state, not a lifecycle variant
+  - **C2**: Removed unused "Subagent" glossary entry (concept belongs in technical_design.md)
+  - **C3**: Removed redundant Epic relationship "Remains as historical record once APPROVED" — already covered by the *Approved Tasks Are Archived* business rule
+  - **G2**: Added "Capturing Knowledge as the Project Runs" workflow elaborating Vision § Living Documentation commitment that "knowledge accumulates so the same investigation never happens twice"
+- Status: APPROVED (2026-05-16)
 
 ### 2026-05-15 - v1.0
 
