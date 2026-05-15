@@ -4,226 +4,203 @@ This file provides guidance to Claude Code when working with this repository.
 
 ## What This Repository Is
 
-This is a **documentation system for AI-assisted development**. It provides:
+This is **Shannon** — a documentation and workflow framework for AI-assisted development with Claude Code. It provides:
 
-1. **Complete template set** for project documentation (8 mandated documents)
-2. **Feature and task tracking system** optimized for AI context management
-3. **Knowledge base structure** for capturing implementation details
-4. **Slash commands** that guide AI through the development workflow
+1. **Mandated document templates** for project documentation (six core documents)
+2. **Unified work item system** (Features, Epics, Tasks, Spikes) with a shared lifecycle and three quality gates
+3. **Knowledge base structure** for research, implementation details, and document extensions
+4. **Slash commands** built on a Commands + Skills + Subagents architecture
 
-This is NOT a traditional software project - it's a meta-system for organizing how AI (Claude Code) and humans collaborate on software projects.
+This is **not** a traditional software project. It is a meta-framework for organising how AI (Claude Code) and humans collaborate on software projects. The framework runs entirely on plain Markdown files — no build step, no runtime, no network calls.
 
 ## Repository Structure
 
 ```
-shannon/                           # Shannon deployables (source)
-├── templates/                     # Document templates for projects
-│   ├── product_requirements.md   # Product vision, personas, user stories
-│   ├── technology_stack.md       # Tech choices with rationale
-│   ├── conceptual_design.md      # Domain model, business logic
-│   ├── technical_design.md       # Architecture, implementation approach
-│   ├── code_style_guide.md       # Code formatting, naming, testing
-│   ├── ux_style_guide.md         # UI components, colors, typography
-│   ├── documentation_style_guide.md  # User-facing docs standards
-│   ├── development_design.md     # Git workflow, CI/CD, deployment
-│   ├── FEAT-XXX.md              # Feature template
-│   ├── TASK-XXX.md              # Task template
-│   ├── knowledge_note.md         # Knowledge base note template
-│   ├── feature_index.md          # Feature navigation
-│   ├── task_index.md             # Task navigation
-│   ├── knowledge_index.md        # Knowledge base navigation
-│   └── CLAUDE.md                 # AI guidance template
+shannon/                                  # Shannon deployables (source)
+├── commands/                             # Thin command files (delegate to skills)
+│   ├── README.md
+│   ├── shannon-setup.md
+│   ├── document-create.md / document-review.md
+│   ├── feature-{create,elaborate,plan,implement,review}.md
+│   ├── epic-{create,elaborate,plan,implement,review}.md
+│   ├── task-{create,elaborate,plan,implement,review}.md
+│   └── spike-{create,elaborate,plan,implement,review}.md
 │
-├── commands/                      # Slash command definitions
-│   ├── README.md                 # Command overview
-│   ├── project-setup.md          # Initialize new project
-│   ├── task-*.md                 # Task lifecycle commands
-│   ├── feature-*.md              # Feature lifecycle commands
-│   └── document*.md              # Documentation commands
+├── skills/                               # Framework logic + templates
+│   ├── project-setup/
+│   │   ├── skill.md
+│   │   └── templates/CLAUDE.md
+│   ├── project-documentation/
+│   │   ├── skill.md
+│   │   └── templates/
+│   │       ├── vision.md
+│   │       ├── technology_stack.md
+│   │       ├── conceptual_design.md
+│   │       ├── technical_design.md
+│   │       ├── development_guide.md
+│   │       ├── ux_guide.md
+│   │       ├── knowledge_note.md
+│   │       └── knowledge_index.md
+│   └── work-items/
+│       ├── skill.md
+│       └── templates/
+│           ├── feature.md  / feature_index.md
+│           ├── epic.md     / epic_index.md
+│           ├── task.md     / task_index.md
+│           └── spike.md    / spike_index.md
 │
-└── guides/                        # How-to guides
-    ├── shannon_overview.md       # Complete system walkthrough
-    ├── documentation_how_to.md   # Mandated docs explained
-    ├── project_how_to.md         # Product requirements layer
-    ├── features_how_to.md        # Feature layer
-    ├── tasks_how_to.md           # Task layer
-    └── knowledge_how_to.md       # Knowledge base
+└── guides/                               # User-facing documentation
+    └── shannon_overview.md
 
-docs/                              # Shannon's own documentation
-├── product_requirements.md       # Shannon's product requirements
-├── features/                     # Shannon's features
-├── tasks/                        # Shannon's tasks
-└── knowledge/                    # Shannon's knowledge base
+docs/                                     # Shannon's own documentation (dogfooding)
+├── vision.md
+├── technology_stack.md
+├── conceptual_design.md
+├── technical_design.md
+├── development_guide.md
+├── ux_guide.md
+├── features/
+├── epics/
+├── tasks/
+└── knowledge/
+
+spikes/                                   # Disposable exploratory work (project root)
 ```
 
-## The Documentation System
+## Core Concepts
 
-This system implements a **four-layer architecture**:
+### Four-Layer Architecture
 
 ```
-Documentation Layer (8 mandated documents + knowledge base)
+Documentation Layer (six mandated documents + knowledge base)
     ↓ informs
-Requirements Layer (product_requirements.md)
-    ↓ breaks into
-Feature Layer (persistent product characteristics, phases)
-    ↓ breaks into
-Task Layer (specific work items with lifecycle)
+Vision Layer (supreme authority)
+    ↓ elaborates into
+Work Item Layer (Features → Epics → Tasks; plus Spikes)
     ↓ produces
-Implementation (code)
+Implementation
 ```
 
-### Core Philosophy
+### Work Items
 
-This system solves **AI context management problems**:
+Four types, one unified lifecycle:
 
-- **Context amnesia**: AI forgets past decisions → Documented in mandated docs
-- **Inconsistent decisions**: AI makes different choices → Style guides enforce consistency
-- **Repetitive questions**: AI re-asks same things → Knowledge base provides answers
-- **Architectural drift**: Implementation diverges from design → Alignment checks detect drift
+```
+DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
+     │           │          │                                       │
+   Gate 1     Gate 2    (iterative zone)                         Gate 3
+```
+
+| Type | Persistence |
+|---|---|
+| **Feature** | Persistent — what the product IS; accumulates epics over time |
+| **Epic** | Coherent unit of work under a feature; remains as historical record |
+| **Task** | Atomic implementation work; archived once APPROVED |
+| **Spike** | Time-boxed investigation; disposable, knowledge note is durable output |
 
 ### Three Quality Gates
 
-Human review happens at three strategic points:
+Explicit human approval points:
 
-1. **Gate 1: Document Approval** (`/document-review`)
-   - Review mandated documents before AI uses them for context
-   - DRAFT → APPROVED status
+1. **Gate 1** (DRAFT → ELABORATED): Requirements complete and aligned
+2. **Gate 2** (ELABORATED → PLANNED): Implementation plan sound
+3. **Gate 3** (REVIEW → APPROVED): Implementation meets requirements
 
-2. **Gate 2: Task Planning** (`/task-ready`)
-   - Review AI's implementation plan before coding
-   - TODO → READY → IN_PROGRESS
+### Document Authority Graph
 
-3. **Gate 3: Task Completion** (`/task-review`)
-   - Review completed implementation
-   - REVIEW → COMPLETED → archive
+```
+              Vision (supreme)
+             /              \
+    Technology Stack    Conceptual Design
+             \              /
+              Technical Design
+                    |
+          ┌─────────┴─────────┐
+    Development Guide      UX Guide
+```
+
+Lower documents must enable higher ones. Drift is a defect.
+
+### Implementation Layers
+
+- **Commands** — thin entry points; delegate to skills
+- **Skills** — reusable framework logic with templates
+- **Subagents** — spawned by skills for context-heavy reading; keep main conversation lean
 
 ## How to Use This Repository
 
-### For Understanding the System
+### Understanding the System
 
 Read in this order:
-1. `shannon/guides/shannon_overview.md` - Complete walkthrough with examples
-2. `shannon/guides/documentation_how_to.md` - Mandated documents explained
-3. `shannon/guides/project_how_to.md` - Product requirements layer
-4. `shannon/guides/features_how_to.md` - Feature layer
-5. `shannon/guides/tasks_how_to.md` - Task layer
 
-### For Using Templates in a New Project
+1. `shannon/guides/shannon_overview.md` — Complete walkthrough
+2. `shannon/skills/*/skill.md` — Canonical behaviour of each skill
+3. `shannon/commands/README.md` — Command reference
 
-1. Copy Shannon to new project:
-   ```bash
-   mkdir -p /path/to/new-project/.claude
-   cp -r shannon/templates /path/to/new-project/.claude/templates
-   cp -r shannon/commands /path/to/new-project/.claude/commands
-   cp -r shannon/guides /path/to/new-project/.claude/guides
-   ```
+### Deploying into a New Project
 
-2. In new project, run:
-   ```
-   /project-setup
-   ```
-   This instantiates all templates with project-specific information.
+```bash
+mkdir -p /path/to/new-project/.claude
+cp -r shannon/commands /path/to/new-project/.claude/commands
+cp -r shannon/skills   /path/to/new-project/.claude/skills
+cp -r shannon/guides   /path/to/new-project/.claude/guides
+```
 
-3. Follow the workflow:
-   - Review/approve documents: `/document-review product_requirements.md`
-   - Create features: `/feature-create`
-   - Plan phases: `/feature-phase-plan FEAT-001 1`
-   - Work on tasks: `/task-ready`, `/task-implement`, `/task-review`
+Then in the new project:
 
-### For Improving This System
+```
+/shannon-setup
+```
 
-When working on this repository:
+This instantiates mandated documents and walks through initial vision content.
 
-1. **Template changes**: Update files in `shannon/templates/`
-2. **Command changes**: Update files in `shannon/commands/`
-3. **Guide changes**: Update how-to guides in `shannon/guides/`
-4. **Shannon's own docs**: Update files in `docs/` (Shannon eats its own dog food!)
+### Workflow in a New Project
 
-## Important Concepts
+```
+/document-review vision.md             # Approve the vision (Gate 1)
+/feature-create [hint]                 # Capture a feature
+/feature-elaborate FEAT-001            # Drafts requirements (Gate 1)
+/feature-plan FEAT-001                 # Identifies epics (Gate 2)
+/epic-elaborate EPIC-001               # ...and so on down the chain
+/task-elaborate / -plan / -implement / -review
+```
 
-### Features vs Tasks
+## Improving This Repository
 
-- **Features** are persistent (what the product IS)
-  - Example: "Secures User Data" (capability)
-  - Cycle between STABLE ↔ ACTIVE
-  - Have phases that accumulate over time
-  - Never "complete" - they evolve
+When working on Shannon itself:
 
-- **Tasks** are transient (specific work items)
-  - Example: "Add Google OAuth provider" (work item)
-  - Flow: TODO → READY → IN_PROGRESS → REVIEW → COMPLETED
-  - Get archived when done
-  - Can be orphans (not linked to features)
+1. **Command changes** — `shannon/commands/` (keep them thin)
+2. **Skill changes** — `shannon/skills/<name>/skill.md` (where workflow logic lives)
+3. **Template changes** — `shannon/skills/<name>/templates/`
+4. **Guide changes** — `shannon/guides/`
+5. **Shannon's own docs** — `docs/` (dogfooding)
 
-### Knowledge Base
+Shannon eats its own dog food: changes to templates should be reflected in `docs/` to validate that the templates produce coherent project documentation.
 
-Three types of notes:
+## What NOT to Do
 
-- **Research**: General comparisons (OAuth vs JWT)
-- **Implementation Details**: How we actually built it (oauth-implementation.md)
-- **Extensions**: Elaborations of mandated docs (api-design-patterns.md)
-
-AI reads these during `/task-ready` and `/feature-phase-plan` to inform planning.
-
-### DRAFT vs APPROVED
-
-Mandated documents have status:
-- **DRAFT**: Work in progress, not reviewed
-- **APPROVED**: Human-reviewed and ready to use
-
-AI can read DRAFT docs but knows they're not final. Gate 1 is approving docs.
-
-## Working with This Repository
-
-### When Adding Features to the System
-
-1. Update relevant how-to guide in `docs/`
-2. Update templates if structure changes
-3. Update command definitions if workflow changes
-4. Test with a real project before committing
-
-### When Reviewing Documentation
-
-- This is meta-documentation about the system itself
-- Examples should be clear and realistic
-- Templates should be complete and self-documenting
-- Commands should be actionable step-by-step instructions
-
-### What NOT to Do
-
-- ❌ Don't run build/test commands (this isn't a code project)
-- ❌ Don't modify project-a or project-b (they're frozen examples)
-- ❌ Don't commit without testing templates in a real project
-- ❌ Don't add features that increase maintenance burden
+❌ Don't add code (this is a Markdown-only project)
+❌ Don't introduce build steps or runtime dependencies
+❌ Don't commit without testing changes against a real project workflow
+❌ Don't add features that increase maintenance burden without commensurate value
+❌ Don't skip the unified status model — every work item uses the same lifecycle
 
 ## Key Design Principles
 
-1. **Lightweight indexes**: No tables, no statistics, minimal maintenance
-2. **AI does the bookkeeping**: Cross-references, updates, alignment checks
-3. **Human provides direction**: Reviews at strategic gates only
-4. **Knowledge accumulates**: Implementation details captured, not lost
-5. **Plain text readable**: All files readable without special tools
-6. **Flat file structure**: No databases, no complex tooling
+1. **Plain text** — All files readable without special tools
+2. **AI does the bookkeeping** — Cross-references, status transitions, alignment checks
+3. **Humans direct, AI executes** — Gates exist where human judgement compounds; AI handles the rest
+4. **Knowledge accumulates** — Implementation details and learnings captured, not lost
+5. **Flat file structure** — No databases, no complex tooling
+6. **Single source of truth** — Templates ship inside skills; skills ship inside `.claude/`; no duplication
 
 ## Getting Help
 
-- **System overview**: Read `shannon/guides/shannon_overview.md`
-- **Command reference**: Read `shannon/commands/README.md`
-- **Layer details**: Read individual how-to guides in `shannon/guides/`
-
-## This Repository Is For
-
-- ✅ Creating new projects with the documentation system
-- ✅ Understanding the AI context management approach
-- ✅ Copying templates and commands to other projects
-- ✅ Learning the Shannon workflow
-
-## This Repository Is NOT For
-
-- ❌ Running as an application (it's a template repository)
-- ❌ Building or testing code (no code to build)
-- ❌ Tracking actual work (use the templates in a real project)
+- **System overview**: `shannon/guides/shannon_overview.md`
+- **Skill definitions**: `shannon/skills/*/skill.md`
+- **Command reference**: `shannon/commands/README.md`
+- **Shannon's own dogfood docs**: `docs/`
 
 ---
 
-**Remember**: This system is designed for AI-human collaboration where AI handles documentation reading, cross-referencing, and bookkeeping, while humans provide direction and strategic review at three quality gates.
+**Remember**: Shannon works because AI reads documentation for context, follows the unified workflow for consistency, and captures knowledge for the future. The framework's value comes from the discipline of using it — not bypassing it.

@@ -1,0 +1,16 @@
+# Epic Index
+
+- [EPIC-001](./EPIC-001-basic-installation.md) — DRAFT — Basic Installation (FEAT-001) #setup #install
+- [EPIC-002](./EPIC-002-smart-installation.md) — DRAFT — Smart Installation (FEAT-001) #setup #install
+- [EPIC-003](./EPIC-003-version-management.md) — DRAFT — Version Management (FEAT-001) #setup #versioning
+- [EPIC-004](./EPIC-004-distribution-channels.md) — DRAFT — Distribution Channels (FEAT-001) #setup #distribution
+
+---
+
+## Notes
+
+**Format**: `[EPIC-ID](./path.md) — STATUS — Epic Name (FEAT-XXX) #tags`
+
+**Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
+
+**When to update**: Adjust status as the epic progresses. APPROVED epics stay in the index as historical records of how each feature evolved. Flat list — no grouping.

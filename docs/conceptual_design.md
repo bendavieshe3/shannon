@@ -1,201 +1,229 @@
 # Conceptual Design
 
 **Status**: DRAFT
-**Last Reviewed**: 2025-11-09
+**Last Reviewed**: 2026-05-15
 
 ---
 
 **Project Name**: Shannon
 
-## Overview
+## Glossary
 
-Shannon is a **documentation framework**, not traditional software. The "domain model" consists of documentation concepts and their relationships.
+- **Work Item** — Any of the four types of work-tracking entity in Shannon: Feature, Epic, Task, Spike. All share a common lifecycle and file structure.
+- **Mandated Document** — One of the six core project documents that together describe the project. Vision, technology stack, conceptual design, technical design, development guide, UX guide.
+- **Quality Gate** — An explicit human approval point in a work item's lifecycle. Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
+- **Authority Graph** — The directed relationship between documents. Lower documents must align to and enable higher ones.
+- **Skill** — A reusable unit of framework logic, with templates, invoked by commands. Skills are where Shannon's behaviour lives.
+- **Command** — A user-invoked entry point. Thin — its job is to identify what to do and delegate to a skill.
+- **Subagent** — An ephemeral AI process spawned by a skill to handle context-heavy reading without bloating the main conversation.
+- **Knowledge Note** — A captured piece of research, implementation detail, or document extension. Lives in the knowledge base.
 
 ---
 
-## Core Concepts
+## Domain Model
 
-### Document
-A piece of written guidance (markdown file) that provides context to AI or humans.
+### Project
 
-**Types**:
-- **Mandated Documents**: 8 core documents that define the project (product_requirements.md, technology_stack.md, etc.)
-- **Working Templates**: Reusable templates deployed to home directories (TASK-XXX.md, FEAT-XXX.md, knowledge_note.md)
-- **Knowledge Notes**: Detailed implementation notes or research
+A Shannon-managed software project. Contains a vision, mandated documents, work items, and knowledge.
 
-**States**:
-- **DRAFT**: Not yet reviewed by human
-- **APPROVED**: Human-reviewed and authoritative
+**Attributes**:
 
-**Properties**:
-- file_path: Location in filesystem
-- status: DRAFT | APPROVED
-- last_reviewed: Date
-- content: Markdown text
+- **Vision** — The product vision that all other content elaborates
+- **Mandated Documents** — The six core documents describing the project
+- **Work Items** — Features, Epics, Tasks, and Spikes
+- **Knowledge Base** — Notes capturing learnings and elaborations
+
+**Relationships**:
+
+- Contains exactly one **Vision**
+- Contains zero or more **Mandated Documents** (vision is always present; others as relevant)
+- Contains zero or more **Features**, **Tasks**, **Spikes** (Epics exist under Features)
+- Contains zero or more **Knowledge Notes**
+
+### Work Item
+
+The collective name for the four work-tracking entities. Each work item describes work to be done (or, in the case of Features, an enduring capability of the product).
+
+**Attributes**:
+
+- **Status** — Current position in the unified lifecycle
+- **Type** — Feature, Epic, Task, or Spike
+- **Parent** — Higher-level work item this belongs to (where applicable)
+- **Requirements** — The "what" and "why"
+- **Plan** — The "how"
+- **Activity Log** — Timestamped history
+
+**Relationships**:
+
+- Belongs to a **Project**
+- May have a **Parent** work item (Epics → Features, Tasks → Epics)
+- May reference **Mandated Documents** and **Knowledge Notes** as context
 
 ### Feature
-A persistent product characteristic (what the product IS, not a project task).
 
-**Properties**:
-- id: FEAT-XXX
-- name: Aspirational name (e.g., "Secures User Data")
-- state: STABLE | ACTIVE
-- type: Core Capability | Enhancement | Infrastructure
-- product_requirements_reference: Which section this implements
+A persistent capability of the product — what the product IS, not work to be done.
 
-**Lifecycle**:
-- Created � STABLE (no active work)
-- STABLE � ACTIVE (phases being worked on)
-- Never "completed" - features evolve with phases
+**Attributes**:
+
+- **Vision Reference** — The vision section this feature elaborates
+- **Activity** — STABLE (no epic in progress) or ACTIVE (epic in progress)
+- **Epics** — The accumulated history of work delivering this feature
+
+**Relationships**:
+
+- Elaborates the **Vision**
+- Contains zero or more **Epics**
+
+### Epic
+
+A coherent unit of work delivering part of a feature's ideal state. Epics replace the older "phases" concept.
+
+**Attributes**:
+
+- **Parent Feature** — The feature this epic delivers against
+- **Tasks** — The atomic work units that make up this epic
+
+**Relationships**:
+
+- Belongs to a **Feature**
+- Contains zero or more **Tasks**
+- Remains as a historical record once APPROVED
 
 ### Task
-A discrete work item with clear completion criteria.
 
-**Properties**:
-- id: TASK-XXX
-- description: What needs to be done
-- state: TODO | READY | IN_PROGRESS | REVIEW | COMPLETED
-- priority: P0 | P1 | P2 | P3
-- acceptance_criteria: Checklist of requirements
+A discrete development assignment. The atomic unit of implementation work, completable in a single focused session.
 
-**Lifecycle**:
-- TODO � READY (via `/task-ready` - AI creates plan)
-- READY � IN_PROGRESS (via `/task-implement`)
-- IN_PROGRESS � REVIEW (mark complete)
-- REVIEW � COMPLETED (via `/task-review --approve`)
-- COMPLETED � Archived
+**Attributes**:
 
-### Phase
-A unit of work within a feature, consisting of multiple tasks.
+- **Parent Epic** — The epic this task belongs to (or *orphan* for one-off work)
+- **Acceptance Criteria** — Specific, testable success criteria
 
-**Properties**:
-- feature_id: Parent feature
-- phase_number: Sequential number (1, 2, 3...)
-- description: What this phase achieves
-- state: PLANNED | IN_PROGRESS | COMPLETED
-- tasks: List of TASK-XXX ids
+**Relationships**:
 
-**Behavior**:
-- Phases are planned (via `/feature-phase-plan`)
-- Phases activate the parent feature (STABLE � ACTIVE)
-- Phases complete when all tasks are COMPLETED
+- Belongs to an **Epic**, or is *orphan*
+- May reference a **Feature** when orphaned or when its epic chain is implicit
 
-### Index
-A navigation file that lists related items.
+### Spike
 
-**Types**:
-- task_index.md: Lists all tasks with state and tags
-- feature_index.md: Lists all features with state and tags
-- knowledge_index.md: Lists all knowledge notes
+Time-boxed exploratory work whose primary output is knowledge, not implementation.
 
-**Properties**:
-- Simple flat list (no tables, no statistics)
-- Inline state and tags for quick scanning
-- Lightweight maintenance
+**Attributes**:
 
----
+- **Question** — The uncertainty this spike will reduce
+- **Time-box** — Hours, not days
+- **Output** — A knowledge note
 
-## Relationships
+**Relationships**:
 
-```
-Product Requirements � Section
-    � implements
-Feature (FEAT-XXX)
-    � breaks into
-Phase (Phase 1, 2, 3...)
-    � consists of
-Tasks (TASK-XXX, TASK-YYY, ...)
-    � produces
-Implementation (code, docs, etc.)
-    � generates
-Knowledge Notes (learnings, gotchas)
-```
+- Optionally references a **Feature** for context
+- Produces exactly one **Knowledge Note**
 
-**Cross-references**:
-- Features reference product_requirements.md sections
-- Tasks can reference features (optional)
-- Knowledge notes can reference any document
-- Documents can reference knowledge notes
+### Mandated Document
+
+One of the six core project documents. Each has a defined purpose, scope, and authority relationship to other documents.
+
+**Attributes**:
+
+- **Status** — DRAFT or APPROVED
+- **Authority** — Position in the document authority graph
+
+**Relationships**:
+
+- Authority graph: `Vision → {Technology Stack, Conceptual Design} → Technical Design → {Development Guide, UX Guide}`
+- Each document must align to and enable the documents above it in the graph
+
+### Knowledge Note
+
+A captured piece of project knowledge that doesn't belong in a mandated document.
+
+**Attributes**:
+
+- **Type** — Research, Implementation Details, or Extension
+- **Related** — The mandated doc section, work item, or other note this connects to
+
+**Relationships**:
+
+- Belongs to a **Project**'s knowledge base
+- May extend a **Mandated Document** (Extension type)
+- May be produced by a **Spike**
 
 ---
 
 ## Business Rules
 
-### Document Status Rules
-1. New documents start as DRAFT
-2. Only humans can approve documents (DRAFT � APPROVED)
-3. Changes to APPROVED docs reset them to DRAFT
-4. AI should prefer APPROVED docs over DRAFT for authoritative guidance
+- **Single Vision Authority** — Every project has exactly one Vision document, and it is the supreme authority. All other documents and work items must align to it.
 
-### Feature State Rules
-1. Features start in STABLE state
-2. Starting a phase transitions feature to ACTIVE
-3. Completing a phase returns feature to STABLE
-4. Features never reach "COMPLETED" - they persist
+- **Document Alignment Direction** — Lower documents in the authority graph must enable higher documents. A technology stack cannot specify desktop-only technology if the vision describes a web application. Drift between layers is a defect.
 
-### Task Lifecycle Rules
-1. Tasks cannot skip states (must go TODO � READY � IN_PROGRESS � REVIEW � COMPLETED)
-2. `/task-ready` must be run before implementing (enforces Gate 2)
-3. Tasks in REVIEW require human approval to complete (enforces Gate 3)
-4. COMPLETED tasks are archived (moved to ./docs/tasks/archive/)
+- **Work Items Consume Guides** — The Development Guide and UX Guide are reference material. Work items consume them; they are not updated by work items. Updates to guides happen through `/document-create` or `/document-review` flows.
 
-### Index Maintenance Rules
-1. Creating a task/feature must update corresponding index
-2. Changing task/feature state must update index
-3. Indexes are flat lists (no complex structures)
-4. AI handles index updates (human doesn't manually edit)
+- **Higher Work Items May Update Mid-Level Docs** — Features and Epics may elaborate the Technical Design when planning. Tasks only consume documents; they do not update them.
+
+- **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle.
+
+- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit user approval. AI cannot self-approve across a gate.
+
+- **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, AI and user iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
+
+- **Spike Output Is Knowledge** — A spike's durable artefact is its knowledge note. The spike file itself is the activity record and is disposable.
+
+- **Approved Tasks Are Archived** — Tasks that reach APPROVED are moved to `./docs/tasks/archive/`. Epics, Features, and Spikes remain in place as historical records.
+
+- **DRAFT Documents Are Not Authoritative** — AI must treat DRAFT mandated documents as not-yet-trustworthy context. Only APPROVED documents are authoritative.
 
 ---
 
-## Critical Business Logic
+## Key Workflows
 
-### Three Quality Gates
+### Creating and Approving a Mandated Document
 
-**Gate 1: Document Approval**
-- **When**: After creating/updating mandated documents
-- **Who**: Human
-- **Command**: `/document-review [doc]`
-- **Purpose**: Ensure docs are accurate before AI uses them
-- **Transition**: DRAFT � APPROVED
+**Goal**: Establish a piece of project context that AI can rely on.
 
-**Gate 2: Task Planning**
-- **When**: Before implementing a task
-- **Who**: AI creates plan, human reviews
-- **Command**: `/task-ready TASK-XXX`
-- **Purpose**: Ensure AI read docs and has sound plan
-- **Transition**: TODO � READY
-- **Reads**: conceptual_design.md, technical_design.md, code_style_guide.md, knowledge notes
+**Flow**:
 
-**Gate 3: Task Completion**
-- **When**: After task implementation
-- **Who**: Human
-- **Command**: `/task-review TASK-XXX --approve`
-- **Purpose**: Ensure acceptance criteria met
-- **Transition**: REVIEW � COMPLETED � archive
+1. User invokes `/document-create [type]`
+2. Skill instantiates the relevant template into `./docs/`
+3. User and AI elaborate the document collaboratively
+4. User invokes `/document-review [path]`
+5. Skill verifies alignment with higher documents
+6. User explicitly approves; status transitions DRAFT → APPROVED
 
-### AI Context Reading Rules
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative.
 
-When AI executes `/task-ready`:
-1. Read ./docs/conceptual_design.md for domain concepts
-2. Read ./docs/technical_design.md for architecture
-3. Read ./docs/code_style_guide.md for code patterns
-4. Read related knowledge notes (if referenced)
-5. Create implementation plan
-6. Present plan to human for approval
+### Taking a Task from Idea to Approval
 
-When AI executes `/feature-phase-plan`:
-1. Read ./docs/product_requirements.md for user needs
-2. Read ./docs/technical_design.md for architecture
-3. Read ./docs/conceptual_design.md for domain model
-4. Break phase into 5-15 tasks
-5. Create research notes if technical unknowns exist
+**Goal**: Deliver a single unit of implementation work.
+
+**Flow**:
+
+1. `/task-create [hint]` — Task captured in DRAFT
+2. `/task-elaborate` — Subagent reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: user approves → ELABORATED
+3. `/task-plan` — Subagent reads Development Guide and Technical Design; drafts Plan; **Gate 2**: user approves → PLANNED
+4. `/task-implement` — AI executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
+5. `/task-review` — Verification against acceptance criteria; **Gate 3**: user approves → APPROVED; task moved to archive
+
+**Rules applied**: Three Hard Gates; Work Items Consume Guides; Approved Tasks Are Archived.
+
+### Running a Spike to Reduce Uncertainty
+
+**Goal**: Answer a specific question that's blocking decisions on a Feature or Epic.
+
+**Flow**:
+
+1. `/spike-create [hint]` — Spike captured in DRAFT, time-box estimated
+2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1** → ELABORATED
+3. `/spike-plan` — Investigation approach defined; **Gate 2** → PLANNED
+4. `/spike-implement` — Investigation runs within time-box; findings captured in Investigation Notes
+5. Knowledge note produced and indexed; recommendation captured in spike
+6. `/spike-review` — **Gate 3** → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
+
+**Rules applied**: Spike Output Is Knowledge; Three Hard Gates.
 
 ---
 
 ## Version History
 
-### 2025-11-09 - v1.0
-- Initial conceptual design
-- Defined core concepts: Document, Feature, Task, Phase, Index
-- Documented relationships and business rules
-- Status: DRAFT (pending review)
+### 2026-05-15 - v1.0
+
+- Initial conceptual design drafted as part of refactor
+- Status: DRAFT

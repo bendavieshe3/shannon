@@ -1,66 +1,18 @@
 # /task-create
 
-Create a new task in the task tracking system.
+Create a new task in DRAFT.
 
-## What it does
+You MUST invoke the `work-items` skill to create this task.
 
-1. **Gather task information**:
-   - Task description (clear, concise)
-   - Priority (P0-Critical, P1-High, P2-Medium, P3-Low)
-   - Tags (#frontend, #backend, #bug, #feature, etc.)
-   - Related feature (FEAT-XXX) if applicable
+Pass:
+- **Type**: `task`
+- **Verb**: `create`
+- **Target**: Optional title hint from `$ARGUMENTS`. If empty, suggest a title from recent conversation context.
+- **Parent Epic**: Inferred from conversation context, or `orphan` for one-off tasks not linked to an epic.
 
-2. **Generate task ID**:
-   - Read ./docs/tasks/task_index.md to find highest TASK-XXX
-   - Generate next ID (e.g., if highest is TASK-045, create TASK-046)
+The skill will allocate the next TASK-XXX ID, create the file under `./docs/tasks/`, update `task_index.md`, link to the parent (epic or feature, if applicable), and capture initial intent. Full elaboration happens via `/task-elaborate`.
 
-3. **Create task file** from template:
-   - Copy ./docs/tasks/TASK-XXX.md (deployed template)
-   - Save as ./docs/tasks/TASK-{XXX}-{slug}.md
-   - Fill in:
-     * ID, Description, Priority, Tags, Created date
-     * State = TODO
-     * Leave Implementation Plan empty (filled during /task-ready)
+If the `work-items` skill does not activate, report:
+"Error: work-items skill failed to activate."
 
-4. **Gather acceptance criteria**:
-   - Ask user: "What are the specific acceptance criteria?"
-   - Add as checkbox list in Acceptance Criteria section
-   - Ensure criteria are specific and testable
-
-5. **Update task index**:
-   - Add entry to ./docs/tasks/task_index.md:
-     ```
-     - [TASK-XXX](./TASK-XXX-slug.md) - TODO - Description #tags
-     ```
-
-6. **If linked to feature**:
-   - Add task to feature's current phase task list
-   - Update feature file in ./docs/features/
-
-7. **Confirm creation**:
-   - Show task ID and location
-   - Next step: Run `/task-ready TASK-XXX` to plan the implementation
-
-## Example usage
-
-```
-/task-create
-```
-
-You'll be prompted for:
-- Description: "Add Google OAuth provider"
-- Priority: P0
-- Tags: #backend #FEAT-001
-- Acceptance criteria:
-  - [ ] Google OAuth flow works
-  - [ ] Tokens stored securely
-  - [ ] Tests written (90%+ coverage)
-
-Creates: `./docs/tasks/TASK-049-add-google-oauth.md`
-
-## Notes
-
-- Tasks start in TODO state
-- Use `/task-ready` to plan the task (TODO → READY)
-- Tasks can be orphans (not linked to features) - that's OK!
-- Keep descriptions concise (detailed implementation goes in the task file)
+After creation, resume the original conversation topic.

@@ -1,6 +1,6 @@
 # Feature Index
 
-- [FEAT-001](./FEAT-001-easy-to-setup.md) — ELABORATED — STABLE — Easy to Setup #core #setup
+- [FEAT-XXX](./FEAT-XXX-slug.md) — STATUS — ACTIVITY — [Feature Name] #tag #tag
 
 ---
 

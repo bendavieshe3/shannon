@@ -1,268 +1,144 @@
 # FEAT-001: Easy to Setup
 
-**ID**: FEAT-001
-**State**: STABLE
-**Type**: Core Capability
-**Product Requirements Reference**: § "Project Initialization"
-**First Implemented**: Not yet implemented
-**Last Reviewed**: 2025-11-09
+## Metadata
+
+- **Status**: ELABORATED
+- **Activity**: STABLE
+- **Type**: Feature
+- **Vision Reference**: § Key Features — "Mandated Project Documentation" and "Commands + Skills + Subagents"
+- **Created**: 2025-11-09
+- **Updated**: 2026-05-15
 
 ---
 
-## Product Vision
+## Requirements
 
-Developers can discover, download, install, and integrate Shannon into their projects with minimal effort and clear guidance. The setup process covers sourcing Shannon from GitHub, cloning/copying files, installing into project structure (.claude/ directory), and integrating with existing or new projects. Setup is intelligent, safe, and idempotent, establishing all documentation structure and guiding developers through initial product vision and technical decisions.
+### Overview
 
----
+Developers can discover, download, install, and integrate Shannon into their projects with minimal effort and clear guidance. The setup process covers sourcing Shannon from GitHub, copying files into the project structure (`.claude/` directory), and integrating with either fresh or existing projects. Setup is intelligent, safe, and idempotent — it establishes the documentation structure and guides developers through initial vision and technical decisions without forcing them to read a manual first.
 
-## Ideal State
+This feature is foundational. Every other Shannon capability depends on a developer successfully getting from "interested" to "set up."
 
-- Developers can find Shannon easily via GitHub, documentation site, package registries
-- Multiple installation methods: git clone, npm/pip package, curl script, IDE marketplace
-- One-command setup that detects project type and customizes appropriately
-- Intelligent detection of existing projects vs. new projects
-- Automatic backup/preservation of existing .claude/ customizations
-- Interactive setup wizard for product vision and initial documentation
-- Template selection for common project types (web app, CLI tool, library, etc.)
-- Integration tests that verify setup completed successfully
-- Automatic updates with smart merging of template changes
-- Zero configuration for simple cases, full customization for advanced users
-- Version tracking and update notifications built into commands
-- Clear changelog and migration guides between versions
+### Ideal State
 
----
+- Developers can find Shannon easily via GitHub, documentation, and (eventually) package registries
+- Multiple installation channels exist: `git clone`, curl script, GitHub template repository, language-ecosystem packages
+- A single command (`/shannon-setup`) detects project type and customises appropriately
+- Installation distinguishes fresh projects from existing ones and adapts behaviour
+- Existing `.claude/` customisations are preserved across installs and updates
+- An interactive setup flow elicits initial product vision and key technical decisions
+- Integration verification confirms setup completed successfully
+- Updates are available with smart merging of template changes
+- Zero configuration for simple cases, full customisation for advanced users
+- Version tracking and update notifications are built into the framework
+- Clear changelog and migration guides accompany every version
 
-## User Stories
+### User Stories
 
-### Discovery & Installation
+#### Discovery and Installation
 
 **As a** developer,
 **I want** to discover Shannon easily through documentation and GitHub,
-**So that** I can evaluate if it fits my needs.
+**So that** I can evaluate whether it fits my needs.
 
 **As a** developer,
 **I want** to clone or download Shannon with a single command,
 **So that** I can get started quickly.
 
 **As a** developer,
-**I want** to install Shannon into my project's .claude/ directory,
+**I want** to install Shannon into my project's `.claude/` directory,
 **So that** all templates and commands are available.
 
-### Setup & Integration
+#### Setup and Integration
 
 **As a** developer,
-**I want** to run /project-setup to initialize all documentation structure,
-**So that** I have a complete framework ready.
+**I want** to run `/shannon-setup` and have all mandated documents instantiated,
+**So that** I have a complete framework ready to use.
 
 **As a** developer,
-**I want** existing .claude/ customizations preserved during installation,
+**I want** existing `.claude/` customisations preserved during installation,
 **So that** I don't lose my work.
 
 **As a** developer,
-**I want** to get guided through initial product vision setup,
-**So that** my documentation starts with context.
+**I want** to be guided through initial product vision setup,
+**So that** my documentation starts with real context.
 
 **As a** developer,
-**I want** to choose whether to start fresh or integrate with existing project,
+**I want** to choose whether to start fresh or integrate with an existing project,
 **So that** Shannon adapts to my situation.
 
 **As a** developer,
 **I want** setup to complete in under 5 minutes,
-**So that** I can start actual development work quickly.
+**So that** I can start real development work quickly.
 
-### Maintenance & Updates
+#### Maintenance and Updates
 
 **As a** developer,
 **I want** to know which version of Shannon I'm using,
-**So that** I understand what features are available.
+**So that** I understand which features are available.
 
 **As a** developer,
-**I want** to be notified when a newer version of Shannon is available,
-**So that** I can stay up-to-date.
+**I want** to be notified when a newer version is available,
+**So that** I can stay current.
 
 **As a** developer,
-**I want** to update Shannon easily without losing my project customizations,
+**I want** to update Shannon without losing my customisations,
 **So that** maintenance is low-effort.
 
 **As a** developer,
-**I want** to see what changed between Shannon versions,
+**I want** to see what changed between versions,
 **So that** I can decide when to upgrade.
 
----
+### Context
 
-## Roadmap
-
-### Phase 1: Basic Installation 📋
-
-**Status**: 📋 Planned (not started)
-
-**Goal**: Enable developers to manually install Shannon and run /project-setup
-
-**Deliverables**:
-- Clear README with installation instructions
-- /project-setup command that creates all mandated documents
-- Template deployment from shannon/ to .claude/
-- Basic idempotency (safe to run multiple times)
-- Initial product vision guidance
-
-**Tasks**: (Will be created during /feature-phase-plan FEAT-001 1)
-
-### Phase 2: Smart Installation 📋
-
-**Status**: 📋 Planned
-
-**Goal**: Make installation intelligent and preserve customizations
-
-**Deliverables**:
-- Detect existing .claude/ customizations
-- Backup existing files before updating
-- Intelligent merging of CLAUDE.md (preserve user content)
-- Detect project type and customize templates
-- Verify installation success
-
-**Tasks**: (Will be created during /feature-phase-plan FEAT-001 2)
-
-### Phase 3: Version Management 📋
-
-**Status**: 📋 Planned
-
-**Goal**: Track versions and enable easy updates
-
-**Deliverables**:
-- Version file (.claude/.shannon-version)
-- /shannon-version command to check current version
-- Update notification in commands
-- Changelog viewer
-- Migration guides between versions
-
-**Tasks**: (Will be created during /feature-phase-plan FEAT-001 3)
-
-### Phase 4: Distribution Channels 📋
-
-**Status**: 📋 Planned
-
-**Goal**: Multiple ways to install Shannon
-
-**Deliverables**:
-- npm package for Node.js projects
-- pip package for Python projects
-- curl/wget install script
-- GitHub template repository
-- Potential IDE marketplace (Claude Code extensions)
-
-**Tasks**: (Will be created during /feature-phase-plan FEAT-001 4)
+- **Vision**: § Key Features ("Mandated Project Documentation"), § Success Metrics ("Setup time under 5 minutes")
+- **Technology Stack**: Markdown-based, no build step, git as primary distribution
+- **Technical Design**: File-based deployment into `.claude/` and `docs/`
 
 ---
 
-## Technical Approach
+## Plan
 
-**Architecture**: File-based installation into .claude/ directory structure
+### Epics
 
-**Technology** (from technology_stack.md):
-- Plain markdown files (no build step required)
-- Shell scripts for installation automation
-- Git for version control and updates
-- Package managers (npm, pip) for distribution (Phase 4)
+- [EPIC-001](../epics/EPIC-001-basic-installation.md) — DRAFT — Basic Installation
+- [EPIC-002](../epics/EPIC-002-smart-installation.md) — DRAFT — Smart Installation
+- [EPIC-003](../epics/EPIC-003-version-management.md) — DRAFT — Version Management
+- [EPIC-004](../epics/EPIC-004-distribution-channels.md) — DRAFT — Distribution Channels
 
-**Installation Flow**:
-1. Clone/download shannon repository
-2. Copy shannon/templates/ → project/.claude/templates/
-3. Copy shannon/commands/ → project/.claude/commands/
-4. Copy shannon/guides/ → project/.claude/guides/
-5. Run /project-setup to instantiate templates in docs/
+### Dependencies
 
-**Update Flow** (Phase 3):
-1. Detect current version from .claude/.shannon-version
-2. Fetch latest version from GitHub
-3. Backup existing .claude/ customizations
-4. Apply template updates
-5. Merge CLAUDE.md intelligently
-6. Update version file
-7. Show migration notes if needed
+**Depends on**:
 
-**Related Documentation**:
-- product_requirements.md § "Project Initialization"
-- development_design.md (for installation scripts)
-- README.md (installation instructions)
-
----
-
-## Dependencies
-
-### This Feature Depends On:
 - GitHub repository for distribution
-- README.md with clear installation instructions
-- Template files in shannon/ directory
-- /project-setup command implementation
+- README with clear installation instructions
+- Template files under `shannon/skills/*/templates/`
+- `/shannon-setup` command implementation (EPIC-001)
 
-### Dependent Features:
-- All Shannon features depend on successful installation
-- Documentation Maintenance features depend on version tracking (Phase 3)
+**Depended on by**:
+
+- Every Shannon capability — installation is the prerequisite for using the framework at all
+- Documentation Maintenance features depend on version tracking (EPIC-003)
+
+### Risks
+
+- **EPIC-004 scope** — The 2025-11-11 health review flagged distribution channels (especially npm/pip) as possibly overambitious. Revisit scope when planning EPIC-004
+- **Smart-installation correctness** — EPIC-002's customisation preservation must be near-perfect; a single lost customisation breaks user trust in updates
 
 ---
 
 ## Success Metrics
 
-**Metrics**:
-- Time to complete installation (first-time)
-- Installation success rate
-- Setup completion rate (start /project-setup → finish)
-- Update success rate (preserve customizations)
-- User-reported setup issues
-
-**Targets**:
-- Installation completes in < 2 minutes
-- 95%+ installation success rate
-- 90%+ setup completion rate
-- 100% customization preservation during updates
-- < 5% of users report setup issues
+- **Installation time** — First-time install completes in under 2 minutes
+- **Installation success rate** — 95%+ of attempted installations complete without manual intervention
+- **Setup completion rate** — 90%+ of users who start `/shannon-setup` finish it
+- **Customisation preservation** — 100% of user customisations preserved across updates (zero data loss target)
+- **User-reported setup issues** — Under 5% of users report setup problems
 
 ---
 
-## Known Issues & Future Work
+## Activity Log
 
-### Current Limitations:
-- Manual installation only (copy files manually)
-- No version tracking
-- No update mechanism
-- No customization preservation
-- No project type detection
-
-### Future Improvements (Not Yet Planned):
-- One-click install from web
-- Auto-update on command execution
-- Project templates for common frameworks
-- Docker image with Shannon pre-installed
-- VS Code extension marketplace listing
-
----
-
-## Alignment History
-
-### 2025-11-09 - Initial Creation
-
-**Product Requirements**: ✅ Aligned with § "Project Initialization"
-**User Stories**: Created initial set based on Architect Dev and Gardener Dev personas
-**Implementation**: Not yet implemented
-
-**Actions Taken**:
-- Created feature based on product requirements
-- Defined 4-phase roadmap
-- Established success metrics
-
----
-
-## Review History
-
-_No reviews yet - feature just created_
-
----
-
-## Version History
-
-### 2025-11-09 - v1.0
-- Initial feature created
-- Defined product vision and ideal state covering discovery, installation, integration, and maintenance
-- Created 12 user stories across Discovery & Installation, Setup & Integration, and Maintenance & Updates
-- Planned 4-phase roadmap: Basic Installation, Smart Installation, Version Management, Distribution Channels
-- Set success metrics focused on installation time and success rates
+- **2026-05-15** — Re-elaborated as part of refactor: migrated 4 phases into 4 epics (EPIC-001 through EPIC-004), restructured to new feature template, status set to ELABORATED pending re-approval
+- **2025-11-11** — Feature review (Health Score 5/10): flagged stalled state, doc approval backlog, Phase 1 not initiated, Phase 4 possibly overambitious. Recommendations carried forward into epic structure
+- **2025-11-09** — DRAFT: Initial feature created with 12 user stories across Discovery & Installation, Setup & Integration, Maintenance & Updates; planned 4-phase roadmap

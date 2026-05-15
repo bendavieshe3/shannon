@@ -1,0 +1,153 @@
+# Development Guide
+
+**Status**: DRAFT
+**Last Reviewed**: 2026-05-15
+
+---
+
+**Project Name**: Shannon
+
+## Environment Setup
+
+### Prerequisites
+
+- **Git** — for cloning the source repository and tracking template/command changes
+- **Claude Code** — Shannon is a Claude Code framework; development happens inside it
+
+### First-Time Setup
+
+1. Clone the repository: `git clone https://github.com/<owner>/shannon.git`
+2. Open the repository in Claude Code
+3. Read `CLAUDE.md` at the project root for an orientation to the codebase
+4. Read `docs/vision.md` to understand what Shannon is and is not
+
+### Secrets and Configuration
+
+Shannon has no secrets and requires no configuration. The framework operates entirely on local files.
+
+---
+
+## Build and Run
+
+Shannon has no build step. Templates are plain Markdown files; they are "run" by being copied into a deployed project's `.claude/` directory and invoked through Claude Code commands.
+
+### Develop
+
+No dev server. Edit Markdown files directly in Claude Code.
+
+### Test
+
+There is no automated test suite for Shannon itself. Validation happens by deploying templates into a real project and exercising the workflow. See **Testing Strategy** below.
+
+### Build
+
+There is no build. Distribution is git-based: users clone or copy the `shannon/` source tree into their project's `.claude/`.
+
+---
+
+## Code Style
+
+Shannon contains almost no code — its substance is Markdown templates and prompts. Style rules apply to those.
+
+### Markdown
+
+- **Heading hierarchy** — One `#` per file (the title). Subsections use `##`, sub-subsections `###`. Never skip levels
+- **Line length** — No hard wrap; let editors and renderers handle wrapping. Tables and code blocks excepted
+- **Lists** — Dash (`-`) bullets, two-space indent for nested levels. Numbered lists only for ordered procedures
+- **Code blocks** — Fenced (triple backticks) with a language tag where one applies; use ` ``` ``` ` plain for ASCII diagrams and shell snippets without a clear language
+- **Spelling** — British English in prose ("colour", "behaviour", "organisation"); American spelling allowed in code identifiers where the surrounding ecosystem uses it
+
+### Template Structure
+
+- **Frontmatter is metadata at the top** — `**Status**`, `**Last Reviewed**`, `**Project Name**` (where applicable), as a block under a single `---` separator
+- **Placeholders use square brackets** — `[Project name]`, `[YYYY-MM-DD]`, `[Description]`
+- **Comments use HTML `<!-- ... -->`** — Sparingly; prefer self-explanatory structure over instructional comments
+- **No example blocks in templates** — Templates are the shape, not a tutorial. Examples belong in guides
+
+### Naming
+
+- **Files** — kebab-case (`feature-create.md`, `shannon-overview.md`)
+- **Work item slugs** — kebab-case derived from the work item name (`FEAT-001-easy-to-setup.md`)
+- **Directory names** — lowercase, single-word where possible (`skills`, `templates`, `commands`, `guides`)
+
+### Patterns to Follow
+
+- **Self-contained templates** — A template should be usable without referring to a separate "how to fill this in" guide. Inline guidance is allowed; tutorial-length explanations are not
+- **Explicit skill invocation** — Commands state "You MUST invoke the [skill] skill" rather than assuming activation
+- **Single source of truth per concept** — If a concept (e.g. the unified status model) appears in multiple files, one file is canonical and others reference it
+
+### Patterns to Avoid
+
+- **Verbose example blocks inside templates** — Templates should be the shape; examples bloat them and tempt readers to copy the example verbatim
+- **Implicit cross-references** — Always include explicit paths or section anchors when one document references another
+- **Status fields in places without a real status** — Only DRAFT/APPROVED on mandated documents; only the unified lifecycle on work items
+
+---
+
+## Testing Strategy
+
+Shannon has no unit tests because Shannon has no units. The framework's correctness is the correctness of templates and prompts in the eyes of Claude Code and a real user.
+
+### Test Levels
+
+- **Template review** — Read each template after changes to check the shape is coherent and the placeholders are sensible
+- **Deployed exercise** — Deploy the changed templates into a fresh project. Run the full lifecycle on a real work item. Confirm the AI follows the intended flow at each gate
+- **Dogfood pass** — Run new commands and skills against this repository's own `docs/`. If something feels awkward when applied to Shannon itself, it will feel awkward elsewhere
+
+### What to Test
+
+- Every command's skill invocation actually triggers the intended skill
+- Every quality gate prompts for explicit user approval
+- Every template renders to a coherent document when instantiated
+- Every index update happens at the right transition
+
+### Pre-Commit Checklist
+
+Before committing template, command, or skill changes:
+
+- [ ] Templates open and render in a Markdown viewer without errors
+- [ ] No stale references to removed concepts (e.g. "phases", "code_style_guide.md")
+- [ ] Cross-references are correct paths
+- [ ] At least a mental dry-run of the affected workflow
+
+---
+
+## Git Workflow
+
+### Branching
+
+- **master** — Single long-lived branch. Shannon is a single-developer project; no team-branching model required
+- **Topic branches** — Optional for substantial refactors (e.g. `refactor/shannon-v2`). Squash-merge to master
+
+### Commits
+
+- **Conventional, but not strict** — Capitalised imperative subject ("Add X", "Refactor Y", "Fix Z"). Body explains "why" when not obvious
+- **No commit hooks** — Shannon has no test suite; hooks would have nothing to enforce
+
+### Pull Requests
+
+- **Optional** — Direct commits to master are acceptable for a single-developer project
+- **Use PRs for**: substantial refactors, anything you want to think through in writing, anything that benefits from `/ultrareview`
+
+---
+
+## CI/CD
+
+### Pipeline Stages
+
+None. Shannon has no compiled artefacts, no automated tests, and no deployment target. The "pipeline" is: edit Markdown, deploy into a project, exercise.
+
+### Distribution
+
+- **Primary** — `git clone` from GitHub, then copy the `shannon/` tree into the target project's `.claude/`
+- **Roadmap** — Curl install script, GitHub template repository, language-specific package managers (npm, pip)
+
+---
+
+## Version History
+
+### 2026-05-15 - v1.0
+
+- Initial development guide drafted
+- Folded former code_style_guide.md content into Code Style section
+- Status: DRAFT
