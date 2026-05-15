@@ -124,6 +124,15 @@ Before committing template, command, or skill changes:
 - **Conventional, but not strict** — Capitalised imperative subject ("Add X", "Refactor Y", "Fix Z"). Body explains "why" when not obvious
 - **No commit hooks** — Shannon has no test suite; hooks would have nothing to enforce
 
+### Commit Cadence
+
+Shannon's default: **commit after every approved gate**. Source control is assumed.
+
+- **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
+- **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
+
+This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project."
+
 ### Pull Requests
 
 - **Optional** — Direct commits to master are acceptable for a single-developer project
@@ -145,6 +154,11 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-05-15 - v1.1
+
+- Added "Commit Cadence" subsection under Git Workflow: source control assumed by default; commit after Gate 1 (document approval) and Gate 3 (work-item review)
+- Status: DRAFT
 
 ### 2026-05-15 - v1.0
 
