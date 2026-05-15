@@ -1,7 +1,8 @@
 # Product Vision
 
-**Status**: DRAFT
+**Status**: APPROVED
 **Last Reviewed**: 2026-05-15
+**Approved**: 2026-05-15
 
 ---
 
@@ -19,7 +20,7 @@ The result is the same productivity tax that plagued teams before AI: the develo
 
 ## Vision Statement
 
-Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The AI carries the burden of documentation, context, and coherence; the human supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from first commit through full maturity, without the developer ever having to remember which document said what.
+Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or a supervising agent distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from first commit through full maturity, without the directing party ever having to remember which document said what.
 
 ---
 
@@ -27,19 +28,19 @@ Shannon is the framework that lets solo developers and knowledge workers build h
 
 ### 1. **Automated Context Management**
 
-AI reads, maintains, and cross-references documentation. Humans direct, review, and decide. The framework shoulders the bookkeeping so the developer can focus on vision and trade-offs, not on which document needs to be updated next.
+The implementing AI reads, maintains, and cross-references documentation. The directing party directs, reviews, and decides. The framework shoulders the bookkeeping so the directing party can focus on vision and trade-offs, not on which document needs to be updated next.
 
-### 2. **Strategic Human Review**
+### 2. **Strategic External Review**
 
-Three quality gates at high-leverage points — requirements elaboration, implementation planning, and completion review. No code review, no micromanagement. Humans intervene where their judgement compounds; AI handles the rest.
+Three quality gates at high-leverage points — requirements elaboration, implementation planning, and completion review. No code review, no micromanagement. A directing party intervenes where independent judgement compounds; the implementer handles the rest. The directing party is most often a human, but may be a supervising agent — provided that supervisor is *not* the same agent doing the implementation. The framework treats supervision as a role, not a species.
 
 ### 3. **Complete Traceability**
 
-Every line of code traces back to a task, every task to an epic or feature, every feature to the vision. Nothing gets built without a clear "why." The framework makes drift between intent and implementation visible before it becomes expensive.
+Code traces back to tasks; tasks to epics or features; features to the vision. Nothing significant gets built without a clear "why." The framework makes drift between intent and implementation visible before it becomes expensive.
 
 ### 4. **Living Documentation**
 
-Documentation evolves with understanding. A DRAFT → APPROVED workflow ensures AI only treats human-reviewed context as authoritative. Alignment checks catch drift between layers. Knowledge notes capture learnings so the same investigation never has to happen twice.
+Documentation evolves with understanding. Reviewed context is treated as authoritative; drift between layers is caught early; knowledge accumulates so the same investigation never happens twice.
 
 ---
 
@@ -49,13 +50,9 @@ Documentation evolves with understanding. A DRAFT → APPROVED workflow ensures 
 
 - **Unified Work Item Model** — Features, Epics, Tasks, and Spikes share a single status lifecycle and a single file structure. Learn the model once; apply it everywhere.
 
-- **Three Quality Gates** — Explicit human approval gates at requirements elaboration, planning, and completion. Built into the lifecycle, not bolted on.
-
-- **Commands + Skills + Subagents** — A thin command layer for user invocation, reusable skills that encode framework logic and templates, and subagents that handle context-heavy reading without bloating the main conversation.
+- **Three Quality Gates** — Explicit approval gates at requirements elaboration, planning, and completion. Built into the lifecycle, not bolted on. Approval comes from a directing party — human, or a supervising agent distinct from the implementer.
 
 - **Knowledge Base** — Research notes, implementation details, and document extensions captured as the project runs. Spikes produce knowledge notes as their primary output.
-
-- **Document Authority Graph** — Explicit rules about which documents must align to which others, and which work items may update which documents at which stages.
 
 ---
 
@@ -69,18 +66,33 @@ The Architect arrives with a formed product idea, often supported by conceptual 
 
 The Gardener starts with an unrefined idea and wants to explore it through iterative development. They expect their requirements and conceptual model to evolve as they learn. They rely on AI to fill in details and to help them notice when their evolving vision contradicts their earlier work. They may hold off on testing and rigour until they decide to commit to bringing the product to completion.
 
-Both personas share one thing: they do not write or review code. The framework must make AI implementation trustworthy enough that human code review is the exception, not the norm.
+Both personas direct AI rather than write code themselves. The framework must make AI implementation trustworthy enough that line-by-line code review is the exception rather than the norm.
+
+### The directing role is separable
+
+The framework treats "directing party" as a role, not a person. A human (Architect or Gardener) is the most common occupant. A supervising agent — distinct from the agent doing the implementation — can occupy the same role, opening multi-agent configurations in which one AI directs and another implements, with a human at the top of the chain. The integrity of the gates depends on a single constraint: **the supervisor must not be the same agent as the implementer**. Independence of judgement is what the gates protect; collapsing the two collapses the gate.
 
 ---
 
 ## Success Metrics
 
-- **Setup time** — From `/shannon-setup` to first ready-to-implement task: under 5 minutes
-- **Context retrieval** — AI surfaces the relevant documentation context during elaboration and planning 95%+ of the time
-- **Alignment drift** — Drift between conceptual design and technical implementation caught within 2-4 weeks, before it becomes expensive
-- **Maintenance overhead** — Developers spend <10% of session time on documentation upkeep; the framework handles the rest
-- **Planning approval rate** — AI-drafted plans approved without changes 80%+ of the time (signal that the AI read the right docs)
-- **Resume latency** — A developer returning after weeks away reaches full context in under 10 minutes
+Outcomes that indicate the vision is being realised. Split honestly: targets we can instrument now sit alongside commitments that guide judgement without yet having a measurement path.
+
+### Measurable Targets
+
+Targets with a clear instrumentation path. Each names what is measured and how.
+
+- **Setup time** — From `/shannon-setup` to first task in PLANNED status: under 5 minutes. *Measured by timestamps on `/shannon-setup` invocation and first Gate 2 approval.*
+- **Planning approval rate** — AI-drafted plans approved at Gate 2 without revision: 80%+. *Measured by tracking Gate 2 approvals versus revision cycles in the work-item Activity Log.*
+- **Documentation upkeep ratio** — Session time spent in `/document-*` commands: under 10% of total session time. *Measured with session-time tracking on document-related commands (requires instrumentation in the project-documentation skill).*
+
+### Directional Targets
+
+Commitments without a clean measurement path. They guide judgement when measurable targets conflict, and become candidates for future instrumentation.
+
+- **Context retrieval relevance** — The AI surfaces the right documents during elaboration and planning. The framework's value depends on this being true; a useful proxy is whether the user has to redirect the AI to additional documents during a workflow.
+- **Alignment drift detection** — Drift between layers is caught before it becomes expensive to fix. "Expensive" is judgement, not metric — the commitment is that drift surfaces in days, not refactors.
+- **Resume latency** — A developer returning after weeks away reaches full context quickly. "Full context" is subjective; the commitment is that mandated documents plus indexes are enough to rebuild context without re-reading conversation history.
 
 ---
 
@@ -94,12 +106,23 @@ The framework deliberately avoids language and framework lock-in. Markdown files
 
 ## Version History
 
+### 2026-05-15 - v2.1
+
+- Applied Gate 1 review findings:
+  - Softened Traceability principle ("every line of code" → "code traces back to tasks")
+  - Removed two implementation-leak features from Key Features ("Commands + Skills + Subagents" and "Document Authority Graph") — they live in technical_design.md
+  - Tightened Living Documentation principle to value-only, removed DRAFT/APPROVED workflow detail
+  - Split Success Metrics into Measurable Targets (with instrumentation methodology) and Directional Targets (commitments without measurement)
+  - Renamed Principle 2 from "Strategic Human Review" to "Strategic External Review"; opened the directing role to supervising agents distinct from the implementer
+  - Added "The directing role is separable" subsection to Target Users, naming the supervisor ≠ implementer constraint
+- Status: APPROVED (2026-05-15)
+
 ### 2026-05-15 - v2.0
 
 - Restructured to new Vision template (Problem / Vision / Principles / Features / Users / Metrics / Future)
 - Re-articulated problem framing around AI context management as the new bottleneck
 - Added "Commands + Skills + Subagents" and "Document Authority Graph" as key features
-- Status: DRAFT (re-elaboration pending review)
+- Status: superseded by v2.1 before approval
 
 ### 2025-11-09 - v1.0
 

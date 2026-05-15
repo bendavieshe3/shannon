@@ -63,11 +63,21 @@
 
 ## Success Metrics
 
-[How you will know the vision is being realised. Prefer outcomes over outputs. 3-6 metrics with directional targets where possible.]
+[Outcomes that indicate the vision is being realised. Split honestly: targets that can be instrumented sit alongside commitments that guide judgement without yet having a measurement path. Be willing to call a thing directional rather than dressing aspiration as metric.]
 
-- [Metric — what it indicates and a directional target]
-- [Metric — what it indicates and a directional target]
-- [Metric — what it indicates and a directional target]
+### Measurable Targets
+
+[Targets with a clear instrumentation path. For each, name *what* is measured and *how* it is measured. Prefer 2-5 of these.]
+
+- **[Metric]** — [Target, plus *measurement method* in italics]
+- **[Metric]** — [Target, plus *measurement method* in italics]
+
+### Directional Targets
+
+[Commitments without a clean measurement path. They guide judgement when measurable targets conflict, and become candidates for future instrumentation. Optional — omit if every target is measurable.]
+
+- **[Target]** — [What this commits to, and why it lacks a measurement path]
+- **[Target]** — [What this commits to, and why it lacks a measurement path]
 
 ---
 
