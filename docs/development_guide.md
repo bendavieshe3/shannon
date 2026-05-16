@@ -1,7 +1,8 @@
 # Development Guide
 
-**Status**: DRAFT
-**Last Reviewed**: 2026-05-15
+**Status**: APPROVED
+**Last Reviewed**: 2026-05-16
+**Approved**: 2026-05-16
 
 ---
 
@@ -97,7 +98,7 @@ Shannon has no unit tests because Shannon has no units. The framework's correctn
 ### What to Test
 
 - Every command's skill invocation actually triggers the intended skill
-- Every quality gate prompts for explicit user approval
+- Every quality gate prompts for explicit directing-party approval
 - Every template renders to a coherent document when instantiated
 - Every index update happens at the right transition
 
@@ -110,13 +111,23 @@ Before committing template, command, or skill changes:
 - [ ] Cross-references are correct paths
 - [ ] At least a mental dry-run of the affected workflow
 
+### Instrumentation
+
+Distinct from the absent test suite, instrumentation is the work of capturing data needed to evaluate the vision's *Measurable Targets*. Currently:
+
+- **Documentation upkeep ratio** (<10% of session time on `/document-*` commands) — Requires session-time tracking inside the `project-documentation` skill. Not yet implemented; flagged in vision § Measurable Targets as a future commitment
+- **Planning approval rate** (80%+ at Gate 2 without revision) — Measurable from Activity Log entries on work items; no separate instrumentation needed
+- **Setup time** (<5 min from `/shannon-setup` to first PLANNED task) — Measurable by timestamps; no separate instrumentation needed
+
+Instrumentation lives in the skill that owns the relevant workflow. As measurable targets are added or refined, the corresponding instrumentation is part of the work that introduces them.
+
 ---
 
 ## Git Workflow
 
 ### Branching
 
-- **master** — Single long-lived branch. Shannon is a single-developer project; no team-branching model required
+- **master** — Single long-lived branch. Shannon has a single maintainer at present; no team-branching model required. The framework itself supports multi-agent configurations (supervisor + implementer under V6), but the codebase-of-Shannon-itself does not yet operate that way
 - **Topic branches** — Optional for substantial refactors (e.g. `refactor/shannon-v2`). Squash-merge to master
 
 ### Commits
@@ -135,8 +146,18 @@ This produces a commit history that mirrors the framework's lifecycle: each comm
 
 ### Pull Requests
 
-- **Optional** — Direct commits to master are acceptable for a single-developer project
+- **Optional** — Direct commits to master are acceptable while Shannon has a single maintainer
 - **Use PRs for**: substantial refactors, anything you want to think through in writing, anything that benefits from `/ultrareview`
+
+### Multi-Agent Coordination
+
+Shannon's framework explicitly supports multi-agent configurations (supervisor + implementer under V6) but enforces the separation *by convention*, not by technical control (see `technical_design.md § Cooperative Access`). The development practice that makes this safe:
+
+- **Disjoint work items** — Agents operating concurrently should be assigned to different work items; the file-based model has no locking, and overlapping writes will surface as ordinary diffs to be resolved by the directing party
+- **No silent overwrites** — When an implementer touches a file another agent recently modified, surface the diff and ask before overwriting
+- **Cooperative ID allocation** — Simultaneous `*-create` operations may produce colliding IDs; resolve by reading the index at the moment of allocation and accepting the merge conflict if one arises (see `technical_design.md § ID Allocation`)
+
+Future versions may add architectural enforcement of the supervisor ≠ implementer rule; the current version trusts agents and the directing party to follow the convention.
 
 ---
 
@@ -154,6 +175,15 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-05-16 - v1.2
+
+- Applied Gate 1 review findings:
+  - **V1**: Reframed "single-developer project" in Branching and Pull Requests (lines 119, 138 of prior version) to "single maintainer at present; the framework supports multi-agent configurations" — aligns with V6 vocabulary in vision, conceptual_design, and technical_design
+  - **V2**: "explicit user approval" → "explicit directing-party approval" in Testing Strategy § What to Test
+  - **G1**: Added "Multi-Agent Coordination" subsection under Git Workflow elaborating the Cooperative Access convention named in technology_stack and technical_design (disjoint work items, no silent overwrites, cooperative ID allocation, by-convention enforcement)
+  - **G2**: Added "Instrumentation" subsection under Testing Strategy naming the measurable-target work that lives in skills (documentation upkeep ratio, planning approval rate, setup time)
+- Status: APPROVED (2026-05-16)
 
 ### 2026-05-15 - v1.1
 
