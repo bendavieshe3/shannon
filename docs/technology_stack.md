@@ -1,7 +1,8 @@
 # Technology Stack
 
-**Status**: DRAFT
-**Last Reviewed**: 2026-05-15
+**Status**: APPROVED
+**Last Reviewed**: 2026-05-16
+**Approved**: 2026-05-16
 
 ---
 
@@ -22,7 +23,7 @@ A Shannon-equipped project consists of: a `.claude/` directory containing comman
 - **Purpose**: Format for all templates, commands, skills, documents, and work items
 - **Rationale**: Renderable everywhere, diff-friendly, no build step required, AI-native
 - **Trade-offs**: No type checking or validation — relies on convention and AI discipline to maintain structure
-- **Aligns to**: Vision § Core Principles ("Living Documentation"); must work offline with no tooling
+- **Aligns to**: Vision § Core Principles ("Living Documentation"); no build step, no runtime services
 
 ### Claude Code (Anthropic CLI)
 
@@ -77,8 +78,9 @@ Shannon has no runtime dependencies. The only requirement is Claude Code.
 ## Security Considerations
 
 - **No secrets** — Shannon stores no credentials. Projects built with Shannon document their own secrets management in their development_guide.md
-- **No network calls** — The framework operates entirely on local files
-- **Trust boundary** — When Shannon templates and commands are installed into a project, they execute as part of Claude Code's permission model; users review and approve commands like any other Claude Code skill or command
+- **No Shannon-originated network calls** — Shannon adds no network calls of its own; the framework operates on local files within the Claude Code runtime (which makes its own network calls outside Shannon's scope)
+- **Trust boundary** — When Shannon templates and commands are installed into a project, they execute as part of Claude Code's permission model; the directing party reviews and approves commands like any other Claude Code skill or command
+- **Cooperative access assumption** — The file-based model assumes cooperative access. Concurrent writes by multiple agents are out of scope at this version; the *Supervisor Distinct From Implementer* rule (conceptual_design.md) is enforced by convention, not by technical concurrency control
 
 ---
 
@@ -99,6 +101,14 @@ Shannon has no runtime dependencies. The only requirement is Claude Code.
 ---
 
 ## Version History
+
+### 2026-05-16 - v1.1
+
+- Applied Gate 1 review findings:
+  - **TS1**: Removed unsupported "must work offline with no tooling" claim from Markdown alignment line; replaced with "no build step, no runtime services" which vision does support
+  - **TS2**: Reframed Security Considerations "No network calls" — Shannon adds no network calls of its own, but the Claude Code runtime makes its own; the original wording was an overclaim and literally false at runtime
+  - **TS3**: Added "Cooperative access assumption" to Security Considerations naming the multi-agent / concurrent-write boundary under V6; the Supervisor Distinct From Implementer rule is enforced by convention, not concurrency control
+- Status: APPROVED (2026-05-16)
 
 ### 2026-05-15 - v1.0
 
