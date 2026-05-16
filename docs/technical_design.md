@@ -1,7 +1,8 @@
 # Technical Design
 
-**Status**: DRAFT
-**Last Reviewed**: 2026-05-15
+**Status**: APPROVED
+**Last Reviewed**: 2026-05-16
+**Approved**: 2026-05-16
 
 ---
 
@@ -56,19 +57,19 @@ Skills are responsible for:
 
 - Process logic (how to elaborate, plan, implement, review)
 - Document relationship enforcement (what aligns to what at each stage)
-- Quality gate enforcement (no transition past a gate without explicit user approval)
+- Quality gate enforcement (no transition past a gate without explicit approval by the directing party; the implementer cannot approve its own work)
 - Template instantiation
 - Index updates
 
 ### Subagents
 
-Ephemeral processes spawned by skills for context-heavy operations. The subagent reads documents, drafts updates directly into work item files, and returns a structured summary to the main conversation. The main agent shows the summary to the user.
+Ephemeral processes spawned by skills for context-heavy operations. The subagent reads documents, drafts updates directly into work item files, and returns a structured summary to the main conversation. The main agent presents the summary to the directing party.
 
 Benefits:
 
 - **Context management** — Main conversation stays focused; subagent absorbs the document reading
 - **Model optimisation** — Subagents can use faster, cheaper models for routine reading
-- **Parallelism** — Multiple subagents can run concurrently for cross-cutting checks
+- **Parallelism** — Multiple read-only subagents (e.g. cross-cutting alignment checks against several documents) can run concurrently. Subagents performing writes operate sequentially within a single skill invocation; the file-based model assumes cooperative access (see Security Model)
 
 ---
 
@@ -89,7 +90,7 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 
 ### ID Allocation
 
-Work item IDs are sequential within their type (FEAT-001, FEAT-002, ...). The skill responsible for creation finds the highest existing ID in the index and increments. Concurrent creation is not protected — Shannon is a single-developer tool.
+Work item IDs are sequential within their type (FEAT-001, FEAT-002, ...). The skill responsible for creation finds the highest existing ID in the index and increments. ID allocation has no concurrency control — under V6 cooperative access (see Security Model), concurrent agents must coordinate by convention; simultaneous creates would produce colliding IDs and would surface as a merge conflict rather than be prevented at the framework level.
 
 ### Slugs
 
@@ -140,50 +141,67 @@ This redundancy guards against silent skill-loading failures.
 
 ### Cascading Operations: Batch Preparation, Individual Gates
 
-When the user invokes an operation on a higher-level work item (e.g. `/epic-plan`), the AI does bulk preparation for the entire subtree — including drafting plans for child tasks — but the user still approves each child item individually.
+When the directing party invokes an operation on a higher-level work item (e.g. `/epic-plan`), the implementer does bulk preparation for the entire subtree — including drafting elaborations and plans for child work items — but each child still passes through its own gate individually. No new statuses are introduced; the batch preparation happens invisibly behind the standard lifecycle commands.
 
 **Approach**:
 
-1. AI plans the parent (epic, in this example)
-2. AI identifies the child tasks needed
-3. AI drafts a plan for each child task, marking them as `PLAN-PENDING`
-4. AI presents a summary of all plans to the user
-5. User runs `/task-approve TASK-XXX` (or equivalent) on each child to promote `PLAN-PENDING → PLANNED`
+1. Implementer plans the parent (epic, in this example) and writes the plan into its file
+2. Implementer identifies the child tasks needed
+3. Implementer creates each child task in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stored in the relevant sections of the task file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed")
+4. Implementer presents a summary of the parent plan and the prepared children to the directing party
+5. When the directing party later runs `/task-elaborate TASK-XXX`, the subagent surfaces the prepared elaboration instead of starting fresh; same for `/task-plan TASK-XXX`. Each child still requires its own Gate 1 and Gate 2 approval
 
-This pattern preserves granular human approval while letting AI do the bulk preparation work.
+**Rationale**: Preserves the *Unified Status Lifecycle* rule from conceptual_design.md — no work item type carries a unique status sequence and no transition skips a gate. The bulk-preparation benefit is realised by reusing draft content at the moment each child's gate is invoked, not by extending the status model. This minimises framework surface area while still saving the directing party from approving N empty drafts.
 
-**Trade-offs**: Introduces additional pending statuses (`ELABORATE-PENDING`, `PLAN-PENDING`, `APPROVE-PENDING`). The trade-off is between approval granularity and approval surface size. Shannon optimises for granularity because the gates exist precisely to give humans confidence in AI work.
+**Trade-off**: Prepared drafts may go stale if the directing party delays approving children long enough for the parent or sibling work to change. The implementer should warn when surfacing a stale prepared draft and offer to refresh.
 
 ### Document Alignment Check
 
-When a higher-level document is approved, lower-level documents should be checked for misalignment.
+When a higher-level document is approved, lower-level documents should be checked for misalignment. The same algorithm runs as part of every `/document-review` invocation, so the target document is checked against everything above and (optionally) below it in the authority graph.
 
 **Approach**:
 
-1. The `project-documentation` skill spawns a subagent for each document below the approved one in the authority graph
-2. Each subagent reads its assigned document plus the newly-approved higher document
-3. Subagent reports a structured summary: aligned / drift detected / changes needed
-4. Skill aggregates summaries and surfaces drift to the user as candidate work items
+1. The `project-documentation` skill spawns a subagent for each relevant document neighbour in the authority graph
+2. Each subagent reads its assigned document plus the target document
+3. Subagent returns a structured finding report (schema below)
+4. Skill aggregates findings and surfaces them to the directing party as review candidates and (for upstream-change cascades) candidate follow-up work items
 
-**Trade-offs**: Alignment checks consume tokens. Run them on document approval, not on every document save.
+**Finding schema**: Each finding belongs to one of four categories:
+
+- **Drift** — A lower-doc statement contradicts a higher-doc commitment. Must be resolved before the lower doc can remain APPROVED
+- **Gap** — A higher-doc commitment that the lower doc should elaborate but doesn't. May or may not block approval depending on materiality
+- **Internal contradiction** — A self-contradiction or stale reference within the document being reviewed
+- **Strength** — Notable cleanly-aligned elaboration. Reported for signal, not action
+
+Findings cite the specific section or line being commented on. The aggregating skill presents categorised findings; the directing party decides which to apply inline, which to defer to scratchpad, and which to ignore.
+
+**Trade-offs**: Alignment checks consume tokens. Run them on document approval (and on `/document-review` invocations) rather than on every save. Subagent reads are parallelisable across neighbours since they are read-only.
 
 ---
 
 ## Security Model
 
-Shannon stores no secrets and makes no network calls. Its security model is the security model of Claude Code.
+Shannon adds no network calls of its own; the framework operates on local files within the Claude Code runtime. Its security model is the security model of Claude Code plus three Shannon-specific stances.
 
-- **Authentication**: None — Shannon is a single-developer tool running in the user's local Claude Code session
+- **Authentication**: None — Shannon has no notion of identity. The directing party is whoever is invoking commands in the Claude Code session
 - **Authorisation**: None at the framework level; project-specific authorisation lives in the project's own technical_design.md
-- **Trust boundary**: Commands and skills installed by Shannon execute under Claude Code's permission model. Users review and approve commands and tool uses like any other Claude Code skill
+- **Trust boundary**: Commands and skills installed by Shannon execute under Claude Code's permission model. The directing party reviews and approves commands and tool uses like any other Claude Code skill
+
+### Cooperative Access
+
+The file-based model assumes cooperative access. Concurrent writes by multiple agents are out of scope at this version. Multi-agent configurations (e.g. supervising agent + implementing agent under V6) coordinate by convention: each agent operates on disjoint work items, or surfaces concurrent edits as ordinary diffs to be resolved by the directing party. There is no file locking and no transaction layer.
+
+### Gate Enforcement
+
+The *Supervisor Distinct From Implementer* rule (conceptual_design.md) is enforced by convention, not by technical control. Skills and commands are written to refuse self-approval flows (e.g. an implementer subagent does not call its own `*-review` command), and the directing party is responsible for not running review commands on work that the directing party itself just produced. Future versions may add architectural enforcement (e.g. agent identity checks at gate transitions); the current version trusts the skill protocol.
 
 ---
 
 ## Error Handling
 
-- **Skill activation failures** — Commands include explicit fallback wording. If a skill fails to activate, the command surfaces the error to the user rather than silently proceeding
+- **Skill activation failures** — Commands include explicit fallback wording. If a skill fails to activate, the command surfaces the error to the directing party rather than silently proceeding
 - **Missing documents** — Skills check for the presence of required parent documents before proceeding. If a referenced document is missing, the skill surfaces a clear error: "Cannot elaborate FEAT-001 because vision.md does not exist. Run `/document-create vision` first."
-- **DRAFT documents as authority** — When a skill needs a document as authoritative context and the document is DRAFT, the skill warns the user and asks whether to proceed with reduced confidence
+- **DRAFT documents as authority** — When a skill needs a document as authoritative context and the document is DRAFT, the skill warns the directing party and asks whether to proceed with reduced confidence
 
 ---
 
@@ -196,6 +214,17 @@ Shannon stores no secrets and makes no network calls. Its security model is the 
 ---
 
 ## Version History
+
+### 2026-05-16 - v1.1
+
+- Applied Gate 1 review findings:
+  - **V6 propagation**: Updated vocabulary throughout (user → directing party, AI → implementer in lifecycle contexts); softened quality gate enforcement to forbid implementer self-approval rather than all AI approval; rewrote V6-stale "single-developer tool" lines in ID Allocation and Security Model
+  - **PENDING reconciliation (option b)**: Rewrote Cascading Operations to preserve the *Unified Status Lifecycle* invariant. Batch preparation now produces prepared draft content stashed inside child work items (rather than introducing `*-PENDING` sub-statuses); the prepared content is surfaced when each child's gate command is invoked. Removed reference to non-existent `/task-approve` command
+  - **Subagent concurrency clarification**: Reworded Parallelism bullet to distinguish read-only concurrent subagents (safe) from write-performing subagents (sequential within a skill invocation, cooperative across invocations)
+  - **Document Alignment Check elaboration (G3)**: Added a four-category finding schema (Drift, Gap, Internal contradiction, Strength) for structured subagent reports. Matches the pattern already in use during these reviews
+  - **Cooperative Access architecture (G1)**: Added subsection to Security Model naming the assumption and explaining what "by convention" looks like
+  - **Gate Enforcement mechanism (G2)**: Added subsection to Security Model explicitly stating that the supervisor ≠ implementer constraint is enforced by skill-protocol convention, not technical control. Honest about the limitation
+- Status: APPROVED (2026-05-16)
 
 ### 2026-05-15 - v1.0
 
