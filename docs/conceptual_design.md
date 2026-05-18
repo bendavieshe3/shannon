@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-18
-**Approved**: 2026-05-18
+**Last Reviewed**: 2026-05-19
+**Approved**: 2026-05-19
 
 ---
 
@@ -211,7 +211,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 ### Capturing Knowledge as the Project Runs
 
-**Goal**: Preserve findings, decisions, and implementation details so the same investigation never has to happen twice. Elaborates Vision § Living Documentation.
+**Goal**: Preserve findings, decisions, and implementation details so the same investigation never has to happen twice. Elaborates Vision § Adaptive Coherence.
 
 **Flow**:
 
@@ -255,6 +255,35 @@ When uncertain, treat as substantive (the more cautious path).
 
 **Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer.
 
+### Responsible Promotion
+
+**Goal**: Ensure that work created downstream traces to an upstream aspiration. Before creating an Epic or Task to address a recognised gap, verify (or update) the parent Feature, Vision, or relevant document so the work corresponds to something an upstream commitment requires. Otherwise drift becomes silent: the work gets done but is not traceable; if the work is omitted, no review can detect the gap. Elaborates Vision § Adaptive Coherence (specifically the "drift caught early and resolved" commitment).
+
+**Triggers** *(loose-coupled — any of these surfaces a gap)*:
+
+- A scratchpad item ripens into actionable work
+- A review of an existing document or work item surfaces a finding
+- A directly-recognised functional gap during normal use of the framework
+- Anticipation of framework evolution (e.g. a future Shannon version introduces a new attribute that existing projects must accommodate)
+
+The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workflow directly from any of the triggers above.
+
+**Flow**:
+
+1. Gap identified by any trigger
+2. Identify the natural parent for the work — usually a Feature in the existing set; occasionally a new Feature is required
+3. Read the parent Feature's Ideal State and the Vision principle(s) it derives from
+4. **Decision**: does the parent aspire to the work?
+   - **Yes** — the Ideal State explicitly requires the capability the work delivers → proceed to step 6
+   - **No** — the Ideal State does not name the capability → step 5
+5. Re-elaborate the parent (and, if necessary, re-review the Vision principle the parent derives from) to add aspirational criteria the proposed work will fulfil. Use the *Re-reviewing an APPROVED Mandated Document* workflow for documents; for work items, re-elaboration follows the analogous pattern (canonical work-item re-elaboration workflow not yet ratified — captured as a framework gap)
+6. Create the downstream work (Epic, Task) with Acceptance Criteria that explicitly fulfil the upstream aspiration
+7. If the gap was first captured in the scratchpad, move that item to Processed pointing at the new downstream artefact
+
+**Why this matters**: the framework's self-correcting property depends on upstream aspirations being specific enough that downstream omissions register as drift. Creating downstream work that no upstream artefact requires breaks the chain — the work exists but cannot be missed by a future alignment check.
+
+**Rules applied**: Document Alignment Direction; Three Hard Gates (at each upstream re-approval or downstream creation).
+
 ### Running a Spike to Reduce Uncertainty
 
 **Goal**: Answer a specific question that's blocking decisions on a Feature or Epic.
@@ -273,6 +302,14 @@ When uncertain, treat as substantive (the more cautious path).
 ---
 
 ## Version History
+
+### 2026-05-19 - v1.4
+
+- Added Key Workflow **Responsible Promotion** — names the canonical flow from gap-recognition to downstream work-item creation, with explicit step 4 ("does the parent aspire to the work?") and step 5 (re-elaborate upstream first if not). Loose-coupled triggers — scratchpad, review finding, in-flight realisation, anticipated framework evolution — capture the user's point that scratchpad must not be the gatekeeper for upstream updates
+- Elaborates Vision § Adaptive Coherence (Vision v2.3 commit `7c117d4`): the workflow is the operational mechanism by which Vision's commitment to drift resolution becomes day-to-day practice
+- Reference refresh: § Capturing Knowledge as the Project Runs → "Elaborates Vision § Adaptive Coherence" (was Living Documentation); cascading from the Vision v2.3 rename
+- Treated as additive amendment per § Re-reviewing — non-contradictory addition; doc remains APPROVED
+- Status: APPROVED (2026-05-19)
 
 ### 2026-05-18 - v1.3
 
