@@ -6,9 +6,9 @@
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Key Features — "Unified Work Item Model"
-- **Initial Implementation**: Retrospective (predates this Feature's creation)
+- **Initial Implementation**: Partial — the basic unified model is retrospective (templates, skill, commands all predate this Feature's creation); aspirational criteria added in v1.1 re-elaboration are not yet implemented (see Activity Log)
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-18
+- **Updated**: 2026-05-19 (re-elaborated)
 
 ---
 
@@ -22,13 +22,21 @@ This is the second foundational capability: it makes work tracking learnable in 
 
 ### Ideal State
 
-- Four work item types — Feature, Epic, Task, Spike — share one status sequence (`DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`)
-- Every work item file has the same shape: Metadata, Requirements, Plan, Activity Log (plus type-specific sections)
-- Every work item type supports the same five lifecycle verbs (`create`, `elaborate`, `plan`, `implement`, `review`)
-- The hierarchy (Feature → Epic → Task; Spike standalone) is enforced by templates and skills
-- Status transitions are made through the `work-items` skill rather than direct file edits
-- Indexes (`feature_index.md`, `epic_index.md`, `task_index.md`, `spike_index.md`) reflect lifecycle state for navigation
-- Tasks may be orphans (no Epic) when the work has no obvious parent
+*Met aspirations (initial retrospective scope):*
+
+- Four work item types — Feature, Epic, Task, Spike — share one status sequence (`DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`) *(met)*
+- Every work item file has the same shape: Metadata, Requirements, Plan, Activity Log (plus type-specific sections) *(met)*
+- Every work item type supports the same five lifecycle verbs (`create`, `elaborate`, `plan`, `implement`, `review`) *(met)*
+- The hierarchy (Feature → Epic → Task; Spike standalone) is enforced by templates and skills *(met)*
+- Status transitions are made through the `work-items` skill rather than direct file edits *(met)*
+- Indexes (`feature_index.md`, `epic_index.md`, `task_index.md`, `spike_index.md`) reflect lifecycle state for navigation *(met)*
+- Tasks may be orphans (no Epic) when the work has no obvious parent *(partly met — affordance exists, no business rule sanctions it; captured as scratchpad item C4)*
+
+*Aspirational criteria added 2026-05-19 (re-elaboration following Vision v2.3 § Adaptive Coherence). These name the framework's commitments that downstream work must deliver — including the very work captured by F1 and F2 in the scratchpad:*
+
+- Work items can be re-elaborated when upstream artefacts evolve — a canonical workflow describes the trigger and steps, analogous to the *Re-reviewing an APPROVED Mandated Document* workflow for documents *(not yet met — captured as scratchpad item F1)*
+- Implementation completeness of a work item is queryable at the metadata level: a Feature's "Initial Implementation" field (Built through Shannon / Retrospective / Partial) is surfaced visibly rather than buried in the Activity Log, so adopters can identify partially-built capabilities at a glance *(partly met — field exists but "Partial" details still require Activity Log reading; captured as scratchpad item F2)*
+- Framework changes affecting work items (new attributes, new workflows, status model evolution) are absorbed by existing work-item files via canonical re-elaboration; adopters never have to recreate work items from scratch to accommodate framework evolution *(not yet met — depends on the work-item re-elaboration workflow above)*
 
 ### User Stories
 
@@ -87,4 +95,5 @@ This is the second foundational capability: it makes work tracking learnable in 
 
 ## Activity Log
 
+- **2026-05-19** — Re-elaborated following Vision v2.3 § Adaptive Coherence (commit `7c117d4`) and conceptual_design v1.4 § Responsible Promotion (commit `0411ea8`). Three aspirational Ideal State criteria added — work-item re-elaboration workflow (F1), queryable implementation completeness (F2), and framework-version absorption — that the existing capability does not yet fulfil. Initial Implementation field changed from "Retrospective" to "Partial" to reflect that aspiration now exceeds current implementation. This re-elaboration was the upstream prerequisite for creating an Epic to address F1 + F2, per the Responsible Promotion workflow.
 - **2026-05-18** — ELABORATED: Feature created retrospectively. Work item types, lifecycle, templates, skill, and 20 commands were built during the Shannon v4 refactor (commit `6852b29`). This Feature codifies the capability for future evolution.
