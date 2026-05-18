@@ -1,8 +1,8 @@
 # Product Vision
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-18
-**Approved**: 2026-05-18
+**Last Reviewed**: 2026-05-19
+**Approved**: 2026-05-19
 
 ---
 
@@ -38,9 +38,9 @@ Three quality gates at high-leverage points — requirements elaboration, implem
 
 Code traces back to tasks; tasks to epics or features; features to the vision. Nothing significant gets built without a clear "why." The framework makes drift between intent and implementation visible before it becomes expensive.
 
-### 4. **Living Documentation**
+### 4. **Adaptive Coherence**
 
-Documentation evolves with understanding. Reviewed context is treated as authoritative; drift between layers is caught early; knowledge accumulates so the same investigation never happens twice.
+Coherence is dynamic, not static. The framework absorbs change — new understanding, new projects, new framework versions — without losing alignment. Reviewed context is treated as authoritative; drift between layers is caught early and resolved through canonical re-review and re-elaboration workflows. Projects can adopt Shannon at any maturity, with pre-existing capabilities captured as Retrospective Features. Framework evolution (new attributes, new workflows) propagates to existing artefacts through the same review mechanisms. Knowledge accumulates so the same investigation never happens twice.
 
 ---
 
@@ -111,6 +111,13 @@ The framework deliberately avoids language and framework lock-in. Markdown files
 ---
 
 ## Version History
+
+### 2026-05-19 - v2.3
+
+- Sharpened Principle 4: renamed from "Living Documentation" to **"Adaptive Coherence"**; expanded to commit to three faces of the framework's adaptive promise — drift resolution (not just detection), retrospective adoption elevated to principle level, framework evolution (new attributes / workflows) absorbed by existing artefacts via the same review mechanisms
+- Treated as additive amendment per conceptual_design v1.3 § Re-reviewing — preserves prior commitments (authoritative reviewed context, drift caught early, knowledge accumulation) and extends them; doc remains APPROVED
+- Rationale: the framework's value depends on its capacity to absorb change. Greenfield-only commitment failed to name adoption of existing projects, in-flight gap correction, and forward-compatibility with framework evolution as core promises. This sharpening makes the commitment explicit so downstream artefacts (features, epics) can be measured against it
+- Status: APPROVED (2026-05-19)
 
 ### 2026-05-18 - v2.2
 

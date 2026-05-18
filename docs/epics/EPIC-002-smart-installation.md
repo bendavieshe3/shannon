@@ -31,7 +31,7 @@ A developer can install or update Shannon in a project that already has Claude C
 ### Context
 
 - **Parent Feature**: FEAT-001 — Easy to Setup
-- **Vision**: § Core Principles ("Living Documentation"), § Key Features ("Document Authority Graph")
+- **Vision**: § Core Principles ("Adaptive Coherence" — absorbing change without losing alignment is precisely what Smart Installation does when preserving customisations across framework updates)
 - **Technical Design**: § Data Model (file structure to preserve)
 
 ---
@@ -62,4 +62,5 @@ A developer can install or update Shannon in a project that already has Claude C
 
 ## Activity Log
 
+- **2026-05-19** — Context references refreshed: Vision § Core Principles updated to "Adaptive Coherence" (Vision v2.3 rename); stale "Document Authority Graph" reference removed (was excluded from Vision § Key Features back in v2.1).
 - **2026-05-15** — DRAFT: Created as part of refactor; migrated from FEAT-001 Phase 2

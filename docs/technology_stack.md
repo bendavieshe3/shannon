@@ -1,8 +1,8 @@
 # Technology Stack
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-16
-**Approved**: 2026-05-16
+**Last Reviewed**: 2026-05-19
+**Approved**: 2026-05-19
 
 ---
 
@@ -23,7 +23,7 @@ A Shannon-equipped project consists of: a `.claude/` directory containing comman
 - **Purpose**: Format for all templates, commands, skills, documents, and work items
 - **Rationale**: Renderable everywhere, diff-friendly, no build step required, AI-native
 - **Trade-offs**: No type checking or validation — relies on convention and AI discipline to maintain structure
-- **Aligns to**: Vision § Core Principles ("Living Documentation"); no build step, no runtime services
+- **Aligns to**: Vision § Core Principles ("Adaptive Coherence"); no build step, no runtime services
 
 ### Claude Code (Anthropic CLI)
 
@@ -101,6 +101,11 @@ Shannon has no runtime dependencies. The only requirement is Claude Code.
 ---
 
 ## Version History
+
+### 2026-05-19 - v1.2
+
+- Maintenance amendment cascading from Vision v2.3 (Principle 4 renamed "Living Documentation" → "Adaptive Coherence"). Markdown § *Aligns to* updated to track the new principle name. No semantic change; pure reference refresh.
+- Status: APPROVED (2026-05-19)
 
 ### 2026-05-16 - v1.1
 

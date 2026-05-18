@@ -52,7 +52,7 @@ The capability exists so that the same investigation doesn't have to happen twic
 
 ### Context
 
-- **Vision**: § Key Features ("Knowledge Base"), Core Principle 4 ("Living Documentation") — "knowledge accumulates so the same investigation never happens twice"
+- **Vision**: § Key Features ("Knowledge Base"), Core Principle 4 ("Adaptive Coherence") — "knowledge accumulates so the same investigation never happens twice"
 - **Conceptual Design**: *Knowledge Note* entity (Research / Implementation Details / Extension types), *Capturing Knowledge as the Project Runs* workflow, *Spike Output Is Knowledge* business rule
 - **UX Guide**: § Knowledge Note Creation (prompt-to-capture and classification pattern)
 - **Project files**: `shannon/skills/project-documentation/templates/knowledge_note.md`, `knowledge_index.md`; `./docs/knowledge/` directory in deployed projects
@@ -88,4 +88,5 @@ The capability exists so that the same investigation doesn't have to happen twic
 
 ## Activity Log
 
+- **2026-05-19** — Vision Reference updated: Principle 4 renamed "Living Documentation" → "Adaptive Coherence" in Vision v2.3 (commit forthcoming). Maintenance update; no change to the Feature's content.
 - **2026-05-18** — ELABORATED: Feature created retrospectively. Knowledge note template, index template, and the "Capturing Knowledge as the Project Runs" workflow were built during the Shannon v4 refactor and subsequent reviews (commits `6852b29` through `d4ccc03`). The knowledge base directory is empty as of this Feature's creation — infrastructure exists, no notes yet captured through Shannon.
