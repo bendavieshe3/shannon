@@ -224,6 +224,37 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 **Rules applied**: Spike Output Is Knowledge (when a spike is the source). Knowledge notes are not gated artefacts — they are working knowledge, not reviewed context.
 
+### Re-reviewing an APPROVED Mandated Document
+
+**Goal**: Refresh an APPROVED document when downstream evolution, an upstream cascade, or a surfaced gap means it no longer faithfully describes the project. The mechanism preserves the authority graph by re-passing Gate 1.
+
+**Triggers**:
+
+- **Downstream evolution** — a feature, epic, or sibling document has elaborated capabilities the document should ratify (e.g. a new Key Feature surfaced by a work item)
+- **Upstream cascade** — a higher-authority document was just approved with changes that may affect this one
+- **Surfaced gap** — a work item or review explicitly flagged a missing anchor (e.g. a Feature whose Vision Reference does not resolve)
+- **Periodic** — time-based reviews if the project chooses to do them (not framework-mandated)
+
+**Flow**:
+
+1. Trigger identified; directing party invokes `/document-review [path]` on the APPROVED document
+2. Skill spawns an alignment subagent reading the target document plus its authority-graph neighbours, with the specific trigger named in the prompt
+3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
+4. Directing party reviews findings and decides which to apply inline, which to defer to scratchpad, and which to ignore
+5. Implementer applies the approved changes plus any cascading updates (e.g. work-item Vision References that should now point to the new content)
+6. **Gate 1**: directing party explicitly approves the new version
+7. Version bumps — minor (e.g. v2.1 → v2.2) for additive amendments, major (e.g. v1.0 → v2.0) for substantive revisions
+8. Per development_guide § Commit Cadence, the version bump and cascading updates ship in a single commit
+
+**Status semantics**:
+
+- **Additive amendment** — content that does not contradict existing approved claims. The document stays APPROVED through the edit; the version history records the new version and a new approval date
+- **Substantive revision** — content that contradicts existing approved claims and resolves the contradiction. The document transitions APPROVED → DRAFT for the duration of the revision, returning to APPROVED via Gate 1
+
+When uncertain, treat as substantive (the more cautious path).
+
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer.
+
 ### Running a Spike to Reduce Uncertainty
 
 **Goal**: Answer a specific question that's blocking decisions on a Feature or Epic.
@@ -242,6 +273,13 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 ---
 
 ## Version History
+
+### 2026-05-18 - v1.3
+
+- Added Key Workflow **Re-reviewing an APPROVED Mandated Document** — canonises the pattern prototyped during the Vision v2.2 re-review (commit `3a65a73`). Covers four triggers (downstream evolution, upstream cascade, surfaced gap, periodic), names the additive-amendment vs substantive-revision distinction with corresponding status semantics, and ties to existing rules (Document Alignment Direction, DRAFT Documents Are Not Authoritative, Three Hard Gates, Supervisor Distinct From Implementer)
+- Resolves scratchpad item G3 ("Workflow: Re-approval of APPROVED Docs After Upstream Change"); partially addresses G1 ("Workflow: Alignment Drift Detection") since drift detection now has a named conceptual workflow when it happens *during* a review
+- Treated as an additive amendment per the new workflow's own semantics — non-contradictory addition; doc stays APPROVED
+- Status: APPROVED (2026-05-18)
 
 ### 2026-05-18 - v1.2
 
