@@ -71,7 +71,9 @@ This is the second foundational capability: it makes work tracking learnable in 
 
 ### Epics
 
-*None yet — the model is established. Candidate future Epic: name an explicit business rule for orphan tasks (currently captured as scratchpad item C4).*
+- [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md) — DRAFT — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (closes scratchpad items F1 and F2; fulfils the aspirational Ideal State bullets added 2026-05-19)
+
+*Candidate future Epic: name an explicit business rule for orphan tasks (currently captured as scratchpad item C4).*
 
 ### Dependencies
 
