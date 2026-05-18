@@ -4,6 +4,7 @@
 - [EPIC-002](./EPIC-002-smart-installation.md) — DRAFT — Smart Installation (FEAT-001) #setup #install
 - [EPIC-003](./EPIC-003-version-management.md) — DRAFT — Version Management (FEAT-001) #setup #versioning
 - [EPIC-004](./EPIC-004-distribution-channels.md) — DRAFT — Distribution Channels (FEAT-001) #setup #distribution
+- [EPIC-005](./EPIC-005-v6-skills-and-claude-template.md) — DRAFT — V6 Vocabulary in Skills and CLAUDE.md Template (FEAT-006) #v6 #framework
 
 ---
 
