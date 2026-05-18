@@ -6,11 +6,15 @@
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § "[Section in vision.md this feature elaborates]"
+- **Initial Implementation**: [Built through Shannon | Retrospective (predates Shannon) | Partial — see Activity Log]
 - **Created**: [YYYY-MM-DD]
 - **Updated**: [YYYY-MM-DD]
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`.
-> **Activity** indicates current development state of an APPROVED feature: `STABLE` (no epic in progress) or `ACTIVE` (an epic is being worked on).
+> **Activity** indicates current development state: `STABLE` (no epic in progress) or `ACTIVE` (an epic is being worked on). Activity is descriptive state, orthogonal to Status.
+> **Initial Implementation** records how the capability came to exist. *Built through Shannon* — full lifecycle through this framework. *Retrospective* — capability existed before Shannon was applied to the project; the Feature captures it after the fact. *Partial* — some of the capability is retrospective; the rest is forward work through new Epics.
+
+> **Retrospective Features**: When Shannon is applied to an existing project, pre-existing capabilities are captured as Features starting in **ELABORATED + STABLE**. The Requirements section describes the capability as it exists (not aspirationally); the Activity Log records that initial implementation predates Shannon's adoption. The Plan section may be empty (no Epics yet) or may name the next Epic if further evolution is planned. See conceptual_design.md § Business Rules — *Retrospective Features*.
 
 ---
 

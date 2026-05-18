@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-16
-**Approved**: 2026-05-16
+**Last Reviewed**: 2026-05-18
+**Approved**: 2026-05-18
 
 ---
 
@@ -168,6 +168,8 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
 
+- **Retrospective Features** — When Shannon is applied to an existing project, the project's pre-existing capabilities should be captured as Features even though their initial implementation predates Shannon's adoption. Such Features start in ELABORATED status (the description is reviewed and matches reality) with Activity: STABLE (no epic in progress), and their Activity Log records that initial implementation happened outside Shannon's lifecycle. Future evolution proceeds through Epics in the standard way. A Feature may also be *partially* retrospective: existing capability documented, with a clear next Epic for remaining work. The framework treats retrospective and forward-built Features identically once they reach ELABORATED — the distinction is historical, captured in the Activity Log and the Feature's `Initial Implementation` field.
+
 - **Spike Output Is Knowledge** — A spike's durable artefact is its knowledge note. The spike file itself is the activity record and is disposable.
 
 - **Approved Tasks Are Archived** — Tasks that reach APPROVED are moved to `./docs/tasks/archive/`. Epics, Features, and Spikes remain in place as historical records.
@@ -240,6 +242,11 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 ---
 
 ## Version History
+
+### 2026-05-18 - v1.2
+
+- Added business rule **Retrospective Features** — names the case where Shannon is applied to an existing project and pre-existing capabilities are captured as Features starting in ELABORATED + STABLE. Also covers partially-retrospective Features (existing capability + clear next Epic). Surfaced during the dogfood exercise when creating FEAT-002 through FEAT-007 to represent Shannon's own capabilities-to-date.
+- Status: APPROVED (in-session amendment by the directing party; non-contradictory addition)
 
 ### 2026-05-16 - v1.1
 
