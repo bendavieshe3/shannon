@@ -5,7 +5,7 @@
 - **Status**: ELABORATED
 - **Activity**: STABLE
 - **Type**: Feature
-- **Vision Reference**: *Not yet in Vision § Key Features* — surfaces a Vision gap. The next Vision review should add Lightweight Idea Capture as a Key Feature; tracked in scratchpad.
+- **Vision Reference**: § Key Features — "Lightweight Idea Capture" (added 2026-05-18 in Vision v2.2 in response to this Feature's surfaced gap)
 - **Initial Implementation**: Partial — see Activity Log
 - **Created**: 2026-05-18
 - **Updated**: 2026-05-18
@@ -51,7 +51,7 @@ The capability exists because not every thought is ready to be a work item. Forc
 
 ### Context
 
-- **Vision**: *Not yet referenced* — Vision § Key Features lists four (Mandated Documentation, Unified Work Items, Three Quality Gates, Knowledge Base) and does not include Lightweight Idea Capture. This Feature surfaces a Vision gap that the next Vision review should address
+- **Vision**: § Key Features — "Lightweight Idea Capture" (added in Vision v2.2 on 2026-05-18 to close the gap this Feature surfaced)
 - **Conceptual Design**: Should add a *Scratchpad* glossary entry and possibly a workflow ("Processing the Scratchpad"). Currently silent
 - **Technical Design**: Should describe the scratchpad file location, format, and processing mechanics. Currently silent
 - **Project files**: `docs/scratchpad.md` (live, 11 items as of 2026-05-18)
@@ -89,3 +89,4 @@ The capability exists because not every thought is ready to be a work item. Forc
 ## Activity Log
 
 - **2026-05-18** — ELABORATED: Feature created. Partially implemented: `docs/scratchpad.md` exists and is actively used (11 items, 2 processed) as of this Feature's creation. The pattern is informal — no Vision anchor, no conceptual_design entity, no canonical processing workflow. A first Epic to formalise the capability is the obvious next step, blocked on the Vision update.
+- **2026-05-18** — Vision Reference updated. Vision v2.2 (approved 2026-05-18) added "Lightweight Idea Capture" as a 5th Key Feature, closing the gap this Feature originally surfaced. Conceptual_design entity and `/scratchpad-*` commands remain Partial — candidate next Epic still applies.

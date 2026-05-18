@@ -1,8 +1,8 @@
 # Product Vision
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-15
-**Approved**: 2026-05-15
+**Last Reviewed**: 2026-05-18
+**Approved**: 2026-05-18
 
 ---
 
@@ -20,7 +20,7 @@ The result is the same productivity tax that plagued teams before AI: the develo
 
 ## Vision Statement
 
-Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or a supervising agent distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from first commit through full maturity, without the directing party ever having to remember which document said what.
+Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or a supervising agent distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from adoption through full maturity, without the directing party ever having to remember which document said what.
 
 ---
 
@@ -54,6 +54,8 @@ Documentation evolves with understanding. Reviewed context is treated as authori
 
 - **Knowledge Base** — Research notes, implementation details, and document extensions captured as the project runs. Spikes produce knowledge notes as their primary output.
 
+- **Lightweight Idea Capture** — A pre-workflow scratchpad (`docs/scratchpad.md`) for ideas, half-formed work, and unprocessed TODOs that don't yet belong to a formal work item. Items get processed periodically: promoted to Features, Epics, Tasks, or Spikes; moved to knowledge notes when they harden into durable findings; or dropped. The scratchpad is the deliberate middle between losing thoughts and forcing premature classification.
+
 ---
 
 ## Target Users
@@ -71,6 +73,10 @@ Both personas direct AI rather than write code themselves. The framework must ma
 ### The directing role is separable
 
 The framework treats "directing party" as a role, not a person. A human (Architect or Gardener) is the most common occupant. A supervising agent — distinct from the agent doing the implementation — can occupy the same role, opening multi-agent configurations in which one AI directs and another implements, with a human at the top of the chain. The integrity of the gates depends on a single constraint: **the supervisor must not be the same agent as the implementer**. Independence of judgement is what the gates protect; collapsing the two collapses the gate.
+
+### Retrospective adoption
+
+Shannon does not require a greenfield project. It can be adopted into an existing codebase with pre-existing capabilities — the framework captures those capabilities as Retrospective Features (ELABORATED + STABLE), with each Feature's Activity Log recording that initial implementation predates Shannon's adoption. Future evolution then proceeds through Epics in the standard way. This means both personas above can adopt Shannon mid-project, not only at first commit; "from adoption through full maturity" includes both cases.
 
 ---
 
@@ -105,6 +111,14 @@ The framework deliberately avoids language and framework lock-in. Markdown files
 ---
 
 ## Version History
+
+### 2026-05-18 - v2.2
+
+- Re-review triggered by downstream evolution since v2.1 (conceptual_design v1.2 *Retrospective Features* business rule and creation of FEAT-002 through FEAT-007, especially FEAT-007 Lightweight Idea Capture which had no Vision § Key Features anchor)
+- **G1**: Added "Lightweight Idea Capture" as a 5th Key Feature, naming the scratchpad pattern as a Shannon capability and giving FEAT-007 its Vision Reference home
+- **G2**: Added "Retrospective adoption" subsection to Target Users, recognising that Shannon can be applied to existing projects (per the new Retrospective Features business rule); both Architect and Gardener personas can adopt Shannon mid-project, not only at first commit
+- **S1**: Vision Statement updated — "from first commit through full maturity" → "from adoption through full maturity" — widens scope to match the adoption case
+- Status: APPROVED (2026-05-18). First successful exercise of the re-approval-after-upstream-change pattern (G3 scratchpad item); informs the formal workflow that's still to be drafted in conceptual_design
 
 ### 2026-05-15 - v2.1
 
