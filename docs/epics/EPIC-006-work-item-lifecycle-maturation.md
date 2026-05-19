@@ -74,7 +74,7 @@ Two Tasks proceed in parallel (disjoint file surfaces). A third Task — applyin
 
 ### Tasks
 
-- [TASK-001](../tasks/TASK-001-work-item-re-elaboration-workflow.md) — DRAFT — Re-elaborating a Work Item workflow + work-items skill extension. Covers F1 (5 Acceptance Criteria bullets). No dependencies inside the Epic.
+- [TASK-001](../tasks/TASK-001-work-item-re-elaboration-workflow.md) — ELABORATED — Re-elaborating a Work Item workflow + work-items skill extension. Covers F1 (now 8 Acceptance Criteria bullets after Gate 1 refinements: 3 new ACs for four-category schema parity, per-status enumeration, cross-type applicability; 3 sharpenings; scope boundary). No dependencies inside the Epic.
 - [TASK-002](../tasks/TASK-002-queryable-implementation-completeness.md) — DRAFT — Partial-completeness sub-block in feature template + canonise feature_index annotation. Covers F2 bullets 1-3. No dependencies inside the Epic.
 
 **Forward-declared (created after TASK-001 and TASK-002 are APPROVED)**: a Task to apply the new affordance to FEAT-003 and FEAT-006, update FEAT-003's `Initial Implementation` line to mark met aspirations, refresh scratchpad pointers, and record an Activity Log entry exercising the new re-elaboration workflow on real data. Covers F2 bullet 4 and both recursive-dogfood bullets. Required for EPIC-006 to reach Gate 3.
