@@ -1,23 +1,18 @@
 # Task Index
 
-- [TASK-XXX](./TASK-XXX-slug.md) - [STATE] - [Description] #tag1 #tag2
-
-**Example**:
-> - [TASK-120](./TASK-120-add-tag-filter.md) - TODO - Add tag filtering to search #frontend #FEAT-003
-> - [TASK-048](./TASK-048-oauth-ui.md) - READY - Build OAuth UI components #frontend #FEAT-001
-> - [TASK-049](./TASK-049-google-oauth.md) - IN_PROGRESS - Add Google OAuth provider #backend #FEAT-001
-> - [TASK-050](./TASK-050-github-oauth.md) - REVIEW - Add GitHub OAuth provider #backend #FEAT-001
-> - [TASK-047](./archive/TASK-047-session-mgmt.md) - COMPLETED - Create session management for OAuth #backend #FEAT-001
-> - [TASK-121](./TASK-121-fix-typo.md) - TODO - Fix typo in README #docs
+- [TASK-001](./TASK-001-work-item-re-elaboration-workflow.md) — DRAFT — Re-elaborating a Work Item — workflow + skill extension (EPIC-006) #framework #conceptual-design #work-items
+- [TASK-002](./TASK-002-queryable-implementation-completeness.md) — DRAFT — Queryable implementation completeness for Features (EPIC-006) #framework #templates #work-items
 
 ---
 
 ## Notes
 
-**Format**: `[TASK-ID](./path.md) - STATE - Description #tags`
+**Format**: `[TASK-ID](./path.md) — STATUS — Description (parent EPIC-XXX or FEAT-XXX) #tags`
 
-**States**: TODO | READY | IN_PROGRESS | REVIEW | COMPLETED
+**Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
 
-**When to update**: Just change the state and move completed tasks to ./archive/ directory when done.
+**Archive**: When a task reaches APPROVED, move the file to `./archive/` and update the link.
 
-**No grouping needed**: Keep it as a flat list, order doesn't matter.
+**Tags**: `#component` (e.g. `#frontend`, `#backend`, `#framework`, `#templates`), `#type` (e.g. `#bug`, `#refactor`, `#docs`), parent identifier may be embedded in the description (preferred) or as a tag.
+
+Flat list — no grouping.

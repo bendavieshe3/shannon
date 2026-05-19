@@ -2,11 +2,11 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: PLANNED
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-05-19
-- **Updated**: 2026-05-19 (elaborated)
+- **Updated**: 2026-05-19 (planned)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
 
@@ -68,15 +68,16 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
 
 ## Plan
 
-*To be filled during `/epic-plan EPIC-006` (Gate 2). Will likely produce 2-3 Tasks: one for the re-elaboration workflow + skill extension (F1), one for the queryable-completeness pattern + template/index updates (F2), and possibly a third for retrospective application to FEAT-003 and FEAT-006 themselves.*
-
 ### Approach
 
-*Filled during planning.*
+Two Tasks proceed in parallel (disjoint file surfaces). A third Task — applying the new affordance to FEAT-003 and FEAT-006 on real data — is **forward-declared** in this section but not created as a work item now. Its real shape depends on what the first two Tasks deliver, and pre-creating it would put it in an exists-but-cannot-progress state that would functionally re-invent the `*-PENDING` sub-status pattern retired in technical_design v1.1. EPIC-006 cannot reach Gate 3 until that follow-up Task has been created, completed, and approved.
 
 ### Tasks
 
-*Filled during planning.*
+- [TASK-001](../tasks/TASK-001-work-item-re-elaboration-workflow.md) — DRAFT — Re-elaborating a Work Item workflow + work-items skill extension. Covers F1 (5 Acceptance Criteria bullets). No dependencies inside the Epic.
+- [TASK-002](../tasks/TASK-002-queryable-implementation-completeness.md) — DRAFT — Partial-completeness sub-block in feature template + canonise feature_index annotation. Covers F2 bullets 1-3. No dependencies inside the Epic.
+
+**Forward-declared (created after TASK-001 and TASK-002 are APPROVED)**: a Task to apply the new affordance to FEAT-003 and FEAT-006, update FEAT-003's `Initial Implementation` line to mark met aspirations, refresh scratchpad pointers, and record an Activity Log entry exercising the new re-elaboration workflow on real data. Covers F2 bullet 4 and both recursive-dogfood bullets. Required for EPIC-006 to reach Gate 3.
 
 ### Dependencies
 
@@ -86,12 +87,11 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
 
 ### Risks
 
-*Filled during planning. Anticipated:*
-
 - **Over-formalisation of F2** — the goal is at-a-glance visibility, not a new substatus system. Mitigation: keep the queryability mechanism proportionate (a structured sub-field + the existing index annotation is likely sufficient)
-- **Recursive scope** — this Epic's outputs are themselves changes to the framework that may surface further gaps (e.g. orphan-task rule C4 may become entangled if surfacing extends to Tasks). Mitigation: hold scope to F1 + F2; capture spillover in scratchpad
+- **Recursive scope creep** — this Epic's outputs are themselves changes to the framework that may surface further gaps (e.g. orphan-task rule C4 may become entangled if surfacing extends to Tasks). Mitigation: hold scope to F1 + F2; capture spillover in scratchpad
 - **Tension with the existing `Process: Elaborate` protocol** — the skill currently assumes DRAFT → ELABORATED only; adding a re-elaboration branch must not break the canonical first-time-elaborate flow or its Gate 1 semantics. Mitigation: re-elaboration is an explicit sibling branch, not an overload of the existing path
 - **Workflow asymmetry with documents** — document re-review distinguishes additive vs substantive; work items have a richer status set (ELABORATED through APPROVED) so the mapping is not 1:1. Mitigation: explicitly define status transitions for each case in the new workflow
+- **Forward-declared Task forgotten before Gate 3** — by not pre-creating the follow-up Task, we lose the visibility pre-staging would have given. Mitigation: the obligation is recorded here in the Plan and the scratchpad notes the framework gap; Gate 3 review explicitly checks that the follow-up Task exists, is APPROVED, and closes F2 bullet 4 and the recursive-dogfood bullets
 
 ---
 
@@ -109,6 +109,7 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
 
 ## Activity Log
 
+- **2026-05-19** — PLANNED via Gate 2. Plan section populated with two parallel Tasks (TASK-001 re-elaboration workflow + skill extension; TASK-002 queryable Partial completeness) and one forward-declared follow-up Task (recursive dogfood applying the new affordance to FEAT-003 and FEAT-006). The forward declaration is deliberate: pre-creating the third Task would have placed it in an exists-but-cannot-progress state, functionally re-inventing the `*-PENDING` sub-status pattern technical_design v1.1 retired. Gate 3 cannot be reached until the follow-up Task is created, completed, and approved. Tension surfaced during planning around inter-work-item dependency as a first-class concept — captured in scratchpad for future framework consideration.
 - **2026-05-19** — ELABORATED via Gate 1. Directing party approved the drafted Requirements without modification. The elaboration surfaced one minor staleness in the DRAFT (F1/F2 stated as "currently active" — already in Processed), refined Acceptance Criteria into three explicit groups (F1, F2, recursive-dogfood), and expanded Risks with two concrete tensions (protocol overload, workflow asymmetry with documents). Verdict from the elaboration subagent: ready for Gate 1.
 - **2026-05-19** — Requirements drafted via `/epic-elaborate EPIC-006`. Goal, Acceptance Criteria (split into F1 / F2 / recursive-dogfood groups), and Context populated. Risks lifted forward from Plan section to surface anticipated trade-offs at Gate 1. Awaiting directing-party approval to transition DRAFT → ELABORATED.
 - **2026-05-19** — DRAFT: Epic created via `/epic-create` under FEAT-003 following the Responsible Promotion workflow (conceptual_design v1.4 §). FEAT-003 was re-elaborated upstream (commit `e2198bc`) to add aspirational criteria the Epic now fulfils; without that re-elaboration this Epic would not have traced to an upstream commitment. Captures F1 (work-item re-elaboration workflow) and F2 (queryable implementation completeness) as a bundled unit since both touch the same review surface.
