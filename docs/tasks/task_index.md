@@ -1,6 +1,6 @@
 # Task Index
 
-- [TASK-001](./TASK-001-work-item-re-elaboration-workflow.md) — ELABORATED — Re-elaborating a Work Item — workflow + skill extension (EPIC-006) #framework #conceptual-design #work-items
+- [TASK-001](./TASK-001-work-item-re-elaboration-workflow.md) — PLANNED — Re-elaborating a Work Item — workflow + skill extension (EPIC-006) #framework #conceptual-design #work-items
 - [TASK-002](./TASK-002-queryable-implementation-completeness.md) — ELABORATED — Queryable implementation completeness for Features (EPIC-006) #framework #templates #work-items
 
 ---
