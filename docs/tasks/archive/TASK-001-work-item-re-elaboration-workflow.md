@@ -2,13 +2,14 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md)
-- **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
+- **Parent**: [EPIC-006](../../epics/EPIC-006-work-item-lifecycle-maturation.md)
+- **Feature**: [FEAT-003](../../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #conceptual-design #work-items #v6
 - **Created**: 2026-05-19
-- **Updated**: 2026-05-20 (planned)
+- **Updated**: 2026-05-22 (approved)
+- **Approved**: 2026-05-22
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -91,7 +92,55 @@ The work breaks into three blocks: (1) conceptual_design new workflow section + 
 
 ## Implementation Notes
 
-*Filled during implementation.*
+### Edits applied
+
+**`docs/conceptual_design.md`** (v1.4 → v1.5):
+
+- Added new § Re-elaborating a Work Item between § Re-reviewing an APPROVED Mandated Document and § Responsible Promotion
+- Workflow uses the parallel sub-section ordering (Goal / Triggers / Flow / Status semantics / Rules applied) for mechanical parity with the precedent
+- Three Triggers: upstream cascade, downstream gap, framework evolution
+- Flow step 3 names the canonical four-category schema (Drift / Gap / Internal contradiction / Strength) verbatim
+- Flow step 6 names the three required Activity Log fields explicitly: (a) trigger category, (b) upstream commit hash where applicable, (c) summary of what changed
+- Per-status behaviour table covers all six non-DRAFT statuses (ELABORATED, PLANNED, IMPLEMENTING, IMPLEMENTED, REVIEW, APPROVED) for both additive and substantive cases
+- Cross-type applicability bullets address Features (no upstream work-item parent), Spikes (standalone), and orphan Tasks (Feature-like for trigger purposes)
+- § Responsible Promotion step 5 — gap-flag parenthetical removed; step now references the new workflow by name
+- v1.5 Version History entry; Last Reviewed / Approved bumped to 2026-05-21
+
+**`shannon/skills/work-items/skill.md`**:
+
+- New § Re-elaboration Branch (non-DRAFT input) added under § Process: Elaborate (after step 5 Resume, before § Process: Plan)
+- Skill text is intentionally thin — defers semantics (triggers, per-status table, cross-type adjustments) to conceptual_design per the Single source of truth principle (development_guide § Code Style)
+- § Failure Modes "Wrong status for verb" entry updated — adds explicit non-error clause: `*-elaborate` on a non-DRAFT work item enters the re-elaboration branch rather than erroring
+
+**`.claude/skills/work-items/skill.md`**: synced from source via `cp` (same content as `shannon/`).
+
+### Decisions
+
+- **Skill prose kept thin** — full Triggers list, per-status table, and cross-type adjustments live only in conceptual_design. The skill references them by section name. Mitigates the parity-drift and skill-prose-vs-doc-prose tension risks named at Gate 2 planning
+- **No V6 vocabulary cleanup** beyond the entries directly edited — the § Failure Modes entry still says "user runs `/task-plan`" because the surrounding file (and EPIC-005's scope) will sweep all such instances together. Touching one occurrence here would create inconsistency with the rest of the same file
+- **`.claude/` sync** done explicitly via `cp` rather than implicit — keeps the deployed skill in sync with source; surfaces the framework gap that there's no automation for source→deployed propagation (already a known issue, not in scope here)
+
+### Verification (Pre-Commit Checklist per development_guide § Testing Strategy)
+
+- Templates open and render in a Markdown viewer (no broken structure introduced)
+- No stale references to removed concepts ("PENDING", "code_style_guide.md") introduced
+- Cross-references resolve: § Re-elaborating a Work Item ↔ § Responsible Promotion step 5; skill § Re-elaboration Branch ↔ conceptual_design § Re-elaborating a Work Item; § Failure Modes → § Process: Elaborate → Re-elaboration Branch
+- Mental dry-run of `/feature-elaborate FEAT-003` against the new branch — FEAT-003's 2026-05-19 ad-hoc re-elaboration Activity Log entry already matches the canonical three-field pattern (trigger category: "Re-elaborated following Vision v2.3 § Adaptive Coherence" = upstream cascade; commit hashes: `7c117d4`, `0411ea8`; summary: three aspirational Ideal State criteria added). The precedent ratifies the canonical shape
+
+### AC coverage at IMPLEMENTED
+
+All 8 Acceptance Criteria delivered:
+
+- AC#1 (parallel sub-section ordering) — Goal / Triggers / Flow / Status semantics / Rules applied present in that order
+- AC#2 (three Triggers) — upstream cascade, downstream gap, framework evolution
+- AC#3 (additive vs substantive with explicit gate re-pass rules) — table column "Substantive" names re-passes per status
+- AC#4 (per-status enumeration across six non-DRAFT statuses) — table covers ELABORATED through APPROVED for both columns
+- AC#5 (cross-type applicability) — Features / Spikes / orphan Tasks bullets
+- AC#6 (four-category schema named in Flow) — Flow step 3
+- AC#7 (skill Re-elaboration Branch + Failure Modes update) — both edits applied
+- AC#8 (Activity Log three-field pattern documented) — Flow step 6
+
+Ready for `/task-review TASK-001` (Gate 3).
 
 ---
 
@@ -103,6 +152,10 @@ The work breaks into three blocks: (1) conceptual_design new workflow section + 
 
 ## Activity Log
 
+- **2026-05-22** — APPROVED via Gate 3. Verification subagent confirmed all 8 ACs met against actual file content with specific line references (parallel sub-section ordering, three Triggers, additive/substantive with gate re-pass, per-status table across six statuses, cross-type applicability, four-category schema in Flow, skill re-elaboration branch + Failure Modes update, three-field Activity Log pattern). No drift, no gaps, no contradictions. Upstream impact noted: FEAT-003 § Ideal State bullet 1 is now fully fulfilled; bullets 2 and 3 remain outstanding, so FEAT-003's Initial Implementation field stays Partial until EPIC-006's forward-declared follow-up Task closes the loop. Approved by directing party 2026-05-22. File moved to `./archive/`.
+- **2026-05-22** — REVIEW. Status flipped from IMPLEMENTED for Gate 3 verification.
+- **2026-05-22** — IMPLEMENTED. All 12 plan steps executed. Edits applied to `docs/conceptual_design.md` (v1.4 → v1.5: new § Re-elaborating a Work Item workflow, § Responsible Promotion step 5 gap-flag parenthetical removed) and `shannon/skills/work-items/skill.md` (new § Re-elaboration Branch under § Process: Elaborate, § Failure Modes "Wrong status for verb" updated). Deployed `.claude/` skill synced from source. All 8 Acceptance Criteria delivered; Implementation Notes record edits, decisions, and Pre-Commit Checklist verification. Ready for `/task-review TASK-001` (Gate 3).
+- **2026-05-21** — IMPLEMENTING. Starting the 12-step plan: conceptual_design-first ordering per the Approach. No outstanding blockers.
 - **2026-05-20** — PLANNED via Gate 2. Plan section populated: single-session, conceptual_design-first ordering (canonical workflow text lands in the doc before the skill extension, preserving *Single source of truth per concept* from development_guide § Code Style). 12 ordered steps split into three blocks — doc work (Steps 1-8: draft workflow section with parallel sub-section ordering, three Triggers, Flow with four-category schema, per-status table, cross-type paragraph, Activity Log field naming, gap-flag removal at line 279, v1.5 version-history entry); skill work (Steps 9-10: re-elaboration branch in § Process: Elaborate, § Failure Modes update); verification (Steps 11-12: cross-file consistency dry-run, Pre-Commit Checklist). Each step explicitly annotated with the AC(s) it covers. Five risks captured with mitigations tied to numbered steps. Subagent verdict: ready for Gate 2 approval; no drift against Development Guide or Technical Design; all 8 ACs have step-coverage. Approved by directing party 2026-05-20.
 - **2026-05-19** — ELABORATED via Gate 1. Elaboration verified the pre-stashed Requirements against current upstream state (precedent workflow at conceptual_design.md lines 227-256; work-items skill § Process: Elaborate at lines 120-153; § Failure Modes at line 273). Refinements applied:
   - 3 new Acceptance Criteria — four-category schema parity in the Flow step (matching the document re-review precedent); per-status enumeration across the six non-DRAFT statuses (closes the asymmetry with documents which have only one post-DRAFT status); cross-type applicability statement (prevents implicit Feature / Epic / Task / Spike semantics)

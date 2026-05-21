@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-19
-**Approved**: 2026-05-19
+**Last Reviewed**: 2026-05-21
+**Approved**: 2026-05-21
 
 ---
 
@@ -255,6 +255,48 @@ When uncertain, treat as substantive (the more cautious path).
 
 **Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer.
 
+### Re-elaborating a Work Item
+
+**Goal**: Refresh a non-DRAFT work item (Feature, Epic, Task, or Spike) when upstream artefacts evolve, a downstream gap surfaces, or the framework itself changes in a way the work item must accommodate. The mechanism preserves the *Unified Status Lifecycle* by re-running Gate 1 (and, for substantive cases, subsequent gates) rather than introducing new statuses.
+
+**Triggers** *(loose-coupled — any of these surfaces a need)*:
+
+- **Upstream cascade** — a parent work item or mandated document just changed (e.g. parent Feature re-elaborated, Vision principle sharpened)
+- **Downstream gap** — a child work item or review surfaced a missing aspiration the parent should now name
+- **Framework evolution** — a Shannon version introduces a new attribute, workflow, or convention that an existing work item must absorb
+
+**Flow**:
+
+1. Trigger identified; directing party invokes `/[type]-elaborate [ID]` on a non-DRAFT work item (the work-items skill recognises this as the re-elaboration branch — see *Re-elaboration Branch* in the skill)
+2. Skill spawns an alignment subagent reading the target work item plus its parent (Feature → Vision; Epic → parent Feature; Task → parent Epic or Feature; Spike → optional Feature for context) and any documents the work item must align to per the Work Item ↔ Document Relationships table
+3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
+4. Directing party reviews findings and decides which to apply inline, which to defer to scratchpad, and which to ignore
+5. Implementer applies the approved refinements; directing party explicitly approves the new state via **Gate 1**
+6. Activity Log entry is added recording **(a) trigger category** (upstream cascade / downstream gap / framework evolution), **(b) upstream commit hash** where applicable, and **(c) summary of what changed**
+
+**Status semantics**:
+
+Re-elaboration is **additive** (refinements do not contradict the work item's previously-approved claims; the work item stays at its current status; only Gate 1 re-passes as a refinement-approval) or **substantive** (refinements contradict previously-approved claims; the work item transitions back to DRAFT and re-passes Gate 1, then re-passes any later gates that had previously been crossed). Per-status behaviour:
+
+| Status before re-elaboration | Additive | Substantive |
+|---|---|---|
+| ELABORATED | Stays ELABORATED; refinement approved at Gate 1 | Returns to DRAFT; re-passes Gate 1 |
+| PLANNED | Stays PLANNED; Plan section preserved unless refinement affects it; refinement approved at Gate 1 | Returns to DRAFT; re-passes Gate 1 and Gate 2 |
+| IMPLEMENTING | Stays IMPLEMENTING; if refinement only touches Requirements, no implementation rework required | Returns to DRAFT; re-passes Gate 1, Gate 2, then resumes implementation |
+| IMPLEMENTED | Stays IMPLEMENTED; refinement approved at Gate 1; Gate 3 review then proceeds against refined Requirements | Returns to DRAFT; full lifecycle re-pass |
+| REVIEW | Stays REVIEW; refinement approved at Gate 1; Gate 3 review continues | Returns to DRAFT; full lifecycle re-pass |
+| APPROVED | Stays APPROVED; Activity Log records the refinement | Returns to DRAFT; full lifecycle re-pass (rare — usually preferable to create a new work item) |
+
+When uncertain, treat as substantive (the more cautious path).
+
+**Cross-type applicability**: this workflow applies to all four work-item types, with these adjustments:
+
+- **Features** have no upstream work-item parent — their upstream is the Vision principle they elaborate; upstream-cascade triggers therefore originate at Vision review events
+- **Spikes** are standalone — they have no Feature/Epic parent for traceability purposes; upstream cascade rarely applies; the dominant trigger is downstream gap (an investigation surfaced a question the original framing missed)
+- **Orphan Tasks** (without a parent Epic) behave as Features for trigger purposes — their upstream is the Feature they nominally elaborate or the Vision section they touch directly
+
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Unified Status Lifecycle.
+
 ### Responsible Promotion
 
 **Goal**: Ensure that work created downstream traces to an upstream aspiration. Before creating an Epic or Task to address a recognised gap, verify (or update) the parent Feature, Vision, or relevant document so the work corresponds to something an upstream commitment requires. Otherwise drift becomes silent: the work gets done but is not traceable; if the work is omitted, no review can detect the gap. Elaborates Vision § Adaptive Coherence (specifically the "drift caught early and resolved" commitment).
@@ -276,7 +318,7 @@ The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workf
 4. **Decision**: does the parent aspire to the work?
    - **Yes** — the Ideal State explicitly requires the capability the work delivers → proceed to step 6
    - **No** — the Ideal State does not name the capability → step 5
-5. Re-elaborate the parent (and, if necessary, re-review the Vision principle the parent derives from) to add aspirational criteria the proposed work will fulfil. Use the *Re-reviewing an APPROVED Mandated Document* workflow for documents; for work items, re-elaboration follows the analogous pattern (canonical work-item re-elaboration workflow not yet ratified — captured as a framework gap)
+5. Re-elaborate the parent (and, if necessary, re-review the Vision principle the parent derives from) to add aspirational criteria the proposed work will fulfil. Use the *Re-reviewing an APPROVED Mandated Document* workflow for documents; for work items, use the *Re-elaborating a Work Item* workflow
 6. Create the downstream work (Epic, Task) with Acceptance Criteria that explicitly fulfil the upstream aspiration
 7. If the gap was first captured in the scratchpad, move that item to Processed pointing at the new downstream artefact
 
@@ -302,6 +344,14 @@ The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workf
 ---
 
 ## Version History
+
+### 2026-05-21 - v1.5
+
+- Added Key Workflow **Re-elaborating a Work Item** — canonical pattern for refreshing a non-DRAFT Feature/Epic/Task/Spike when upstream artefacts evolve, downstream gaps surface, or the framework itself changes. Parallel structure to *Re-reviewing an APPROVED Mandated Document* (Goal / Triggers / Flow / Status semantics / Rules applied) with two work-item-specific elaborations: a per-status table covering the six non-DRAFT statuses (vs documents' single APPROVED state), and a cross-type applicability section addressing Features (no upstream work-item parent), Spikes (standalone), and orphan Tasks (Feature-like for trigger purposes)
+- Removed the gap-flag parenthetical from § Responsible Promotion step 5 ("canonical work-item re-elaboration workflow not yet ratified — captured as a framework gap"); the step now references the new workflow by name
+- Delivers TASK-001 under EPIC-006 under FEAT-003 § Adaptive Coherence-aligned Ideal State bullet 1
+- Treated as additive amendment per § Re-reviewing — non-contradictory addition; doc remains APPROVED
+- Status: APPROVED (2026-05-21)
 
 ### 2026-05-19 - v1.4
 

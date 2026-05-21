@@ -152,6 +152,21 @@ Ask explicitly: "Approve these requirements to mark this ELABORATED?"
 
 Report the transition and resume the original conversation topic.
 
+### Re-elaboration Branch (non-DRAFT input)
+
+When `/feature-elaborate`, `/epic-elaborate`, `/task-elaborate`, or `/spike-elaborate` is invoked on a work item already in ELABORATED, PLANNED, IMPLEMENTING, IMPLEMENTED, REVIEW, or APPROVED status, the skill enters the re-elaboration branch defined by `conceptual_design.md § Re-elaborating a Work Item`. The skill:
+
+1. Recognises the input status — does **not** error (contrast § Failure Modes "Wrong status for verb")
+2. Spawns an alignment subagent per the canonical workflow's Flow step 2 (target work item + parent + Work Item ↔ Document Relationships)
+3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
+4. Directing party reviews findings; refinements applied per Gate 1
+5. **Status semantics** are defined canonically in conceptual_design — the skill does not duplicate the per-status table. In brief:
+   - **Additive** refinements: work item stays at current status; Activity Log records the refinement
+   - **Substantive** refinements: work item transitions back to DRAFT; subsequent gates re-pass per the per-status table
+6. Activity Log entry records the trigger category, upstream commit hash where applicable, and a summary of what changed (three required fields per the canonical workflow)
+
+Cross-type adjustments (Features have no upstream work-item parent; Spikes are standalone; orphan Tasks behave as Features for trigger purposes) are defined canonically in conceptual_design — the skill defers semantics to the doc rather than duplicating them.
+
 ## Process: Plan (Gate 2)
 
 ### 1. Identify Target
@@ -270,7 +285,7 @@ This preserves granular human approval without overwhelming surface.
 
 ## Failure Modes
 
-- **Wrong status for verb** — e.g. user runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`."
+- **Wrong status for verb** — e.g. user runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`." Conversely, `*-elaborate` on a non-DRAFT work item is *not* an error — it enters the re-elaboration branch (see § Process: Elaborate → Re-elaboration Branch and `conceptual_design.md § Re-elaborating a Work Item`).
 - **Missing parent** — A Task whose parent Epic doesn't exist. Surface and ask whether to create the parent or proceed as an orphan task.
 - **DRAFT mandated doc as context** — Warn the user that the document being relied on is not yet authoritative.
 - **Index out of sync** — If the index disagrees with the work item file's status, trust the file and fix the index.
