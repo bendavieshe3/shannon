@@ -2,11 +2,11 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-05-19
-- **Updated**: 2026-05-22 (re-elaborated, additive)
+- **Updated**: 2026-05-22 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
 
@@ -32,24 +32,24 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
 
 **F1 — Work-item re-elaboration workflow:**
 
-- [ ] `docs/conceptual_design.md` § Key Workflows contains a canonical **Re-elaborating a Work Item** workflow, modelled on the existing *Re-reviewing an APPROVED Mandated Document* workflow (lines 227–256): triggers, flow, status semantics (additive vs substantive), rules applied
-- [ ] Triggers cover at least: upstream cascade (parent re-elaborated), downstream gap (a planned epic/task reveals an unstated parent aspiration), framework evolution (new attribute or workflow that pre-existing work items must absorb)
-- [ ] Status semantics are explicit: additive re-elaboration keeps the work item at its current status (ELABORATED or beyond); substantive re-elaboration transitions back to DRAFT and re-passes Gate 1
-- [ ] `shannon/skills/work-items/skill.md` § Process: Elaborate recognises re-elaboration as a first-class branch — invoking `*-elaborate` on a non-DRAFT work item enters the re-elaboration flow instead of failing or silently re-running, and the existing failure-mode entry "Wrong status for verb" (line 273) is updated accordingly
-- [ ] The Activity Log entry pattern for re-elaboration matches the precedent set by FEAT-003's 2026-05-19 entry (records trigger, upstream commit, what changed)
+- [x] `docs/conceptual_design.md` § Key Workflows contains a canonical **Re-elaborating a Work Item** workflow, modelled on the existing *Re-reviewing an APPROVED Mandated Document* workflow (lines 227–256): triggers, flow, status semantics (additive vs substantive), rules applied
+- [x] Triggers cover at least: upstream cascade (parent re-elaborated), downstream gap (a planned epic/task reveals an unstated parent aspiration), framework evolution (new attribute or workflow that pre-existing work items must absorb)
+- [x] Status semantics are explicit: additive re-elaboration keeps the work item at its current status (ELABORATED or beyond); substantive re-elaboration transitions back to DRAFT and re-passes Gate 1
+- [x] `shannon/skills/work-items/skill.md` § Process: Elaborate recognises re-elaboration as a first-class branch — invoking `*-elaborate` on a non-DRAFT work item enters the re-elaboration flow instead of failing or silently re-running, and the existing failure-mode entry "Wrong status for verb" (line 273) is updated accordingly
+- [x] The Activity Log entry pattern for re-elaboration matches the precedent set by FEAT-003's 2026-05-19 entry (records trigger, upstream commit, what changed)
 
 **F2 — Queryable implementation completeness:**
 
-- [ ] `feature.md` template surfaces "Partial" completeness beyond the existing `Initial Implementation` field — minimum: a structured sub-field naming what is met and what remains (no Activity Log dive required for the headline state)
-- [ ] `feature_index.md` annotation pattern is canonised (currently informal — only FEAT-003 carries `(Partial)`); either documented in the template's Notes section or replaced with a stronger affordance, with consistency applied across the existing seven Features
-- [ ] The chosen affordance is queryable mechanically (grep, glance) — proportionate to the goal, not a new substatus system
-- [ ] Pattern is applied to every Feature currently carrying `Initial Implementation: Partial` — FEAT-003, FEAT-006, and FEAT-007 — demonstrating the affordance on real data
+- [x] `feature.md` template surfaces "Partial" completeness beyond the existing `Initial Implementation` field — minimum: a structured sub-field naming what is met and what remains (no Activity Log dive required for the headline state)
+- [x] `feature_index.md` annotation pattern is canonised (currently informal — only FEAT-003 carries `(Partial)`); either documented in the template's Notes section or replaced with a stronger affordance, with consistency applied across the existing seven Features
+- [x] The chosen affordance is queryable mechanically (grep, glance) — proportionate to the goal, not a new substatus system
+- [x] Pattern is applied to every Feature currently carrying `Initial Implementation: Partial` — FEAT-003, FEAT-006, and FEAT-007 — demonstrating the affordance on real data
 
 **Recursive dogfood:**
 
-- [ ] FEAT-003's `Initial Implementation` line reflects post-Epic reality (Partial bullets that this Epic closes are marked met)
-- [ ] The `(Partial)` index suffix is present on every Feature whose body carries `Initial Implementation: Partial` — verified by `grep "(Partial)" docs/features/feature_index.md` and `grep -l "Initial Implementation\*\*: Partial" docs/features/FEAT-*.md` returning consistent sets (FEAT-006 and FEAT-007 entries currently lack the suffix)
-- [ ] Scratchpad items F1 and F2 remain in Processed with updated pointers to the delivered artefacts; if scope shifts, scratchpad is updated accordingly
+- [x] FEAT-003's `Initial Implementation` line reflects post-Epic reality (Partial bullets that this Epic closes are marked met)
+- [x] The `(Partial)` index suffix is present on every Feature whose body carries `Initial Implementation: Partial` — verified by `grep "(Partial)" docs/features/feature_index.md` and `grep -l "Initial Implementation\*\*: Partial" docs/features/FEAT-*.md` returning consistent sets (FEAT-006 and FEAT-007 entries currently lack the suffix)
+- [x] Scratchpad items F1 and F2 remain in Processed with updated pointers to the delivered artefacts; if scope shifts, scratchpad is updated accordingly
 
 ### Context
 
@@ -102,18 +102,41 @@ As of 2026-05-22 both TASK-001 and TASK-002 are APPROVED and archived — the pr
 
 ## Implementation Notes
 
-*Filled during implementation.*
+EPIC-006 was implemented entirely through three child Tasks, each run end-to-end through the framework's own lifecycle — the Epic was dogfooding the very workflows it delivers:
+
+- **TASK-001** (APPROVED, commit `2b3bd33`) — delivered **F1**: the canonical *Re-elaborating a Work Item* workflow in conceptual_design v1.5, and the `### Re-elaboration Branch` sub-section + Failure Modes update in the `work-items` skill.
+- **TASK-002** (APPROVED, commit `09844df`) — delivered **F2** bullets 1–3: the `**Met:** / **Remaining:**` Partial sub-block stub in the feature template, the canonised `(Partial)` suffix rule in `feature_index.md`'s Notes section, and the `work-items` skill's responsibility for maintaining the suffix.
+- **TASK-003** (APPROVED, commit `547953c`) — the forward-declared follow-up Task: delivered **F2 bullet 4** and all three **recursive-dogfood** criteria by applying the affordance to FEAT-003, FEAT-006, and FEAT-007 on real data.
+
+The forward-declaration mechanism worked as the Plan intended — TASK-003 was created only after TASK-001 and TASK-002 were APPROVED, avoiding the exists-but-cannot-progress state that pre-creation would have produced.
+
+**The Epic was re-elaborated once during its life** (additive, 2026-05-22): TASK-002's Gate 3 surfaced FEAT-007 as an unaccounted-for third Partial Feature. EPIC-006 was re-elaborated via the very *Re-elaborating a Work Item* workflow TASK-001 had just delivered — the framework's first real use of its own re-elaboration mechanism on a downstream-gap trigger — correcting F2 bullet 4 and the recursive-dogfood group from two Features to three.
+
+**Findings routed onward** (not closed by this Epic):
+
+- Three instances of literal-file-count fragility in Acceptance Criteria (TASK-002 AC#6/AC#8, TASK-003 AC#9) — captured in `scratchpad.md` for a dedicated follow-up work item amending conceptual_design / development_guide.
+- Three framework-general implementation ambiguities resolved inside TASK-003's Plan (editing order, re-elaboration commit-hash timing, bundled re-elaboration) — captured in `scratchpad.md`, alongside a meta-gap on routing such resolutions back into the framework.
 
 ---
 
 ## Review
 
-*Filled during review (Gate 3).*
+**Gate 3 — APPROVED 2026-05-22.** A verification subagent audited all twelve Acceptance Criteria (F1: 5, F2: 4, recursive-dogfood: 3) against the delivered artefacts themselves — conceptual_design v1.5 § *Re-elaborating a Work Item*, the `work-items` skill's Re-elaboration Branch and Failure Modes entry, the feature template stub, the canonised `feature_index.md` Notes rule, and the applied sub-blocks on FEAT-003 / FEAT-006 / FEAT-007. Verdict: *ready for Gate 3 approval*.
+
+**All twelve ACs MET.** Both verification greps — `grep "(Partial)" feature_index.md` and `grep -l "Initial Implementation**: Partial" FEAT-*.md` — resolve to the identical set {FEAT-003, FEAT-006, FEAT-007}.
+
+**Forward-declared-Task check** — the Plan's § Risks made this an explicit Gate 3 gate. CONFIRMED: TASK-003 exists, is APPROVED and archived, and closes F2 bullet 4 plus all three recursive-dogfood criteria. The forward-declaration mechanism worked as designed — no exists-but-cannot-progress state, no re-invented `*-PENDING`.
+
+**Alignment** — clean. EPIC-006 traces to FEAT-003's aspirational Ideal State bullets 1 and 2 (both now `*(met — delivered by EPIC-006)*`) and to Vision § Adaptive Coherence; both Vision commitments — drift resolved through canonical re-elaboration, framework evolution propagating to existing artefacts — are operationalised by the delivered workflow. FEAT-003 bullet 3 (framework-version absorption) was deliberately scoped out; EPIC-006 does not claim it and FEAT-003 correctly keeps it open, so FEAT-003 stays `Partial` — honestly.
+
+**Findings — all Strength, no blockers.** The two child-Task caveats routed to EPIC-006 are adequately recorded; the new affordance caught real drift on first use (FEAT-007 as an unaccounted third Partial Feature); the scope boundary held. Items routed onward for a follow-up work item are listed in § Implementation Notes.
 
 ---
 
 ## Activity Log
 
+- **2026-05-22** — APPROVED via Gate 3. Directing party approved — all 12 Acceptance Criteria (F1: 5, F2: 4, recursive-dogfood: 3) verified MET against the delivered artefacts; both index↔body greps consistent; the Plan-mandated forward-declared-Task check confirmed (TASK-003 APPROVED, closes F2 bullet 4 + recursive-dogfood). Alignment to FEAT-003 and Vision § Adaptive Coherence clean. Status REVIEW → APPROVED. EPIC-006 remains as the historical record of how FEAT-003 evolved through the re-elaboration-workflow and queryable-completeness work. See § Review and § Implementation Notes.
+- **2026-05-22** — Status reconciled PLANNED → IMPLEMENTED → REVIEW for Gate 3. EPIC-006's implementation is its three child Tasks — TASK-001, TASK-002, TASK-003 — all now APPROVED and archived (commits `2b3bd33`, `09844df`, `547953c`). The Epic's status field had remained PLANNED while the Tasks executed through their own lifecycles; it is now advanced to REVIEW. Gate 3 verification subagent spawned to audit the F1, F2, and recursive-dogfood Acceptance Criteria against the delivered artefacts.
 - **2026-05-22** — Re-elaborated (additive) via `/epic-elaborate EPIC-006`. **Trigger**: downstream gap — TASK-002 (child Task) APPROVED at Gate 3, **upstream commit `09844df`**; its review surfaced that EPIC-006's Requirements understated reality. A fresh alignment pass against Vision § Adaptive Coherence, parent FEAT-003, and conceptual_design v1.5 confirmed the TASK-002 findings and caught further drift. **Changes**: (1) Partial-Feature set corrected two → three — F2 bullet 4, the recursive-dogfood group, and the forward-declared Task paragraph now name FEAT-003, FEAT-006 *and* FEAT-007 (FEAT-007's body carries `Initial Implementation: Partial`, grep-verified); (2) conceptual_design reference refreshed v1.4 → v1.5 in Context and Dependencies, line ranges re-resolved (§ Responsible Promotion 258–285 → 300–327), stale "not-yet-ratified gap-flag" citation removed (TASK-001 ratified the workflow); (3) recorded that TASK-001 and TASK-002 are both APPROVED, so the forward-declared follow-up Task's precondition is met and it is the sole remaining work before Gate 3; (4) new recursive-dogfood AC requiring the `(Partial)` index suffix on every Partial Feature (FEAT-006 and FEAT-007 entries currently lack it); (5) recorded TASK-002's Gate 3 lesson — the follow-up Task's ACs must use cross-type scope-guard phrasing, never a literal file count. Additive per conceptual_design § Re-elaborating a Work Item — no previously-approved claim contradicted; EPIC-006 stays **PLANNED**, Plan structure preserved, Gate 1 re-passed as a refinement-approval (directing party approved 2026-05-22).
 - **2026-05-19** — PLANNED via Gate 2. Plan section populated with two parallel Tasks (TASK-001 re-elaboration workflow + skill extension; TASK-002 queryable Partial completeness) and one forward-declared follow-up Task (recursive dogfood applying the new affordance to FEAT-003 and FEAT-006). The forward declaration is deliberate: pre-creating the third Task would have placed it in an exists-but-cannot-progress state, functionally re-inventing the `*-PENDING` sub-status pattern technical_design v1.1 retired. Gate 3 cannot be reached until the follow-up Task is created, completed, and approved. Tension surfaced during planning around inter-work-item dependency as a first-class concept — captured in scratchpad for future framework consideration.
 - **2026-05-19** — ELABORATED via Gate 1. Directing party approved the drafted Requirements without modification. The elaboration surfaced one minor staleness in the DRAFT (F1/F2 stated as "currently active" — already in Processed), refined Acceptance Criteria into three explicit groups (F1, F2, recursive-dogfood), and expanded Risks with two concrete tensions (protocol overload, workflow asymmetry with documents). Verdict from the elaboration subagent: ready for Gate 1.
