@@ -12,10 +12,12 @@
 
 ## Notes
 
-**Format**: `[FEAT-ID](./path.md) — STATUS — ACTIVITY — Feature Name #tags`
+**Format**: `[FEAT-ID](./path.md) — STATUS — ACTIVITY — Feature Name [(Partial)] #tags`
 
 **Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
 
 **Activity** (only meaningful for APPROVED features): `STABLE` (no epic in progress) | `ACTIVE` (epic in progress)
+
+**Partial suffix**: A Feature whose body carries `Initial Implementation: Partial` gets a trailing `(Partial)` token after the Feature Name (before `#tags`) — e.g. `Unified Work Item Model (Partial)`. The suffix is present **iff** the body field reads `Partial`, and is added or removed by the `work-items` skill whenever a Feature's `Initial Implementation` field changes — never by manual convention. `grep "(Partial)" feature_index.md` therefore returns every partially-implemented Feature.
 
 **When to update**: Adjust status and activity as the feature progresses. Flat list — no grouping.

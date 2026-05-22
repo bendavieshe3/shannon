@@ -7,6 +7,14 @@
 - **Type**: Feature
 - **Vision Reference**: § "[Section in vision.md this feature elaborates]"
 - **Initial Implementation**: [Built through Shannon | Retrospective (predates Shannon) | Partial — see Activity Log]
+<!-- Partial-completeness sub-block — emit ONLY when Initial Implementation is Partial.
+     Place directly beneath the Initial Implementation line, inside this Metadata block:
+       - **Met:** [aspirations already delivered]
+       - **Remaining:** [aspirations still forward work through new Epics]
+     This is the at-a-glance headline summary of the Partial state — no Activity Log dive
+     required. It is DISTINCT from the inline *(met)* / *(partly met)* annotations that may
+     decorate individual Ideal State bullets: the sub-block summarises the headline; the
+     inline annotations decorate per-aspiration items in the Requirements section. -->
 - **Created**: [YYYY-MM-DD]
 - **Updated**: [YYYY-MM-DD]
 

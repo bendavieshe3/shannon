@@ -113,6 +113,8 @@ Add high-level intent from the user's hint and recent conversation. Do not block
 
 Append a one-line entry to the appropriate index file.
 
+**Feature `(Partial)` index suffix**: a Feature's `feature_index.md` entry carries a trailing `(Partial)` token after the Feature Name iff its body's `Initial Implementation` field reads `Partial`. Whenever the skill sets or changes a Feature's `Initial Implementation` field — at create, during re-elaboration, or when an Epic closes out part of the capability — it updates `docs/features/feature_index.md` in the same operation to add or remove the suffix. The suffix is a derived skill responsibility, never a manual convention; index and body must not diverge (see § Failure Modes — *Index out of sync*).
+
 ### 8. Confirm and Resume
 
 Report creation to the user. Resume the original conversation topic.
@@ -288,7 +290,7 @@ This preserves granular human approval without overwhelming surface.
 - **Wrong status for verb** — e.g. user runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`." Conversely, `*-elaborate` on a non-DRAFT work item is *not* an error — it enters the re-elaboration branch (see § Process: Elaborate → Re-elaboration Branch and `conceptual_design.md § Re-elaborating a Work Item`).
 - **Missing parent** — A Task whose parent Epic doesn't exist. Surface and ask whether to create the parent or proceed as an orphan task.
 - **DRAFT mandated doc as context** — Warn the user that the document being relied on is not yet authoritative.
-- **Index out of sync** — If the index disagrees with the work item file's status, trust the file and fix the index.
+- **Index out of sync** — If the index disagrees with the work item file's status, trust the file and fix the index. This includes the Feature `(Partial)` suffix: if a Feature's body reads `Initial Implementation: Partial` but its `feature_index.md` entry lacks `(Partial)` — or carries it without the body field — the body is authoritative; correct the index (see § Process: Create step 7).
 
 ## Self-Identification
 

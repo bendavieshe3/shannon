@@ -1,7 +1,7 @@
 # Task Index
 
 - [TASK-001](./archive/TASK-001-work-item-re-elaboration-workflow.md) — APPROVED — Re-elaborating a Work Item — workflow + skill extension (EPIC-006) #framework #conceptual-design #work-items
-- [TASK-002](./TASK-002-queryable-implementation-completeness.md) — PLANNED — Queryable implementation completeness for Features (EPIC-006) #framework #templates #work-items
+- [TASK-002](./archive/TASK-002-queryable-implementation-completeness.md) — APPROVED — Queryable implementation completeness for Features (EPIC-006) #framework #templates #work-items
 
 ---
 
