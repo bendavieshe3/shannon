@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md)
 - **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #dogfood #work-items #features
 - **Created**: 2026-05-22
-- **Updated**: 2026-05-22 (planned)
+- **Updated**: 2026-05-22 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -40,16 +40,16 @@ Per the lesson EPIC-006's Plan records from TASK-002's Gate 3 (AC#6 "only two fi
 
 *Drafted at `/task-elaborate TASK-003` from EPIC-006's F2 bullet 4 and the three recursive-dogfood criteria. Each criterion is mechanically verifiable by grep or a glance at the named file.*
 
-- [ ] **AC#1 — `(Partial)` suffix applied to all Partial Features.** `docs/features/feature_index.md` carries the trailing `(Partial)` token (after the Feature Name, before `#tags`, per the canonised Notes rule) on the FEAT-006 and FEAT-007 entries, in addition to the existing FEAT-003 entry. *(EPIC-006 F2 bullet 4; recursive-dogfood bullet 2)*
-- [ ] **AC#2 — Index↔body consistency.** `grep "(Partial)" docs/features/feature_index.md` and `grep -l "Initial Implementation\*\*: Partial" docs/features/FEAT-*.md` return **consistent sets** — both resolving to exactly {FEAT-003, FEAT-006, FEAT-007} — with no Feature appearing in one set but not the other. *(EPIC-006 recursive-dogfood bullet 2, verbatim verification clause)*
-- [ ] **AC#3 — Partial sub-block on each Partial Feature.** FEAT-003, FEAT-006, and FEAT-007 each carry a structured `**Met:** / **Remaining:**` Partial sub-block directly beneath the `Initial Implementation` line inside the Metadata block, matching the shape of the commented stub in `shannon/skills/work-items/templates/feature.md`. The sub-block is the at-a-glance headline of the Partial state — readable without an Activity Log dive. *(EPIC-006 F2 bullet 4 — "demonstrating the affordance on real data")*
-- [ ] **AC#4 — Sub-block distinct from inline annotations.** On each touched Feature the `**Met:** / **Remaining:**` sub-block is visibly distinct from any inline `*(met)* / *(partly met)*` annotations on Ideal State bullets: the sub-block summarises the `Initial Implementation` headline; the inline annotations decorate per-aspiration items. The two coexist without duplication or contradiction (verified by reading FEAT-003, whose Ideal State already carries inline annotations). *(EPIC-006 F2 bullet 4; consistency with TASK-002's delivered shape)*
-- [ ] **AC#5 — FEAT-003 reflects post-Epic reality.** FEAT-003's `Initial Implementation` line and its two aspirational Ideal State bullets that EPIC-006 closes are updated: bullet 1 (re-elaboration workflow) marked `*(met)*` and bullet 2 (queryable completeness) marked `*(met)*`. FEAT-003's headline state remains `Partial` because aspirational bullet 3 (framework-version absorption) is not closed by EPIC-006; FEAT-003's `**Remaining:**` sub-block names exactly that bullet. *(EPIC-006 recursive-dogfood bullet 1)*
-- [ ] **AC#6 — Scratchpad F1/F2 pointers refreshed.** `docs/scratchpad.md` items F1 and F2 remain in the Processed section, with their pointers updated from "EPIC-006 … will deliver" to the delivered artefacts — F1 → TASK-001 (re-elaboration workflow) and TASK-003; F2 → TASK-002 (queryable completeness) and TASK-003. *(EPIC-006 recursive-dogfood bullet 3)*
-- [ ] **AC#7 — Per-Feature re-elaboration Activity Log entries.** FEAT-003, FEAT-006, and FEAT-007 each gain an Activity Log entry recording this change per the *Re-elaborating a Work Item* workflow (conceptual_design v1.5): each entry names **(a) the trigger category** (framework evolution — EPIC-006 delivered the queryable-completeness affordance these Features must absorb), **(b) the upstream commit hash** where applicable, and **(c) a summary of what changed**. Each entry classifies the re-elaboration as **additive** (see judgement below); the Features stay at their current ELABORATED status. *(EPIC-006 F2 bullet 4 + F1 Activity-Log-pattern criterion, exercised on real data)*
-- [ ] **AC#8 — Re-elaboration is additive, status preserved.** Each of FEAT-003 / FEAT-006 / FEAT-007 stays at status `ELABORATED` after the change: the re-elaboration adds a metadata sub-block and marks already-stated aspirations as met — it contradicts no previously-approved claim, so it is additive per conceptual_design § *Re-elaborating a Work Item* and re-passes Gate 1 only as a refinement-approval. No Feature transitions back to DRAFT. *(EPIC-006 F1 status-semantics criterion, applied)*
-- [ ] **AC#9 — Cross-type scope guard.** No epic/task/spike template or index is modified, and no `work-items` skill file is changed: `git diff --name-only` shows changes confined to `docs/features/FEAT-003-*.md`, `docs/features/FEAT-006-*.md`, `docs/features/FEAT-007-*.md`, `docs/features/feature_index.md`, `docs/scratchpad.md`, and this Task file. The Task applies the existing mechanism; it does not alter it. *(EPIC-006 Plan — recorded TASK-002 Gate 3 lesson; phrased as a cross-type guard, not a literal count)*
-- [ ] **AC#10 — Markdown conventions honoured.** All edits follow `development_guide.md` § Code Style (dash bullets, British spelling, heading hierarchy intact, no stale references) and pass its Pre-Commit Checklist; the commit lands after Gate 3 per the Commit Cadence rule. *(development_guide alignment — required Guide for a Task)*
+- [x] **AC#1 — `(Partial)` suffix applied to all Partial Features.** `docs/features/feature_index.md` carries the trailing `(Partial)` token (after the Feature Name, before `#tags`, per the canonised Notes rule) on the FEAT-006 and FEAT-007 entries, in addition to the existing FEAT-003 entry. *(EPIC-006 F2 bullet 4; recursive-dogfood bullet 2)*
+- [x] **AC#2 — Index↔body consistency.** `grep "(Partial)" docs/features/feature_index.md` and `grep -l "Initial Implementation\*\*: Partial" docs/features/FEAT-*.md` return **consistent sets** — both resolving to exactly {FEAT-003, FEAT-006, FEAT-007} — with no Feature appearing in one set but not the other. *(EPIC-006 recursive-dogfood bullet 2, verbatim verification clause)*
+- [x] **AC#3 — Partial sub-block on each Partial Feature.** FEAT-003, FEAT-006, and FEAT-007 each carry a structured `**Met:** / **Remaining:**` Partial sub-block directly beneath the `Initial Implementation` line inside the Metadata block, matching the shape of the commented stub in `shannon/skills/work-items/templates/feature.md`. The sub-block is the at-a-glance headline of the Partial state — readable without an Activity Log dive. *(EPIC-006 F2 bullet 4 — "demonstrating the affordance on real data")*
+- [x] **AC#4 — Sub-block distinct from inline annotations.** On each touched Feature the `**Met:** / **Remaining:**` sub-block is visibly distinct from any inline `*(met)* / *(partly met)*` annotations on Ideal State bullets: the sub-block summarises the `Initial Implementation` headline; the inline annotations decorate per-aspiration items. The two coexist without duplication or contradiction (verified by reading FEAT-003, whose Ideal State already carries inline annotations). *(EPIC-006 F2 bullet 4; consistency with TASK-002's delivered shape)*
+- [x] **AC#5 — FEAT-003 reflects post-Epic reality.** FEAT-003's `Initial Implementation` line and its two aspirational Ideal State bullets that EPIC-006 closes are updated: bullet 1 (re-elaboration workflow) marked `*(met)*` and bullet 2 (queryable completeness) marked `*(met)*`. FEAT-003's headline state remains `Partial` because aspirational bullet 3 (framework-version absorption) is not closed by EPIC-006; FEAT-003's `**Remaining:**` sub-block names exactly that bullet. *(EPIC-006 recursive-dogfood bullet 1)*
+- [x] **AC#6 — Scratchpad F1/F2 pointers refreshed.** `docs/scratchpad.md` items F1 and F2 remain in the Processed section, with their pointers updated from "EPIC-006 … will deliver" to the delivered artefacts — F1 → TASK-001 (re-elaboration workflow) and TASK-003; F2 → TASK-002 (queryable completeness) and TASK-003. *(EPIC-006 recursive-dogfood bullet 3)*
+- [x] **AC#7 — Per-Feature re-elaboration Activity Log entries.** FEAT-003, FEAT-006, and FEAT-007 each gain an Activity Log entry recording this change per the *Re-elaborating a Work Item* workflow (conceptual_design v1.5): each entry names **(a) the trigger category** (framework evolution — EPIC-006 delivered the queryable-completeness affordance these Features must absorb), **(b) the upstream commit hash** where applicable, and **(c) a summary of what changed**. Each entry classifies the re-elaboration as **additive** (see judgement below); the Features stay at their current ELABORATED status. *(EPIC-006 F2 bullet 4 + F1 Activity-Log-pattern criterion, exercised on real data)*
+- [x] **AC#8 — Re-elaboration is additive, status preserved.** Each of FEAT-003 / FEAT-006 / FEAT-007 stays at status `ELABORATED` after the change: the re-elaboration adds a metadata sub-block and marks already-stated aspirations as met — it contradicts no previously-approved claim, so it is additive per conceptual_design § *Re-elaborating a Work Item* and re-passes Gate 1 only as a refinement-approval. No Feature transitions back to DRAFT. *(EPIC-006 F1 status-semantics criterion, applied)*
+- [x] **AC#9 — Cross-type scope guard.** No epic/task/spike template or index is modified, and no `work-items` skill file is changed: `git diff --name-only` shows changes confined to `docs/features/FEAT-003-*.md`, `docs/features/FEAT-006-*.md`, `docs/features/FEAT-007-*.md`, `docs/features/feature_index.md`, `docs/scratchpad.md`, and this Task file. The Task applies the existing mechanism; it does not alter it. *(EPIC-006 Plan — recorded TASK-002 Gate 3 lesson; phrased as a cross-type guard, not a literal count)*
+- [x] **AC#10 — Markdown conventions honoured.** All edits follow `development_guide.md` § Code Style (dash bullets, British spelling, heading hierarchy intact, no stale references) and pass its Pre-Commit Checklist; the commit lands after Gate 3 per the Commit Cadence rule. *(development_guide alignment — required Guide for a Task)*
 
 ### Context
 
@@ -124,41 +124,62 @@ Three design decisions fix the implementation so it is unambiguous:
 
 ## Implementation Notes
 
-[Filled during implementation.]
+Executed 2026-05-22 via `/task-implement TASK-003`, following the Gate 2 eight-step plan. All eight steps completed. The Task applied the existing TASK-002 mechanism to real Feature data — the Partial sub-block shape and the canonised `(Partial)` index rule were used as-is; no template, index Notes block, or `work-items` skill was edited.
+
+The three per-Feature changes were executed as **additive re-elaborations** per conceptual_design v1.5 § *Re-elaborating a Work Item*: each Feature gained a `**Met:** / **Remaining:**` sub-block and an Activity Log entry recording trigger (framework evolution), upstream commit (`09844df`), and summary. All three Features stay ELABORATED — no previously-approved claim was contradicted. The sub-block was placed as a 2-space-nested sub-list under the `Initial Implementation` bullet, so it reads as a breakdown *of* that field rather than as new sibling metadata.
+
+**Verification**: Step 5 — `grep "(Partial)" feature_index.md` and `grep -l "Initial Implementation**: Partial" FEAT-*.md` both resolve to exactly {FEAT-003, FEAT-006, FEAT-007} (AC#2 — index↔body consistent). Step 8 — `git diff --name-only` shows the five target files plus this Task file (the position verified mid-implementation); after the IMPLEMENTED status transition the changeset also includes the routine Task-status bookkeeping in `task_index.md` and EPIC-006's § Tasks line — **eight files total**. The cross-type scope guard (AC#9) holds in substance: no epic/task/spike template, no index Notes block, no cross-type index, no `work-items` skill. AC#9's Requirements text enumerates six files — it did not anticipate the status-bookkeeping files every Task transition necessarily touches; the guard's *intent* (no cross-type mechanism modified) is fully met. This is itself an instance of the literal-file-count fragility TASK-002's Gate 3 flagged — noted for the Review section.
 
 ### Deviations from Plan
 
-- [What changed and why]
+- **FEAT-003 Ideal State intro line also updated** (in-scope extension of Step 3). Plan Step 3 enumerated (a) the `Initial Implementation` line, (b) the sub-block, (c) bullets 1 & 2 annotations, (d) the Activity Log entry. During implementation the Ideal State aspirational-group intro sentence was found stale — it read "commitments that downstream work *must deliver* — including the very work captured by F1 and F2", future tense, while F1 and F2 are now delivered. Leaving it would directly contradict AC#5's intent ("FEAT-003 reflects post-Epic reality"). The sentence was updated to "two now delivered by EPIC-006 (F1, F2) and one still outstanding". Treated as an in-scope extension of Step 3(c); flagged for Gate 3.
 
 ### Gotchas
 
-- [Problem encountered — resolution]
+- **FEAT-006's `**Remaining:**` is the V6 vocabulary sweep**, not anything EPIC-006 closes — the planning subagent flagged this risk. The sub-block was written strictly from FEAT-006's own Ideal State annotations and § Plan candidate Epics (EPIC-005 + candidate Epic B); no EPIC-006 content was conflated in. FEAT-006 and FEAT-007 stay Partial for reasons entirely independent of EPIC-006 — the affordance simply now makes that visible.
+- **Commit-hash timing** — the per-Feature re-elaboration entries cite the *upstream* commit `09844df` (TASK-002's affordance) and reference TASK-003 by ID. TASK-003's own commit does not exist at implementation time (Commit Cadence — the commit lands after Gate 3), exactly the case conceptual_design § *Re-elaborating a Work Item* step 6 covers with "upstream commit hash *where applicable*".
 
 ### Documents Updated
 
-- [Documents updated during implementation, with sections]
+- `docs/features/FEAT-003-unified-work-item-model.md` — `Initial Implementation` line rewritten; `**Met:** / **Remaining:**` sub-block added; Ideal State intro + aspirational bullets 1 & 2 marked `*(met)*`; re-elaboration Activity Log entry; Updated date.
+- `docs/features/FEAT-006-multi-party-supervision.md` — `**Met:** / **Remaining:**` sub-block added; re-elaboration Activity Log entry; Updated date.
+- `docs/features/FEAT-007-lightweight-idea-capture.md` — `**Met:** / **Remaining:**` sub-block added; re-elaboration Activity Log entry; Updated date.
+- `docs/features/feature_index.md` — `(Partial)` suffix added to the FEAT-006 and FEAT-007 entries.
+- `docs/scratchpad.md` — Processed items F1 and F2 pointers refreshed from "EPIC-006 will deliver" to the delivered artefacts (TASK-001, TASK-002, TASK-003).
 
 ---
 
 ## Review
 
-[Filled during review (Gate 3).]
+**Gate 3 — APPROVED 2026-05-22.** A verification subagent audited all 10 Acceptance Criteria against the five changed files and checked alignment with EPIC-006 and conceptual_design v1.5 § *Re-elaborating a Work Item*. Verdict: *ready with noted caveats* — 9 of 10 ACs fully met; AC#9 met in substance with a documentation-accuracy caveat.
 
 ### Verification
 
-- [ ] All acceptance criteria met
-- [ ] Changes follow development_guide.md
-- [ ] Relevant documents updated
-- [ ] Knowledge captured where useful
+- [x] All acceptance criteria met
+- [x] Changes follow development_guide.md
+- [x] Relevant documents updated
+- [x] Knowledge captured where useful
 
 ### Review Notes
 
-[Findings from review. Issues found and how they were resolved.]
+**AC#1–8 and AC#10 — fully met.** The `(Partial)` suffix is applied to the FEAT-006 and FEAT-007 index entries; index↔body greps resolve to the identical {FEAT-003, FEAT-006, FEAT-007} set; all three Features carry well-formed `**Met:** / **Remaining:**` sub-blocks matching the template stub and visibly distinct from FEAT-003's inline `*(met)*` annotations; FEAT-003 honestly reflects post-Epic reality (bullets 1 & 2 met, bullet 3 open, headline stays `Partial`); the scratchpad F1/F2 pointers are refreshed; three correctly-classified additive re-elaboration entries preserve ELABORATED status on all three Features.
+
+**AC#9 — met in substance; caveat recorded.** `git diff --name-only` shows eight files, not the six AC#9's Requirements text enumerates. The two extras — `task_index.md` and EPIC-006's § Tasks line — are routine Task-status bookkeeping that every Task transition necessarily touches; they are not a scope violation. The cross-type scope guard's intent — no epic/task/spike template, no cross-type index, no `work-items` skill, no index Notes block modified — holds completely. The false "six files" assertion in Implementation Notes § Verification was corrected during review. AC#9's Requirements text is left intact as the Gate 1 record (per the TASK-002 AC#6 precedent).
+
+**Third instance of literal-file-count fragility.** AC#9's six-file enumeration follows TASK-002's AC#6 (a literal "two files" that contradicted AC#5) and AC#8 (a grep pattern missing bold markers). AC#9 was written *specifically* to honour the TASK-002 lesson and still enumerated six literal files. Three occurrences is a clear pattern: scope Acceptance Criteria should express a cross-type *guard* ("no epic/task/spike template, index, or skill modified") and never a literal file count or enumeration. Recorded in `scratchpad.md` (the "framework clarifications" item); the three-instance case is now concrete input for the dedicated follow-up work item that amends conceptual_design / development_guide.
+
+**Recorded deviation — sound.** The implementer's update of FEAT-003's Ideal State intro line (beyond the plan's enumerated Step 3 items) was judged in-scope and correctly disclosed: leaving the future-tense "must deliver" sentence would have contradicted AC#5's mandate. It strengthens consistency, not scope.
+
+**Alignment.** EPIC-006's F2 bullet 4 and all three recursive-dogfood Acceptance Criteria are delivered. No drift against EPIC-006 or conceptual_design v1.5.
 
 ---
 
 ## Activity Log
 
+- **2026-05-22** — APPROVED via Gate 3. Directing party approved after verification — 9 of 10 ACs fully met; AC#9 met in substance with a documented caveat (the `git diff` carries 8 files, not the 6 the AC text enumerates — the extras are routine Task-status bookkeeping; the cross-type scope guard's intent holds). The literal-file-count imprecision is the third such instance (after TASK-002 AC#6/AC#8) — recorded in the Review section and `scratchpad.md` as a concrete three-instance case for the framework-clarifications follow-up. All 10 Acceptance Criteria checked. Status REVIEW → APPROVED; file archived to `docs/tasks/archive/`. EPIC-006's F2 bullet 4 and all recursive-dogfood criteria delivered — the Epic's last Task is complete.
+- **2026-05-22** — REVIEW. Status IMPLEMENTED → REVIEW; Gate 3 verification subagent spawned to audit all 10 Acceptance Criteria against the five changed files and check alignment with EPIC-006 and conceptual_design § Re-elaborating a Work Item.
+- **2026-05-22** — IMPLEMENTED. All 8 plan steps executed across the five target files. Partial sub-blocks added to FEAT-003, FEAT-006, FEAT-007; `(Partial)` index suffix applied to the FEAT-006 and FEAT-007 entries; FEAT-003's `Initial Implementation` line and Ideal State aspirational bullets 1 & 2 marked met; scratchpad F1/F2 pointers refreshed; a re-elaboration Activity Log entry recorded on each of the three Features. Verification: index↔body grep resolves to {FEAT-003, FEAT-006, FEAT-007} (AC#2); `git diff` confined to six files — no template, index Notes block or skill touched (AC#9). One in-scope deviation — FEAT-003's Ideal State intro line was also de-staled (see Implementation Notes § Deviations). Ready for Gate 3.
+- **2026-05-22** — IMPLEMENTING via `/task-implement TASK-003`. Status PLANNED → IMPLEMENTING; executing the 8-step plan across FEAT-003, FEAT-006, FEAT-007, `feature_index.md` and `scratchpad.md`.
 - **2026-05-22** — PLANNED via Gate 2. Planning subagent drafted the Plan — 8 ordered steps across the five target files (FEAT-006 → FEAT-007 → FEAT-003 → feature_index → verify grep → scratchpad → markdown pass → scope-guard check), each step annotated with the AC(s) it satisfies; all 10 ACs covered. Three implementation ambiguities resolved in § Approach: editing order (source-of-truth bodies before derived index/references), re-elaboration trigger (framework evolution, upstream commit `09844df`), and bundled re-elaboration (TASK-003's own Gate 2/Gate 3 serve as the per-Feature directing-party refinement-approval). 5 risks with mitigations. Directing party noted the three resolutions are framework-general and chose *Capture & continue* — they are recorded in `scratchpad.md` for a dedicated follow-up work item (amending conceptual_design + development_guide), alongside a meta-gap on routing such resolutions back into the framework. Plan approved without modification.
 - **2026-05-22** — ELABORATED via Gate 1. Elaboration subagent drafted the Requirements — 10 testable Acceptance Criteria, each traced to an EPIC-006 criterion (F2 bullet 4 + the three recursive-dogfood criteria) and verifiable by grep or glance. Alignment check returned all Strength — no Drift, no internal contradiction; every EPIC-006 criterion this Task closes maps to ≥1 AC. AC#2 adopts the corrected `Initial Implementation**: Partial` grep pattern (fixing the bug TASK-002's Review flagged); AC#9 phrases scope as a cross-type guard per the recorded TASK-002 lesson. Per-Feature re-elaborations judged additive — the three Features stay ELABORATED. Directing party approved the requirements without modification.
 - **2026-05-22** — DRAFT: Task created via `/task-create` under EPIC-006. This is EPIC-006's forward-declared follow-up Task; its precondition — TASK-001 and TASK-002 both APPROVED — was met on 2026-05-22 (commits `2b3bd33`, `09844df`). Initial intent captured in the Overview and Context; Acceptance Criteria and Plan to be drafted at `/task-elaborate` and `/task-plan`.

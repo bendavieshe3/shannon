@@ -5,8 +5,8 @@
 - [FEAT-003](./FEAT-003-unified-work-item-model.md) — ELABORATED — STABLE — Unified Work Item Model (Partial) #core #work-items
 - [FEAT-004](./FEAT-004-three-quality-gates.md) — ELABORATED — STABLE — Three Quality Gates #core #review
 - [FEAT-005](./FEAT-005-knowledge-base.md) — ELABORATED — STABLE — Knowledge Base #core #knowledge
-- [FEAT-006](./FEAT-006-multi-party-supervision.md) — ELABORATED — STABLE — Multi-Party Supervision #core #v6
-- [FEAT-007](./FEAT-007-lightweight-idea-capture.md) — ELABORATED — STABLE — Lightweight Idea Capture #scratchpad #vision-gap
+- [FEAT-006](./FEAT-006-multi-party-supervision.md) — ELABORATED — STABLE — Multi-Party Supervision (Partial) #core #v6
+- [FEAT-007](./FEAT-007-lightweight-idea-capture.md) — ELABORATED — STABLE — Lightweight Idea Capture (Partial) #scratchpad #vision-gap
 
 ---
 

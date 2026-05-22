@@ -7,8 +7,10 @@
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #2 ("Strategic External Review")
 - **Initial Implementation**: Partial — see Activity Log
+  - **Met:** Document-layer V6 alignment — the six mandated documents use directing-party / implementer vocabulary; the *Supervisor Distinct From Implementer* business rule is named; cooperative-access conventions are documented.
+  - **Remaining:** The implementation-layer V6 vocabulary sweep — 3 skill definitions + the CLAUDE.md template (EPIC-005) and 22 command files (candidate Epic B); structural self-approval refusal in skills and commands; a multi-agent configuration exercised in practice.
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-18 (re-elaborated)
+- **Updated**: 2026-05-22 (re-elaborated)
 
 ---
 
@@ -105,6 +107,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ## Activity Log
 
+- **2026-05-22** — Re-elaborated (additive). **Trigger**: framework evolution — EPIC-006 (via TASK-002, commit `09844df`) delivered the queryable Partial-completeness affordance that pre-existing Partial Features must absorb. **Change**: added the `**Met:** / **Remaining:**` sub-block beneath the `Initial Implementation` line, surfacing the Partial state at a glance without an Activity Log dive; applied via TASK-003. No previously-approved claim contradicted — additive; status stays ELABORATED.
 - **2026-05-18** — Re-elaborated. Triggered by upstream evolution since initial elaboration (Vision v2.2 added retrospective adoption acknowledgement; conceptual_design v1.3 added the *Re-reviewing an APPROVED Mandated Document* workflow). Changes applied:
   - Context updated to reflect Vision v2.2 and conceptual_design v1.3 (five Key Workflows; ux_guide § Presenting Findings added)
   - Ideal State bullets now annotate which items are met vs partly met vs pending
