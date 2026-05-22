@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: Initialise a project with the Shannon framework. Invoked by /shannon-setup. Detects existing .claude/ state, deploys templates from this skill and its sibling skills, instantiates mandated documents in ./docs/, and produces a project-level CLAUDE.md. Use when a user runs /shannon-setup or asks to "set up Shannon in this project".
+description: Initialise a project with the Shannon framework. Invoked by /shannon-setup. Detects existing .claude/ state, deploys templates from this skill and its sibling skills, instantiates mandated documents in ./docs/, and produces a project-level CLAUDE.md. Use when the directing party runs /shannon-setup or asks to "set up Shannon in this project".
 ---
 
 # Skill: project-setup
@@ -21,14 +21,14 @@ This skill does **not** elaborate vision or create work items — those happen a
 
 ## When to Invoke
 
-- The user runs `/shannon-setup`
-- The user asks to "set up Shannon" or "install Shannon" in a project
-- The user is in a directory with no `.claude/` and asks how to start using Shannon
+- The directing party runs `/shannon-setup`
+- The directing party asks to "set up Shannon" or "install Shannon" in a project
+- The directing party is in a directory with no `.claude/` and asks how to start using Shannon
 
 ## Inputs
 
 - **Working directory** — Inferred from the current Claude Code session
-- **Project name** — Asked of the user if not supplied
+- **Project name** — Asked if not supplied
 - **Project type hint** *(optional)* — e.g. "web app", "CLI tool", "library"
 
 ## Process
@@ -39,11 +39,11 @@ This skill does **not** elaborate vision or create work items — those happen a
 - Check whether `./docs/` exists and contains any mandated documents
 - Check whether `./.claude/.shannon-version` exists (indicates a prior install)
 
-Report findings to the user before changing anything.
+Report findings to the directing party before changing anything.
 
 ### 2. Confirm Intent
 
-If existing Shannon state is detected, explicitly confirm with the user whether to:
+If existing Shannon state is detected, explicitly confirm with the directing party whether to:
 
 - **Update** — Preserve existing customisations, refresh framework files
 - **Reinstall** — Back up existing state, install fresh
@@ -59,7 +59,7 @@ Copy from this skill's parent `shannon/` source tree (or from the deployed `./.c
 - `shannon/skills/` → `./.claude/skills/`
 - `shannon/guides/` → `./.claude/guides/` *(optional, recommended)*
 
-For updates, back up existing files before overwriting. Surface a diff summary to the user.
+For updates, back up existing files before overwriting. Surface a diff summary to the directing party.
 
 ### 4. Instantiate Mandated Documents
 
@@ -84,7 +84,7 @@ Instantiate `CLAUDE.md` in the project root from this skill's template at `templ
 
 ### 6. Capture Initial Vision Content
 
-Walk the user through the Vision template's sections:
+Walk the directing party through the Vision template's sections:
 
 - Problem Statement
 - Vision Statement
@@ -92,7 +92,7 @@ Walk the user through the Vision template's sections:
 - Key Features
 - Target Users
 
-Write their answers into `./docs/vision.md`. Leave Success Metrics and Future Vision as placeholders for the user to fill in later.
+Write their answers into `./docs/vision.md`. Leave Success Metrics and Future Vision as placeholders for the directing party to fill in later.
 
 ### 7. Verify
 
@@ -100,11 +100,11 @@ Write their answers into `./docs/vision.md`. Leave Success Metrics and Future Vi
 - Confirm `CLAUDE.md` is readable and references the right paths
 - Confirm index files are present and well-formed
 
-Report verification results to the user with a list of created files and the next recommended command (typically `/document-review vision.md`).
+Report verification results to the directing party with a list of created files and the next recommended command (typically `/document-review vision.md`).
 
 ## Quality Gates
 
-This skill operates **before** the work item lifecycle, so no Gates 1–3 apply directly. The vision content captured here will pass through Gate 1 when the user runs `/document-review vision.md`.
+This skill operates **before** the work item lifecycle, so no Gates 1–3 apply directly. The vision content captured here will pass through Gate 1 when the directing party runs `/document-review vision.md`.
 
 ## Templates
 
@@ -116,9 +116,9 @@ Mandated document templates live in the `project-documentation` skill; work item
 
 ## Failure Modes
 
-- **Existing `.claude/` with conflicting structure** — Report the conflict, ask the user whether to merge, back up and replace, or abort
+- **Existing `.claude/` with conflicting structure** — Report the conflict, ask the directing party whether to merge, back up and replace, or abort
 - **Missing source tree** — If invoked from a context where `shannon/skills/` or `./.claude/skills/` cannot be found, report the error: "Cannot locate Shannon source. Confirm Shannon was cloned or installed."
-- **User aborts mid-setup** — Roll back any in-progress changes; do not leave the project in a half-installed state
+- **Directing party aborts mid-setup** — Roll back any in-progress changes; do not leave the project in a half-installed state
 
 ## Self-Identification
 

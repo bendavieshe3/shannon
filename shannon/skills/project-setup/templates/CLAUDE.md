@@ -62,13 +62,13 @@ DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW →
    Gate 1     Gate 2    (iterative zone)                         Gate 3
 ```
 
-**Three quality gates require explicit user approval:**
+**Three quality gates require explicit directing-party approval:**
 
 1. **Gate 1 (DRAFT → ELABORATED)**: Are the requirements complete and aligned?
 2. **Gate 2 (ELABORATED → PLANNED)**: Is the implementation plan sound?
 3. **Gate 3 (REVIEW → APPROVED)**: Does the implementation meet requirements?
 
-Between IMPLEMENTING, IMPLEMENTED, and REVIEW, AI and user iterate freely.
+Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and directing party iterate freely.
 
 ---
 
@@ -130,7 +130,7 @@ See `./.claude/commands/README.md` for full command reference.
 
 ### Never
 
-❌ Skip a quality gate — every gate requires explicit user approval
+❌ Skip a quality gate — every gate requires explicit directing-party approval
 ❌ Plan or implement without reading the documents listed in the work item's Context section
 ❌ Update a Guide (Development Guide, UX Guide) from a task — guides are reference material
 ❌ Use DRAFT mandated documents as authoritative context

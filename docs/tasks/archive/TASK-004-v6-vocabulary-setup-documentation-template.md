@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-005](../epics/EPIC-005-v6-skills-and-claude-template.md)
 - **Feature**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
 - **Tags**: #framework #v6 #skills
 - **Created**: 2026-05-23
-- **Updated**: 2026-05-23 (planned)
+- **Updated**: 2026-05-23 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -36,30 +36,30 @@ The canonical phrasing reference is the V6-aligned document layer — conceptual
 
 Vocabulary edits — `project-setup/skill.md`:
 
-- [ ] In `shannon/skills/project-setup/skill.md`, each of the 14 directing-party-sense "user" occurrences (lines 3, 24, 25, 26, 31, 42, 46, 62, 87, 95, 103, 107, 119, 121) is reworded to name the *directing party* (or rephrased to avoid the role noun where the sentence reads naturally without it, e.g. "Project name — asked if not supplied"). No directing-party-sense "user" remains.
-- [ ] The three preserved occurrences are left intact: the file-merge "user content" on line 69 (`do not overwrite user content`) and line 83 (`Preserve any existing user content`), and the Vision-template section name "Target Users" on line 93. These are correct as written — file-merge "user content" is a distinct sense from the interaction role (EPIC-005 AC#7), and "Target Users" is a literal Vision template heading. They are a preserve-list, not defects.
+- [x] In `shannon/skills/project-setup/skill.md`, each of the 14 directing-party-sense "user" occurrences (lines 3, 24, 25, 26, 31, 42, 46, 62, 87, 95, 103, 107, 119, 121) is reworded to name the *directing party* (or rephrased to avoid the role noun where the sentence reads naturally without it, e.g. "Project name — asked if not supplied"). No directing-party-sense "user" remains.
+- [x] The three preserved occurrences are left intact: the file-merge "user content" on line 69 (`do not overwrite user content`) and line 83 (`Preserve any existing user content`), and the Vision-template section name "Target Users" on line 93. These are correct as written — file-merge "user content" is a distinct sense from the interaction role (EPIC-005 AC#7), and "Target Users" is a literal Vision template heading. They are a preserve-list, not defects.
 
 Vocabulary edits — `project-documentation/skill.md` (project-documentation half of EPIC-005 AC#2 / AC#3):
 
-- [ ] In `shannon/skills/project-documentation/skill.md`, § Process: Review **step 4 (Quality Gate, Gate 1)** names the **directing party** as the agent that explicitly approves (currently "Explicit user approval"), consistent with conceptual_design *Three Hard Gates* ("explicit approval by the directing party").
-- [ ] In `shannon/skills/project-documentation/skill.md` **§ Quality Gates**, the line `Gate 1 (DRAFT → APPROVED): Explicit user approval required. AI cannot self-approve.` is reworded so approval is by the **directing party** and self-approval prevention names the **implementer** (e.g. "the implementer cannot approve its own work"), phrasing taken from conceptual_design *Supervisor Distinct From Implementer* and technical_design § Gate Enforcement — not a loose paraphrase.
-- [ ] The remaining directing-party-sense "user" occurrences in `project-documentation/skill.md` (lines 16, 24, 25, 26, 66, 83, 89 ×2, 113, 124, 137, 138 ×2) are reworded to name the *directing party* or rephrased to avoid the role noun. No directing-party-sense "user" remains.
+- [x] In `shannon/skills/project-documentation/skill.md`, § Process: Review **step 4 (Quality Gate, Gate 1)** names the **directing party** as the agent that explicitly approves (currently "Explicit user approval"), consistent with conceptual_design *Three Hard Gates* ("explicit approval by the directing party").
+- [x] In `shannon/skills/project-documentation/skill.md` **§ Quality Gates**, the line `Gate 1 (DRAFT → APPROVED): Explicit user approval required. AI cannot self-approve.` is reworded so approval is by the **directing party** and self-approval prevention names the **implementer** (e.g. "the implementer cannot approve its own work"), phrasing taken from conceptual_design *Supervisor Distinct From Implementer* and technical_design § Gate Enforcement — not a loose paraphrase.
+- [x] The remaining directing-party-sense "user" occurrences in `project-documentation/skill.md` (lines 16, 24, 25, 26, 66, 83, 89 ×2, 113, 124, 137, 138 ×2) are reworded to name the *directing party* or rephrased to avoid the role noun. No directing-party-sense "user" remains.
 
 Vocabulary edits — `templates/CLAUDE.md` (EPIC-005 AC#6):
 
-- [ ] In `shannon/skills/project-setup/templates/CLAUDE.md`, line 65 (`Three quality gates require explicit user approval`) and line 133 (`every gate requires explicit user approval`) name the **directing party** as approver, and line 71 (`AI and user iterate freely`) names the **implementer and directing party** iterating in the zone — consistent with conceptual_design *Iterative Implementation Zone* and *Three Hard Gates*.
-- [ ] Line 25 of `templates/CLAUDE.md` (`vision.md ... # Problem, vision, principles, target users`) is left unchanged — "target users" is a legitimate description of the Vision document's content, not a gate role. Preserve, do not edit.
+- [x] In `shannon/skills/project-setup/templates/CLAUDE.md`, line 65 (`Three quality gates require explicit user approval`) and line 133 (`every gate requires explicit user approval`) name the **directing party** as approver, and line 71 (`AI and user iterate freely`) names the **implementer and directing party** iterating in the zone — consistent with conceptual_design *Iterative Implementation Zone* and *Three Hard Gates*.
+- [x] Line 25 of `templates/CLAUDE.md` (`vision.md ... # Problem, vision, principles, target users`) is left unchanged — "target users" is a legitimate description of the Vision document's content, not a gate role. Preserve, do not edit.
 
 Scope boundary and integrity:
 
-- [ ] `shannon/skills/work-items/skill.md` is **not modified** by this Task — `git status` shows it unchanged. Its vocabulary sweep and `PLAN-PENDING` rewrite are TASK-B; cross-file verification is TASK-C.
-- [ ] Each edited skill retains its self-identification line unchanged: `project-setup/skill.md` keeps `"Activating project-setup skill."` (lines 8 and 125) and `project-documentation/skill.md` keeps `"Activating project-documentation skill."` (lines 8 and 142). `rg -n "Activating .* skill\."` over the two edited skills shows the same lines as before the change.
-- [ ] No structural changes: no headings added or removed, no steps reordered, no sections moved in any of the three files — vocabulary-only edits.
+- [x] `shannon/skills/work-items/skill.md` is **not modified** by this Task — `git status` shows it unchanged. Its vocabulary sweep and `PLAN-PENDING` rewrite are TASK-B; cross-file verification is TASK-C.
+- [x] Each edited skill retains its self-identification line unchanged: `project-setup/skill.md` keeps `"Activating project-setup skill."` (lines 8 and 125) and `project-documentation/skill.md` keeps `"Activating project-documentation skill."` (lines 8 and 142). `rg -n "Activating .* skill\."` over the two edited skills shows the same lines as before the change.
+- [x] No structural changes: no headings added or removed, no steps reordered, no sections moved in any of the three files — vocabulary-only edits.
 
 Verification and distribution:
 
-- [ ] After the edits, `rg "\b[Uu]sers?\b" shannon/skills/project-setup/skill.md shannon/skills/project-documentation/skill.md shannon/skills/project-setup/templates/CLAUDE.md` returns only the three deliberately-preserved occurrences (project-setup lines 69, 83, 93 — line numbers may shift slightly with edits) and `templates/CLAUDE.md` "target users"; `project-documentation/skill.md` returns **zero** matches. Every surviving match is on the preserve-list above.
-- [ ] After editing the `shannon/` source files, the deployed `.claude/skills/project-setup/` and `.claude/skills/project-documentation/` copies (including `templates/CLAUDE.md`) are re-synced from `shannon/` source so the deployed tree matches — per development_guide § Distribution and EPIC-005's per-Task re-sync obligation.
+- [x] After the edits, `rg "\b[Uu]sers?\b" shannon/skills/project-setup/skill.md shannon/skills/project-documentation/skill.md shannon/skills/project-setup/templates/CLAUDE.md` returns only the three deliberately-preserved occurrences (project-setup lines 69, 83, 93 — line numbers may shift slightly with edits) and `templates/CLAUDE.md` "target users"; `project-documentation/skill.md` returns **zero** matches. Every surviving match is on the preserve-list above.
+- [x] After editing the `shannon/` source files, the deployed `.claude/skills/project-setup/` and `.claude/skills/project-documentation/` copies (including `templates/CLAUDE.md`) are re-synced from `shannon/` source so the deployed tree matches — per development_guide § Distribution and EPIC-005's per-Task re-sync obligation.
 
 ### Context
 
@@ -118,41 +118,64 @@ Three occurrences in `project-setup/skill.md` (lines 69, 83, 93) and one in `tem
 
 ## Implementation Notes
 
-[Filled during implementation.]
+Implemented 2026-05-23 via `/task-implement TASK-004`, following the Gate 2 six-step plan. 30 edits across the three files — 14 in `project-setup/skill.md`, 13 in `project-documentation/skill.md`, 3 in `templates/CLAUDE.md` — each a word-level per-occurrence rewrite naming the *directing party* (the gate-approving / directing role) or, in the gate sentences, the *implementer* that cannot approve its own work. Phrasing was copied from conceptual_design v1.5 (*Supervisor Distinct From Implementer*; *Three Hard Gates*; *Iterative Implementation Zone*) and technical_design v1.1, not invented.
+
+The four preserved occurrences were left byte-for-byte intact: `project-setup/skill.md` lines 69 and 83 ("user content" — file-merge sense) and line 93 ("Target Users" — Vision template section name), and `templates/CLAUDE.md` line 25 ("target users" — Vision document content description).
+
+**Gate rewrites** (`project-documentation/skill.md`): § Process: Review step 4 now reads "Ask the directing party explicitly:" — naming the directing party as the approver; § Quality Gates Gate 1 changed from "Explicit user approval required. AI cannot self-approve." to "Explicit approval by the directing party. The implementer cannot approve its own work."
+
+**Verification** (step 6): `grep -nE "\b[Uu]sers?\b"` returns only the four preserved occurrences — `project-setup/skill.md` 69/83/93 and `templates/CLAUDE.md` 25; `project-documentation/skill.md` returns zero. Self-identification lines unchanged (`project-setup` lines 8/125, `project-documentation` 8/142). `git status` confirms `work-items/skill.md` is not modified — the cross-type scope boundary held.
+
+**Deployed-copy re-sync** (step 5): `shannon/skills/project-setup/` and `shannon/skills/project-documentation/` re-copied to `.claude/skills/`; `diff -rq` confirms the deployed copies match source. `.claude/` is gitignored, so the re-sync produces no tracked diff — recorded here so Gate 3 can confirm it happened.
 
 ### Deviations from Plan
 
-- [What changed and why]
+- None. The six steps were executed as planned.
 
 ### Gotchas
 
-- [Problem encountered — resolution]
+- `project-documentation/skill.md` § Process: Review step 4 (the `Ask explicitly:` line) carried no `user` token, but was still reworded to `Ask the directing party explicitly:` — EPIC-005 AC#2 and Plan step 3 require step 4 to *name* the directing party as the approver, so this is a naming addition, not a vocabulary removal. Counted among the 13 project-documentation edits.
 
 ### Documents Updated
 
-- [Documents updated during implementation, with sections]
+- `shannon/skills/project-setup/skill.md` — 14 directing-party vocabulary edits (When to Invoke, Inputs, Process steps, Failure Modes); lines 69/83/93 preserved.
+- `shannon/skills/project-documentation/skill.md` — 13 edits including the § Process: Review step 4 and § Quality Gates Gate 1 rewrites; zero `[Uu]sers?` matches remain.
+- `shannon/skills/project-setup/templates/CLAUDE.md` — 3 edits (lines 65, 71, 133); line 25 preserved.
+- `.claude/skills/project-setup/` and `.claude/skills/project-documentation/` — re-synced from `shannon/` source (gitignored; verified by `diff -rq`).
 
 ---
 
 ## Review
 
-[Filled during review (Gate 3).]
+**Gate 3 — APPROVED 2026-05-23.** A verification subagent audited all 11 Acceptance Criteria against the three changed files and checked alignment with EPIC-005 and the V6 phrasing in conceptual_design v1.5 / technical_design v1.1. Verdict: *ready for Gate 3 approval* — all 11 ACs MET.
 
 ### Verification
 
-- [ ] All acceptance criteria met
-- [ ] Changes follow development_guide.md
-- [ ] Relevant documents updated
-- [ ] Knowledge captured where useful
+- [x] All acceptance criteria met
+- [x] Changes follow development_guide.md
+- [x] Relevant documents updated
+- [x] Knowledge captured where useful
 
 ### Review Notes
 
-[Findings from review. Issues found and how they were resolved.]
+**All 11 ACs MET.** Every directing-party-sense `user` occurrence across the three files was reworded to V6 vocabulary; `grep "\b[Uu]sers?\b"` returns only the four preserved occurrences — `project-setup/skill.md` 69/83/93 ("user content" ×2, "Target Users") and `templates/CLAUDE.md` 25 ("target users"); `project-documentation/skill.md` returns zero. The two gate rewrites in `project-documentation/skill.md` (§ Process: Review step 4 and § Quality Gates Gate 1) are verbatim lifts of conceptual_design *Three Hard Gates* and *Supervisor Distinct From Implementer*, not loose paraphrase.
+
+**Scope boundary held.** `work-items/skill.md` is not modified — its vocabulary sweep and `PLAN-PENDING` rewrite are TASK-B. The diff is provably word-level (every hunk a 1:1 line replacement), so the "no structural change" criterion is verifiable by inspection; self-identification lines unchanged on both edited skills.
+
+**`.claude/` re-sync.** The gitignored deployed copies of `project-setup` and `project-documentation` were re-synced from `shannon/` source; `diff -rq` confirmed they match — re-verified independently at Gate 3, since a gitignored target leaves no tracked diff for a git-based audit to inspect.
+
+**Findings — all Strength; no Drift, Gap, or internal contradiction.** Preserve-list discipline exemplary — the four distinct-sense occurrences left byte-for-byte intact while every role-sense occurrence was corrected, neither over- nor under-corrected. Per-occurrence judgement visibly applied: the role noun is dropped where the sentence reads naturally, and the iterative-zone sentence names both roles. One immaterial bookkeeping note: Implementation Notes tally "30 edits" against a 28-changed-line diff — the count treats multi-occurrence lines separately.
+
+**Alignment.** Delivers EPIC-005 AC#6, AC#7, and the project-documentation half of AC#2 / AC#3. No drift against EPIC-005 or the V6 document layer.
 
 ---
 
 ## Activity Log
 
+- **2026-05-23** — APPROVED via Gate 3. Directing party approved after verification — all 11 Acceptance Criteria MET. Every directing-party-sense `user` occurrence across the three files reworded to V6 vocabulary; the four distinct-sense occurrences (project-setup 69/83/93, CLAUDE.md 25) preserved; `project-documentation/skill.md` returns zero `[Uu]sers?` matches. Both gate rewrites verbatim from conceptual_design. `work-items/skill.md` untouched; `.claude/` re-sync independently re-confirmed at Gate 3. All 11 ACs checked. Status REVIEW → APPROVED; file archived to `docs/tasks/archive/`. Delivers EPIC-005 AC#6, AC#7 and the project-documentation half of AC#2/AC#3 — TASK-A complete; TASK-B (`work-items` skill) is next.
+- **2026-05-23** — REVIEW. Status IMPLEMENTED → REVIEW; Gate 3 verification subagent spawned to audit all 11 Acceptance Criteria against the three changed files and check alignment with EPIC-005 and the V6 phrasing in conceptual_design v1.5 / technical_design v1.1.
+- **2026-05-23** — IMPLEMENTED. All 6 plan steps executed. 30 word-level vocabulary edits across `project-setup/skill.md` (14), `project-documentation/skill.md` (13), and `templates/CLAUDE.md` (3); the four preserved occurrences (project-setup 69/83/93, CLAUDE.md 25) left intact. Gate rewrites applied to `project-documentation` § Process: Review step 4 and § Quality Gates. Verification: `grep "\b[Uu]sers?\b"` returns only the four preserved occurrences, `project-documentation` returns zero; self-identification lines unchanged; `work-items/skill.md` not modified (scope boundary held). `.claude/` deployed copies re-synced and confirmed matching source. Ready for Gate 3.
+- **2026-05-23** — IMPLEMENTING via `/task-implement TASK-004`. Status PLANNED → IMPLEMENTING; executing the 6-step plan across `project-setup/skill.md`, `project-documentation/skill.md`, and the CLAUDE.md template.
 - **2026-05-23** — PLANNED via Gate 2. Planning subagent drafted a 6-step plan (orientation → edit project-setup → edit project-documentation → edit CLAUDE.md → re-sync `.claude/` → verify), file order project-setup → project-documentation → CLAUDE.md, all 11 Acceptance Criteria mapped, 6 risks with mitigations. During Gate 2 review the directing party caught a flaw in the edit-mechanic rationale: the draft claimed top-to-bottom editing "protects pending line numbers" — backwards (bottom-to-top protects them), and moot here anyway since the edits are word-level in-line replacements that do not change line counts. The Approach, Step 2, and the line-number-drift Risk were corrected to state this accurately. Plan approved with that correction.
 - **2026-05-23** — ELABORATED via Gate 1. Elaboration subagent surveyed the actual `[Uu]sers?` occurrences in the three target files and drafted 11 Acceptance Criteria in five groups (project-setup vocabulary + preserve-list, project-documentation Gate-1 / § Quality Gates rewrites, CLAUDE.md template, scope boundary, verification & distribution), each grep-checkable or line-pinned. Survey found minor drift in EPIC-005's Plan estimate: project-setup carries 17 occurrences (EPIC-005 said ~15) and a three-line preserve-list — lines 69, 83, and 93 ("Target Users") — where EPIC-005 named only 69/83. TASK-004's Requirements carry the corrected numbers; EPIC-005 left as-is (an estimate, not a defect). Alignment check: all Strength, no ambiguous occurrence needing a directing-party ruling. Directing party approved the requirements without modification.
 - **2026-05-23** — DRAFT: Task created via `/task-create` under EPIC-005 — TASK-A of the three-Task plan. Created individually (not pre-stashed as a DRAFT stub) per EPIC-005's § Plan recommendation. Initial intent captured in the Overview and Context; Acceptance Criteria and Plan to be drafted at `/task-elaborate` and `/task-plan`.
