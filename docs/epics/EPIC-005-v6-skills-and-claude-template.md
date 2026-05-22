@@ -70,7 +70,7 @@ Canonical phrasing reference for all Tasks: the document layer is already V6-ali
 
 Recommended sequence: **TASK-A → TASK-B → TASK-C** (C depends on both A and B; A and B are independent of each other but A should land first so its vocabulary phrasing sets the precedent TASK-B's larger file follows — A is the lower-risk file set and a cheap place to settle the house style).
 
-#### TASK-A — [TASK-004](../tasks/TASK-004-v6-vocabulary-setup-documentation-template.md) (ELABORATED) — V6 vocabulary in project-setup skill, project-documentation skill, and CLAUDE.md template
+#### TASK-A — [TASK-004](../tasks/TASK-004-v6-vocabulary-setup-documentation-template.md) (PLANNED) — V6 vocabulary in project-setup skill, project-documentation skill, and CLAUDE.md template
 
 - **Files**: `shannon/skills/project-setup/skill.md`, `shannon/skills/project-documentation/skill.md`, `shannon/skills/project-setup/templates/CLAUDE.md`
 - **Kind of change**: per-occurrence semantic vocabulary judgement; no structural rewrites
