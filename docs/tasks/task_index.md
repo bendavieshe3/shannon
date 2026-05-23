@@ -5,7 +5,7 @@
 - [TASK-003](./archive/TASK-003-apply-partial-completeness-affordance.md) — APPROVED — Apply Partial-completeness affordance to FEAT-003/006/007; recursive-dogfood pass (EPIC-006) #framework #dogfood #work-items
 - [TASK-004](./archive/TASK-004-v6-vocabulary-setup-documentation-template.md) — APPROVED — V6 vocabulary in project-setup & project-documentation skills + CLAUDE.md template (EPIC-005) #framework #v6 #skills
 - [TASK-005](./archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) — APPROVED — V6 vocabulary + PLAN-PENDING removal in work-items skill (EPIC-005) #framework #v6 #skills #work-items
-- [TASK-006](./TASK-006-cross-file-v6-consistency-verification.md) — ELABORATED — Cross-file V6 consistency verification audit (EPIC-005) #framework #v6 #verification #skills
+- [TASK-006](./TASK-006-cross-file-v6-consistency-verification.md) — PLANNED — Cross-file V6 consistency verification audit (EPIC-005) #framework #v6 #verification #skills
 
 ---
 
