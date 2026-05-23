@@ -2,11 +2,11 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Epic
 - **Parent**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-23 (planned)
+- **Updated**: 2026-05-23 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
 
@@ -28,14 +28,14 @@ The three skill definitions and the CLAUDE.md template describe gate enforcement
 
 ### Acceptance Criteria
 
-- [ ] `rg "\b[Uu]sers?\b" shannon/skills/ shannon/skills/project-setup/templates/CLAUDE.md` returns only intentional "human reader" or "Target Users" occurrences; each surviving occurrence is justified in the Activity Log
-- [ ] Every gate-approval sentence across the four files names the **directing party** as approver, and every self-approval-prevention sentence names the **implementer** as the agent that cannot approve its own work
-- [ ] `project-documentation/skill.md § Quality Gates` and `work-items/skill.md § Quality Gates` are consistent with `conceptual_design.md` *Supervisor Distinct From Implementer* and `technical_design.md § Gate Enforcement` (convention-based, not technical-control)
-- [ ] `work-items/skill.md § Process: Plan` step 3 and `§ Cascading Operations` are rewritten to match `technical_design.md § Cascading Operations: Batch Preparation, Individual Gates` — prepared-draft content stashed inside child work items, **no `*-PENDING` sub-status**
-- [ ] `work-items/skill.md § Process: Implement` step 5 names the iterative zone in V6 terms ("directing party or implementer may move…")
-- [ ] `templates/CLAUDE.md` lines 65, 71, 133 use directing-party / implementer vocabulary; line 25 ("target users") preserved as legitimate
-- [ ] `project-setup/skill.md` distinguishes "user content" (file-merge sense, lines 69 / 83) from "directing party" (interaction sense) — both vocabularies coexist deliberately
-- [ ] All four files retain their skill self-identification lines unchanged
+- [x] `rg "\b[Uu]sers?\b" shannon/skills/ shannon/skills/project-setup/templates/CLAUDE.md` returns only intentional "human reader" or "Target Users" occurrences; each surviving occurrence is justified in the Activity Log
+- [x] Every gate-approval sentence across the four files names the **directing party** as approver, and every self-approval-prevention sentence names the **implementer** as the agent that cannot approve its own work
+- [x] `project-documentation/skill.md § Quality Gates` and `work-items/skill.md § Quality Gates` are consistent with `conceptual_design.md` *Supervisor Distinct From Implementer* and `technical_design.md § Gate Enforcement` (convention-based, not technical-control)
+- [x] `work-items/skill.md § Process: Plan` step 3 and `§ Cascading Operations` are rewritten to match `technical_design.md § Cascading Operations: Batch Preparation, Individual Gates` — prepared-draft content stashed inside child work items, **no `*-PENDING` sub-status**
+- [x] `work-items/skill.md § Process: Implement` step 5 names the iterative zone in V6 terms ("directing party or implementer may move…")
+- [x] `templates/CLAUDE.md` lines 65, 71, 133 use directing-party / implementer vocabulary; line 25 ("target users") preserved as legitimate
+- [x] `project-setup/skill.md` distinguishes "user content" (file-merge sense, lines 69 / 83) from "directing party" (interaction sense) — both vocabularies coexist deliberately
+- [x] All four files retain their skill self-identification lines unchanged
 
 ### Context
 
@@ -144,18 +144,42 @@ Recommended sequence: **TASK-004 → TASK-005 → the verification Task** (C dep
 
 ## Implementation Notes
 
-*Filled during implementation.*
+EPIC-005 was implemented entirely through three child Tasks, each run end-to-end through the framework's own lifecycle:
+
+- **TASK-004** (APPROVED, commit `2aa8ece`) — V6 vocabulary in `project-setup/skill.md`, `project-documentation/skill.md`, and `templates/CLAUDE.md`. 30 edits across the three files: 14 + 13 + 3 word-level vocabulary rewordings; § Quality Gates Gate-1 rewrite in `project-documentation/skill.md` adopting the verbatim TASK-004 house phrases ("Explicit approval by the directing party"; "The implementer cannot approve its own work"); CLAUDE.md template lines 65/71/133 reworded; four preserve-sense occurrences (`project-setup/skill.md` 69/83/93, CLAUDE.md 25) left byte-for-byte intact. Closes **AC#6** and **AC#7**; contributes the `project-documentation` half of **AC#2 / AC#3**.
+- **TASK-005** (APPROVED, commit `0d9f611`) — V6 vocabulary + structural `PLAN-PENDING` rewrite in `work-items/skill.md`. 18 edits: 15 word-level vocabulary rewordings + 3 structural rewrites (§ Process: Plan step 3, step 5 on-approval bullet, § Cascading Operations entire section). The structural rewrite **lifts `technical_design.md` v1.1 § Cascading Operations: Batch Preparation, Individual Gates verbatim where mechanics are named** — every load-bearing phrase ("the implementer does bulk preparation for the entire subtree"; "creates each child in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft*"; "Each child still requires its own Gate 1 and Gate 2 approval"; "No new statuses are introduced") appears in the rewrite intact. Closes **AC#4** and **AC#5**; contributes the `work-items` half of **AC#2 / AC#3**.
+- **TASK-006** (APPROVED, commit `6b6b5e1`) — pure verification audit. The audit completed cleanly (no defect; Step 8 conditional inline-correction branch did not trigger; no `shannon/` source modified by TASK-006). Its product is the single canonical audit-summary entry at the top of this Epic's § Activity Log, enumerating four conclusions (i)–(iv) that close **AC#1 / AC#2 / AC#3 / AC#8**.
+
+EPIC-005's named load-bearing risk (PLAN-PENDING rewrite drifting from `technical_design` if loosely paraphrased) **did not materialise** — TASK-005's structural rewrite is line-for-line correspondence with `technical_design.md:142–152` where mechanics are named, with the single deliberate generalisation "child task / task file" → "child / child file" to cover the skill's Feature→Epic→Task scope.
+
+**Findings routed onward** (not closed by this Epic):
+
+- **Candidate Epic B** — V6 vocabulary in the 22 command files (`shannon/commands/*.md`) — remains as the next FEAT-006 Epic. This Epic established the V6 vocabulary precedents in the skills + CLAUDE.md template; Epic B is the mechanical follow-up.
+- **Line 227 *Iterative Implementation Zone* phrasing nit** — `work-items/skill.md:227` names the V6 roles ("The directing party or implementer may move…") but does not lift `conceptual_design`'s full "Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone" framing. Met under AC#5's loose "in V6 terms" wording at both TASK-005 Gate 3 and TASK-006 audit; candidate for a future documentation-tightening sweep, not blocking this Epic.
+- **Naming-convention lesson** — captured in `scratchpad.md` as the framework-clarifications follow-up's third item (opaque plan-letter labels like TASK-A/B/C — see also the literal-file-count and editing-order items).
 
 ---
 
 ## Review
 
-*Filled during review (Gate 3).*
+**Gate 3 — APPROVED 2026-05-23.** A verification subagent audited all 8 Acceptance Criteria against the delivered artefacts and the TASK-006 audit-summary entry. Verdict: *ready for Gate 3 approval* — all 8 ACs MET.
+
+**AC#1 / AC#2 / AC#3 / AC#8 closed via the TASK-006 audit-summary entry** at the top of § Activity Log. Spot-checks of each conclusion (i)–(iv) against the actual files confirm the entry is accurate and not stale.
+
+**AC#4 / AC#5 / AC#6 / AC#7 closed by direct verification** against the delivered files: `grep -rnE "PENDING" shannon/skills/` returns zero (**AC#4** — `work-items/skill.md` §§ Process: Plan steps 3/5 and § Cascading Operations now lift `technical_design` § Cascading Operations verbatim where mechanics are named, line-for-line correspondence with `technical_design.md:142–152`); `work-items/skill.md:227` names both V6 roles (**AC#5** — with the disclosed loose-AC nit on the "bracket the zone" framing, route (a) survives); `templates/CLAUDE.md` lines 65/71/133 carry V6 vocabulary and line 25 preserved (**AC#6**); `project-setup/skill.md` lines 69/83 ("user content") preserved while the surrounding directing-party-sense occurrences correctly use "directing party" (**AC#7**).
+
+**Alignment to FEAT-006** — this Epic closes the skills/template half of FEAT-006 Ideal State bullets 1 and 3 (V6 vocabulary distinguishing directing party from implementer; skills refuse self-approval flows). The candidate Epic B (V6 vocabulary in 22 command files) remains as future scope — correctly named in FEAT-006 § Plan as the next mechanical follow-up.
+
+**Alignment to Vision** — gate-approval prose across all four files attributes approval to the directing party (a separable role per Vision § Core Principles #2 "Strategic External Review"), enabling multi-agent configurations.
+
+**Findings — all Strength; one minor disclosed Gap (line 227 phrasing nit, accepted under loose-AC wording).** No Drift, no Internal contradiction. The TASK-005 structural rewrite's line-for-line correspondence with `technical_design` § Cascading Operations is exemplary — EPIC-005's named rewrite-drift risk did not materialise. The preserve-list discipline (four file-merge / Vision-template senses left byte-for-byte intact while the surrounding role-sense occurrences were corrected) was clean throughout.
 
 ---
 
 ## Activity Log
 
+- **2026-05-23** — APPROVED via Gate 3. Directing party approved — all 8 Acceptance Criteria MET. AC#1 / AC#2 / AC#3 / AC#8 closed via the TASK-006 audit-summary entry (spot-checks of conclusions (i)–(iv) against actual files confirm accuracy and freshness). AC#4 / AC#5 / AC#6 / AC#7 closed by direct verification of the delivered files — `grep -rnE "PENDING" shannon/skills/` returns zero, `work-items/skill.md` § Cascading Operations matches `technical_design.md:142–152` line-for-line, CLAUDE.md template lines 65/71/133 + line 25 preserved verified, `project-setup/skill.md` preserve-list intact. All three child Tasks (TASK-004 / TASK-005 / TASK-006) APPROVED and archived. Status REVIEW → APPROVED. EPIC-005 remains as the historical record of how FEAT-006's V6 vocabulary work landed in the three skills + the CLAUDE.md template. The candidate Epic B (V6 vocabulary in 22 command files) is the next FEAT-006 Epic. One minor disclosed Gap (line 227 phrasing nit) accepted under loose-AC wording at both TASK-005 and TASK-006 Gate 3 — candidate for a future documentation-tightening sweep, not blocking. See § Review and § Implementation Notes.
+- **2026-05-23** — Status reconciled PLANNED → IMPLEMENTED → REVIEW for Gate 3. EPIC-005's implementation is its three child Tasks — TASK-004, TASK-005, TASK-006 — all now APPROVED and archived (commits `2aa8ece`, `0d9f611`, `6b6b5e1`). The Epic's status field had remained PLANNED while the Tasks executed through their own lifecycles; it is now advanced to REVIEW. Gate 3 verification subagent spawned to audit the 8 Acceptance Criteria against the delivered artefacts — the audit-summary entry below (TASK-006 Step 9) serves as the single canonical record for AC#1 / AC#2 / AC#3 / AC#8.
 - **2026-05-23** — **EPIC-005 cross-file V6 consistency verification — audit complete (TASK-006, Step 9).** Single canonical entry recording the four audit conclusions that close EPIC-005's AC#1 / AC#2 / AC#3 / AC#8 at this Epic's own Gate 3.
 
   **(i) `[Uu]sers?` survey across the four target files.** `rg "\b[Uu]sers?\b"` returns exactly 4 preserve-sense matches: `project-setup/skill.md:69` (`do not overwrite user content`, file-merge sense — AC#7); `project-setup/skill.md:83` (`Preserve any existing user content`, file-merge sense — AC#7); `project-setup/skill.md:93` (`Target Users`, Vision-template section heading — TASK-004 preserve-list); `templates/CLAUDE.md:25` (`target users`, Vision document content description — AC#6, line 25 explicitly preserved). `project-documentation/skill.md` and `work-items/skill.md` return zero. Every surviving occurrence is intentional. **Closes AC#1.**
