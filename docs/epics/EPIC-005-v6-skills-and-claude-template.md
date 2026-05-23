@@ -81,7 +81,7 @@ Recommended sequence: **TASK-004 → TASK-005 → the verification Task** (C dep
 - **ACs delivered**: AC#6 (CLAUDE.md template lines 65/71/133, line 25 preserved), AC#7 (project-setup user-content vs directing-party distinction); contributes the project-documentation half of AC#2 and AC#3
 - **Re-sync obligation**: after editing the two `shannon/skills/*/skill.md` files and the template, re-copy `shannon/skills/` → `.claude/skills/` so the deployed copies match source
 
-#### [TASK-005](../tasks/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) (PLANNED) — V6 vocabulary and PLAN-PENDING removal in work-items skill
+#### [TASK-005](../tasks/archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) (APPROVED) — V6 vocabulary and PLAN-PENDING removal in work-items skill
 
 - **File**: `shannon/skills/work-items/skill.md` (only)
 - **Kind of change**: per-occurrence vocabulary judgement **plus** structural rewrite (the `PLAN-PENDING` removal)

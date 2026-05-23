@@ -24,8 +24,8 @@ This skill does **not** own mandated documents — those belong to the `project-
 ## When to Invoke
 
 - Any `/feature-*`, `/epic-*`, `/task-*`, or `/spike-*` command
-- The user asks to create, elaborate, plan, implement, or review any work item
-- The user asks to "move TASK-042 to ELABORATED" or similar status transitions
+- The directing party asks to create, elaborate, plan, implement, or review any work item
+- The directing party asks to "move TASK-042 to ELABORATED" or similar status transitions
 
 ## Inputs
 
@@ -78,7 +78,7 @@ Different work items consult different documents at different stages.
 
 ### 1. Identify Type and Hint
 
-Type comes from the command. Hint is the optional title or context the user supplied.
+Type comes from the command. Hint is the optional title or context the directing party supplied.
 
 ### 2. Allocate ID
 
@@ -101,13 +101,13 @@ Copy `templates/<type>.md` to the right location:
 
 - Status: DRAFT
 - Type: matches the work item type
-- Parent: from the user's invocation context (for Tasks and Epics)
+- Parent: from the directing party's invocation context (for Tasks and Epics)
 - Created: today
 - Updated: today
 
 ### 6. Capture Initial Context
 
-Add high-level intent from the user's hint and recent conversation. Do not block waiting for full elaboration — `create` is fast capture.
+Add high-level intent from the directing party's hint and recent conversation. Do not block waiting for full elaboration — `create` is fast capture.
 
 ### 7. Update Index
 
@@ -117,7 +117,7 @@ Append a one-line entry to the appropriate index file.
 
 ### 8. Confirm and Resume
 
-Report creation to the user. Resume the original conversation topic.
+Report creation to the directing party. Resume the original conversation topic.
 
 ## Process: Elaborate (Gate 1)
 
@@ -141,7 +141,7 @@ Subagent writes drafted Requirements directly into the work item file.
 
 ### 3. Present and Iterate
 
-Show the user the drafted Requirements and the alignment check results. Iterate based on feedback.
+Show the directing party the drafted Requirements and the alignment check results. Iterate based on feedback.
 
 ### 4. Gate 1 Approval
 
@@ -187,17 +187,17 @@ The subagent:
 
 ### 3. Cascading Preparation (for Epics)
 
-If the work item is an Epic, the planning subagent may draft tasks for the epic, marking them `PLAN-PENDING` (awaiting their own Gate 2 approval).
+If the work item is an Epic, the planning subagent may draft tasks for the epic. Each prepared task is created in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stashed in the relevant sections of the task file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed"); the prepared content is surfaced when the directing party later runs the child's own `/task-elaborate` or `/task-plan`. Each child still requires its own Gate 1 and Gate 2 approval. No new sub-statuses are introduced (see § Cascading Operations).
 
 ### 4. Present and Iterate
 
-Show the plan to the user. For cascading operations, summarise the child items prepared.
+Show the plan to the directing party. For cascading operations, summarise the child items prepared.
 
 ### 5. Gate 2 Approval
 
 Ask explicitly: "Approve this plan to mark this PLANNED?"
 
-- On approval: Set Status to PLANNED, update index. Child items (if any) remain `PLAN-PENDING` until individually approved
+- On approval: Set Status to PLANNED, update index. Child items (if any) remain in DRAFT with their prepared drafts stashed until the directing party runs each child's gate command individually
 - On rejection: Iterate
 
 ### 6. Resume
@@ -224,7 +224,7 @@ When the work is complete (per the plan), update status to IMPLEMENTED.
 
 ### 5. May Iterate
 
-The user or AI may move the work item back to IMPLEMENTING from IMPLEMENTED or REVIEW. The iterative zone is gateless.
+The directing party or implementer may move the work item back to IMPLEMENTING from IMPLEMENTED or REVIEW. The iterative zone is gateless.
 
 ## Process: Review (Gate 3)
 
@@ -268,28 +268,29 @@ Report and resume.
 
 ## Quality Gates
 
-- **Gate 1** (DRAFT → ELABORATED): Explicit user approval
-- **Gate 2** (ELABORATED → PLANNED): Explicit user approval
-- **Gate 3** (REVIEW → APPROVED): Explicit user approval
+- **Gate 1** (DRAFT → ELABORATED): Explicit approval by the directing party
+- **Gate 2** (ELABORATED → PLANNED): Explicit approval by the directing party
+- **Gate 3** (REVIEW → APPROVED): Explicit approval by the directing party
 
-AI never self-approves across a gate.
+The implementer cannot approve its own work across a gate.
 
 ## Cascading Operations
 
-When the user invokes a verb on a parent work item that has children (or could have children), prefer **Batch Preparation, Individual Gates**:
+When the directing party invokes a verb on a parent work item that has children (or could have children), use **Batch Preparation, Individual Gates** — the implementer does bulk preparation for the entire subtree (drafting elaborations and plans for child work items) but each child still passes through its own gate individually. No new statuses are introduced; the batch preparation happens invisibly behind the standard lifecycle commands.
 
-1. AI does the heavy work (planning, drafting) for parent and all children
-2. AI marks children as `*-PENDING` (e.g. `PLAN-PENDING`)
-3. AI presents a summary to the user
-4. User runs the relevant command per child to promote each individually
+1. Implementer plans the parent and writes the plan into its file
+2. Implementer identifies the child work items needed
+3. Implementer creates each child in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stored in the relevant sections of the child file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed")
+4. Implementer presents a summary of the parent plan and the prepared children to the directing party
+5. When the directing party later runs `/[type]-elaborate [ID]`, the subagent surfaces the prepared elaboration instead of starting fresh; same for `/[type]-plan [ID]`. Each child still requires its own Gate 1 and Gate 2 approval
 
-This preserves granular human approval without overwhelming surface.
+This preserves granular directing-party approval at every gate while saving the bulk preparation work.
 
 ## Failure Modes
 
-- **Wrong status for verb** — e.g. user runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`." Conversely, `*-elaborate` on a non-DRAFT work item is *not* an error — it enters the re-elaboration branch (see § Process: Elaborate → Re-elaboration Branch and `conceptual_design.md § Re-elaborating a Work Item`).
+- **Wrong status for verb** — e.g. the directing party runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`." Conversely, `*-elaborate` on a non-DRAFT work item is *not* an error — it enters the re-elaboration branch (see § Process: Elaborate → Re-elaboration Branch and `conceptual_design.md § Re-elaborating a Work Item`).
 - **Missing parent** — A Task whose parent Epic doesn't exist. Surface and ask whether to create the parent or proceed as an orphan task.
-- **DRAFT mandated doc as context** — Warn the user that the document being relied on is not yet authoritative.
+- **DRAFT mandated doc as context** — Warn the directing party that the document being relied on is not yet authoritative.
 - **Index out of sync** — If the index disagrees with the work item file's status, trust the file and fix the index. This includes the Feature `(Partial)` suffix: if a Feature's body reads `Initial Implementation: Partial` but its `feature_index.md` entry lacks `(Partial)` — or carries it without the body field — the body is authoritative; correct the index (see § Process: Create step 7).
 
 ## Self-Identification
