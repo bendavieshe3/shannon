@@ -6,11 +6,11 @@
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Key Features — "Unified Work Item Model"
-- **Initial Implementation**: Partial — the unified model itself is retrospective (templates, skill, commands predate this Feature); of the three aspirational criteria added in the 2026-05-19 re-elaboration, two are now met — the re-elaboration workflow (via EPIC-006 / TASK-001) and queryable completeness (via EPIC-006 / TASK-002) — and one remains: framework-version absorption (see Met / Remaining below)
+- **Initial Implementation**: Partial — the unified model itself is retrospective (templates, skill, commands predate this Feature). Of four aspirational criteria (three added 2026-05-19, one added 2026-05-24): two now met (re-elaboration workflow via EPIC-006 / TASK-001; queryable completeness via EPIC-006 / TASK-002), two remaining (framework-version absorption; upstream lessons-into-framework-rules — addressed by EPIC-007). See Met / Remaining below.
   - **Met:** The retrospective unified model — four work-item types on one status lifecycle, with shared templates, skill, and commands — plus the two aspirational criteria EPIC-006 closed: the *Re-elaborating a Work Item* workflow (TASK-001) and queryable implementation completeness (TASK-002).
-  - **Remaining:** One aspirational criterion — framework-version absorption: framework changes (new attributes, workflows, status-model evolution) absorbed by existing work-item files via canonical re-elaboration, so adopters never recreate work items to accommodate framework evolution.
+  - **Remaining:** Two aspirational criteria — (a) framework-version absorption: framework changes (new attributes, workflows, status-model evolution) absorbed by existing work-item files via canonical re-elaboration, so adopters never recreate work items to accommodate framework evolution; (b) upstream lessons-into-framework-rules: work-item conventions accumulated through framework use are promoted into the mandated documents via the canonical work-item workflow (added 2026-05-24, addressed by EPIC-007).
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-22 (re-elaborated)
+- **Updated**: 2026-05-24 (re-elaborated)
 
 ---
 
@@ -34,11 +34,12 @@ This is the second foundational capability: it makes work tracking learnable in 
 - Indexes (`feature_index.md`, `epic_index.md`, `task_index.md`, `spike_index.md`) reflect lifecycle state for navigation *(met)*
 - Tasks may be orphans (no Epic) when the work has no obvious parent *(partly met — affordance exists, no business rule sanctions it; captured as scratchpad item C4)*
 
-*Aspirational criteria added 2026-05-19 (re-elaboration following Vision v2.3 § Adaptive Coherence). These name framework commitments — two now delivered by EPIC-006 (F1, F2) and one still outstanding:*
+*Aspirational criteria added through ongoing re-elaborations following Vision v2.3 § Adaptive Coherence. Bullets 1 and 2 delivered by EPIC-006 (F1, F2); bullet 3 (framework-version absorption) outstanding; bullet 4 (upstream lessons-into-framework-rules, added 2026-05-24) addressed by EPIC-007:*
 
 - Work items can be re-elaborated when upstream artefacts evolve — a canonical workflow describes the trigger and steps, analogous to the *Re-reviewing an APPROVED Mandated Document* workflow for documents *(met — delivered by EPIC-006 / TASK-001)*
 - Implementation completeness of a work item is queryable at the metadata level: a Feature's "Initial Implementation" field (Built through Shannon / Retrospective / Partial) is surfaced visibly rather than buried in the Activity Log, so adopters can identify partially-built capabilities at a glance *(met — delivered by EPIC-006 / TASK-002)*
 - Framework changes affecting work items (new attributes, new workflows, status model evolution) are absorbed by existing work-item files via canonical re-elaboration; adopters never have to recreate work items from scratch to accommodate framework evolution *(not yet met — depends on the work-item re-elaboration workflow above)*
+- Work-item conventions accumulated through framework use — re-elaboration mechanics, AC writing patterns, naming discipline — are promoted into the mandated documents (primarily `conceptual_design`) and the relevant skills via the canonical work-item workflow. The upstream direction of *Adaptive Coherence*: lessons flow back into framework rules rather than being lost or re-derived. *(not yet met — addressed by EPIC-007)*
 
 ### User Stories
 
@@ -74,6 +75,7 @@ This is the second foundational capability: it makes work tracking learnable in 
 ### Epics
 
 - [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md) — APPROVED — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (closed scratchpad items F1 and F2; fulfilled aspirational Ideal State bullets 1 and 2 added 2026-05-19; bullet 3, framework-version absorption, remains open)
+- [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — DRAFT — Work-Item Conventions Surfaced Through Dogfooding (promotes four work-item-workflow clarifications — commit-hash timing in re-elaboration, bundled re-elaboration, no opaque plan-letter labels, AC scope-guard convention — into ratified rules in `conceptual_design` + `work-items` skill; sibling to EPIC-008 under FEAT-008 covering the dev-discipline half)
 
 *Candidate future Epic: name an explicit business rule for orphan tasks (currently captured as scratchpad item C4).*
 
@@ -99,6 +101,7 @@ This is the second foundational capability: it makes work tracking learnable in 
 
 ## Activity Log
 
+- **2026-05-24** — Re-elaborated (additive). **Trigger**: downstream gap — EPIC-007 elaboration (in flight 2026-05-24; not yet committed) surfaced that no Feature's Ideal State explicitly anchored "work-item conventions accumulated through framework use are promoted into the mandated documents." Vision § Adaptive Coherence covered it at principle level but no Feature instantiated it; per *Responsible Promotion*, EPIC-007 could not claim FEAT-003 as parent without an explicit anchor. **Change**: added fourth aspirational Ideal State bullet (upstream lessons-into-framework-rules — addressed by EPIC-007); intro updated from "two delivered, one outstanding" to four-bullet structure; `Initial Implementation` line and sub-block `Remaining` updated to reflect 4-bullet structure (2 met, 2 remaining). The directing party also identified an architectural split: dev-discipline learnings move to new FEAT-008 (created 2026-05-24); FEAT-003's bullet 4 specifically anchors the work-item-conventions half. **Additive** — no previously-approved claim contradicted; FEAT-003 stays ELABORATED. **Commit hash**: trigger is in-flight EPIC-007 (no upstream commit yet); referenced by Epic ID — exactly the case EPIC-007's AC#1 will codify (an honest dogfood: this entry is itself an instance of the commit-hash-timing case the upcoming convention names).
 - **2026-05-22** — Re-elaborated (additive). **Trigger**: framework evolution — EPIC-006 (via TASK-001 and TASK-002, commit `09844df`) delivered the *Re-elaborating a Work Item* workflow and the queryable Partial-completeness affordance — the aspirations this Feature named on 2026-05-19. **Change**: added the `**Met:** / **Remaining:**` sub-block beneath the `Initial Implementation` line; updated the `Initial Implementation` line and Ideal State aspirational bullets 1 (re-elaboration workflow) and 2 (queryable completeness) to `*(met)*`; bullet 3 (framework-version absorption) remains the sole open aspiration, so FEAT-003 stays `Partial`. Applied via TASK-003 — this Task re-elaborates its own parent Feature, the deliberate recursion EPIC-006 was created to close. Additive — no previously-approved claim contradicted; status stays ELABORATED.
 - **2026-05-19** — Re-elaborated following Vision v2.3 § Adaptive Coherence (commit `7c117d4`) and conceptual_design v1.4 § Responsible Promotion (commit `0411ea8`). Three aspirational Ideal State criteria added — work-item re-elaboration workflow (F1), queryable implementation completeness (F2), and framework-version absorption — that the existing capability does not yet fulfil. Initial Implementation field changed from "Retrospective" to "Partial" to reflect that aspiration now exceeds current implementation. This re-elaboration was the upstream prerequisite for creating an Epic to address F1 + F2, per the Responsible Promotion workflow.
 - **2026-05-18** — ELABORATED: Feature created retrospectively. Work item types, lifecycle, templates, skill, and 20 commands were built during the Shannon v4 refactor (commit `6852b29`). This Feature codifies the capability for future evolution.

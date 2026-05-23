@@ -7,6 +7,7 @@
 - [FEAT-005](./FEAT-005-knowledge-base.md) — ELABORATED — STABLE — Knowledge Base #core #knowledge
 - [FEAT-006](./FEAT-006-multi-party-supervision.md) — ELABORATED — STABLE — Multi-Party Supervision (Partial) #core #v6
 - [FEAT-007](./FEAT-007-lightweight-idea-capture.md) — ELABORATED — STABLE — Lightweight Idea Capture (Partial) #scratchpad #vision-gap
+- [FEAT-008](./FEAT-008-development-discipline.md) — DRAFT — STABLE — Development Discipline (Partial) #framework #development-guide #conventions
 
 ---
 
