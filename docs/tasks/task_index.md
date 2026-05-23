@@ -4,7 +4,7 @@
 - [TASK-002](./archive/TASK-002-queryable-implementation-completeness.md) — APPROVED — Queryable implementation completeness for Features (EPIC-006) #framework #templates #work-items
 - [TASK-003](./archive/TASK-003-apply-partial-completeness-affordance.md) — APPROVED — Apply Partial-completeness affordance to FEAT-003/006/007; recursive-dogfood pass (EPIC-006) #framework #dogfood #work-items
 - [TASK-004](./archive/TASK-004-v6-vocabulary-setup-documentation-template.md) — APPROVED — V6 vocabulary in project-setup & project-documentation skills + CLAUDE.md template (EPIC-005) #framework #v6 #skills
-- [TASK-005](./TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) — ELABORATED — V6 vocabulary + PLAN-PENDING removal in work-items skill (EPIC-005) #framework #v6 #skills #work-items
+- [TASK-005](./TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) — PLANNED — V6 vocabulary + PLAN-PENDING removal in work-items skill (EPIC-005) #framework #v6 #skills #work-items
 
 ---
 
