@@ -94,7 +94,7 @@ Recommended sequence: **TASK-004 → TASK-005 → the verification Task** (C dep
 - **ACs delivered**: AC#4 (PLAN-PENDING removal), AC#5 (Implement step 5); contributes the work-items half of AC#2 and AC#3
 - **Re-sync obligation**: after editing, re-copy `shannon/skills/work-items/` → `.claude/skills/work-items/`
 
-#### Verification Task — Cross-file V6 consistency verification
+#### [TASK-006](../tasks/TASK-006-cross-file-v6-consistency-verification.md) (ELABORATED) — Cross-file V6 consistency verification
 
 - **Files**: read-only audit across all four in-scope files plus `conceptual_design.md` and `technical_design.md`; writes only to EPIC-005's Activity Log (and may surface inline corrections back to TASK-004 or TASK-005 if a defect is found)
 - **Kind of change**: verification, not editing
