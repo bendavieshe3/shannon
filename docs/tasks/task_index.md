@@ -6,7 +6,7 @@
 - [TASK-004](./archive/TASK-004-v6-vocabulary-setup-documentation-template.md) — APPROVED — V6 vocabulary in project-setup & project-documentation skills + CLAUDE.md template (EPIC-005) #framework #v6 #skills
 - [TASK-005](./archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) — APPROVED — V6 vocabulary + PLAN-PENDING removal in work-items skill (EPIC-005) #framework #v6 #skills #work-items
 - [TASK-006](./archive/TASK-006-cross-file-v6-consistency-verification.md) — APPROVED — Cross-file V6 consistency verification audit (EPIC-005) #framework #v6 #verification #skills
-- [TASK-007](./TASK-007-amend-development-guide-new-conventions.md) — PLANNED — Amend development_guide.md with editing-order, Push Cadence, meta-gap checklist + Version History entry (EPIC-008 Task 1) #framework #development-guide #conventions
+- [TASK-007](./archive/TASK-007-amend-development-guide-new-conventions.md) — APPROVED — Amend development_guide.md with editing-order, Push Cadence, meta-gap checklist + Version History entry (EPIC-008 Task 1) #framework #development-guide #conventions
 
 ---
 

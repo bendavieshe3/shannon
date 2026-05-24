@@ -1,8 +1,8 @@
 # Development Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-16
-**Approved**: 2026-05-16
+**Last Reviewed**: 2026-05-24
+**Approved**: 2026-05-24
 
 ---
 
@@ -76,6 +76,7 @@ Shannon contains almost no code — its substance is Markdown templates and prom
 - **Self-contained templates** — A template should be usable without referring to a separate "how to fill this in" guide. Inline guidance is allowed; tutorial-length explanations are not
 - **Explicit skill invocation** — Commands state "You MUST invoke the [skill] skill" rather than assuming activation
 - **Single source of truth per concept** — If a concept (e.g. the unified status model) appears in multiple files, one file is canonical and others reference it
+- **Source-of-truth body before derived artefacts** — When an edit touches a source-of-truth body and one or more derived indexes, references, or bookkeeping artefacts, work *source-of-truth body before derived index / references, then verify*. *Derived artefacts* explicitly include: **work-item index entries** (e.g. `task_index.md`, `epic_index.md`, `feature_index.md`); **parent Tasks-line entries** (the line in a parent work item's § Tasks / § Plan list naming the child); and **cross-references that name the source-of-truth artefact by path or ID** (other documents pointing at the edited artefact). Verification is re-reading the body and, where applicable, a `grep` of the derived state to confirm convergence. Worked precedent: **TASK-003** (`docs/tasks/archive/TASK-003-apply-partial-completeness-affordance.md`). Companion edit-discipline rule: see `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* (the AC-writing convention from EPIC-007 AC#4) <!-- anchor will be created by EPIC-007's implementing Task per EPIC-007 AC#4 -->
 
 ### Patterns to Avoid
 
@@ -110,6 +111,7 @@ Before committing template, command, or skill changes:
 - [ ] No stale references to removed concepts (e.g. "phases", "code_style_guide.md")
 - [ ] Cross-references are correct paths
 - [ ] At least a mental dry-run of the affected workflow
+- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/skill.md` § Process: Plan and § Process: Review.)
 
 ### Instrumentation
 
@@ -142,7 +144,16 @@ Shannon's default: **commit after every approved gate**. Source control is assum
 - **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
 - **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
 
-This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project."
+This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
+
+### Push Cadence
+
+Shannon's default: **push local commits to the remote** at two named triggers, so commits do not sit unsynced.
+
+- **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion
+- **At session end** — before the implementer or directing party stops a working session for the day or hands off to another agent — i.e. before any pause long enough that local commits would otherwise sit unsynced through the gap
+
+Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the two cadences are paired.
 
 ### Pull Requests
 
@@ -175,6 +186,17 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-05-24 - v1.3
+
+- Per EPIC-008 — Development Conventions Surfaced Through Dogfooding — additive amendments codifying three dev-discipline conventions surfaced during EPIC-005 / EPIC-006 dogfooding:
+  - **§ Code Style → Patterns to Follow** — new bullet *Source-of-truth body before derived artefacts* (editing-order convention; cites TASK-003 as worked precedent; cross-references EPIC-007 AC#4's scope-guard rule in `conceptual_design.md` § Business Rules as companion edit-discipline / AC-writing rule)
+  - **§ Git Workflow → Push Cadence** — new subsection sibling to Commit Cadence, naming two triggers (after every Gate 3 approval; at session end) with inline "session end" definition
+  - **§ Testing Strategy → Pre-Commit Checklist** — new checklist item operationalising the meta-gap routing channel (framework-general ambiguity surfaced during work → `scratchpad.md` capture or follow-up work item)
+- Reciprocal cross-reference added to existing § Git Workflow → Commit Cadence prose pointing at the new Push Cadence subsection
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no existing approved claim contradicted; document stays APPROVED across the bump (no DRAFT transition)
+- EPIC-007 (Work-Item Conventions Surfaced Through Dogfooding) is the contemporaneous sibling exercise of the routing channel established at the new Pre-Commit Checklist item — together, EPIC-007 and EPIC-008 are the first two formal exercises of that channel
+- Status: APPROVED (2026-05-24)
 
 ### 2026-05-16 - v1.2
 

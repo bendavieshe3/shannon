@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md)
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #conventions
 - **Created**: 2026-05-24
-- **Updated**: 2026-05-24 (planned)
+- **Updated**: 2026-05-24 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -166,41 +166,115 @@ Steps proceed in **strict bottom-to-top order** through the substantive insertio
 
 ## Implementation Notes
 
-[Filled during implementation.]
+*Filled at `/task-implement TASK-007` (2026-05-24). All 12 Plan Steps executed in strict bottom-to-top order; all 12 ACs satisfied; pending Gate 3 review.*
+
+### Additivity Verification (AC10)
+
+Per `conceptual_design.md` § Re-reviewing → *Status semantics*: an amendment is additive iff it does not contradict existing approved claims. Six verification statements, one per substantive amendment:
+
+- **AC1 editing-order bullet** — *additive*: the existing three § Patterns to Follow bullets (*Self-contained templates / Explicit skill invocation / Single source of truth per concept*) describe orthogonal patterns; the new fourth bullet adds an edit-order pattern without revising any of the three.
+- **AC3 Push Cadence subsection** — *additive*: existing Commit Cadence is silent on push frequency; new subsection adds a sibling cadence directive (when local commits should reach the remote), does not revise existing Commit Cadence claims (which remain about *when to commit*).
+- **AC4 Pre-Commit Checklist item** — *additive*: existing four checklist items address render / staleness / cross-reference paths / mental dry-run; the new fifth item addresses a distinct concern (framework-general ambiguity routing) without revising any existing item.
+- **AC5 Version History entry** — *additive*: records a new event (v1.3 amendment) at the top of the section, preserving the existing most-recent-first chronological convention; does not revise prior history entries (v1.2, v1.1, v1.0 all unchanged).
+- **AC6 Commit Cadence reciprocal cross-reference** — *additive*: a single closing sentence appended to existing Commit Cadence prose pointing at the new sibling subsection (*"See Push Cadence below for the paired sync directive."*); does not revise any existing Commit Cadence claim, only adds a sibling pointer.
+- **AC9 metadata refresh** — *additive in the broad sense*: Status stays APPROVED (per AC9 and per the *Status semantics* test on additive amendments); only Last Reviewed and Approved dates update from `2026-05-16` to `2026-05-24`; no semantic claim revised.
+
+No amendment turned out non-additive; no pause-and-flag required.
+
+### Verbatim-Phrasing Verification (AC1, AC3, AC4, AC5, Step 9)
+
+Five `grep` searches against the landed `development_guide.md` confirmed letter-for-letter phrasing:
+
+- `grep -nc "source-of-truth body before derived index" docs/development_guide.md` → **1** hit (line 79, AC1 bullet) ✓
+- `grep -nc "before the implementer or directing party stops a working session" docs/development_guide.md` → **1** hit (line 154, AC3 Push Cadence) ✓
+- `grep -nc "framework-general ambiguity surfaced during this work" docs/development_guide.md` → **1** hit (line 114, AC4 checklist item) ✓
+- `grep -n "additive amendment per" docs/development_guide.md` → **1** hit (line 197, AC5 Version History entry classification) ✓
+- `grep -n "EPIC-008" docs/development_guide.md` → **2** hits in § Version History (lines 192, 198; AC5(i) requirement) ✓
+
+Plus cross-Epic verifications:
+
+- `grep -n "anchor will be created by EPIC-007" docs/development_guide.md` → **1** hit (line 79, AC2 HTML comment per Plan Risk 7) ✓
+- `grep -n "Scope-Boundary Acceptance Criteria Use Cross-Type Guards" docs/development_guide.md` → **1** hit (line 79, AC2 cross-Epic anchor name) ✓
+
+And chronological ordering (Plan Risk 6):
+
+- `grep -n "### .* - v1\." docs/development_guide.md` → v1.3 at line 190, v1.2 at line 201, v1.1 at line 210, v1.0 at line 215 — most-recent-first preserved ✓
+
+### Scope-Confined-Diff Verification (AC11, Step 11)
+
+`git status` post-implementation showed exactly:
+
+- ` M docs/development_guide.md` (substantive amendments)
+- ` M docs/tasks/TASK-007-amend-development-guide-new-conventions.md` (this file — Status / Activity Log / Implementation Notes per the unified lifecycle)
+
+Plus the two derived-bookkeeping edits landed in this same step:
+
+- ` M docs/tasks/task_index.md` (TASK-007 status update line 9)
+- ` M docs/epics/EPIC-008-development-conventions-from-dogfooding.md` (§ Plan Task 1 entry line 115 status update)
+
+No file under `shannon/skills/` modified (Task 2's territory; EPIC-007's territory for `work-items/skill.md`). No file under `.claude/` modified (Task 2 re-sync territory). No other mandated document modified (`vision.md`, `technology_stack.md`, `conceptual_design.md`, `technical_design.md`, `ux_guide.md` all unchanged). No work-item template under `shannon/skills/*/templates/` modified. `docs/scratchpad.md` and `docs/knowledge/` unchanged (Epic Gate 3 territory). Cross-type guard at AC11 satisfied.
+
+### Commit Deferral (AC12)
+
+No `git commit` ran across Steps 1–11. Pre-Gate-3 diffs accumulate in the working tree per § Commit Cadence (the very rule this Task extends). The Gate-3 commit will land after directing-party approval and will also trigger a push per the new § Push Cadence directive (trigger (a) — after every Gate 3 approval). Verification at Gate 3: `git log master..HEAD` should show zero new commits attributable to TASK-007's diff range until the Gate-3 commit lands.
 
 ### Deviations from Plan
 
-- [What changed and why]
+- **Steps 3 and 4 combined into a single Edit call.** Step 3 (Push Cadence subsection insertion) and Step 4 (reciprocal cross-reference appended to Commit Cadence's last sentence) sit at the same textual boundary — end of Commit Cadence prose meeting start of Pull Requests heading. A single Edit with the boundary as its anchor cleanly lands both changes atomically. No deviation from plan substance; the bottom-to-top discipline preserved (the merged edit sits below all still-pending higher edits). Recorded here for diff-review transparency.
 
 ### Gotchas
 
-- [Problem encountered — resolution]
+- **Parallel-Edit batch initially failed with "File has not been read yet" errors.** The first batch of five parallel Edits to `development_guide.md` (Steps 2, 3+4 merged, 5, 6, 7) all returned `File has not been read yet. Read it first before writing to it.` even though the file had been Read at the start of the IMPLEMENTING transition. Diagnosis: system-reminder interruptions injected between the initial Read and the Edit batch had cleared the harness's tracked read-state for the file. *Resolution*: re-read 1 line of `development_guide.md` then retried the same batch of 5 Edits; all 5 succeeded on retry with the exact same `old_string` / `new_string` content. No content lost; no AC affected; total cost was one extra Read + one retry of the same batch. *Lesson worth promoting*: long-context implementations with frequent system-reminder churn benefit from defensive `Read` immediately before any same-batch Edit run. Candidate scratchpad item for promotion in future dogfooding harvest, if observed again — for now, single occurrence does not warrant promotion.
 
 ### Documents Updated
 
-- [Documents updated during implementation, with sections]
+- **`docs/development_guide.md`** — v1.2 → v1.3 additive amendment. Six edits landed:
+  - § Code Style → Patterns to Follow (line 79) — new fourth bullet *Source-of-truth body before derived artefacts* with verbatim phrasing, three derived-artefact examples (work-item index entries / parent Tasks-line entries / cross-references by path or ID), TASK-003 citation, and the cross-Epic forward reference to EPIC-007 AC#4's *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* anchor in `conceptual_design.md` § Business Rules with the inline HTML comment `<!-- anchor will be created by EPIC-007's implementing Task per EPIC-007 AC#4 -->` per Plan Risk 7.
+  - § Git Workflow → Commit Cadence (line 146) — reciprocal closing sentence appended pointing at the new Push Cadence subsection.
+  - § Git Workflow → Push Cadence (lines 148–157) — new subsection sibling to Commit Cadence with lead sentence, two named triggers ((a) after every Gate 3 approval, (b) at session end), verbatim inline session-end definition, pre-Gate-3-pushes-permitted-but-not-required sentence, and reciprocal cross-reference to Commit Cadence.
+  - § Testing Strategy → Pre-Commit Checklist (line 114) — new fifth checklist item with verbatim trigger phrasing and the forward cross-reference to `shannon/skills/work-items/skill.md` § Process: Plan and § Process: Review (intra-Epic forward reference per AC7).
+  - § Version History (lines 190–199) — new `### 2026-05-24 - v1.3` entry above the existing `### 2026-05-16 - v1.2`; names EPIC-008 by ID as the source; enumerates all three substantive amendments by section anchor; classifies the bump verbatim as *"additive amendment per `conceptual_design.md` § Re-reviewing → Status semantics"*; names EPIC-007 as the contemporaneous sibling exercise of the routing channel (AC#7 contribution); trailing `Status: APPROVED (2026-05-24)` line.
+  - Top-of-file metadata (lines 4–5) — `Last Reviewed` and `Approved` dates updated from `2026-05-16` to `2026-05-24`; `Status` line stays `APPROVED` per AC9.
+
+### Recursive Dogfood
+
+Two recursive self-references played out during execution:
+
+- **The Task dogfooded its own AC1 editing-order convention.** `docs/development_guide.md` was the source-of-truth body for this Task; `docs/tasks/task_index.md` line 9 (TASK-007 status entry) and `docs/epics/EPIC-008-...md` line 115 (§ Plan Task 1 entry) were the derived artefacts. Step 10 updated the derived artefacts *after* the body landed, exactly per the convention this Task codifies. The first-arriving exercise of the AC1 rule by a Task that itself codifies the AC1 rule.
+- **Step 9's `grep` verification enacted the AC1 rule's verification clause to check itself.** The AC1 bullet's verification clause names "re-reading the body and, where applicable, a `grep` of the derived state to confirm convergence." Step 9 used exactly that — `grep` against the landed file — to confirm the verbatim phrasing convergence. The Task used the convention it codifies to verify the convention it codifies. A pleasing recursion.
 
 ---
 
 ## Review
 
-[Filled during review (Gate 3).]
+*Filled at `/task-review TASK-007` (Gate 3) — 2026-05-24. Independent verification subagent verdict: APPROVE. All 12 ACs Met; no Gaps or Issues.*
 
 ### Verification
 
-- [ ] All acceptance criteria met
-- [ ] Changes follow development_guide.md
-- [ ] Relevant documents updated
-- [ ] Knowledge captured where useful
+- [x] All acceptance criteria met — 12/12 Met per independent subagent (AC1 line 79; AC2 line 79; AC3 lines 149–156; AC4 line 114; AC5 lines 190–199; AC6 line 147; AC7 line 114; AC8 line 79; AC9 lines 3–5; AC10 Implementation Notes additivity block; AC11 git status 4-file scope match; AC12 git log empty)
+- [x] Changes follow `development_guide.md` — Markdown § Code Style conventions adhered to (bullet shape, heading hierarchy, British English in prose); Pre-Commit Checklist five items (the new fifth included) all tickable against this Task's own output; this Task is the canonical example of the AC1 editing-order convention it codifies, executed without drift
+- [x] Relevant documents updated — `docs/development_guide.md` v1.2 → v1.3 additive amendment landed; six edits at the planned anchors; top-of-file metadata refreshed; no other mandated document modified
+- [x] Knowledge captured where useful — the recursive-dogfood character recorded in this Task's Implementation Notes (the *Recursive Dogfood* section); the durable knowledge note for the routing-channel record itself is EPIC-008 Gate 3 work per AC#7 (not this Task's scope); the parallel-Edit / system-reminder gotcha recorded in Implementation Notes § Gotchas for future implementer reference
 
 ### Review Notes
 
-[Findings from review. Issues found and how they were resolved.]
+- **Verbatim-phrasing grep survey** rerun independently by the verification subagent — all four required phrases hit exactly once at the expected anchor (line 79 AC1; line 114 AC4; line 154 AC3; line 197 AC5); HTML-comment substring (`anchor will be created by EPIC-007`) also hits once at line 79 (AC2).
+- **Chronological ordering** of § Version History preserved (v1.3 < v1.2 < v1.1 < v1.0 in line order — most-recent-first convention intact).
+- **Additivity test** independently applied: all six amendments confirmed non-contradictory of existing approved claims per `conceptual_design.md` § Re-reviewing → *Status semantics*; `development_guide.md` correctly stays APPROVED through the bump.
+- **Scope-confined-diff** independently confirmed: exactly the four expected files modified (`docs/development_guide.md`, `docs/tasks/TASK-007-...md`, `docs/tasks/task_index.md`, `docs/epics/EPIC-008-...md`); no file under `shannon/`, `.claude/`, or any other mandated document touched.
+- **AC12** independently confirmed: `git log master..HEAD` empty — no mid-implementation commit on this Task's diff range (Gate-1 ELABORATED and Gate-2 PLANNED commits are already merged to master from prior gates, not pending).
+- **EPIC-008 coverage**: AC#1, AC#2, AC#3a, AC#4, AC#5 outbound half all closed by this Task. EPIC-008 AC#3b (skill prompts), AC#5 inbound half (skill prompts → checklist line reciprocal), AC#6 (scratchpad bookkeeping at EPIC-008 Gate 3), and AC#7 (recursive-dogfood knowledge note at EPIC-008 Gate 3) remain — Task 2 of EPIC-008 territory plus Epic Gate 3.
+- **FEAT-008 § Ideal State** bullets 2 and 3 substantively delivered for the `development_guide.md` half; the `work-items` skill half of bullet 3 lands with EPIC-008 Task 2.
+- **Pleasing recursion** noted by reviewer as a quality signal: the Task that codifies the editing-order convention disciplined its own execution by it — Shannon eating its own dog food well.
+- **Findings**: Strengths only; Gaps/Issues: None; Suggested fixes: None.
 
 ---
 
 ## Activity Log
 
+- **2026-05-24** — APPROVED via Gate 3. Independent verification subagent returned all 12 ACs Met with no Gaps or Issues; full per-AC report folded into § Review. Final disposition: Status REVIEW → APPROVED; file archived to `docs/tasks/archive/`; `task_index.md` link path updated; EPIC-008 § Plan Task 1 entry updated to APPROVED. Commit message: *"Approve TASK-007 (Gate 3) — Amend development_guide.md"*. Push triggered per the new § Push Cadence directive trigger (a) — after every Gate 3 approval — the very rule this Task itself just ratified (a fitting first invocation: Push Cadence's first use is the push that lands Push Cadence). EPIC-008 progresses to 1 of 2 implementing Tasks complete; ready for `/task-create` to spawn TASK-008 (the `work-items` skill prompts + `.claude/` re-sync Task), with cross-Epic sequencing against EPIC-007 still in play.
+- **2026-05-24** — IMPLEMENTED. All 12 Plan Steps executed in strict bottom-to-top order against `development_guide.md`: Step 1 (pre-flight anchor confirmation against live file) → Step 2 (v1.3 Version History entry inserted above v1.2 at line 190) → Steps 3+4 combined edit at the Commit Cadence / Pull Requests boundary (Push Cadence subsection at lines 148–157; reciprocal Commit Cadence cross-reference at line 146) → Step 5 (meta-gap checklist item appended at line 114) → Step 6 (editing-order bullet appended at line 79 with verbatim phrasing + 3 derived-artefact examples + TASK-003 citation + EPIC-007 AC#4 cross-reference + HTML comment per Plan Risk 7) → Step 7 (top-of-file metadata refresh at lines 4–5; Status stays APPROVED) → Step 8 (additivity verification per amendment, six sentences in Implementation Notes — all six additive, no pause-and-flag) → Step 9 (verbatim-phrasing `grep` verification — all five required phrases hit exactly once at expected anchor) → Step 10 (derived bookkeeping updated: task_index line 9, EPIC-008 § Plan Task 1 line 115) → Step 11 (scope-confined-diff verified: 4 expected files modified, 0 out-of-scope files modified — cross-type guard at AC11 satisfied) → Step 12 (no commit mid-implementation; Gate-3 commit deferred per § Commit Cadence). All 12 ACs satisfied (verifications recorded in Implementation Notes). One Plan deviation (Steps 3+4 combined into single Edit at shared textual boundary — no substance change). One gotcha (initial parallel-Edit batch failed with stale-read-state error after system-reminder interruptions; resolved by re-read-then-retry). Two recursive self-references played out as planned: (a) the Task dogfooded its own AC1 editing-order convention during execution; (b) Step 9's `grep` verification enacted AC1's verification-clause to check itself. Pending `/task-review TASK-007` (Gate 3).
+- **2026-05-24** — IMPLEMENTING via `/task-implement TASK-007`. Status PLANNED → IMPLEMENTING; executing the 12-step bottom-to-top plan against `development_guide.md`.
 - **2026-05-24** — PLANNED via Gate 2. Planning subagent drafted a 12-step **bottom-to-top** plan: pre-flight anchor confirmation → insert `v1.3` Version History entry (above line 179) → insert `### Push Cadence` subsection (between Commit Cadence end and Pull Requests at line 147) → append reciprocal cross-reference in existing Commit Cadence prose → append meta-gap checklist item to § Pre-Commit Checklist (after line 112) → append editing-order bullet to § Patterns to Follow (after line 78) with verbatim phrasing + 3 derived-artefact examples + TASK-003 citation + EPIC-007 AC#4 cross-ref HTML comment per Plan Risk 7 → refresh top-of-file metadata (lines 3–5, last for diff cleanliness) → additivity verification → verbatim-phrasing `grep` verification → derived bookkeeping updates (task_index line 9; EPIC-008 Plan Task 1 line 115) → scope-confined-diff `git status` against AC11 cross-type guard → no commit until Gate 3 per § Commit Cadence (the rule this Task itself extends). **Bottom-to-top sequencing rationale**: five of six insertions add lines; bottom-to-top makes each insertion sit below all still-pending insertion points, preserving the line anchors Requirements pin (converse of TASK-004's top-to-bottom rule for word-level edits — the framework's editing-order discipline emerging in two complementary forms). **Two recursive self-references**: (a) the Task dogfoods its own AC1 editing-order convention during execution — `development_guide.md` is the source-of-truth body; `task_index` and EPIC-008 § Plan Task 1 line are the derived artefacts that update afterward (Step 10 enacts the convention this Task codifies); (b) Step 9's `grep` verification uses the AC1 convention's "grep of derived state" clause to check itself. All 12 ACs covered. 7 risks with mitigations (line-anchor drift, additivity violation, forward-reference comment forgotten, verbatim-phrasing drift, over-formalisation, Version History chronological-ordering, bookkeeping drift). No drift, no internal contradiction. Plan approved by directing party without modification.
 - **2026-05-24** — ELABORATED via Gate 1. Elaboration subagent grounded each AC in the actual current `development_guide.md` v1.2 (Last Reviewed / Approved 2026-05-16). Confirmed anchor points: § Code Style → Patterns to Follow at lines 76–78 (three existing bullets; AC#1 appends fourth); § Git Workflow → Commit Cadence at 138–145 followed by Pull Requests at 147 (AC#2 inserts `### Push Cadence` heading between); § Testing Strategy → Pre-Commit Checklist at 109–112 (four existing items; AC#3a appends fifth); § Version History top entry at 179 (most-recent-first; AC#4 inserts `v1.3` above). EPIC-008 Plan's definitive location decisions match the file's reality at every point. 12 testable ACs drafted (AC1–AC12), traced 1:1 to EPIC-008 ACs: AC1–AC2 → EPIC-008 AC#1 (editing-order bullet substance + cross-Epic forward reference); AC3 → AC#2 (Push Cadence subsection); AC4 → AC#3a (meta-gap checklist line with verbatim trigger phrasing); AC5 + AC9 → AC#4 (Version History entry + top-of-file metadata refresh); AC6–AC8 → AC#5 outbound cross-references (Push Cadence ↔ Commit Cadence bidirectional, Pre-Commit Checklist → skill prompts forward, editing-order ↔ EPIC-007 AC#4 cross-Epic); AC10 covers additivity verification; AC11 covers cross-type scope boundary; AC12 covers no-commit-mid-implementation. Cross-Epic forward reference (AC2) enacts EPIC-008 Plan Risk 7 directly — inline HTML comment naming "anchor will be created by EPIC-007's implementing Task per EPIC-007 AC#4" so forward-only state is visible. One small Gap surfaced and captured as AC6: EPIC-008 AC#5's Push Cadence ↔ Commit Cadence pair needs the reciprocal Commit Cadence → Push Cadence direction; adds tiny additive edit to existing Commit Cadence prose. Otherwise all Strength — no Drift, no internal contradiction. Directing party approved without modification.
 - **2026-05-24** — DRAFT: Task created via `/task-create` under EPIC-008 as Task 1 of 2 (the `development_guide.md` amendments half). EPIC-008's Plan already resolved definitive location decisions (AC#1 → § Code Style → Patterns to Follow new bullet; AC#3a → § Testing Strategy → Pre-Commit Checklist new line) and noted out-of-scope items (AC#3b skill prompts → Task 2; AC#6 scratchpad bookkeeping + AC#7 recursive-dogfood record → Gate 3 review). Initial intent captured in the Overview; Acceptance Criteria and Plan to be drafted at `/task-elaborate` and `/task-plan`. This Task is independent of EPIC-007's implementing Tasks (different mandated doc) and so can proceed in parallel with EPIC-007 Task 1; it is also independent of the cross-Epic `work-items/skill.md` sequencing concern (that lands in Task 2).
