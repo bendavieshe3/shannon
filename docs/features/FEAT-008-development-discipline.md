@@ -58,7 +58,7 @@ The base capability is **retrospective**: `development_guide.md` was created dur
 
 ### Epics
 
-- [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md) — DRAFT — Development Conventions Surfaced Through Dogfooding (codifies editing-order, push-cadence, and the meta-gap routing channel — the dev-discipline half of the EPIC-005 / EPIC-006 dogfooding harvest, sibling to EPIC-007 under FEAT-003)
+- [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md) — ELABORATED — Development Conventions Surfaced Through Dogfooding (codifies editing-order, push-cadence, and the meta-gap routing channel — the dev-discipline half of the EPIC-005 / EPIC-006 dogfooding harvest, sibling to EPIC-007 under FEAT-003)
 
 *Future Epics will surface as Shannon is used on real projects beyond framework dogfooding — dev / test / build / CI disciplines absorbed into `development_guide` via the same channel EPIC-008 codifies.*
 
