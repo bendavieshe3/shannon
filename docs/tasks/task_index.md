@@ -7,7 +7,7 @@
 - [TASK-005](./archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) — APPROVED — V6 vocabulary + PLAN-PENDING removal in work-items skill (EPIC-005) #framework #v6 #skills #work-items
 - [TASK-006](./archive/TASK-006-cross-file-v6-consistency-verification.md) — APPROVED — Cross-file V6 consistency verification audit (EPIC-005) #framework #v6 #verification #skills
 - [TASK-007](./archive/TASK-007-amend-development-guide-new-conventions.md) — APPROVED — Amend development_guide.md with editing-order, Push Cadence, meta-gap checklist + Version History entry (EPIC-008 Task 1) #framework #development-guide #conventions
-- [TASK-008](./TASK-008-amend-conceptual-design-work-item-conventions.md) — ELABORATED — Amend conceptual_design.md with commit-hash clarification, bundled re-elaboration clause, naming convention, scope-guard rule + Version History entry (EPIC-007 Task 1) #framework #conceptual-design #conventions #work-items
+- [TASK-008](./TASK-008-amend-conceptual-design-work-item-conventions.md) — PLANNED — Amend conceptual_design.md with commit-hash clarification, bundled re-elaboration clause, naming convention, scope-guard rule + Version History entry (EPIC-007 Task 1) #framework #conceptual-design #conventions #work-items
 
 ---
 
