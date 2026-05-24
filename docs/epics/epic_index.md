@@ -6,7 +6,7 @@
 - [EPIC-004](./EPIC-004-distribution-channels.md) — DRAFT — Distribution Channels (FEAT-001) #setup #distribution
 - [EPIC-005](./EPIC-005-v6-skills-and-claude-template.md) — APPROVED — V6 Vocabulary in Skills and CLAUDE.md Template (FEAT-006) #v6 #framework
 - [EPIC-006](./EPIC-006-work-item-lifecycle-maturation.md) — APPROVED — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (FEAT-003) #framework #work-items
-- [EPIC-007](./EPIC-007-work-item-conventions-from-dogfooding.md) — ELABORATED — Work-Item Conventions Surfaced Through Dogfooding (FEAT-003) #framework #conventions #work-items
+- [EPIC-007](./EPIC-007-work-item-conventions-from-dogfooding.md) — PLANNED — Work-Item Conventions Surfaced Through Dogfooding (FEAT-003) #framework #conventions #work-items
 - [EPIC-008](./EPIC-008-development-conventions-from-dogfooding.md) — PLANNED — Development Conventions Surfaced Through Dogfooding (FEAT-008) #framework #conventions #development-guide
 
 ---
