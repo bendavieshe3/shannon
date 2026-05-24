@@ -75,7 +75,7 @@ This is the second foundational capability: it makes work tracking learnable in 
 ### Epics
 
 - [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md) — APPROVED — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (closed scratchpad items F1 and F2; fulfilled aspirational Ideal State bullets 1 and 2 added 2026-05-19; bullet 3, framework-version absorption, remains open)
-- [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — DRAFT — Work-Item Conventions Surfaced Through Dogfooding (promotes four work-item-workflow clarifications — commit-hash timing in re-elaboration, bundled re-elaboration, no opaque plan-letter labels, AC scope-guard convention — into ratified rules in `conceptual_design` + `work-items` skill; sibling to EPIC-008 under FEAT-008 covering the dev-discipline half)
+- [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — ELABORATED — Work-Item Conventions Surfaced Through Dogfooding (promotes four work-item-workflow clarifications — commit-hash timing in re-elaboration, bundled re-elaboration, no opaque plan-letter labels, AC scope-guard convention — into ratified rules in `conceptual_design` + `work-items` skill; sibling to EPIC-008 under FEAT-008 covering the dev-discipline half)
 
 *Candidate future Epic: name an explicit business rule for orphan tasks (currently captured as scratchpad item C4).*
 
