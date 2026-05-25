@@ -182,12 +182,15 @@ The subagent:
 - Reads the work item's Requirements
 - Reads documents listed under "Informed By" for this type and stage
 - Drafts the Plan section: approach, steps/tasks/epics (depending on type), dependencies, risks
+  - For any Acceptance Criterion asserting scope (what is *not* touched), apply the failure-mode test: if the AC's failure mode is "an unintended file changed", it is a scope-guard AC and must use **cross-type-guard phrasing** (e.g. *"no epic/task/spike template, index, or skill modified"*) rather than a literal file count or fixed file list. See `conceptual_design.md` § Business Rules → Scope-Boundary Acceptance Criteria Use Cross-Type Guards.
 - For higher-level items (Feature, Epic), may identify the child work items needed
 - Returns a structured summary
 
 ### 3. Cascading Preparation (for Epics)
 
 If the work item is an Epic, the planning subagent may draft tasks for the epic. Each prepared task is created in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stashed in the relevant sections of the task file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed"); the prepared content is surfaced when the directing party later runs the child's own `/task-elaborate` or `/task-plan`. Each child still requires its own Gate 1 and Gate 2 approval. No new sub-statuses are introduced (see § Cascading Operations).
+
+**Naming**: child Tasks must be named with a **descriptive title** paired with the allocated real ID from the outset — never with opaque plan-letter labels (TASK-A, TASK-B, TASK-C). Ordering, when relevant, is expressed by position language ("the first Task", "the verification Task"). Letter placeholders that appear in transient planning notation must not propagate into the prepared child files, the Epic Plan, the indexes, or downstream prose. See `conceptual_design.md` § Domain Model → *Work Item* for the canonical convention.
 
 ### 4. Present and Iterate
 
