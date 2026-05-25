@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-21
-**Approved**: 2026-05-21
+**Last Reviewed**: 2026-05-25
+**Approved**: 2026-05-25
 
 ---
 
@@ -54,6 +54,8 @@ The collective name for the four work-tracking entities. Each work item describe
 - **Requirements** — The "what" and "why"
 - **Plan** — The "how"
 - **Activity Log** — Timestamped history
+
+**Naming**: Child work items in Epic plans are named by descriptive title (and by real ID once allocated) — never by opaque plan-letter labels (TASK-A, TASK-B, TASK-C). Ordering, when relevant, is expressed by position language ("the first Task", "the verification Task"). Letter placeholders that appear in transient planning notation must not propagate into the Epic § Plan, child work-item files, indexes, or downstream prose. Skill prompt at `shannon/skills/work-items/skill.md` § Process: Plan step 3 (*Cascading Preparation (for Epics)*) instructs the planning subagent to use descriptive titles from the outset.
 
 **Relationships**:
 
@@ -174,6 +176,12 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Approved Tasks Are Archived** — Tasks that reach APPROVED are moved to `./docs/tasks/archive/`. Epics, Features, and Spikes remain in place as historical records.
 
+- **Scope-Boundary Acceptance Criteria Use Cross-Type Guards** — When a work-item Acceptance Criterion expresses scope (what is *not* touched), phrase it as a guard against changes to other types or layers — e.g. *"no epic/task/spike template, index, or skill modified"*. Do **not** enumerate a literal file count or a fixed file list as the scope assertion: work-item transitions necessarily touch routine bookkeeping files (work-item index entries, parent work-item Tasks-line entries) that literal counts and fixed enumerations cannot anticipate.
+
+  Acceptance Criteria *may* name target files when describing edit-target intent (e.g. *"the FEAT-XXX file gains a `**Met:** / **Remaining:**` sub-block"*). The rule applies only when the AC's purpose is to assert what is *out of scope*. The distinguishing test: **if the AC's failure mode is "an unintended file changed", it is a scope-guard AC and must use the cross-type-guard form.** (The test phrasing is intentionally general so it transfers to non-work-item contexts later, but the rule itself is scoped to work-item Acceptance Criteria — non-work-item scope assertions are outside this Epic's mandate.)
+
+  Three-instance precedent: **TASK-002 AC#6** (the "only two files modified" literal-count assertion contradicted AC#5, which required modifying a third); **TASK-002 AC#8** (example grep mis-worded — missing bold markers around the field name); **TASK-003 AC#9** (enumerated six files when the diff carried eight). Skill prompt at `shannon/skills/work-items/skill.md` § Process: Plan step 2 (*Spawn Planning Subagent*, AC-drafting bullet) repeats the failure-mode test verbatim. Companion edit-discipline rule: see `development_guide.md` § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts* (the editing-order convention from EPIC-008 AC#1) — together they answer *"what must I edit, in what order, and how do I assert the boundary?"*
+
 - **DRAFT Documents Are Not Authoritative** — AI must treat DRAFT mandated documents as not-yet-trustworthy context. Only APPROVED documents are authoritative.
 
 ---
@@ -272,7 +280,8 @@ When uncertain, treat as substantive (the more cautious path).
 3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
 4. Directing party reviews findings and decides which to apply inline, which to defer to scratchpad, and which to ignore
 5. Implementer applies the approved refinements; directing party explicitly approves the new state via **Gate 1**
-6. Activity Log entry is added recording **(a) trigger category** (upstream cascade / downstream gap / framework evolution), **(b) upstream commit hash** where applicable, and **(c) summary of what changed**
+   - **Bundled re-elaboration.** Multiple work-item re-elaborations may be applied inside a single Task's implementation; the Task's own Gate 2 and Gate 3 serve as the per-item directing-party refinement-approval the workflow's step 5 otherwise requires. Permitted only when **(a)** the bundle is *additive* per § Status semantics below and **(b)** the parent (Epic or Task) **explicitly enumerates** the re-elaborated work items by ID in its Plan or Acceptance Criteria. Co-occurs with the commit-hash clarification at step 6 below; **TASK-003** is the worked precedent (three Feature re-elaborations on FEAT-003 / FEAT-006 / FEAT-007 bundled inside one Task, citing upstream `09844df`).
+6. Activity Log entry is added recording **(a) trigger category** (upstream cascade / downstream gap / framework evolution), **(b) upstream commit hash** where applicable, and **(c) summary of what changed**. The "where applicable" qualifier on (b) covers the **bundled-Task case** (see the bundled re-elaboration sub-bullet on step 5 above): when the re-elaboration is bundled inside a Task whose own commit lands after Gate 3 (per `development_guide.md` § Commit Cadence — commits land after Gate 3, not mid-implementation), the entry cannot cite its own work item's commit hash because that hash does not exist at write-time; the entry instead cites the **upstream commit hash** — the hash that delivered the change being absorbed — and **references the bundling work item by ID**. Worked example: **TASK-003** cited upstream `09844df` and referenced TASK-003 by ID for its bundle of three re-elaborations on FEAT-003 / FEAT-006 / FEAT-007.
 
 **Status semantics**:
 
@@ -344,6 +353,17 @@ The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workf
 ---
 
 ## Version History
+
+### 2026-05-25 - v1.6
+
+- Per EPIC-007 — Work-Item Conventions Surfaced Through Dogfooding — additive amendments codifying four work-item-workflow conventions surfaced during EPIC-005 / EPIC-006 dogfooding:
+  - **§ Re-elaborating a Work Item → *Flow* step 6** — inline expansion of the existing "where applicable" phrase clarifying commit-hash timing in the bundled-Task case (cites TASK-003 as worked example with upstream `09844df`)
+  - **§ Re-elaborating a Work Item → *Flow* step 5** — new sub-bullet naming **bundled re-elaboration** as a valid pattern (three permission conditions; cites TASK-003 as worked precedent)
+  - **§ Domain Model → *Work Item*** — naming note after the Attributes list disallowing opaque plan-letter labels (TASK-A, TASK-B, TASK-C) for child work items in Epic plans
+  - **§ Business Rules** — new entry *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* establishing the AC-writing rule for scope-boundary ACs (failure-mode test; cites three-instance precedent — TASK-002 AC#6, TASK-002 AC#8, TASK-003 AC#9; cross-references EPIC-008 AC#1's editing-order convention in `development_guide.md` § Code Style as companion edit-discipline rule)
+- Classified as **additive amendment per § Re-reviewing** — no existing approved claim contradicted; document stays APPROVED across the bump (no DRAFT transition)
+- EPIC-008 (Development Conventions Surfaced Through Dogfooding, APPROVED 2026-05-24, commit `eac486b`) is the contemporaneous sibling exercise of the routing channel; together, EPIC-007 and EPIC-008 are the first two formal exercises of that channel. The cross-Epic AC pair (EPIC-007 AC#4 ↔ EPIC-008 AC#1) completes bidirectional on this Task's landing — the new § Business Rules entry's bold lead matches `development_guide.md:79`'s cross-reference text verbatim, self-healing the forward HTML comment landed by TASK-007
+- Status: APPROVED (2026-05-25)
 
 ### 2026-05-21 - v1.5
 
