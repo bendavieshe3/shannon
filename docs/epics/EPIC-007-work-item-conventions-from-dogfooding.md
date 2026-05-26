@@ -2,11 +2,11 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: APPROVED
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-05-24
-- **Updated**: 2026-05-24 (planned)
+- **Updated**: 2026-05-27 (approved)
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
 
@@ -157,18 +157,79 @@ Two Tasks, sequenced. Descriptive titles are canonical from the outset.
 
 ## Implementation Notes
 
-*Filled during implementation.*
+*Filled at Epic Gate 3 review (2026-05-27) — summarising the two implementing Tasks' landed work and the Gate-3 closure actions.*
+
+### Implementing Tasks
+
+- **TASK-008** ([archived](../tasks/archive/TASK-008-amend-conceptual-design-work-item-conventions.md)) — APPROVED 2026-05-25 (commit `dd8b0a5`). Landed four amendments to `conceptual_design.md` (v1.5 → v1.6 additive): commit-hash inline expansion at § Re-elaborating *Flow* step 6 (line 284); bundled re-elaboration sub-bullet at *Flow* step 5 (line 283); *Work Item* entity Naming note at § Domain Model (line 58); § Business Rules new entry *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* (line 179) — the cross-Epic anchor that self-healed `development_guide.md:79`'s forward HTML comment from TASK-007. 13 ACs Met. Closes EPIC-007 AC#1, AC#2, AC#3 doc-half, AC#4 doc-half, AC#5, AC#6 outbound half.
+
+- **TASK-009** ([archived](../tasks/archive/TASK-009-add-work-items-skill-prompts-and-resync-claude.md)) — APPROVED 2026-05-25 (commit `1293b98`). Landed two soft prompts in `shannon/skills/work-items/skill.md` + re-synced `.claude/skills/work-items/` (byte-identical, both 301 lines): naming-convention prompt at § Process: Plan step 3 *Cascading Preparation* (line 193); scope-guard sub-bullet under step 2 AC-drafting bullet (line 185). 9 ACs Met. Closes EPIC-007 AC#3 skill-half, AC#4 skill-half, AC#6 inbound half.
+
+### Three-Way Bold-Lead Consistency
+
+`Scope-Boundary Acceptance Criteria Use Cross-Type Guards` lands character-identical across three files:
+- `docs/conceptual_design.md:179` (canonical anchor, TASK-008)
+- `shannon/skills/work-items/skill.md:185` (skill-side prompt cross-reference, TASK-009)
+- `docs/development_guide.md:79` (cross-Epic back-reference, TASK-007 commit `eac486b`)
+
+The bidirectional EPIC-007 AC#4 ↔ EPIC-008 AC#1 cross-Epic pair is now textually complete.
+
+### AC#7 Bookkeeping (Performed at Gate 3)
+
+- **"Naming convention: avoid opaque plan-letter labels (TASK-A/B/C) for Tasks"** moved from `docs/scratchpad.md` § Items → § Processed, with a pointer naming EPIC-007 + both implementing Tasks + the doc and skill landing positions.
+- **"Framework clarifications buried in TASK-003's Plan"** stays in § Items with the verbatim partial-closure annotation: *"Partial closure: sub-items (b), (c) addressed by EPIC-007 APPROVED 2026-05-27; sub-item (a) pending under EPIC-008."* (per EPIC-007 AC#7's second-approver-moves rule; EPIC-008 still PLANNED at Gate 3 time).
+- **Item 4 (cross-type scope-guard)** has no scratchpad entry per AC#7 (source: archived TASK-002 / TASK-003 Reviews); confirmed absent.
+
+### Optional Housekeeping (Performed at Gate 3)
+
+- **Removed** the now-redundant HTML comment `<!-- anchor will be created by EPIC-007's implementing Task per EPIC-007 AC#4 -->` from `docs/development_guide.md:79` — the anchor it pointed at exists at `conceptual_design.md:179` since TASK-008's APPROVED landing.
+- **Added** a new framework-general lesson to `docs/scratchpad.md` § Items: *"Verbatim-phrasing grep tests require plain-prose substring landings — Markdown formatting (backticks, italic `*`, bold `**`) that interposes between substring chars breaks substring matching"* (surfaced by TASK-009's backtick-fix Deviation).
+- **Flipped** FEAT-003 § Ideal State bullet 4 annotation from `*(not yet met — addressed by EPIC-007)*` → `*(met — delivered by EPIC-007 / TASK-008 + TASK-009; APPROVED 2026-05-27)*`. Also updated `Initial Implementation` line and sub-block (Met / Remaining) — three of four aspirational criteria now met; one remaining (framework-version absorption). Updated FEAT-003 § Plan → Epics list to mark EPIC-007 APPROVED.
+
+### Recursive Dogfood
+
+EPIC-007 and EPIC-008 together exercise the meta-gap routing channel that EPIC-008 AC#3 codifies as a framework convention — the channel is operationally what gets framework-general resolutions from work-item-level scratchpad items into ratified mandated-document rules and skill prompts. EPIC-007's two implementing Tasks dogfooded:
+
+- **TASK-007's editing-order convention** (`development_guide.md:79`) during both Task executions — source body first; derived bookkeeping after; grep / diff verification.
+- **TASK-008's scope-guard rule** (`conceptual_design.md:179`) — TASK-008 AC12 and TASK-009 AC8 both phrased scope assertions as cross-type guards (citing the very rule they were ratifying); the paired-recursion pattern.
+- **Verbatim-phrasing discipline** (the lesson now in scratchpad) — TASK-009's backtick-fix Deviation was caught by the Step 7 grep regimen exactly as designed; the discipline is doing what it was designed to do, and the lesson now exists durably for future Tasks to inherit.
+
+The recursive-dogfood **record** lives in EPIC-008 AC#7 (Extension knowledge note in `docs/knowledge/`, to be created at EPIC-008 Gate 3 per EPIC-008's plan); EPIC-007 contributes its existence + approval to that record but does not duplicate it (single-sourced in EPIC-008).
 
 ---
 
 ## Review
 
-*Filled during review (Gate 3).*
+*Filled at `/epic-review EPIC-007` (Gate 3) — 2026-05-27. Independent verification subagent verdict: APPROVE. All 6 substantive ACs Met (AC#1–AC#6); AC#7 was the Gate-3 work itself and is now performed.*
+
+- [x] **AC#1** (commit-hash timing) Met — `conceptual_design.md:284` inline expansion preserves "where applicable" + adds bundled-Task case + cites TASK-003 with upstream `09844df`
+- [x] **AC#2** (bundled re-elaboration) Met — `conceptual_design.md:283` sub-bullet contains "bundled re-elaboration" verbatim + three permission conditions + back-reference to step 6 + TASK-003 worked precedent
+- [x] **AC#3** (naming convention) Met — doc-half at `conceptual_design.md:58`; skill-half at `shannon/skills/work-items/skill.md:193`; bidirectional cross-references resolve; verbatim TASK-A/B/C exclusion + position-language alternative in both
+- [x] **AC#4** (scope-guard rule) Met — doc-half at `conceptual_design.md:179` with verbatim failure-mode test + three-instance precedent; skill-half at `shannon/skills/work-items/skill.md:185` repeats failure-mode test verbatim; cross-Epic back-reference to `development_guide.md:79` (three-way bold-lead match confirmed character-by-character)
+- [x] **AC#5** (additive amendment + Version History) Met — `conceptual_design.md` Status stays APPROVED; Last Reviewed / Approved updated to 2026-05-25 by TASK-008; v1.6 entry at lines 357–366 names EPIC-007 + four amendments + "additive amendment per § Re-reviewing"
+- [x] **AC#6** (four bidirectional xref pairs) Met — AC#1↔AC#2 within `conceptual_design.md`; AC#3 doc↔skill; AC#4 doc↔skill; AC#4 doc↔EPIC-008 AC#1 in `development_guide.md:79`; all four pairs resolve
+- [x] **AC#7** (scratchpad bookkeeping) Met — Performed at Gate 3 per the actions recorded in § Implementation Notes: "Naming convention" moved to § Processed; "Framework clarifications" annotated with verbatim partial-closure (EPIC-008 still PLANNED); item 4 absence confirmed.
+
+### Cross-Cutting Alignment
+
+- **FEAT-003 § Ideal State bullet 4** substantively delivered: re-elaboration mechanics (AC#1, AC#2); AC writing patterns (AC#4); naming discipline (AC#3); both `conceptual_design` and `work-items` skill halves landed. Bullet 4 annotation flipped from `(not yet met)` to `(met — delivered by EPIC-007)` at Gate 3.
+- **EPIC-008 cross-Epic pair**: AC#4 ↔ EPIC-008 AC#1 (editing-order convention) bidirectional cross-references resolved; cross-Epic self-heal complete. EPIC-008 itself still has Task 2 + Gate 3 to go; EPIC-007's AC#7 partial-closure annotation accommodates this asymmetry.
+
+### Findings
+
+- **Strengths**: all seven required verbatim phrases land letter-for-letter; three-way bold-lead consistency holds; the `.claude/` re-sync intact (byte-identical); the paired-recursion dogfood pattern (Task AC12/AC8 disciplined by the very rule they ratify at AC#4) was a quality signal; the TASK-009 backtick-fix Deviation was caught by the verbatim-grep regimen exactly as designed, surfacing a durable framework-general lesson now in scratchpad.
+- **Gaps / Issues**: None at Gate 3 closure.
+- **Suggested fixes**: None required.
+
+### Verdict
+
+**APPROVED.** Both implementing Tasks landed cleanly; all 7 ACs Met (AC#7 performed at Gate 3); cross-Epic self-heal complete; FEAT-003 bullet 4 delivered. The framework eats its own dog food well at this Epic's closure — the Task that codifies the editing-order convention disciplined its own execution by it; the Task that codifies the scope-guard rule disciplined its own scope assertion by it; the grep-verification regimen caught a real drift and surfaced a new framework-general lesson now durably in scratchpad. EPIC-007 is approved with no follow-up beyond what is already on the EPIC-008 docket (cross-Epic bookkeeping completes when EPIC-008 reaches APPROVED).
 
 ---
 
 ## Activity Log
 
+- **2026-05-27** — APPROVED via Gate 3. Both implementing Tasks landed (TASK-008 APPROVED 2026-05-25 commit `dd8b0a5` — `conceptual_design.md` v1.5 → v1.6 amendments; TASK-009 APPROVED 2026-05-25 commit `1293b98` — `work-items` skill prompts + `.claude/` re-sync). Independent verification subagent confirmed all 6 substantive ACs Met (AC#1–AC#6); AC#7 was the Gate-3 work itself and is now performed. Three-way bold-lead consistency for `Scope-Boundary Acceptance Criteria Use Cross-Type Guards` verified character-by-character across `conceptual_design.md:179` + `shannon/skills/work-items/skill.md:185` + `development_guide.md:79`. AC#7 scratchpad bookkeeping performed: "Naming convention" moved to § Processed with EPIC-007 pointer; "Framework clarifications" annotated with verbatim partial-closure (EPIC-008 still PLANNED — second-approver-moves rule waits); item 4 absence confirmed. Three optional housekeeping edits performed at Gate 3 closure: (A) removed now-redundant HTML comment at `development_guide.md:79`; (B) added verbatim-grep-tests lesson to `scratchpad.md` § Items (surfaced by TASK-009 backtick-fix Deviation); (C) flipped FEAT-003 § Ideal State bullet 4 annotation to `*(met — delivered by EPIC-007)*` + updated Initial Implementation line and Met/Remaining sub-block (three of four aspirational criteria met; one remaining — framework-version absorption) + updated FEAT-003 § Plan → Epics list to mark EPIC-007 APPROVED. Commit `Approve EPIC-007 (Gate 3)`; push triggered per `development_guide.md` § Push Cadence trigger (a). Remaining for the FEAT-003 / FEAT-008 dogfooding-harvest pair: EPIC-008 Task 2 (work-items skill prompts at § Process: Plan + § Process: Review — mechanical rebase against TASK-009's landed state) + EPIC-008 Gate 3 (AC#6 scratchpad bookkeeping including the second-approver move of "Framework clarifications" to § Processed + AC#7 Extension knowledge note recording recursive-dogfood character).
 - **2026-05-24** — PLANNED via Gate 2. Planning subagent drafted a 2-Task plan mirroring EPIC-008's structure: (1) **Amend `conceptual_design.md`** — covers AC#1, AC#2, AC#3 doc-half, AC#4 doc-half, AC#5 (additive `v1.5 → v1.6` with 4-must Version History entry), AC#6 outbound cross-references including the cross-Epic AC#4 ↔ EPIC-008 AC#1 pair; (2) **Add `work-items` skill prompts at § Process: Plan steps 2 and 3 + `.claude/` re-sync** — covers AC#3 skill-half, AC#4 skill-half, AC#6 inbound; must follow Task 1 so cross-references resolve. AC#7 (scratchpad bookkeeping) is explicitly Gate-3 review work, not implementing-Task scope. Recursive-dogfood: no EPIC-007 Task action needed (single-sourced in EPIC-008 AC#7's knowledge note); EPIC-007's contribution is its existence and approval. **All four "implementing Task may override" hooks resolved at planning**: AC#1 → inline expansion at Flow step 6 (the existing "where applicable" *is* the hook — sub-bullet rejected); AC#2 → sub-bullet on Flow step 5 (gating-mechanics home); AC#3 → naming note after Attributes list on *Work Item* in § Domain Model; AC#4 → new § Business Rules entry "Scope-Boundary Acceptance Criteria Use Cross-Type Guards". **Cross-Epic coordination on `work-items/skill.md`** matches EPIC-008's recommendation verbatim — sequence the two Epics' Task 2s; second-arriving rebases against first's landed state then re-syncs `.claude/`; no parallel sessions on this file; merged multi-Epic Task rejected. 7 risks named with mitigations. Findings: all Strength + one minor non-blocking Gap (no coordination signal for ordering of approvals, symmetric to EPIC-008's). Plan approved by directing party without modification.
 - **2026-05-24** — ELABORATED via Gate 1. Fresh elaboration pass by subagent on the trimmed scope (post-split). Refinements: (1) AC#1 commit-hash sharpened to ordered (i) why work item's own hash is unavailable + (ii) what to cite, with required verbatim phrasing ("upstream commit hash", "reference … by ID") and TASK-003 as the worked example. (2) AC#2 bundled re-elaboration: recommended home is a new sub-bullet on *Flow* step 5 (where gating semantics live); three permission conditions tightened. (3) AC#3 naming convention: recommended home is the *Work Item* entity description in § Domain Model (entity-attribute naming is more natural than a business rule); skill prompt pinpointed to § Process: Plan step 3 (Cascading Preparation — the exact ID-allocation moment). (4) AC#4 scope-guard rule: recommended home is a new § Business Rules entry "Scope-Boundary Acceptance Criteria Use Cross-Type Guards" (companion to *Unified Status Lifecycle*); scope-vs-test-phrasing tension resolved with explicit parenthetical (test is general so transferable; rule is scoped to work-item ACs); skill prompt at § Process: Plan step 2 (AC-drafting bullet). (5) AC#5 Version History entry shape concretised — 4 explicit must-requirements (name EPIC-007 by ID, list amendments by anchor, classify additive, record new Approved date). (6) AC#6 restructured into 4 bidirectional cross-reference pairs; AC#1↔AC#2 made bidirectional (was unidirectional); AC#4↔EPIC-008 editing-order got a justification paragraph showing the cross-reference isn't a stretch ("edit-discipline / AC-writing rules together answering 'what must I edit, in what order, and how do I assert the boundary?'"). (7) AC#7 partial-closure annotation is letter-for-letter the converse of EPIC-008 AC#6 (deterministic second-approver protocol). Trim sound: all 4 EPIC-007 items belong with FEAT-003 work-item conventions; all 3 EPIC-008 items belong with FEAT-008 dev-discipline. FEAT-003 bullet 4 anchor holds completely — every phrase maps to ≥1 AC. Cross-Epic coordination symmetric. Recursive-dogfood: lighter answer chosen — no parallel AC#8 in EPIC-007; the record is single-sourced in EPIC-008 AC#7's knowledge note; Overview adds a record-only paragraph pointing at EPIC-008's record. Findings: all Strength + one minor non-blocking Gap (no coordination signal for which Epic approves first — same Gap EPIC-008 flagged; symmetric and acceptable). Directing party approved without modification.
 - **2026-05-24** — Re-scoped: trimmed from seven items to four; sibling EPIC-008 created under new FEAT-008. The original elaboration (in flight 2026-05-23 / 2026-05-24) produced 11 ACs spanning seven items across both work-item and dev-discipline territory. The directing party identified an architectural improvement: *"acknowledge the split now and pay the upfront cost to prevent more cost/re-work later — future learnings will compound when Shannon is used on real projects beyond dogfooding itself."* The split: items 2 (commit-hash), 3 (bundled re-elaboration), 6 (naming convention), 7 (AC scope-guard) stay here under FEAT-003 — renumbered AC#1–AC#4 (cross-cutting ACs renumbered AC#5–AC#7). Items 1 (editing-order), 4 (meta-gap channel), 5 (push-cadence) move to EPIC-008 under FEAT-008. The file was renamed `EPIC-007-framework-conventions-from-dogfooding.md` → `EPIC-007-work-item-conventions-from-dogfooding.md`. FEAT-003 was re-elaborated 2026-05-24 (additive) to add Ideal State bullet 4 — the explicit anchor for this Epic's work-item-conventions promotion (closing the Gate-1 *Anchor Gap* finding from the original elaboration). The pre-split elaboration's *parent-fit Drift* finding (items 1, 5 fit FEAT-003 loosely) is resolved by the split.
