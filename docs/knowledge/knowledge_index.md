@@ -21,6 +21,8 @@
 
 ## Extensions
 
+- **[meta-gap-routing-channel.md](./meta-gap-routing-channel.md)** - Extends: `development_guide.md` § "Testing Strategy → Pre-Commit Checklist" + § "Git Workflow → Push Cadence" - The meta-gap routing channel codified by EPIC-008 with EPIC-007 as contemporaneous sibling exercise; includes the section-boundary-uniqueness Edit-anchor technique
+
 - **[note-name].md** - Extends: [doc-name] § [Section] - [Description]
 
 **Example**:

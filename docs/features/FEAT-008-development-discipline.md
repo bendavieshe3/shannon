@@ -6,9 +6,9 @@
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #3 "Knowledge Accumulates" (with § Core Principles #4 "Adaptive Coherence" as secondary anchor)
-- **Initial Implementation**: Partial — see Activity Log
-  - **Met:** `development_guide.md` exists with retrospective conventions — § Code Style, § Git Workflow (Commit Cadence), § Testing Strategy → Pre-Commit Checklist, § Distribution / re-sync, § Setup, § CI/CD.
-  - **Remaining:** Editing-order convention; Push Cadence directive; meta-gap routing channel — all addressed by EPIC-008. Future learnings from real-project use (testing / build / CI conventions) absorbed via the same channel.
+- **Initial Implementation**: Partial — `development_guide.md` v1.3 (APPROVED 2026-05-24) carries the original retrospective conventions plus the three EPIC-008 amendments (editing-order convention, Push Cadence subsection, meta-gap routing-channel Pre-Commit Checklist line); the meta-gap routing channel is operationalised end-to-end (canonical checklist line + step-adjoining skill prompts at `work-items/skill.md` § Process: Plan and § Process: Review); future learnings from real-project use (testing / build / CI conventions) absorbed via the same channel. See Met / Remaining below.
+  - **Met:** `development_guide.md` exists with retrospective conventions — § Code Style, § Git Workflow (Commit Cadence), § Testing Strategy → Pre-Commit Checklist, § Distribution / re-sync, § Setup, § CI/CD — plus three EPIC-008 amendments: editing-order convention at `development_guide.md:79` § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts*; Push Cadence subsection at `:149` § Git Workflow as sibling to Commit Cadence; meta-gap routing channel two-touch (Pre-Commit Checklist line at `:114` + step-adjoining soft prompts at `shannon/skills/work-items/skill.md:174` § Process: Plan and `:236` § Process: Review). All three EPIC-008 items APPROVED 2026-05-27. Durable record at `docs/knowledge/meta-gap-routing-channel.md` (Extension knowledge note).
+  - **Remaining:** No outstanding aspirational criteria at this time. Future learnings from real-project use (dev / test / build / CI disciplines surfaced as Shannon is applied beyond framework dogfooding) will absorb into `development_guide.md` via the routing channel EPIC-008 established — forward work expected over the project lifetime, not a missing criterion.
 - **Created**: 2026-05-24
 - **Updated**: 2026-05-24
 
@@ -37,8 +37,8 @@ The base capability is **retrospective**: `development_guide.md` was created dur
 *The framework's commitments around development discipline as it accumulates over time.*
 
 - The mandated `development_guide.md` exists with conventions covering § Code Style, § Git Workflow (Commit Cadence, [Push Cadence — forward via EPIC-008]), § Testing Strategy → Pre-Commit Checklist, § Distribution and re-sync, § Setup, § CI/CD *(met for the listed retrospective conventions; Push Cadence and editing-order forward via EPIC-008)*
-- Development disciplines surfaced during framework use are promoted into ratified `development_guide` rules via canonical work-item workflows — not lost, not re-derived ad-hoc, not silently absorbed into individual Task Plans *(not yet met — addressed by EPIC-008, which both exercises the channel and codifies it)*
-- The framework provides a routing channel for "this resolved a framework-general ambiguity → route it back" so the discipline of capturing learnings is visible at the moments of action (plan / review) rather than relying on implementer initiative — the *meta-gap* *(not yet met — addressed by EPIC-008)*
+- Development disciplines surfaced during framework use are promoted into ratified `development_guide` rules via canonical work-item workflows — not lost, not re-derived ad-hoc, not silently absorbed into individual Task Plans *(met — delivered by EPIC-008 / TASK-007 (editing-order, Push Cadence, meta-gap checklist line) + TASK-010 (skill prompts); APPROVED 2026-05-27)*
+- The framework provides a routing channel for "this resolved a framework-general ambiguity → route it back" so the discipline of capturing learnings is visible at the moments of action (plan / review) rather than relying on implementer initiative — the *meta-gap* *(met — delivered by EPIC-008; routing channel codified at `development_guide.md:114` + `shannon/skills/work-items/skill.md:174`+`:236`; APPROVED 2026-05-27; durable record at `docs/knowledge/meta-gap-routing-channel.md`)*
 - (Future) Real-project use — Shannon applied to projects other than itself — surfaces dev / test / build / CI disciplines beyond framework dogfooding; these are absorbed into `development_guide` via the same channel without forcing a separate model *(forward; expected over project lifetime)*
 
 ### User Stories
@@ -58,7 +58,7 @@ The base capability is **retrospective**: `development_guide.md` was created dur
 
 ### Epics
 
-- [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md) — PLANNED — Development Conventions Surfaced Through Dogfooding (codifies editing-order, push-cadence, and the meta-gap routing channel — the dev-discipline half of the EPIC-005 / EPIC-006 dogfooding harvest, sibling to EPIC-007 under FEAT-003)
+- [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md) — APPROVED — Development Conventions Surfaced Through Dogfooding (codified editing-order, Push Cadence, and the meta-gap routing channel — the dev-discipline half of the EPIC-005 / EPIC-006 dogfooding harvest, sibling to EPIC-007 under FEAT-003; APPROVED 2026-05-27 via TASK-007 + TASK-010; fulfilled aspirational Ideal State bullets 2 and 3)
 
 *Future Epics will surface as Shannon is used on real projects beyond framework dogfooding — dev / test / build / CI disciplines absorbed into `development_guide` via the same channel EPIC-008 codifies.*
 
