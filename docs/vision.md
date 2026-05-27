@@ -1,8 +1,8 @@
 # Product Vision
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-19
-**Approved**: 2026-05-19
+**Last Reviewed**: 2026-05-28
+**Approved**: 2026-05-28
 
 ---
 
@@ -20,7 +20,7 @@ The result is the same productivity tax that plagued teams before AI: the develo
 
 ## Vision Statement
 
-Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or a supervising agent distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from adoption through full maturity, without the directing party ever having to remember which document said what.
+Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or an agent acting in the directing-party role distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from adoption through full maturity, without the directing party ever having to remember which document said what. Between gates, a supervisor role — distinct from the implementer, and optionally distinct from the directing party — sustains project health: detecting drift, surfacing strategic opportunities, approving routine work, and converting the directing party's high-level intent into candidate work items.
 
 ---
 
@@ -32,7 +32,7 @@ The implementing AI reads, maintains, and cross-references documentation. The di
 
 ### 2. **Strategic External Review**
 
-Three quality gates at high-leverage points — requirements elaboration, implementation planning, and completion review. No code review, no micromanagement. A directing party intervenes where independent judgement compounds; the implementer handles the rest. The directing party is most often a human, but may be a supervising agent — provided that supervisor is *not* the same agent doing the implementation. The framework treats supervision as a role, not a species.
+Three quality gates at high-leverage points — requirements elaboration, implementation planning, and completion review. No code review, no micromanagement. A directing party intervenes where independent judgement compounds; the implementer handles the rest. The directing party is most often a human, but may be an agent acting in the directing-party role — provided that agent is *not* the same agent doing the implementation. The framework treats the directing role as a role, not a species — and reserves the term *supervisor* for the distinct vigilance role introduced in Principle 5.
 
 ### 3. **Complete Traceability**
 
@@ -42,6 +42,10 @@ Code traces back to tasks; tasks to epics or features; features to the vision. N
 
 Coherence is dynamic, not static. The framework absorbs change — new understanding, new projects, new framework versions — without losing alignment. Reviewed context is treated as authoritative; drift between layers is caught early and resolved through canonical re-review and re-elaboration workflows. Projects can adopt Shannon at any maturity, with pre-existing capabilities captured as Retrospective Features. Framework evolution (new attributes, new workflows) propagates to existing artefacts through the same review mechanisms. Knowledge accumulates so the same investigation never happens twice.
 
+### 5. **Continuous Health Vigilance**
+
+Between the directing party's high-leverage interventions, the framework continuously watches for the conditions that erode coherence: documents drifting out of alignment, work items stuck mid-lifecycle, indexes diverging from their source-of-truth bodies, scratchpad items aging without resolution, opportunities to adopt new tools going unnoticed. A **supervisor** role — distinct from the implementer, and optionally distinct from the directing party — performs this vigilance on a cadence, reports up, and absorbs routine gate decisions so the directing party intervenes only on the consequential ones. The framework's promise of "drift in days, not refactors" becomes a continuous commitment rather than a hope.
+
 ---
 
 ## Key Features
@@ -50,11 +54,13 @@ Coherence is dynamic, not static. The framework absorbs change — new understan
 
 - **Unified Work Item Model** — Features, Epics, Tasks, and Spikes share a single status lifecycle and a single file structure. Learn the model once; apply it everywhere.
 
-- **Three Quality Gates** — Explicit approval gates at requirements elaboration, planning, and completion. Built into the lifecycle, not bolted on. Approval comes from a directing party — human, or a supervising agent distinct from the implementer.
+- **Three Quality Gates** — Explicit approval gates at requirements elaboration, planning, and completion. Built into the lifecycle, not bolted on. Approval comes from a directing party — human, or an agent acting in the directing-party role, distinct from the implementer. For Task gates (and Epic gates by default) the supervisor role introduced in Principle 5 holds delegated approval authority; see Target Users § *Three roles, configurably separable*.
 
 - **Knowledge Base** — Research notes, implementation details, and document extensions captured as the project runs. Spikes produce knowledge notes as their primary output.
 
 - **Lightweight Idea Capture** — A pre-workflow scratchpad (`docs/scratchpad.md`) for ideas, half-formed work, and unprocessed TODOs that don't yet belong to a formal work item. Items get processed periodically: promoted to Features, Epics, Tasks, or Spikes; moved to knowledge notes when they harden into durable findings; or dropped. The scratchpad is the deliberate middle between losing thoughts and forcing premature classification.
+
+- **Supervisor Role** — A continuous-vigilance role distinct from the implementer (and optionally distinct from the directing party). Audits project health on a cadence, produces dated reports, and exercises delegated gate authority for routine work — by default approving Task-level gates and the promotion of scratchpad items to Tasks, with Epic-level gate authority configurable per project. Vision and Feature gates always remain with the directing party. Designed to be invokable both interactively (during a directing-party session) and autonomously (on a cadence the project configures).
 
 ---
 
@@ -70,9 +76,20 @@ The Gardener starts with an unrefined idea and wants to explore it through itera
 
 Both personas direct AI rather than write code themselves. The framework must make AI implementation trustworthy enough that line-by-line code review is the exception rather than the norm.
 
-### The directing role is separable
+### Three roles, configurably separable
 
-The framework treats "directing party" as a role, not a person. A human (Architect or Gardener) is the most common occupant. A supervising agent — distinct from the agent doing the implementation — can occupy the same role, opening multi-agent configurations in which one AI directs and another implements, with a human at the top of the chain. The integrity of the gates depends on a single constraint: **the supervisor must not be the same agent as the implementer**. Independence of judgement is what the gates protect; collapsing the two collapses the gate.
+Shannon names three roles:
+
+- **Implementer** — the AI that writes code, maintains documentation, and drafts work items for review.
+- **Directing party** — the source of vision and high-leverage decisions. Always retains gate authority over the Vision document and over Features. A human (Architect or Gardener) is the most common occupant; an agent acting in the directing-party role is supported.
+- **Supervisor** — performs continuous health vigilance and absorbs the routine gate workload so the directing party's interventions stay high-leverage. By default the supervisor holds Task-level gate authority and may promote scratchpad items into Tasks autonomously. Epic-level gate authority sits with the supervisor by default but may be reserved by the directing party per project. Scratchpad promotion to an Epic always requires directing-party approval, because Epics live under Features the directing party owns.
+
+Two constraints govern role assignment:
+
+1. **Supervisor ≠ implementer.** Gate integrity requires that the agent performing the work is not the same as the agent approving it. This constraint is absolute.
+2. **Supervisor = directing party is permitted.** In solo configurations one person can occupy both roles — the supervisor's value (cadence-driven vigilance, routine gate absorption) still applies, just without a second party. In fuller configurations the supervisor is an agent and the human only consumes its synthesis and exercises the gates it cannot.
+
+Gate authority therefore has a fixed floor (Vision + Features always with the directing party) and a configurable ceiling for the supervisor (Tasks always, Epics by default, Features and Vision never).
 
 ### Retrospective adoption
 
@@ -108,9 +125,21 @@ Beyond solo development: Shannon's coherence model — explicit authority graphs
 
 The framework deliberately avoids language and framework lock-in. Markdown files, conventional directory layouts, and Claude Code slash commands are the only requirements. The bet is that what Shannon does for software projects can extend, with little adaptation, to any structured creative endeavour.
 
+The supervisor role generalises naturally: any setting where humans direct long-running AI work benefits from continuous vigilance over alignment, lifecycle, and opportunity. Shannon's supervisor pattern is portable to any domain that adopts the rest of the framework.
+
 ---
 
 ## Version History
+
+### 2026-05-28 - v2.4
+
+- **Introduced the supervisor as a third role**, distinct from the implementer and optionally distinct from the directing party. Added Core Principle 5 (Continuous Health Vigilance), a new Key Feature (Supervisor Role), a new Target Users subsection (*Three roles, configurably separable*) replacing the prior *The directing role is separable* subsection, an extension to the Vision Statement, and an extension to Future Vision
+- **Codified gate-authority split**: Vision + Features always with the directing party (fixed floor); Tasks always with the supervisor; Epics with the supervisor by default but reservable by the directing party per project. Supervisor may auto-promote scratchpad items to Tasks; scratchpad-to-Epic promotion requires directing-party approval
+- **Hard constraint**: supervisor ≠ implementer (gate integrity preserved). **Soft constraint**: supervisor = directing party is permitted in solo configurations
+- Tightened Principle 2 and the prior *Directing role is separable* subsection to remove the naming collision: "supervising agent" wording reframed as "an agent acting in the directing-party role." The term *supervisor* is now reserved for the new role
+- Treated as additive amendment per conceptual_design v1.3 § Re-reviewing — preserves prior commitments (gate integrity, supervisor ≠ implementer, all four prior principles) and extends them. DRAFT transit elected as the cautious path per § Re-reviewing → *when uncertain, treat as substantive*; the classification remains additive (no prior approved claim contradicted)
+- Rationale: the framework's promise of "drift in days" needs a continuous mechanism, and the directing party's time is the framework's scarcest resource — the supervisor exists to protect both. Naming the supervisor at vision level unblocks the downstream cascade (technology_stack tooling, conceptual_design role model, technical_design, FEAT-009 and its Epics) without each having to argue its own warrant
+- Status: APPROVED (2026-05-28). G1 alignment review surfaced one required pre-approval fix at Key Features § Three Quality Gates (completed the naming-collision sweep that the rest of the amendment retires) plus copy edits / altitude-lift at the supervisor Key Feature (invocation modes phrased as cadence-pattern abstract rather than mechanism-specific). Downstream cascade preview: technology_stack + conceptual_design re-reviewable in parallel (conceptual_design heaviest — Glossary entry, Three Hard Gates rule rework, Gate Authority Split as new Business Rule, Supervisor Report domain-model decision); technical_design after both; development_guide + ux_guide after technical_design.
 
 ### 2026-05-19 - v2.3
 
