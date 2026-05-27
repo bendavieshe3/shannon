@@ -9,7 +9,7 @@
 - [TASK-007](./archive/TASK-007-amend-development-guide-new-conventions.md) — APPROVED — Amend development_guide.md with editing-order, Push Cadence, meta-gap checklist + Version History entry (EPIC-008 Task 1) #framework #development-guide #conventions
 - [TASK-008](./archive/TASK-008-amend-conceptual-design-work-item-conventions.md) — APPROVED — Amend conceptual_design.md with commit-hash clarification, bundled re-elaboration clause, naming convention, scope-guard rule + Version History entry (EPIC-007 Task 1) #framework #conceptual-design #conventions #work-items
 - [TASK-009](./archive/TASK-009-add-work-items-skill-prompts-and-resync-claude.md) — APPROVED — Add work-items skill prompts at § Process: Plan steps 2 and 3 + `.claude/` re-sync (EPIC-007 Task 2) #framework #work-items #skills #conventions
-- [TASK-010](./TASK-010-add-meta-gap-skill-prompts-and-resync-claude.md) — PLANNED — Add meta-gap routing-channel skill prompts at § Process: Plan + § Process: Review + `.claude/` re-sync (EPIC-008 Task 2) #framework #work-items #skills #meta-gap #routing-channel
+- [TASK-010](./archive/TASK-010-add-meta-gap-skill-prompts-and-resync-claude.md) — APPROVED — Add meta-gap routing-channel skill prompts at § Process: Plan + § Process: Review + `.claude/` re-sync (EPIC-008 Task 2) #framework #work-items #skills #meta-gap #routing-channel
 
 ---
 

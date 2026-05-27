@@ -171,6 +171,8 @@ Cross-type adjustments (Features have no upstream work-item parent; Spikes are s
 
 ## Process: Plan (Gate 2)
 
+*Soft prompt at the moment of planning: did this work resolve a framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. See `development_guide.md` § Testing Strategy → Pre-Commit Checklist.*
+
 ### 1. Identify Target
 
 Must be ELABORATED. If not, surface error.
@@ -230,6 +232,8 @@ When the work is complete (per the plan), update status to IMPLEMENTED.
 The directing party or implementer may move the work item back to IMPLEMENTING from IMPLEMENTED or REVIEW. The iterative zone is gateless.
 
 ## Process: Review (Gate 3)
+
+*Soft prompt at the moment of review: did this work resolve a framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. See `development_guide.md` § Testing Strategy → Pre-Commit Checklist.*
 
 ### 1. Identify Target
 
