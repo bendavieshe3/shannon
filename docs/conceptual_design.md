@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-25
-**Approved**: 2026-05-25
+**Last Reviewed**: 2026-05-29
+**Approved**: 2026-05-29
 
 ---
 
@@ -12,9 +12,10 @@
 
 - **Work Item** — Any of the four types of work-tracking entity in Shannon: Feature, Epic, Task, Spike. All share a common lifecycle and file structure.
 - **Mandated Document** — One of the six core project documents that together describe the project. Vision, technology stack, conceptual design, technical design, development guide, UX guide.
-- **Quality Gate** — An explicit approval point in a work item's lifecycle, decided by the directing party. Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
-- **Directing Party** — The role that directs, reviews, and approves at gates. May be a human, or a supervising agent distinct from the implementer. The framework treats supervision as a role, not a species.
-- **Implementer** — The agent that executes work (elaboration drafts, planning drafts, implementation). At any given gate, the implementer cannot be the directing party — independence of judgement is what the gate protects.
+- **Quality Gate** — An explicit approval point in a work item's lifecycle, decided by the holder of gate authority for that work item type (the directing party or the supervisor; see § Business Rules → *Gate Authority Split*). Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
+- **Directing Party** — The role that sources vision and exercises the gate authorities not delegated to the supervisor. Always holds approval authority for the Vision document and for Features; may reserve Epic gate authority per project. Most commonly a human (Architect or Gardener persona); an agent acting in the directing-party role is supported, provided that agent is not the implementer at the gate in question. The framework treats the directing role as a role, not a species. See § Business Rules → *Gate Authority Split*.
+- **Supervisor** — The role that performs continuous health vigilance between gates and absorbs delegated gate authority for routine work. By default holds approval authority for Task gates (always) and Epic gates (configurable per project), and may auto-promote scratchpad items to Tasks. Vision and Feature gate authority always remains with the directing party. May be a distinct agent or, in solo configurations, the directing party themselves; must never be the same agent as the implementer at the gate it approves. See § Business Rules → *Gate Authority Split*.
+- **Implementer** — The agent that executes work (elaboration drafts, planning drafts, implementation). At any given gate, the implementer cannot be the agent approving that gate (whether directing party or supervisor) — independence of judgement is what the gate protects.
 - **Authority Graph** — The directed relationship between documents. Lower documents must align to and enable higher ones.
 - **Skill** — A reusable unit of framework logic, with templates, invoked by commands. Skills are where Shannon's behaviour lives.
 - **Command** — A user-invoked entry point. Thin — its job is to identify what to do and delegate to a skill.
@@ -141,7 +142,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 **Attributes**:
 
-- **Type** — Research, Implementation Details, or Extension
+- **Type** — Research, Implementation Details, Extension, or Supervisor Report
 - **Related** — The mandated doc section, work item, or other note this connects to
 
 **Relationships**:
@@ -149,6 +150,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 - Belongs to a **Project**'s knowledge base
 - May extend a **Mandated Document** (Extension type)
 - May be produced by a **Spike**
+- May be produced by a supervisor audit cycle (Supervisor Report type)
 
 ---
 
@@ -164,9 +166,19 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle. Features additionally carry an orthogonal `Activity` attribute (STABLE / ACTIVE) describing whether an epic is in progress *under* the feature; this is descriptive state, not a lifecycle stage.
 
-- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit approval by the directing party. The implementer cannot approve its own work across a gate; see *Supervisor Distinct From Implementer*.
+- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit approval by the gate authority holder for the work item type, per *Gate Authority Split*. The implementer cannot approve its own work across a gate, regardless of which role holds gate authority; see *Supervisor Distinct From Implementer*.
 
-- **Supervisor Distinct From Implementer** — The directing party at any gate must not be the same agent as the implementer at that gate. A human is the most common directing party; a supervising agent (an AI distinct from the implementing AI) is also valid. Collapsing the two roles collapses the gate.
+- **Supervisor Distinct From Implementer** — The role-holder approving any gate (whether directing party or supervisor) must not be the same agent as the implementer at that gate. The constraint is on agent identity, not role label: a human directing party approving Feature gates, a supervisor agent approving Task gates, and a directing party occupying the supervisor role in a solo configuration are all valid — provided none of them is the agent that produced the work being approved. Collapsing approver and implementer collapses the gate. See *Gate Authority Split* for which role holds which gate.
+
+- **Gate Authority Split** — Gate approval authority is partitioned by work item type into a fixed floor and a configurable ceiling:
+
+  - **Fixed floor (directing party, always)** — The Vision document and all Feature gates are approved by the directing party. This authority is not delegable.
+  - **Configurable ceiling (supervisor)** — Task gates are always supervisor authority. Epic gates are supervisor authority by default, and may be reserved by the directing party per project. Spike gates are supervisor authority by default, and may be reserved by the directing party per project (mirroring the Epic ceiling pattern).
+  - **Scratchpad promotion authority** — Promotion of a scratchpad item to a Task may be exercised autonomously by the supervisor. Promotion of a scratchpad item to an Epic requires directing-party approval (because Epics live under Features whose gate authority sits in the fixed floor). Promotion to a Feature always requires directing-party approval for the same reason. Promotion to a Spike follows the configurable ceiling — supervisor exercises autonomously unless the directing party has reserved Spike authority for the project.
+  - **Solo-collapse case** — When the directing party occupies the supervisor role (permitted per Vision § Target Users), they exercise whichever authority the gate calls for. The agent-identity constraint of *Supervisor Distinct From Implementer* still applies in full: the human cannot approve gates on work an agent acting under their direction implemented if that agent is, in protocol terms, the implementer for that gate.
+  - **Orphan Tasks** — Tasks without a parent Epic still follow the Task default: supervisor authority at Gate 1, Gate 2, and Gate 3. The absence of a parent Epic does not promote gate authority to the directing party; orphan-ness is a parentage attribute, not an authority attribute.
+
+  Project configuration of the Epic and Spike ceilings lives in `./.claude/` per `technical_design.md`. Reservation by the directing party is per-project and applies uniformly across all Epics (or all Spikes) in that project — no per-Epic or per-Spike toggling at this version.
 
 - **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
 
@@ -201,7 +213,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 5. Skill verifies alignment with higher documents
 6. Directing party explicitly approves; status transitions DRAFT → APPROVED
 
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Supervisor Distinct From Implementer.
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Supervisor Distinct From Implementer; Gate Authority Split.
 
 ### Taking a Task from Idea to Approval
 
@@ -210,12 +222,12 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 **Flow**:
 
 1. `/task-create [hint]` — Task captured in DRAFT
-2. `/task-elaborate` — Implementer reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: directing party approves → ELABORATED
-3. `/task-plan` — Implementer reads Development Guide and Technical Design; drafts Plan; **Gate 2**: directing party approves → PLANNED
+2. `/task-elaborate` — Implementer reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: gate authority holder approves (per *Gate Authority Split*) → ELABORATED
+3. `/task-plan` — Implementer reads Development Guide and Technical Design; drafts Plan; **Gate 2**: gate authority holder approves (per *Gate Authority Split*) → PLANNED
 4. `/task-implement` — Implementer executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
-5. `/task-review` — Verification against acceptance criteria; **Gate 3**: directing party approves → APPROVED; task moved to archive
+5. `/task-review` — Verification against acceptance criteria; **Gate 3**: gate authority holder approves (per *Gate Authority Split*) → APPROVED; task moved to archive
 
-**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Work Items Consume Guides; Approved Tasks Are Archived.
+**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Work Items Consume Guides; Approved Tasks Are Archived.
 
 ### Capturing Knowledge as the Project Runs
 
@@ -261,7 +273,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 When uncertain, treat as substantive (the more cautious path).
 
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer.
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split.
 
 ### Re-elaborating a Work Item
 
@@ -304,7 +316,7 @@ When uncertain, treat as substantive (the more cautious path).
 - **Spikes** are standalone — they have no Feature/Epic parent for traceability purposes; upstream cascade rarely applies; the dominant trigger is downstream gap (an investigation surfaced a question the original framing missed)
 - **Orphan Tasks** (without a parent Epic) behave as Features for trigger purposes — their upstream is the Feature they nominally elaborate or the Vision section they touch directly
 
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Unified Status Lifecycle.
+**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Unified Status Lifecycle.
 
 ### Responsible Promotion
 
@@ -342,17 +354,31 @@ The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workf
 **Flow**:
 
 1. `/spike-create [hint]` — Spike captured in DRAFT, time-box estimated
-2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1**: directing party approves → ELABORATED
-3. `/spike-plan` — Investigation approach defined; **Gate 2**: directing party approves → PLANNED
+2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1**: gate authority holder approves (per *Gate Authority Split*) → ELABORATED
+3. `/spike-plan` — Investigation approach defined; **Gate 2**: gate authority holder approves (per *Gate Authority Split*) → PLANNED
 4. `/spike-implement` — Implementer runs investigation within time-box; findings captured in Investigation Notes
 5. Knowledge note produced and indexed; recommendation captured in spike
-6. `/spike-review` — **Gate 3**: directing party approves → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
+6. `/spike-review` — **Gate 3**: gate authority holder approves (per *Gate Authority Split*) → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
 
-**Rules applied**: Spike Output Is Knowledge; Three Hard Gates; Supervisor Distinct From Implementer.
+**Rules applied**: Spike Output Is Knowledge; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split.
 
 ---
 
 ## Version History
+
+### 2026-05-29 - v1.7
+
+- Cascade from Vision v2.4 (APPROVED 2026-05-28, commit `d2fd797`) introducing the supervisor as a third role and codifying the gate-authority split. Pass 1 alignment surfaced findings C-1 through C-7; this version addresses C-1 through C-5 and C-7 plus bookkeeping D-1 / D-2 cascades. C-6 (Supervisor Audit Key Workflow) deferred to FEAT-009 elaboration per the cascade plan.
+  - **§ Glossary** — new *Supervisor* entry naming the continuous-vigilance role and its delegated gate authority; *Directing Party* reworked to retire "supervising agent" wording and name the fixed-floor authorities (Vision + Features); *Quality Gate* reworked to refer to "the gate authority holder per § Gate Authority Split" rather than the directing party; *Implementer* refreshed to clarify the approver ≠ implementer constraint applies regardless of which role holds gate authority
+  - **§ Domain Model → *Knowledge Note*** — `Type` attribute extended to include *Supervisor Report* alongside Research / Implementation Details / Extension; Relationships extended to record that supervisor audit cycles produce reports. No new entity. File-path convention (`docs/supervisor/report-YYYY-MM-DD.md`) codified in `technical_design.md` at Pass 3, not here
+  - **§ Business Rules → *Three Hard Gates*** — reworked to point at *Gate Authority Split* rather than naming the directing party as the universal approver
+  - **§ Business Rules → *Supervisor Distinct From Implementer*** — reworked to express the constraint as agent-identity (approver ≠ implementer) regardless of which role holds gate authority; retires "supervising agent" vocabulary aligned with Vision v2.4
+  - **§ Business Rules** — new entry *Gate Authority Split* codifying the fixed floor (Vision + Features → directing party) and configurable ceiling (Tasks always → supervisor; Epics by default → supervisor, reservable per project; Spikes by default → supervisor, reservable per project — mirroring the Epic ceiling pattern), the scratchpad-promotion authority asymmetry (Task auto / Epic requires directing-party approval / Spike follows the ceiling), the solo-collapse case (one human exercises whichever authority the gate calls for), and orphan-Task handling (parentage does not change authority)
+  - **§ Key Workflows → *Rules applied* lines** (D-1) — appended *Gate Authority Split* to five workflows: Creating and Approving a Mandated Document; Taking a Task from Idea to Approval; Re-reviewing an APPROVED Mandated Document; Re-elaborating a Work Item; Running a Spike to Reduce Uncertainty
+  - **§ Key Workflows → Task and Spike workflow gate markers** (D-2) — gate phrasing updated from "directing party approves" to "gate authority holder approves (per *Gate Authority Split*)" at each Gate marker in both workflows
+- Classified as **substantive revision per § Re-reviewing**: while most amendments are net additive (new Glossary entries, new Business Rule, Type attribute extension), the *Three Hard Gates* and *Quality Gate* updates narrow approved claims (v1.6 attributed all gate approval to the directing party; v1.7 attributes it to type-dispatched authority). Per § Re-reviewing → "when uncertain, treat as substantive," the document transited APPROVED → DRAFT for the duration of the revision and returned to APPROVED via Gate 1 ratification 2026-05-29
+- C-6 deferred to FEAT-009: the canonical *Supervisor Audit* Key Workflow will be drafted as part of FEAT-009 elaboration, which is where the audit cadence, report shape, and trigger surfaces are decided
+- Status: APPROVED (2026-05-29)
 
 ### 2026-05-25 - v1.6
 
