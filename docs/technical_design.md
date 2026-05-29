@@ -1,8 +1,8 @@
 # Technical Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-16
-**Approved**: 2026-05-16
+**Last Reviewed**: 2026-05-29
+**Approved**: 2026-05-29
 
 ---
 
@@ -71,6 +71,44 @@ Benefits:
 - **Model optimisation** — Subagents can use faster, cheaper models for routine reading
 - **Parallelism** — Multiple read-only subagents (e.g. cross-cutting alignment checks against several documents) can run concurrently. Subagents performing writes operate sequentially within a single skill invocation; the file-based model assumes cooperative access (see Security Model)
 
+### Supervisor
+
+A specialised skill for continuous health vigilance, located at `./.claude/skills/shannon-supervisor/`. The supervisor inhabits the Commands + Skills + Subagents triad above — it is not a parallel runtime. What distinguishes it is its *cadence* (it may be invoked autonomously on a schedule the project configures; see § Cadence) and its *fan-out* (a single supervisor invocation spawns several specialised checker subagents in parallel).
+
+**Skill directory layout**:
+
+- `SKILL.md` — supervisor logic and the contracts for the slash commands below
+- `templates/` — report templates (header, finding sections, footer)
+- `checkers/` — definitions for the three specialised checker subagents
+- `scripts/` — helper scripts (git log parsers, index validators)
+
+**Checker subagents**: a supervisor invocation fans out into three specialised checkers, each with restricted tool access and a model chosen for its workload:
+
+| Checker | Model | Purpose |
+|---|---|---|
+| Alignment Checker | Haiku (Explore agent) | Fast codebase scan for document-vs-implementation drift |
+| Lifecycle Checker | Sonnet | Audit work-item indexes; detect stuck or stale items; cross-check index state against source-of-truth bodies |
+| Drift Checker | Haiku | Scratchpad pressure, uncommitted changes, branch lag |
+
+Each checker runs in roughly 30 seconds to 2 minutes and returns a structured finding fragment using the same four-category schema (Drift / Gap / Internal contradiction / Strength) as § Document Alignment Check. The supervisor skill aggregates fragments into a single dated report (see § Data Model → *Supervisor Report Files*).
+
+**Slash-command surface**:
+
+- `/shannon-report` — Run the full audit fan-out and write a dated report
+- `/shannon-goal [intent]` — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't
+
+**Hook integration**: the supervisor leverages five Claude Code hook points to weave vigilance into the interactive session lifecycle:
+
+| Hook | Role |
+|---|---|
+| `SessionStart` | Inject a terse health summary (drift count, stuck items, push lag) so the directing party opens a session already oriented |
+| `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation |
+| `PostToolUse` | Log supervisor operations for audit trail |
+| `preCompact` | Snapshot in-flight findings before context compaction so the report survives compaction |
+| `Stop` | Run a completion check; warn if context is still over threshold or if findings remain unflushed |
+
+Hook configuration lives in the project's `settings.json` per Claude Code conventions; specific hook bodies ship with the supervisor skill.
+
 ---
 
 ## Data Model
@@ -87,6 +125,9 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Task | `./docs/tasks/TASK-XXX-slug.md` (or `./docs/tasks/archive/` when APPROVED) | Plus an entry in `task_index.md` |
 | Spike | `./spikes/SPIKE-XXX-slug.md` | Project root, not under `docs/`; plus entry in `spike_index.md` |
 | Knowledge Note | `./docs/knowledge/<slug>.md` | Plus entry in `knowledge_index.md` |
+| Supervisor Report | `./docs/supervisor/report-YYYY-MM-DD.md` | A Knowledge Note subtype per conceptual_design § Domain Model → *Knowledge Note*; ID is the report's ISO date. Indexed in `knowledge_index.md` like any other note |
+| Supervisor Configuration | `./.claude/shannon-supervisor.json` | Per-project gate-authority ceilings and supervisor settings; schema sketched below |
+| Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
 
 ### ID Allocation
 
@@ -95,6 +136,47 @@ Work item IDs are sequential within their type (FEAT-001, FEAT-002, ...). The sk
 ### Slugs
 
 File names use kebab-case slugs derived from the work item name. Slugs are stable once assigned; renaming a work item does not change its slug or filename.
+
+### Supervisor Report Files
+
+Supervisor reports are Knowledge Notes per the subtype extension at conceptual_design § Domain Model → *Knowledge Note*. They differ from other knowledge notes only by location and naming: they live at `./docs/supervisor/report-YYYY-MM-DD.md` rather than `./docs/knowledge/<slug>.md`, and their identifier is the run's ISO date rather than a slug. The directory separation makes supervisor output easy to scope (e.g. for the PreToolUse write-guard at § System Architecture → *Supervisor* → *Hook integration*). Reports are indexed in `knowledge_index.md` with their type marked as *Supervisor Report*.
+
+Reports are never overwritten — each cadence run produces a new dated file. If two runs occur on the same date (rare; e.g. a manual `/shannon-report` after an autonomous nightly run), the second run appends a suffix: `report-YYYY-MM-DD-<n>.md`.
+
+### Supervisor Configuration
+
+The Epic and Spike gate-authority ceilings are configurable per project (per conceptual_design § Business Rules → *Gate Authority Split*; technology_stack § Supervisor Tooling → *Configuration storage*). Shannon stores supervisor configuration at `./.claude/shannon-supervisor.json`.
+
+Schema sketch:
+
+```json
+{
+  "epic_gate_authority": "supervisor",
+  "spike_gate_authority": "supervisor",
+  "report_directory": "docs/supervisor",
+  "scheduler_documented_in": "docs/development_guide.md"
+}
+```
+
+Fields:
+
+- **`epic_gate_authority`** — `"supervisor"` (default) or `"directing_party"` (reserved by the directing party for this project). Uniform across all Epics in the project — no per-Epic toggling at this version
+- **`spike_gate_authority`** — `"supervisor"` (default) or `"directing_party"`. Uniform across all Spikes in the project — no per-Spike toggling at this version
+- **`report_directory`** — Where supervisor reports land; default `docs/supervisor` per § Supervisor Report Files. Configurable for projects that prefer a different convention
+- **`scheduler_documented_in`** — Pointer to where the project's scheduler choice is documented (per § Cadence → *Scheduler*); not a functional setting, just a discoverability aid
+
+Absent fields take the supervisor-authority default. A project that has not reserved any gate authority may omit the file entirely.
+
+### Cadence State
+
+The supervisor is **stateless by default** between cadence runs. Each run reads source-of-truth artefacts (mandated documents, work-item indexes, git history, scratchpad) and writes a fresh report at `docs/supervisor/report-YYYY-MM-DD.md`. The report is the durable artefact; no separate "last successful report" or "open issues" file is required for the run-to-run loop.
+
+A narrow optional state file at `./.claude/supervisor/state.json` is permitted for two non-functional concerns:
+
+- **Muted findings** — a finding the directing party explicitly marked as a false positive (e.g. "this document drift is intentional"). Without persistence, the same false positive would re-surface in every report
+- **Throttling** — a record of the last cadence run's timestamp, so a scheduler that fires more often than the supervisor's intended cadence can detect "too soon" and skip
+
+The state file is not authoritative for any lifecycle decision — it is a UX aid for the directing party. A supervisor that finds the state file missing or corrupt proceeds as if stateless and notes the absence in the next report.
 
 ---
 
@@ -124,6 +206,13 @@ Documents have a simpler surface:
 
 - `document-create [type]` — Instantiate a mandated document or knowledge note
 - `document-review [path]` — Review and approve a document
+
+### Supervisor Verbs
+
+Two supervisor commands surface the cadence and goal-decomposition flows (see § System Architecture → *Supervisor*):
+
+- `/shannon-report` — Run a cadence audit and write a dated report
+- `/shannon-goal [intent]` — Decompose a directing-party intent into candidate work items
 
 ### Skill Invocation Pattern
 
@@ -193,7 +282,48 @@ The file-based model assumes cooperative access. Concurrent writes by multiple a
 
 ### Gate Enforcement
 
-The *Supervisor Distinct From Implementer* rule (conceptual_design.md) is enforced by convention, not by technical control. Skills and commands are written to refuse self-approval flows (e.g. an implementer subagent does not call its own `*-review` command), and the directing party is responsible for not running review commands on work that the directing party itself just produced. Future versions may add architectural enforcement (e.g. agent identity checks at gate transitions); the current version trusts the skill protocol.
+The *Supervisor Distinct From Implementer* rule (conceptual_design § Business Rules) is enforced by convention, not by technical control. The rule's substance is an agent-identity constraint: the agent approving any gate is not the same agent that produced the work under review, regardless of which role holds gate authority per *Gate Authority Split*. Skills and commands are written to refuse self-approval flows (e.g. an implementer subagent does not call its own `*-review` command); a directing party or supervisor holding gate authority is responsible for not approving work they themselves implemented. Future versions may add architectural enforcement (e.g. agent identity checks at gate transitions); the current version trusts the skill protocol.
+
+---
+
+## Cadence
+
+The supervisor (§ System Architecture → *Supervisor*) is invokable both interactively (a directing-party slash command in a live session) and autonomously (an external scheduler triggering a headless Claude Code run). Shannon commits to the *pattern* of autonomous invocation; the specific scheduler is project-configured.
+
+### Headless invocation contract
+
+Autonomous cadence runs invoke the supervisor in headless mode:
+
+```
+claude --bare -p "<supervisor prompt>" \
+  --allowedTools "Read,Bash(git *)" \
+  --output-format json
+```
+
+The contract Shannon commits to:
+
+- **`--bare`** — skip hook, skill, and plugin discovery beyond what the supervisor needs, for reproducible runs
+- **`-p`** — supervisor prompt (typically `/shannon-report` semantics rendered as a direct instruction)
+- **`--allowedTools`** — explicit allow-list scoped to read operations and read-only git invocations; the supervisor is read-mostly and writes only its dated report. When the cadence run needs to write its report, `--allowedTools` is extended to include `Write(docs/supervisor/*)`; the PreToolUse hook (§ System Architecture → *Supervisor* → *Hook integration*) enforces the path scope at runtime
+- **`--output-format json`** — structured output so the scheduler can inspect exit conditions, finding counts, and surface failures
+
+### Worktree isolation
+
+When the cadence overlaps with an interactive directing-party session, the supervisor runs in a temporary worktree so the audit never contaminates the interactive working tree:
+
+```
+claude --worktree audit-check-YYYYMMDD -p "<supervisor prompt>"
+```
+
+The worktree is auto-cleaned after the run if no commits or uncommitted changes remain. Worktree isolation is optional for offline cadences (overnight, weekend) but recommended whenever interactive work might be in flight.
+
+### Scheduler
+
+The scheduler that triggers cadence runs is the *project's* concern, not Shannon's. A host cron daemon, a `launchd` job, a remote scheduler such as OpenClaw, or any equivalent satisfies the contract — Shannon commits to the headless-invocation pattern, not to a specific scheduler (per technology_stack § Supervisor Tooling). Each project documents its scheduler choice in its own `development_guide.md`.
+
+### Cost note
+
+A single supervisor invocation fans out into three checker subagents (per § System Architecture → *Supervisor*); aggregate token cost is roughly 6–7× a single-session interactive run. This cost is acceptable for asynchronous supervision because the directing party is not waiting on the result. Cost-control patterns: Haiku for exploration-heavy checkers, Sonnet reserved for the synthesis step.
 
 ---
 
@@ -214,6 +344,18 @@ The *Supervisor Distinct From Implementer* rule (conceptual_design.md) is enforc
 ---
 
 ## Version History
+
+### 2026-05-29 - v1.2
+
+- Cascade from Vision v2.4 (APPROVED 2026-05-28, commit `d2fd797`), conceptual_design v1.7 (APPROVED 2026-05-29, commit `a8fe1e0`), and technology_stack v1.3 (APPROVED 2026-05-29, commit `c7d66e4`) introducing the supervisor as a third role, codifying the gate-authority split, and committing to five Claude Code primitives for supervisor implementation. Pass 1 alignment surfaced findings TD-1 through TD-3; this version addresses all three, with TD-4 (Gate Enforcement refresh) cascading from conceptual_design v1.7's role taxonomy
+  - **§ System Architecture → *Supervisor* (new subsection)** — names the supervisor as a skill at `./.claude/skills/shannon-supervisor/` inhabiting the existing Commands + Skills + Subagents triad; documents the three-checker fan-out (Alignment / Lifecycle / Drift) with model-selection rationale; names the `/shannon-report` and `/shannon-goal` slash-command surface; codifies five hook integration points (SessionStart, PreToolUse, PostToolUse, preCompact, Stop) with their roles
+  - **§ Data Model** — three additions: the entity-to-file table gains rows for Supervisor Report, Supervisor Configuration, and (optional) Cadence State; new subsection *Supervisor Report Files* codifying the `docs/supervisor/report-YYYY-MM-DD.md` convention as a Knowledge Note subtype per conceptual_design v1.7; new subsection *Supervisor Configuration* codifying `./.claude/shannon-supervisor.json` with schema sketch (epic_gate_authority, spike_gate_authority, report_directory, scheduler_documented_in); new subsection *Cadence State* committing to stateless-by-default with a narrow optional state file at `./.claude/supervisor/state.json` for muted findings and scheduler-throttling concerns
+  - **§ API Design → *Supervisor Verbs* (new subsection)** — names `/shannon-report` and `/shannon-goal` at the API surface for discoverability (complements the architectural mention at § System Architecture → *Supervisor*)
+  - **§ Security Model → *Gate Enforcement*** — refreshed to express the agent-identity constraint (approver ≠ implementer regardless of role) per conceptual_design v1.7's role taxonomy; v1.1's load-bearing claim (enforced by convention, not by technical control) preserved verbatim in substance — only the role-taxonomy cross-reference is updated
+  - **§ Cadence (new section)** — codifies the headless invocation contract (`claude --bare -p ... --allowedTools ... --output-format json`); names the worktree-isolation pattern (`claude --worktree audit-check-YYYYMMDD ...`); names the scheduler choice as project-configured per technology_stack v1.3 (Shannon commits to the pattern, not to a specific scheduler); records the 6–7× single-session token cost of fan-out as acceptable for asynchronous supervision; clarifies that `--allowedTools` is extended to include `Write(docs/supervisor/*)` for the report-write step, with the PreToolUse hook enforcing path scope at runtime
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing**: no v1.1 approved claim is contradicted. The *Gate Enforcement* refresh updates role-taxonomy cross-references but preserves the enforcement-by-convention claim; all other changes are net-new architectural commitments. Document stays APPROVED across the bump (no DRAFT transition). Sibling precedent: technology_stack v1.3 made the identical additive call with a parallel *Cooperative access* refresh
+- Cadence performance numbers (cycle duration, per-checker latency) deliberately deferred to § Performance Approach per technology_stack v1.3's parallel deferral; Shannon-level performance targets await Phase 2 implementation evidence under FEAT-009
+- Status: APPROVED (2026-05-29)
 
 ### 2026-05-16 - v1.1
 
