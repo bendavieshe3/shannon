@@ -1,8 +1,8 @@
 # Development Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-24
-**Approved**: 2026-05-24
+**Last Reviewed**: 2026-05-29
+**Approved**: 2026-05-29
 
 ---
 
@@ -129,7 +129,7 @@ Instrumentation lives in the skill that owns the relevant workflow. As measurabl
 
 ### Branching
 
-- **master** — Single long-lived branch. Shannon has a single maintainer at present; no team-branching model required. The framework itself supports multi-agent configurations (supervisor + implementer under V6), but the codebase-of-Shannon-itself does not yet operate that way
+- **master** — Single long-lived branch. Shannon has a single maintainer at present; no team-branching model required. The framework itself supports multi-agent configurations under the three-role taxonomy (directing party, supervisor, implementer — see `conceptual_design.md` § Glossary), but the codebase-of-Shannon-itself does not yet operate that way
 - **Topic branches** — Optional for substantial refactors (e.g. `refactor/shannon-v2`). Squash-merge to master
 
 ### Commits
@@ -146,14 +146,25 @@ Shannon's default: **commit after every approved gate**. Source control is assum
 
 This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
 
+#### Supervisor cadence runs
+
+Autonomous supervisor runs (per `technical_design.md` § Cadence) are read-mostly: each run produces a dated report at `docs/supervisor/report-YYYY-MM-DD.md` and, in the configurable-ceiling case, may exercise delegated gate approvals on Tasks (and, by default, Epics and Spikes — see `conceptual_design.md` § Business Rules → *Gate Authority Split*). Commit cadence inside an autonomous run:
+
+- **One commit per run, not per gate** — A cadence run that approves multiple Task gates batches all of its writes (the dated report plus any per-Task transitions it ratified) into a single commit at the end of the run, rather than committing after each individual gate. This preserves the "one commit per decision" intent at the granularity that makes sense for a batched autonomous pass: the decision is the run, not each gate inside it
+- **Commit message names the run** — Subject `Supervisor report YYYY-MM-DD` (capitalised imperative-equivalent; the report's filename is the natural anchor); body enumerates any gate transitions the run ratified, by work item ID
+- **Interactive supervisor invocations follow the default** — A `/shannon-report` run inside an interactive directing-party session falls back to the standard per-gate commit cadence above. The batched form is specifically for the headless autonomous case
+
+The same agent-identity constraint applies in either case: a supervisor commit must not ratify work the same agent implemented (per `conceptual_design.md` § Business Rules → *Supervisor Distinct From Implementer*).
+
 ### Push Cadence
 
-Shannon's default: **push local commits to the remote** at two named triggers, so commits do not sit unsynced.
+Shannon's default: **push local commits to the remote** at three named triggers, so commits do not sit unsynced.
 
 - **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion
 - **At session end** — before the implementer or directing party stops a working session for the day or hands off to another agent — i.e. before any pause long enough that local commits would otherwise sit unsynced through the gap
+- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes before exiting, so the supervisor's findings reach the remote before the directing party next opens a session. This is what makes the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflect the latest cadence findings rather than stale local state
 
-Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the two cadences are paired.
+Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the cadences are paired.
 
 ### Pull Requests
 
@@ -162,13 +173,26 @@ Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above —
 
 ### Multi-Agent Coordination
 
-Shannon's framework explicitly supports multi-agent configurations (supervisor + implementer under V6) but enforces the separation *by convention*, not by technical control (see `technical_design.md § Cooperative Access`). The development practice that makes this safe:
+Shannon's framework explicitly supports multi-agent configurations under the three-role taxonomy (directing party, supervisor, implementer — see `conceptual_design.md` § Glossary and `vision.md` § Target Users → *Three roles, configurably separable*). The agents coexist on shared files *by convention*, not by technical control (see `technical_design.md` § Cooperative Access). Two configurations are typical:
+
+- **Directing party + implementer** — solo configuration in which the directing party also occupies the supervisor role (permitted per Vision § Target Users); the agent-identity gate-integrity constraint still applies — the human cannot approve gates on work the implementer agent produced
+- **Directing party + supervisor + implementer** — fuller configuration in which a distinct supervisor agent performs continuous health vigilance and absorbs Task (and, by default, Epic and Spike) gate authority per `conceptual_design.md` § Business Rules → *Gate Authority Split*
+
+The development practice that makes shared-file operation safe applies to both configurations:
 
 - **Disjoint work items** — Agents operating concurrently should be assigned to different work items; the file-based model has no locking, and overlapping writes will surface as ordinary diffs to be resolved by the directing party
 - **No silent overwrites** — When an implementer touches a file another agent recently modified, surface the diff and ask before overwriting
-- **Cooperative ID allocation** — Simultaneous `*-create` operations may produce colliding IDs; resolve by reading the index at the moment of allocation and accepting the merge conflict if one arises (see `technical_design.md § ID Allocation`)
+- **Cooperative ID allocation** — Simultaneous `*-create` operations may produce colliding IDs; resolve by reading the index at the moment of allocation and accepting the merge conflict if one arises (see `technical_design.md` § ID Allocation)
 
-Future versions may add architectural enforcement of the supervisor ≠ implementer rule; the current version trusts agents and the directing party to follow the convention.
+Future versions may add architectural enforcement of the *Supervisor Distinct From Implementer* rule (`conceptual_design.md` § Business Rules); the current version trusts agents and the directing party to follow the convention.
+
+### Supervisor Report Files
+
+Supervisor reports are Knowledge Note subtypes (per `conceptual_design.md` § Domain Model → *Knowledge Note*) living at `./docs/supervisor/report-YYYY-MM-DD.md`. The full storage and naming convention — including same-day suffix handling — is codified in `technical_design.md` § Data Model → *Supervisor Report Files*. The development guide's dogfood-specific commitments:
+
+- **Reports are committed, not gitignored** — Supervisor reports are durable project knowledge; they ride the supervisor-batch commit cadence above and live in version control alongside the rest of `docs/`
+- **Same-day suffix files are also committed** — A `report-YYYY-MM-DD-2.md` from a second run on the same date is committed as-is; the cadence does not retroactively edit the prior report
+- **Optional state file is gitignored** — `./.claude/supervisor/state.json` (per `technical_design.md` § Data Model → *Cadence State*) is a local-only UX aid; it does not belong in the remote
 
 ---
 
@@ -186,6 +210,18 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-05-29 - v1.4
+
+- Cascade from Vision v2.4 (APPROVED 2026-05-28, commit `d2fd797`), conceptual_design v1.7 (APPROVED 2026-05-29, commit `a8fe1e0`), technology_stack v1.3 (APPROVED 2026-05-29, commit `c7d66e4`), and technical_design v1.2 (APPROVED 2026-05-29, commit `71b7ac5`) introducing the supervisor as a third role and codifying the gate-authority split. Pass 1 alignment surfaced findings DG-1 and DG-2; this version addresses both, plus the optional § Supervisor Report Files dogfood note
+  - **§ Git Workflow → Branching** — refreshed "supervisor + implementer under V6" wording to the three-role taxonomy (directing party, supervisor, implementer) per Vision v2.4 § Target Users → *Three roles, configurably separable* and conceptual_design v1.7 § Glossary
+  - **§ Git Workflow → Multi-Agent Coordination** — opening paragraph refreshed to the three-role taxonomy; two typical configurations named explicitly (directing party + implementer with directing-party-as-supervisor solo collapse; directing party + supervisor + implementer fuller case); closing "future versions" sentence updated to reference the canonical *Supervisor Distinct From Implementer* rule rather than "supervisor ≠ implementer"
+  - **§ Git Workflow → Commit Cadence** — new sub-subsection *Supervisor cadence runs* committing to one commit per autonomous run (rather than per gate inside the run), a `Supervisor report YYYY-MM-DD` subject convention, and interactive-`/shannon-report` falling back to the standard per-gate cadence
+  - **§ Git Workflow → Push Cadence** — third trigger added: at the end of every autonomous supervisor run, paired with the supervisor-batch commit and making the SessionStart hook's health summary reflect the latest cadence findings
+  - **§ Git Workflow → Supervisor Report Files (new subsection)** — names the three dogfood-specific commitments (reports committed, same-day suffix files committed, optional state file gitignored); cross-references technical_design v1.2 for the full convention
+  - **Scheduler choice for the Shannon-self project — DEFERRED** — technology_stack v1.3 commits to the abstract pattern (headless mode + external scheduler the project configures) and notes each project documents its scheduler choice in its own `development_guide.md`. The Shannon-self project's own scheduler choice is deferred to FEAT-009 elaboration, where the supervisor's first dogfood run will surface whether a specific scheduler should be named here
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no existing approved claim contradicted; document stays APPROVED across the bump (no DRAFT transition). Sibling precedent: technology_stack v1.3 and technical_design v1.2 made the identical additive call on this cascade
+- Status: APPROVED (2026-05-29)
 
 ### 2026-05-24 - v1.3
 
