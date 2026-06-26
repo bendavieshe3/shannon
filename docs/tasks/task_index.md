@@ -13,7 +13,7 @@
 - [TASK-011](./archive/TASK-011-supervisor-skill-skeleton.md) — APPROVED — Supervisor Skill Skeleton and Configuration Handling (EPIC-009 Task 1) #supervisor #skill #skeleton #configuration #portability
 - [TASK-012](./archive/TASK-012-alignment-checker-definition.md) — APPROVED — Alignment Checker Definition (EPIC-009 Task 2) #supervisor #checker #alignment #subagent #haiku
 - [TASK-013](./archive/TASK-013-lifecycle-checker-definition.md) — APPROVED — Lifecycle Checker Definition (EPIC-009 Task 3) #supervisor #checker #lifecycle #subagent #sonnet
-- [TASK-014](./TASK-014-drift-checker-definition.md) — IMPLEMENTED — Drift Checker Definition (EPIC-009 Task 4) #supervisor #checker #drift #subagent #haiku
+- [TASK-014](./archive/TASK-014-drift-checker-definition.md) — APPROVED — Drift Checker Definition (EPIC-009 Task 4) #supervisor #checker #drift #subagent #haiku
 - [TASK-015](./TASK-015-report-writer-and-knowledge-index-updater.md) — DRAFT — Report Writer and Knowledge Index Updater (EPIC-009 Task 5) #supervisor #report-writer #templates #knowledge-index #hybrid-presentation
 - [TASK-016](./TASK-016-pretooluse-write-guard-hook.md) — DRAFT — PreToolUse Write-Guard Hook (EPIC-009 Task 6) #supervisor #hook #pretooluse #write-guard #scope
 - [TASK-017](./TASK-017-posttooluse-audit-logging-hook.md) — DRAFT — PostToolUse Audit-Logging Hook (EPIC-009 Task 7) #supervisor #hook #posttooluse #audit-log #gitignore
