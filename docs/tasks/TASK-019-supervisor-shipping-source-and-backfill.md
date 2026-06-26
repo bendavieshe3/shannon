@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: PLANNED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -51,7 +51,30 @@ This Task establishes `./shannon/skills/shannon-supervisor/` as the tracked ship
 
 ## Plan
 
-*Filled at `/task-plan TASK-019` (Gate 2).*
+*Elaborated at Gate 2 (2026-06-27).*
+
+### Approach
+
+A mechanical, copy-and-verify pass — no authoring of new content. The current `./.claude/skills/shannon-supervisor/` files (`SKILL.md` + three `checkers/*.md`, all APPROVED) are the present source of truth; this Task copies them verbatim into a new tracked `./shannon/skills/shannon-supervisor/` directory, establishing the tracked shipping source. Because the copy is byte-identical, no portability or content regression is possible beyond what the four APPROVED Gate-3 reviews already verified; the verification steps re-confirm cleanliness in the new location. After this Task, `./shannon/` is the authored source and `./.claude/` the deployed copy (the standing relationship for the other three skills).
+
+### Steps
+
+1. **Create the tracked source and copy the four deliverables.** `mkdir -p ./shannon/skills/shannon-supervisor/checkers`, then copy `SKILL.md` and `checkers/{alignment,lifecycle,drift}.md` from `./.claude/skills/shannon-supervisor/` into it. Do **not** create empty `templates/` or `scripts/` (git ignores empty dirs; their populating Tasks create them in the tracked source). Closes AC#1.
+2. **Confirm deployed copy matches the tracked source.** `diff -r` the `SKILL.md` + `checkers/` of the two `shannon-supervisor/` trees; expect zero differences. Closes AC#2.
+3. **Confirm tracked-addition visibility.** `git add ./shannon/skills/shannon-supervisor/` then `git status --short` / `git ls-files` shows the four files as new tracked files (contrast `./.claude/`, gitignored). Closes AC#3.
+4. **Portability discipline verification.** Six-target greps (`FEAT-`, `EPIC-`, `Shannon-self`, `/Volumes/`, `~/`, absolute repo path) against the four backfilled files; each returns zero hits. Closes AC#4.
+5. **Scope-bounded-edit verification via `git diff`.** Confirm the staged diff adds only `./shannon/skills/shannon-supervisor/{SKILL.md,checkers/*.md}` plus the lifecycle bookkeeping (TASK-019 + `task_index.md`); no APPROVED Task-doc edits, no mandated-doc edits, no other-skill changes. Closes AC#5.
+
+### Dependencies
+
+- **Depends on**: TASK-011/012/013/014 APPROVED (the deliverables this Task backfills — all APPROVED; commits `4135e91`, `76b869b`, `97b9b9d`, `2d85663`).
+- **Depended on by**: TASK-015 APPROVED dependency (its `SKILL.md` extension needs the tracked source); TASKs 16–18 author in `./shannon/` going forward.
+- **Cascade docs**: none amended — this is a source-relocation Task, not a content or doc change.
+
+### Risks
+
+- **Copy drift between `./shannon/` and `./.claude/`.** A non-identical copy would defeat the deploy relationship. **Mitigation**: AC#2's `diff -r` is the explicit zero-difference gate; Step 2 runs before staging.
+- **Empty-dir expectation mismatch at Gate 3.** A reviewer might expect `templates/`+`scripts/` mirrored. **Mitigation**: AC#1 names the deliberate omission (git ignores empty dirs; populating Tasks create them) so the absence is expected, not a defect.
 
 ---
 
@@ -77,5 +100,6 @@ This Task establishes `./shannon/skills/shannon-supervisor/` as the tracked ship
 
 ## Activity Log
 
+- **2026-06-27** — PLANNED (Gate 2 approved). Five-Step mechanical copy-and-verify Plan authored (no cascading-prepared draft existed — this Task was created fresh at TASK-015 Gate 1): (1) create `./shannon/skills/shannon-supervisor/checkers/` and copy the four APPROVED deliverables verbatim; (2) `diff -r` confirms deployed-copy match (AC#2); (3) `git status`/`git ls-files` confirms tracked-addition visibility (AC#3); (4) six-target portability greps (AC#4); (5) `git diff` scope-bounded-edit verification (AC#5). Two risks named (copy drift → `diff -r` gate; empty-dir expectation mismatch → AC#1 deliberate-omission clause). No cascade docs amended (source-relocation Task). Status: ELABORATED → PLANNED.
 - **2026-06-27** — ELABORATED (Gate 1 — pending directing-party approval). Five acceptance criteria finalised from the provisional create-time set: AC#1 (tracked `./shannon/skills/shannon-supervisor/` mirrors the four APPROVED deliverables byte-identically; empty `templates/`+`scripts/` not backfilled since git ignores empty dirs — created by their populating Tasks); AC#2 (`./.claude/` deployed copy byte-identical to the tracked source, `diff -r`-verifiable); AC#3 (backfilled files show as tracked additions in `git status`, restoring `git diff` verification); AC#4 (six-target portability greps 0 hits — fourth consecutive clean checker-family pass); AC#5 (scope-bounded — APPROVED Task docs untouched, their AC#6 deferral clauses superseded not edited; no mandated-doc or other-skill changes). Each AC carries a `Derives from` line per the field-report discipline. The one-time exceptional copy direction (`./.claude/` → `./shannon/`) is called out; henceforth `./shannon/` is authored and `./.claude/` is the deployed copy. Status: DRAFT → ELABORATED.
 - **2026-06-27** — DRAFT: Corrective Task created (fast capture) following the directing-party decision at TASK-015 Gate 1 to author the supervisor skill in tracked `./shannon/` going forward and backfill the four APPROVED Tasks' deliverables. Establishes `./shannon/skills/shannon-supervisor/` as the tracked shipping source; supersedes the shipping-source-mirror deferral clauses in TASK-011–014 AC#6 (those Tasks stay APPROVED). `/shannon-setup` deploy-flow update remains separately deferred. Parent: EPIC-009. Full elaboration pending `/task-elaborate TASK-019` (Gate 1).
