@@ -18,6 +18,7 @@
 - [TASK-016](./TASK-016-pretooluse-write-guard-hook.md) — DRAFT — PreToolUse Write-Guard Hook (EPIC-009 Task 6) #supervisor #hook #pretooluse #write-guard #scope
 - [TASK-017](./TASK-017-posttooluse-audit-logging-hook.md) — DRAFT — PostToolUse Audit-Logging Hook (EPIC-009 Task 7) #supervisor #hook #posttooluse #audit-log #gitignore
 - [TASK-018](./TASK-018-first-dogfood-shannon-report-run.md) — DRAFT — First Dogfood /shannon-report Run (EPIC-009 Task 8) #supervisor #dogfood #report #knowledge-index #commit #shannon-self
+- [TASK-019](./TASK-019-supervisor-shipping-source-and-backfill.md) — ELABORATED — Supervisor Shipping-Source Establishment and APPROVED-Deliverable Backfill (EPIC-009 Task 9, corrective) #supervisor #shipping-source #backfill #portability #distribution #corrective
 
 ---
 
