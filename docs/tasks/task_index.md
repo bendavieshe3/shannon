@@ -12,7 +12,7 @@
 - [TASK-010](./archive/TASK-010-add-meta-gap-skill-prompts-and-resync-claude.md) — APPROVED — Add meta-gap routing-channel skill prompts at § Process: Plan + § Process: Review + `.claude/` re-sync (EPIC-008 Task 2) #framework #work-items #skills #meta-gap #routing-channel
 - [TASK-011](./archive/TASK-011-supervisor-skill-skeleton.md) — APPROVED — Supervisor Skill Skeleton and Configuration Handling (EPIC-009 Task 1) #supervisor #skill #skeleton #configuration #portability
 - [TASK-012](./archive/TASK-012-alignment-checker-definition.md) — APPROVED — Alignment Checker Definition (EPIC-009 Task 2) #supervisor #checker #alignment #subagent #haiku
-- [TASK-013](./TASK-013-lifecycle-checker-definition.md) — ELABORATED — Lifecycle Checker Definition (EPIC-009 Task 3) #supervisor #checker #lifecycle #subagent #sonnet
+- [TASK-013](./TASK-013-lifecycle-checker-definition.md) — PLANNED — Lifecycle Checker Definition (EPIC-009 Task 3) #supervisor #checker #lifecycle #subagent #sonnet
 - [TASK-014](./TASK-014-drift-checker-definition.md) — DRAFT — Drift Checker Definition (EPIC-009 Task 4) #supervisor #checker #drift #subagent #haiku
 - [TASK-015](./TASK-015-report-writer-and-knowledge-index-updater.md) — DRAFT — Report Writer and Knowledge Index Updater (EPIC-009 Task 5) #supervisor #report-writer #templates #knowledge-index #hybrid-presentation
 - [TASK-016](./TASK-016-pretooluse-write-guard-hook.md) — DRAFT — PreToolUse Write-Guard Hook (EPIC-009 Task 6) #supervisor #hook #pretooluse #write-guard #scope
