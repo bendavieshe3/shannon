@@ -1,0 +1,16 @@
+{
+  "_comment": "Shippable Claude Code settings.json snippet for the supervisor PostToolUse audit-logging hook. Merge the PostToolUse entry into the project's .claude/settings.json (alongside any PreToolUse entry). The hook is inert unless SHANNON_SUPERVISOR_SCOPE is set; when active it appends one line per Bash/Edit/Write invocation to .claude/skills/shannon-supervisor/audit.log (operational telemetry; gitignore the audit log in projects that track .claude/skills/).",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/skills/shannon-supervisor/scripts/posttool-auditlog.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

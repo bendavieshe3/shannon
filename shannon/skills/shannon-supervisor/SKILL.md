@@ -89,7 +89,7 @@ The configured report directory and `./docs/knowledge_index.md` are the only pat
 The supervisor integrates with five Claude Code hook points; each is implemented by a sibling work item:
 
 - **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge_index.md`.
-- **PostToolUse** — audit log recording each tool invocation with timestamp and arguments.
+- **PostToolUse** — audit log recording each tool invocation with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
 - **SessionStart** — terse health summary at session open.
 - **preCompact** — snapshot of in-flight findings to disk before context compaction.
 - **Stop** — completion check on autonomous runs (warn on context threshold or unflushed findings).
