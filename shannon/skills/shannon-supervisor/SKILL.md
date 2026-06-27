@@ -18,12 +18,13 @@ The supervisor is invokable both interactively (via slash commands) and autonomo
 
 ## Skill Directory Layout
 
-The skill lives at `./.claude/skills/shannon-supervisor/` with four entries:
+The skill lives at `./.claude/skills/shannon-supervisor/` with five entries:
 
 - `SKILL.md` — this file; supervisor logic and slash-command contracts.
 - `templates/` — report templates (header, finding sections, footer). Populated by a sibling work item.
 - `checkers/` — definitions for the three checker subagents (Alignment, Lifecycle, Drift). Populated by sibling work items.
 - `scripts/` — helper scripts (git log parsers, index validators, hook bodies). Populated by sibling work items.
+- `hooks/` — `settings.json` registration snippets for the supervisor's hooks (the shippable form merged into the project's `./.claude/settings.json`). Populated by the hook work items.
 
 ## /shannon-report — Contract
 
