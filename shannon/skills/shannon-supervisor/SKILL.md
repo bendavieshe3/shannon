@@ -63,6 +63,26 @@ The supervisor handles file-not-found and empty-JSON-document cases gracefully �
 
 The `report_directory` value is interpreted as a path relative to the project root. The `epic_gate_authority` and `spike_gate_authority` fields each take the value `supervisor` (the default, meaning the supervisor may approve the corresponding gate autonomously) or `directing_party` (meaning the gate is reserved to the directing party). Task gates are always supervisor authority and not configurable per the *Gate Authority Split* business rule. The fixed-floor gates (Vision, Features) are always directing-party authority and not configurable.
 
+## Report Pipeline
+
+The `/shannon-report` contract (above) delegates report construction to this pipeline. The pipeline aggregates the three checkers' finding fragments into a single dated report using the templates under `templates/` (`header.md`, `finding-section.md`, `footer.md`).
+
+### Flow
+
+1. **Spawn and collect.** Spawn the three checker subagents (Alignment, Lifecycle, Drift) in parallel per the `/shannon-report` contract; collect each one's finding fragment in the canonical four-category schema: Drift, Gap, Internal contradiction, Strength. If a checker fails to return a fragment, record that — the header reports how many of the three succeeded rather than failing the whole run.
+
+2. **Instantiate the header.** Fill `templates/header.md` with the run date and the diagnostic counts — total findings, stuck-or-stale items (from the Lifecycle fragment), and push lag in commits ahead of the remote (from the Drift fragment) — plus the count of checkers that succeeded. This is the diagnostic half of the hybrid-presentation default.
+
+3. **Instantiate the finding sections.** For the one or two highest-signal findings across the collected fragments, fill `templates/finding-section.md` once per finding — category, title, originating checker, narrative, and the specific source citation (file path and section or line) the checker supplied. The remaining findings are represented by the header counts, not narrated individually — this is the narrative half of the hybrid-presentation default. (The zero-findings degenerate case — how a clean run presents so the directing party can distinguish "checked and found nothing" from "silently failed" — is out of scope here and handled by a future Epic.)
+
+4. **Instantiate the footer.** Fill `templates/footer.md` with the run date.
+
+5. **Assemble and write.** Concatenate header + finding sections + footer into a single Markdown body and write it to `<report_directory>/report-YYYY-MM-DD.md` (default `./docs/supervisor/`, per § Configuration). **Reports are never overwritten**: if a report for the current date already exists, write `report-YYYY-MM-DD-2.md` (then `-3`, and so on) — the same-day suffix increments to the next free name.
+
+6. **Index the report.** Append an entry for the new report to `./docs/knowledge_index.md` with the Type field reading *Supervisor Report* (a Knowledge Note subtype) and a project-relative reference to the report file. This write is the explicit exception the PreToolUse write-guard permits (sibling work item); every other write outside the configured report directory is refused.
+
+The configured report directory and `./docs/knowledge_index.md` are the only paths this pipeline writes.
+
 ## Hook Integration
 
 The supervisor integrates with five Claude Code hook points; each is implemented by a sibling work item:
