@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: ELABORATED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -16,7 +16,7 @@
 
 ## Requirements
 
-*Captured at create (fast capture). Full elaboration pending `/task-elaborate TASK-020` (Gate 1).*
+*Elaborated at Gate 1 (2026-06-28).*
 
 ### Overview
 
@@ -26,12 +26,17 @@ This Task creates that thin command file — a delegate-to-skill entry point in 
 
 **Out of scope**: any skill/pipeline/checker/hook change (all APPROVED); the `/shannon-goal` command (named in `SKILL.md` as future work, not part of EPIC-009); the `/shannon-setup` deploy-flow update (separately deferred).
 
-### Acceptance Criteria (provisional — finalised at Gate 1)
+### Acceptance Criteria
 
-- **AC#1 — Thin `/shannon-report` command file authored in tracked `./shannon/commands/`.** `./shannon/commands/shannon-report.md` exists as a thin entry point that delegates to the `shannon-supervisor` skill for the report verb, in the same shape as the existing `shannon/commands/*.md` files (per `shannon/commands/README.md` and the Commands-are-thin principle). Deployed to `./.claude/commands/shannon-report.md`.
-- **AC#2 — Delegates to the supervisor skill, not reimplementing the pipeline.** The command file invokes the `shannon-supervisor` skill (which owns the `/shannon-report` contract + § Report Pipeline) rather than duplicating any pipeline logic — consistent with the thin-command discipline.
-- **AC#3 — Project-relative paths; six-target portability.** Literal grep of the command file for `FEAT-`, `EPIC-`, `Shannon-self`, `/Volumes/`, `~/`, and the absolute repo path returns zero hits.
-- **AC#4 — Scope-bounded.** Creates only `./shannon/commands/shannon-report.md` (deployed to `./.claude/`); does not modify the skill, checkers, templates, hooks, or any mandated document.
+- **AC#1 — Thin `/shannon-report` command file authored in tracked `./shannon/commands/`, deployed to `./.claude/`.** `./shannon/commands/shannon-report.md` exists as a thin entry point in the canonical command shape (per `shannon/commands/README.md` § How Commands Work): (1) states explicitly which skill to invoke ("You MUST invoke the `shannon-supervisor` skill"), (2) passes the report verb (and notes `/shannon-report` takes no arguments), (3) includes fallback wording if the skill fails to activate, (4) returns to the conversation / surfaces the report location. Deployed to `./.claude/commands/shannon-report.md`. Derives from `shannon/commands/README.md` § How Commands Work and the existing `shannon/commands/*.md` thin-delegate precedent.
+
+- **AC#2 — Delegates to the supervisor skill; does not reimplement the pipeline.** The command file invokes the `shannon-supervisor` skill (which owns the `/shannon-report` contract + § Report Pipeline from TASK-011/015) rather than duplicating any pipeline logic — consistent with the Commands-are-thin principle ("the actual workflow logic lives in the skills, not the commands"). Derives from `shannon/commands/README.md` § How Commands Work and CLAUDE.md (Commands delegate to Skills).
+
+- **AC#3 — Command reference kept in sync.** `shannon/commands/README.md` is additively amended to list `/shannon-report` (a Supervisor entry naming its purpose) so the command reference does not go stale — the same doc/filesystem-sync discipline Shannon applies to indexes. Derives from `shannon/commands/README.md` (the § Command Reference table it maintains).
+
+- **AC#4 — Project-relative paths; six-target portability.** Literal grep of the command file (and the README amendment) for `FEAT-`, `EPIC-`, `Shannon-self`, `/Volumes/`, `~/`, and this repository's absolute path returns zero hits. Derives from parent Epic AC#1 (G-F portability extension) and the prior-Task six-target precedent.
+
+- **AC#5 — Scope-bounded per cross-type-guard rule.** Per `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards*: this Task creates `./shannon/commands/shannon-report.md` (deployed to `./.claude/`) and additively amends `shannon/commands/README.md`. It does **not** modify the supervisor skill (`SKILL.md`), any checker, any template, any hook script or `settings.json`, or any mandated document. Tracked files verified via `git diff`; deployed `./.claude/commands/` copy via `diff`. Derives from `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards*.
 
 ### Context
 
@@ -71,4 +76,5 @@ This Task creates that thin command file — a delegate-to-skill entry point in 
 
 ## Activity Log
 
+- **2026-06-28** — ELABORATED (Gate 1 — pending directing-party approval). Five acceptance criteria finalised from the provisional create-time set, grounded in `shannon/commands/README.md` § How Commands Work (the canonical thin-command shape): AC#1 (thin `/shannon-report` command file in tracked `./shannon/commands/`, deployed — the 4-point delegate shape: name the skill / pass the report verb / fallback wording / return); AC#2 (delegates to `shannon-supervisor`, does not reimplement the pipeline — Commands-are-thin); AC#3 (additively list `/shannon-report` in `shannon/commands/README.md` so the command reference stays in sync); AC#4 (six-target portability); AC#5 (scope-bounded — command file + README only; no skill/checker/template/hook/mandated-doc change). Each AC carries a `Derives from` line. This is a small, mechanical entry-point Task — its value is unblocking TASK-018's dogfood by giving the `SKILL.md` `/shannon-report` contract a real invocation surface. Status: DRAFT → ELABORATED.
 - **2026-06-28** — DRAFT: Corrective Task created (fast capture) following the TASK-018 Gate 1 finding that EPIC-009 never scoped the thin `/shannon-report` command entry point. Creates `./shannon/commands/shannon-report.md` (deployed to `./.claude/`) so the `/shannon-report` contract in `SKILL.md` is actually invocable. Sequenced before TASK-018's dogfood. Parent: EPIC-009. Full elaboration pending `/task-elaborate TASK-020` (Gate 1).
