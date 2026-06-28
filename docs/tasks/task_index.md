@@ -19,7 +19,7 @@
 - [TASK-017](./archive/TASK-017-posttooluse-audit-logging-hook.md) — APPROVED — PostToolUse Audit-Logging Hook (EPIC-009 Task 7) #supervisor #hook #posttooluse #audit-log #gitignore
 - [TASK-018](./TASK-018-first-dogfood-shannon-report-run.md) — ELABORATED — First Dogfood /shannon-report Run (EPIC-009 Task 8) #supervisor #dogfood #report #knowledge-index #commit #shannon-self
 - [TASK-019](./archive/TASK-019-supervisor-shipping-source-and-backfill.md) — APPROVED — Supervisor Shipping-Source Establishment and APPROVED-Deliverable Backfill (EPIC-009 Task 9, corrective) #supervisor #shipping-source #backfill #portability #distribution #corrective
-- [TASK-020](./TASK-020-shannon-report-command-file.md) — ELABORATED — Shannon-Report Command File (EPIC-009 Task 10, corrective) #supervisor #command #shannon-report #entry-point #corrective
+- [TASK-020](./TASK-020-shannon-report-command-file.md) — PLANNED — Shannon-Report Command File (EPIC-009 Task 10, corrective) #supervisor #command #shannon-report #entry-point #corrective
 
 ---
 
