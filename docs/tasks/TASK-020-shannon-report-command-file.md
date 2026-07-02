@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #command #shannon-report #entry-point #corrective
 - **Created**: 2026-06-28
-- **Updated**: 2026-06-28
+- **Updated**: 2026-07-03
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -78,7 +78,18 @@ A single-file authoring pass plus a one-line README sync — author the thin com
 
 ## Implementation Notes
 
-*Filled during implementation.*
+### Deviations from Plan
+
+- None. The 4-Step Plan ran exactly as Gate-2-approved.
+
+### Gotchas
+
+- **The command registered live as an invocation surface.** Immediately after the deployed `./.claude/commands/shannon-report.md` was written, the harness surfaced `/shannon-report` as an available command/skill — concrete confirmation that AC#1's entry point works (the `SKILL.md` `/shannon-report` contract now has a real trigger, closing the gap TASK-018 Gate 1 found). The command was **not** invoked here — running it is TASK-018's dogfood, not this Task's scope.
+- **Thin as intended.** The command body is 15 lines and contains no pipeline logic — it declares the `shannon-supervisor` skill, passes the `report` verb, gives fallback wording, and returns. The actual fan-out/aggregate/write logic stays in the skill (AC#2).
+
+### Documents Updated
+
+- None (mandated documents). TASK-020 adds the command entry point + a `shannon/commands/README.md` § Command Reference listing — command-layer content under the tracked `./shannon/` source, deployed to `./.claude/`.
 
 ---
 
@@ -98,6 +109,8 @@ A single-file authoring pass plus a one-line README sync — author the thin com
 
 ## Activity Log
 
+- **2026-07-03** — IMPLEMENTED: All 4 Steps executed cleanly. **Step 1**: `./shannon/commands/shannon-report.md` authored (15 lines) — thin delegate: "You MUST invoke the `shannon-supervisor` skill", verb `report`, no-arguments note, the fan-out/aggregate/write summary, fallback wording naming `SKILL.md`, and a surface-the-report-path-on-return line. AC#1, AC#2 closed. **Step 2**: `shannon/commands/README.md` § Command Reference additively gains a **Supervisor** section listing `/shannon-report` (6 insertions / 0 deletions). AC#3 closed. **Step 3**: command + README deployed to `./.claude/commands/`; `diff` confirms both identical. **Step 4**: six-target portability greps across command + README → aggregate 0 (AC#4); `git diff` shows only `A shannon/commands/shannon-report.md` + `M shannon/commands/README.md` (additive) + bookkeeping; absence checks all 0 (no `SKILL.md`/checker/template/hook/`settings.json`, no mandated-doc change). AC#5 closed. **Lived confirmation**: the harness surfaced `/shannon-report` as an available command immediately after deploy — the invocation surface the TASK-018 dogfood needs now exists. Ready for Gate 3 review via `/task-review TASK-020`.
+- **2026-06-28** — IMPLEMENTING: Started execution of the 4-Step Plan (author command → sync README → deploy → portability/scope verification).
 - **2026-06-28** — PLANNED (Gate 2 approved). Four-Step authoring-and-verify Plan (no cascading-prepared draft — created fresh at TASK-018 Gate 1): (1) author the thin `shannon-report.md` delegate per the 4-point shape; (2) sync `shannon/commands/README.md` § Command Reference; (3) deploy command + README to `./.claude/`; (4) six-target portability + `git diff` scope verification. Two risks named (command thickening → AC#2 thin-delegate guard; README drift → AC#3 sync). No cascade docs amended (command-layer entry point). Dependencies confirmed: TASK-011/019 APPROVED. Status: ELABORATED → PLANNED.
 - **2026-06-28** — ELABORATED (Gate 1 — pending directing-party approval). Five acceptance criteria finalised from the provisional create-time set, grounded in `shannon/commands/README.md` § How Commands Work (the canonical thin-command shape): AC#1 (thin `/shannon-report` command file in tracked `./shannon/commands/`, deployed — the 4-point delegate shape: name the skill / pass the report verb / fallback wording / return); AC#2 (delegates to `shannon-supervisor`, does not reimplement the pipeline — Commands-are-thin); AC#3 (additively list `/shannon-report` in `shannon/commands/README.md` so the command reference stays in sync); AC#4 (six-target portability); AC#5 (scope-bounded — command file + README only; no skill/checker/template/hook/mandated-doc change). Each AC carries a `Derives from` line. This is a small, mechanical entry-point Task — its value is unblocking TASK-018's dogfood by giving the `SKILL.md` `/shannon-report` contract a real invocation surface. Status: DRAFT → ELABORATED.
 - **2026-06-28** — DRAFT: Corrective Task created (fast capture) following the TASK-018 Gate 1 finding that EPIC-009 never scoped the thin `/shannon-report` command entry point. Creates `./shannon/commands/shannon-report.md` (deployed to `./.claude/`) so the `/shannon-report` contract in `SKILL.md` is actually invocable. Sequenced before TASK-018's dogfood. Parent: EPIC-009. Full elaboration pending `/task-elaborate TASK-020` (Gate 1).

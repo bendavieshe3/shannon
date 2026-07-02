@@ -10,6 +10,12 @@ This directory contains slash command definitions for the Shannon framework. Com
 |---|---|
 | `/shannon-setup` | Initialise (or update) a project with Shannon |
 
+### Supervisor
+
+| Command | Purpose |
+|---|---|
+| `/shannon-report` | Produce a current supervisor health report (delegates to the `shannon-supervisor` skill) |
+
 ### Document Management
 
 | Command | Purpose | Gate |
