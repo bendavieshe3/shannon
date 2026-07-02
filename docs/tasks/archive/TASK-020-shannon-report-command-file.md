@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: IMPLEMENTED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -109,6 +109,7 @@ A single-file authoring pass plus a one-line README sync — author the thin com
 
 ## Activity Log
 
+- **2026-07-03** — APPROVED (Gate 3 approved). Independent verification subagent re-derived all 5 ACs from disk + git; all PASS. **AC#1**: `shannon/commands/shannon-report.md` git-tracked, canonical thin-command shape (names the `shannon-supervisor` skill, passes the `report` verb + no-args note, fallback wording naming `SKILL.md`, surfaces the report path); deployed copy byte-identical. **AC#2**: 15 lines, delegates only — no pipeline reimplementation. **AC#3**: README § Command Reference line 17 lists `/shannon-report`; deployed README identical. **AC#4**: six-target greps across command + README all 0. **AC#5**: commit `3d5131c` = 4 files (bookkeeping + command A + README M); README additive (+6/-0, hunk `@@ -10,6 +10,12 @@`); no `SKILL.md`/checker/template/hook/`settings.json`/mandated-doc change. Clean pass, no notes. File archived to `./docs/tasks/archive/TASK-020-shannon-report-command-file.md`; `task_index.md` link updated. **Unblocks TASK-018** — the `/shannon-report` invocation surface now exists. Status: REVIEW → APPROVED.
 - **2026-07-03** — IMPLEMENTED: All 4 Steps executed cleanly. **Step 1**: `./shannon/commands/shannon-report.md` authored (15 lines) — thin delegate: "You MUST invoke the `shannon-supervisor` skill", verb `report`, no-arguments note, the fan-out/aggregate/write summary, fallback wording naming `SKILL.md`, and a surface-the-report-path-on-return line. AC#1, AC#2 closed. **Step 2**: `shannon/commands/README.md` § Command Reference additively gains a **Supervisor** section listing `/shannon-report` (6 insertions / 0 deletions). AC#3 closed. **Step 3**: command + README deployed to `./.claude/commands/`; `diff` confirms both identical. **Step 4**: six-target portability greps across command + README → aggregate 0 (AC#4); `git diff` shows only `A shannon/commands/shannon-report.md` + `M shannon/commands/README.md` (additive) + bookkeeping; absence checks all 0 (no `SKILL.md`/checker/template/hook/`settings.json`, no mandated-doc change). AC#5 closed. **Lived confirmation**: the harness surfaced `/shannon-report` as an available command immediately after deploy — the invocation surface the TASK-018 dogfood needs now exists. Ready for Gate 3 review via `/task-review TASK-020`.
 - **2026-06-28** — IMPLEMENTING: Started execution of the 4-Step Plan (author command → sync README → deploy → portability/scope verification).
 - **2026-06-28** — PLANNED (Gate 2 approved). Four-Step authoring-and-verify Plan (no cascading-prepared draft — created fresh at TASK-018 Gate 1): (1) author the thin `shannon-report.md` delegate per the 4-point shape; (2) sync `shannon/commands/README.md` § Command Reference; (3) deploy command + README to `./.claude/`; (4) six-target portability + `git diff` scope verification. Two risks named (command thickening → AC#2 thin-delegate guard; README drift → AC#3 sync). No cascade docs amended (command-layer entry point). Dependencies confirmed: TASK-011/019 APPROVED. Status: ELABORATED → PLANNED.
