@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: PLANNED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #dogfood #report #knowledge-index #commit #shannon-self
 - **Created**: 2026-05-30
-- **Updated**: 2026-06-28
+- **Updated**: 2026-07-05
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -59,7 +59,7 @@ This Task is the end-to-end exercise of the prior EPIC-009 work: TASK-011's skel
 
 ## Plan
 
-*Prepared during EPIC-009 planning (Gate 2), not yet reviewed. Surfaces at `/task-plan TASK-018` (Gate 2).*
+*Ratified at Gate 2 (2026-07-05); reworked at Gate 1 to the 8-step manual-dogfood shape (execute the pipeline + demonstrate the hooks + document runtime deferrals).*
 
 ### Approach
 
@@ -131,5 +131,6 @@ This is the end-to-end exercise Task — mostly execution and verification, not 
 
 ## Activity Log
 
+- **2026-07-05** — PLANNED (Gate 2 approved). The Plan was reworked at Gate 1 to the 8-step manual-dogfood shape; ratified here with only the stale header marker refreshed. The 8 Steps cover all eight ACs: Step 1 (pre-flight — TASKs 11–17 + TASK-020 APPROVED); Step 2 (execute the pipeline: spawn 3 checkers → aggregate → instantiate templates → write report + index) closes AC#1/AC#2; Step 3 (demonstrate `posttool-auditlog.sh` against the run's write events) closes AC#3; Step 4 (demonstrate `pretool-writeguard.sh` negative + positive paths) closes AC#4; Step 5 (verbatim greps on the real output) closes AC#5; Step 6 (document runtime-integration limitations) closes AC#8; Step 7 (`git status` scope-bounded) closes AC#7; Step 8 (Gate-3 commit per standard per-gate cadence + push) closes AC#6. **Dependencies now fully satisfied**: TASKs 11–17 APPROVED, TASK-019 APPROVED, **TASK-020 APPROVED** (`/shannon-report` invocation surface exists — commit `d1e981b`). Risks named (AC#4 ambiguity resolved by direct demonstration; manual-dogfood honesty via AC#8; the checkers may surface genuine Shannon-self findings — expected, captured honestly). **No new framework-general ambiguities** beyond the two already routed at Gate 1 (command-entry-point decomposition gap; runtime-verification limitation). Status: ELABORATED → PLANNED.
 - **2026-06-28** — ELABORATED (Gate 1 — pending directing-party approval). The closing dogfood Task; Gate 1 surfaced a **structural gap and an execution reality** that reshape it. **(Finding 1 — missing command entry point)** EPIC-009 built the skill, checkers, pipeline, and hooks but **never created the thin `/shannon-report` command file**, so the `SKILL.md` contract had no invocation surface (Shannon's Commands+Skills+Subagents architecture requires a `./.claude/commands/*.md` delegate). Resolved by directing-party decision: a corrective Task **TASK-020** creates the command file (tracked `./shannon/commands/`, deployed); TASK-018 now **depends on TASK-020 APPROVED**. The decomposition-gap lesson is routed to scratchpad. **(Finding 2 — the skill is prose, runtime is unverifiable here)** the supervisor is a Markdown skill an agent executes by following `SKILL.md`; "running `/shannon-report`" = the agent spawns the three checkers, aggregates, writes the report + index. Three runtime facts cannot be verified in an interactive dev session — hook **auto-firing**, `SHANNON_SUPERVISOR_SCOPE` **propagation** to hook subprocesses, and literal slash-command **triggering** — so they are **deferred to EPIC-011** (a new **AC#8** documents this honestly; the scratchpad runtime item carries it forward). **ACs reshaped to the manual-dogfood scope**: AC#1 (execute the pipeline → real dated report, hybrid shape, genuine checker findings); AC#2 (real `knowledge_index.md` entry — the first execution of TASK-015's codified-not-executed write step); AC#3/AC#4 (hooks **demonstrated** via direct `posttool-auditlog.sh` / `pretool-writeguard.sh` runs with the signal set, against the run's actual write events — logic already proven by their unit suites; live auto-firing deferred); AC#5 (verbatim greps on the real output); AC#6 (standard per-gate cadence, not the batch subject); AC#7 (scope-bounded — report + index + bookkeeping; command file is TASK-020 territory); **AC#8 (new — runtime-integration limitations documented + deferred to EPIC-011)**. Plan reworked to the 8-step manual-dogfood shape; Dependencies updated (+TASK-020); Risks updated (AC#4 ambiguity resolved by direct demonstration; manual-dogfood honesty; checkers may surface real Shannon-self findings). Status: DRAFT → ELABORATED.
 - **2026-05-30** — DRAFT: Task stub created with prepared elaboration draft and prepared plan draft during EPIC-009 planning (Gate 2). Cascading Preparation pattern per `technical_design.md` v1.2 § Key Algorithms → *Cascading Operations*. When the directing party runs `/task-elaborate TASK-018`, the prepared elaboration surfaces for Gate 1 review; when they run `/task-plan TASK-018`, the prepared plan surfaces for Gate 2 review. Descriptive title (*First Dogfood /shannon-report Run*) used from the outset per `conceptual_design.md` § Domain Model → *Work Item* Naming. Parent: EPIC-009. Full elaboration pending `/task-elaborate TASK-018` (Gate 1).
