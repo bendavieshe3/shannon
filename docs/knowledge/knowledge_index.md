@@ -31,6 +31,10 @@
 > - **idea-versioning-algorithm.md** - Extends: conceptual_design.md § "Versioning" - Conflict resolution algorithm
 > - **detailed-persona-research.md** - Extends: product_requirements.md § "Personas" - Extended user interviews
 
+## Supervisor Reports
+
+- **[report-2026-07-05.md](../supervisor/report-2026-07-05.md)** - Type: *Supervisor Report* - First dogfood `/shannon-report` run (EPIC-009 / TASK-018); 3/3 checkers, 10 findings; top finding: the codified `knowledge_index.md` path mismatch.
+
 ---
 
 ## Notes
