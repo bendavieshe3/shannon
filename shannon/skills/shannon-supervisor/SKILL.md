@@ -35,7 +35,7 @@ The skill:
 1. Reads the supervisor configuration per § Configuration below to determine the report directory and any directing-party-reserved gate authorities.
 2. Spawns three checker subagents in parallel — Alignment, Lifecycle, Drift — each returning a structured finding fragment using the canonical four-category schema: Drift, Gap, Internal contradiction, Strength.
 3. Aggregates the fragments into a single dated report at `./docs/supervisor/report-YYYY-MM-DD.md` (or under the configured `report_directory` if overridden).
-4. Indexes the report in `./docs/knowledge_index.md` with Type marked as *Supervisor Report* per the Knowledge Note subtype convention.
+4. Indexes the report in `./docs/knowledge/knowledge_index.md` with Type marked as *Supervisor Report* per the Knowledge Note subtype convention.
 
 The report follows the hybrid-presentation default: a diagnostic header (counts of findings, stuck items, push lag) followed by a one- or two-finding narrative body.
 
@@ -80,15 +80,15 @@ The `/shannon-report` contract (above) delegates report construction to this pip
 
 5. **Assemble and write.** Concatenate header + finding sections + footer into a single Markdown body and write it to `<report_directory>/report-YYYY-MM-DD.md` (default `./docs/supervisor/`, per § Configuration). **Reports are never overwritten**: if a report for the current date already exists, write `report-YYYY-MM-DD-2.md` (then `-3`, and so on) — the same-day suffix increments to the next free name.
 
-6. **Index the report.** Append an entry for the new report to `./docs/knowledge_index.md` with the Type field reading *Supervisor Report* (a Knowledge Note subtype) and a project-relative reference to the report file. This write is the explicit exception the PreToolUse write-guard permits (sibling work item); every other write outside the configured report directory is refused.
+6. **Index the report.** Append an entry for the new report to `./docs/knowledge/knowledge_index.md`, under its *Supervisor Reports* section (created on first use), with the entry's Type label reading *Supervisor Report* (a Knowledge Note subtype) and a project-relative reference to the report file. This write is the explicit exception the PreToolUse write-guard permits (sibling work item); every other write outside the configured report directory is refused.
 
-The configured report directory and `./docs/knowledge_index.md` are the only paths this pipeline writes.
+The configured report directory and `./docs/knowledge/knowledge_index.md` are the only paths this pipeline writes.
 
 ## Hook Integration
 
 The supervisor integrates with five Claude Code hook points; each is implemented by a sibling work item:
 
-- **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge_index.md`.
+- **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge/knowledge_index.md`.
 - **PostToolUse** — audit log recording each tool invocation with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
 - **SessionStart** — terse health summary at session open.
 - **preCompact** — snapshot of in-flight findings to disk before context compaction.

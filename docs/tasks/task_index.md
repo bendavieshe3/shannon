@@ -20,7 +20,7 @@
 - [TASK-018](./archive/TASK-018-first-dogfood-shannon-report-run.md) — APPROVED — First Dogfood /shannon-report Run (EPIC-009 Task 8) #supervisor #dogfood #report #knowledge-index #commit #shannon-self
 - [TASK-019](./archive/TASK-019-supervisor-shipping-source-and-backfill.md) — APPROVED — Supervisor Shipping-Source Establishment and APPROVED-Deliverable Backfill (EPIC-009 Task 9, corrective) #supervisor #shipping-source #backfill #portability #distribution #corrective
 - [TASK-020](./archive/TASK-020-shannon-report-command-file.md) — APPROVED — Shannon-Report Command File (EPIC-009 Task 10, corrective) #supervisor #command #shannon-report #entry-point #corrective
-- [TASK-021](./TASK-021-knowledge-index-path-correction.md) — PLANNED — Knowledge-Index Path Correction (EPIC-009 Task 11, corrective) #supervisor #bug #knowledge-index #path #corrective #dogfood
+- [TASK-021](./TASK-021-knowledge-index-path-correction.md) — IMPLEMENTED — Knowledge-Index Path Correction (EPIC-009 Task 11, corrective) #supervisor #bug #knowledge-index #path #corrective #dogfood
 
 ---
 

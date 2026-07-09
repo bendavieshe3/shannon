@@ -1,5 +1,5 @@
 {
-  "_comment": "Shippable Claude Code settings.json snippet for the supervisor PreToolUse write-guard. Merge the PreToolUse entry into the project's .claude/settings.json. The hook is inert unless SHANNON_SUPERVISOR_SCOPE is set; it refuses writes outside the configured report_directory (default docs/supervisor), with an exception for docs/knowledge_index.md.",
+  "_comment": "Shippable Claude Code settings.json snippet for the supervisor PreToolUse write-guard. Merge the PreToolUse entry into the project's .claude/settings.json. The hook is inert unless SHANNON_SUPERVISOR_SCOPE is set; it refuses writes outside the configured report_directory (default docs/supervisor), with an exception for docs/knowledge/knowledge_index.md.",
   "hooks": {
     "PreToolUse": [
       {

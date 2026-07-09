@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #bug #knowledge-index #path #corrective #dogfood
 - **Created**: 2026-07-06
-- **Updated**: 2026-07-09
+- **Updated**: 2026-07-10
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -82,7 +82,20 @@ A mechanical string correction across four files in the tracked `./shannon/skill
 
 ## Implementation Notes
 
-*Filled during implementation.*
+### Deviations from Plan
+
+- None. The 6-Step Plan ran exactly as Gate-2-approved.
+
+### Gotchas
+
+- **The bug is reversed, and the old wrong path is now correctly blocked.** Post-fix, `docs/knowledge/knowledge_index.md` (the real index) returns **exit 0** where TASK-018 demonstrated exit 2. Symmetrically, the previously-codified `docs/knowledge_index.md` now returns **exit 2** — it is no longer the exception and is not under the report directory, so the guard correctly refuses it. Both directions of the fix are verified, not just the happy path.
+- **Full-suite re-run caught no regression.** Step 5 deliberately re-ran *all ten* of TASK-016's cases rather than just the changed one: in-scope allow, two out-of-scope blocks, inert-by-default, Read pass-through, and the `report_directory` override (including confirming the index exception still applies *under* an override). All pass — the `index_exception` change did not disturb the block or inert paths.
+- **The exception is now a nested path, and the prefix logic still holds.** `docs/knowledge/knowledge_index.md` contains a `/` that the previous exception did not. The guard compares the exception by exact normalised equality (not prefix), so the nesting is inert to the matching logic; the `report_directory` prefix `case` remains independent. Verified by the override case, where the exception survives a changed report directory.
+- **Diffs are pure substitutions.** SKILL.md 4/4, snippet 1/1, hook 2/2, footer 1/1 — no incidental edits. The already-written `report-2026-07-05.md` and its (correct) index entry were untouched, per AC#6.
+
+### Documents Updated
+
+- None (mandated documents). TASK-021 corrects the codified index path in four supervisor files under the tracked `./shannon/` source (deployed to `./.claude/`), and clarifies the *Supervisor Reports*-section indexing convention in `SKILL.md` § Report Pipeline step 6.
 
 ---
 
@@ -102,6 +115,8 @@ A mechanical string correction across four files in the tracked `./shannon/skill
 
 ## Activity Log
 
+- **2026-07-10** — IMPLEMENTED: All 6 Steps executed; **write-guard suite 10/10 pass**. **Steps 1–3**: all eight codified `docs/knowledge_index.md` references corrected to `docs/knowledge/knowledge_index.md` across four files — `SKILL.md` (§ /shannon-report contract line 38, § Report Pipeline step 6 + closing line 83/85, § Hook Integration PreToolUse bullet line 91), `scripts/pretool-writeguard.sh` (header comment line 7 **and the functional `index_exception=` line 18**), `hooks/pretooluse.settings.json` `_comment`, `templates/footer.md` line 4. AC#4's clarification applied at § Report Pipeline step 6 (the entry lands under a *Supervisor Reports* section, with *Supervisor Report* as the entry's Type label). AC#1, AC#4 closed. **Step 4**: four files deployed to `./.claude/`, `diff` byte-identical, hook executable, snippet still valid JSON. AC#3 closed. **Step 5 (AC#2) — the decisive test**: re-ran TASK-016's **full** ten-case suite — **the real index `docs/knowledge/knowledge_index.md` now returns exit 0 (was exit 2 in the TASK-018 demonstration)**; the old wrong path `docs/knowledge_index.md` now correctly returns exit 2; and every regression case is unchanged (in-scope allow 0; out-of-scope `docs/scratchpad.md` and `src/app.ts` block 2; signal-absent inert 0; Read pass-through 0; `report_directory` override honoured, with the index exception surviving under the override). 10/10 pass, tested before commit. AC#2 closed. **Step 6**: repo-wide grep for the bare wrong path returns **0** hits, with all eight corrected sites listed (AC#1); six-target portability across the four files aggregate 0 (AC#5); `git diff` shows only the four files as pure substitutions (4/4, 1/1, 2/2, 1/1) — no checker, no `header.md`/`finding-section.md`, no `posttool-auditlog.sh`, no command file, no mandated doc, and the written `report-2026-07-05.md` + its index entry untouched (AC#6). **The defect the first dogfood surfaced is closed, in both directions, with no regression.** Ready for Gate 3 review via `/task-review TASK-021`.
+- **2026-07-10** — IMPLEMENTING: Started the 6-Step correction (four files → deploy → full write-guard suite re-run → verification).
 - **2026-07-09** — PLANNED (Gate 2 approved). Six-Step mechanical correction-and-retest Plan: (1) correct `SKILL.md`'s four references + apply the AC#4 indexing-convention clarification; (2) correct the **functional** site `pretool-writeguard.sh` `index_exception=` + its header comment; (3) correct the snippet `_comment` + `templates/footer.md`; (4) deploy the four files to `./.claude/`, `diff` identical; (5) **re-run TASK-016's full unit suite** — the real index path must flip 2→0 while out-of-scope stays 2 and inert-by-default is unchanged (test before commit); (6) zero-bare-path repo grep + six-target portability + `git diff` scope. Three risks named (partial fix → repo-wide zero-grep; write-guard regression → full suite re-run, not just the changed case; convention scope creep → AC#4 is prose-only). No cascade docs amended. Dependencies confirmed: TASK-018/011/015/016/019 APPROVED. Status: ELABORATED → PLANNED.
 - **2026-07-06** — ELABORATED (Gate 1 — pending directing-party approval). Corrective Task created and elaborated in one pass following the TASK-018 dogfood finding. Six ACs: AC#1 (correct the path at every codified site — SKILL.md ×4, `pretool-writeguard.sh` ×2, snippet ×1, `footer.md` ×1 — verified by a zero-bare-`docs/knowledge_index.md` grep); AC#2 (re-test the write-guard: real index now exit 0, out-of-scope still exit 2 — reversing the demonstrated bug, tested before commit); AC#3 (deploy to `./.claude/`, byte-identical); AC#4 (clarify the `Type` vs *Supervisor Reports*-section indexing nuance); AC#5 (six-target portability); AC#6 (scope-bounded — four supervisor files only, superseding but not re-opening TASK-011/015/016). Each AC carries a `Derives from` line. The three source Tasks stay APPROVED; this Task supersedes only the path string. Status: → ELABORATED.
 - **2026-07-06** — DRAFT: Corrective Task created (fast capture) to fix the knowledge-index path mismatch surfaced by TASK-018's first dogfood run. Parent: EPIC-009.

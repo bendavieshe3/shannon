@@ -4,7 +4,7 @@
 # Inert unless SHANNON_SUPERVISOR_SCOPE is set to a non-empty value. When active,
 # refuses Write/Edit-family operations whose target path is outside the configured
 # report_directory (default docs/supervisor), with an explicit exception for
-# docs/knowledge_index.md. Refusal exits 2 (blocking, per the Claude Code hook
+# docs/knowledge/knowledge_index.md. Refusal exits 2 (blocking, per the Claude Code hook
 # contract); allow exits 0. Reads the PreToolUse event JSON on stdin.
 set -u
 
@@ -15,7 +15,7 @@ if [ -z "${SHANNON_SUPERVISOR_SCOPE:-}" ]; then
 fi
 
 default_report_dir="docs/supervisor"
-index_exception="docs/knowledge_index.md"
+index_exception="docs/knowledge/knowledge_index.md"
 config_path=".claude/shannon-supervisor.json"
 
 normalise() {
