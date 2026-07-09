@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: PLANNED
 - **Type**: Task
 - **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #bug #knowledge-index #path #corrective #dogfood
 - **Created**: 2026-07-06
-- **Updated**: 2026-07-06
+- **Updated**: 2026-07-09
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -51,7 +51,32 @@ This Task corrects the path at every codified site, authored in the tracked `./s
 
 ## Plan
 
-*Filled at `/task-plan TASK-021` (Gate 2).*
+*Elaborated at Gate 2 (2026-07-09).*
+
+### Approach
+
+A mechanical string correction across four files in the tracked `./shannon/skills/shannon-supervisor/` source, deployed to `./.claude/`. The functional site is `pretool-writeguard.sh`'s `index_exception=`; the rest are prose/comment references that must agree so the codified contract matches behaviour. Because the write-guard is executable and this Task changes its behaviour, **re-run TASK-016's full unit suite before commit** (the global test-before-commit rule) — confirming the real index path flips from blocked to allowed while every other case is unchanged. The already-written `report-2026-07-05.md` and its (correct) index entry are untouched.
+
+### Steps
+
+1. **Correct `SKILL.md`** — the four `./docs/knowledge_index.md` references (§ /shannon-report contract, § Report Pipeline step 6 + closing line, § Hook Integration PreToolUse bullet) → `./docs/knowledge/knowledge_index.md`. Apply the AC#4 clarification at § Report Pipeline step 6 (the entry lands under a *Supervisor Reports* section, with *Supervisor Report* as its Type label). Closes AC#1 (partly), AC#4.
+2. **Correct `scripts/pretool-writeguard.sh`** — the functional `index_exception="docs/knowledge/knowledge_index.md"` and the header comment. Closes AC#1 (the functional site).
+3. **Correct `hooks/pretooluse.settings.json` `_comment` and `templates/footer.md` line 4.** Closes AC#1 (remaining sites).
+4. **Deploy to the active copy.** Copy the four corrected files to `./.claude/skills/shannon-supervisor/`; `diff` confirms byte-identical. Closes AC#3.
+5. **Re-test the write-guard (AC#2).** Re-run TASK-016's unit cases with `SHANNON_SUPERVISOR_SCOPE` set: `docs/knowledge/knowledge_index.md` → **exit 0** (was 2 — the bug reversed); `docs/supervisor/...` → 0; `docs/scratchpad.md` → 2; signal-absent → 0 (inert); configured-override honoured. Confirm no regression in the untouched cases.
+6. **Verification.** `grep -rn 'docs/knowledge_index.md'` across `./shannon/skills/shannon-supervisor/` returns zero bare hits (AC#1); six-target portability greps on the four files (AC#5); `git diff` shows only the four files + deploy + lifecycle bookkeeping — no checker, no `header.md`/`finding-section.md`, no `posttool-auditlog.sh`, no command file, no mandated doc, no touch of the written report/index entry (AC#6).
+
+### Dependencies
+
+- **Depends on**: TASK-018 APPROVED (surfaced and demonstrated the defect); TASK-011/015/016 APPROVED (the deliverables whose path string this Task supersedes); TASK-019 APPROVED (tracked `./shannon/` convention).
+- **Depended on by**: EPIC-009's own Gate 3 review — the Epic should close on a working supervisor.
+- **Cascade docs**: none amended — this is a defect correction to skill content, not a doc or behaviour change.
+
+### Risks
+
+- **Partial fix — a site missed.** Eight references across four files; missing one leaves the contract inconsistent. **Mitigation**: AC#1's verification is a repo-wide `grep` for the bare wrong path returning **zero**, not a per-file check.
+- **Regression in the write-guard.** Changing `index_exception` could break the block/allow paths. **Mitigation**: Step 5 re-runs TASK-016's full unit suite (not just the changed case) before commit; the out-of-scope block and inert-by-default paths must remain unchanged.
+- **Scope creep into the indexing convention.** AC#4's clarification is prose-only; it must not become a behavioural change to how entries are written. **Mitigation**: AC#4 explicitly names it "a light additive clarification, not a behavioural change"; the already-written entry is untouched.
 
 ---
 
@@ -77,5 +102,6 @@ This Task corrects the path at every codified site, authored in the tracked `./s
 
 ## Activity Log
 
+- **2026-07-09** — PLANNED (Gate 2 approved). Six-Step mechanical correction-and-retest Plan: (1) correct `SKILL.md`'s four references + apply the AC#4 indexing-convention clarification; (2) correct the **functional** site `pretool-writeguard.sh` `index_exception=` + its header comment; (3) correct the snippet `_comment` + `templates/footer.md`; (4) deploy the four files to `./.claude/`, `diff` identical; (5) **re-run TASK-016's full unit suite** — the real index path must flip 2→0 while out-of-scope stays 2 and inert-by-default is unchanged (test before commit); (6) zero-bare-path repo grep + six-target portability + `git diff` scope. Three risks named (partial fix → repo-wide zero-grep; write-guard regression → full suite re-run, not just the changed case; convention scope creep → AC#4 is prose-only). No cascade docs amended. Dependencies confirmed: TASK-018/011/015/016/019 APPROVED. Status: ELABORATED → PLANNED.
 - **2026-07-06** — ELABORATED (Gate 1 — pending directing-party approval). Corrective Task created and elaborated in one pass following the TASK-018 dogfood finding. Six ACs: AC#1 (correct the path at every codified site — SKILL.md ×4, `pretool-writeguard.sh` ×2, snippet ×1, `footer.md` ×1 — verified by a zero-bare-`docs/knowledge_index.md` grep); AC#2 (re-test the write-guard: real index now exit 0, out-of-scope still exit 2 — reversing the demonstrated bug, tested before commit); AC#3 (deploy to `./.claude/`, byte-identical); AC#4 (clarify the `Type` vs *Supervisor Reports*-section indexing nuance); AC#5 (six-target portability); AC#6 (scope-bounded — four supervisor files only, superseding but not re-opening TASK-011/015/016). Each AC carries a `Derives from` line. The three source Tasks stay APPROVED; this Task supersedes only the path string. Status: → ELABORATED.
 - **2026-07-06** — DRAFT: Corrective Task created (fast capture) to fix the knowledge-index path mismatch surfaced by TASK-018's first dogfood run. Parent: EPIC-009.
