@@ -7,10 +7,10 @@
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #2 ("Strategic External Review")
 - **Initial Implementation**: Partial — see Activity Log
-  - **Met:** Document-layer V6 alignment — the six mandated documents use directing-party / implementer vocabulary; the *Supervisor Distinct From Implementer* business rule is named; cooperative-access conventions are documented.
-  - **Remaining:** The implementation-layer V6 vocabulary sweep — 3 skill definitions + the CLAUDE.md template (EPIC-005) and 22 command files (candidate Epic B); structural self-approval refusal in skills and commands; a multi-agent configuration exercised in practice.
+  - **Met:** Document-layer V6 alignment — the six mandated documents use directing-party / implementer vocabulary; the *Supervisor Distinct From Implementer* business rule is named; cooperative-access conventions are documented. **Plus (EPIC-005 APPROVED):** the implementation-layer vocabulary sweep of the 3 skill definitions + the CLAUDE.md template, including the self-approval-refusal language in those skills.
+  - **Remaining:** The V6 vocabulary sweep of the 22 command files (candidate Epic B) and the self-approval-refusal wording in them; a multi-agent configuration — a supervisor + implementer pair distinct from the human — exercised in practice. *(FEAT-009's supervisor — EPIC-009 APPROVED 2026-07-11 — delivers the supervising-agent role's existence and operation, but has not yet been exercised as a directing party over a separate implementer, so this last item stays open.)*
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-22 (re-elaborated)
+- **Updated**: 2026-07-11 (re-elaborated)
 
 ---
 
@@ -24,11 +24,11 @@ The capability is foundational to scaling Shannon beyond solo developers. The co
 
 ### Ideal State
 
-- The framework's vocabulary distinguishes "directing party" (the supervisor role) from "implementer" (the work-doing role) everywhere it matters *(partly met — document layer is V6-aligned; implementation layer pending)*
-- The Supervisor Distinct From Implementer business rule is named in conceptual_design and referenced consistently *(met — conceptual_design v1.1; referenced from technical_design and development_guide)*
-- Skills and commands refuse self-approval flows (an implementer subagent does not call its own `*-review` command) *(partly met — convention documented; implementation in skills/commands pending)*
-- Technical_design § Gate Enforcement honestly documents that enforcement is by convention, not technical control, with a path to future agent-identity checks *(met — technical_design v1.1)*
-- UX patterns surface the role distinction at gate moments when meaningful — *Gate Enforcement visibility UX* is currently deferred as too speculative until multi-agent configurations are exercised (scratchpad item)
+- The framework's vocabulary distinguishes "directing party" (the supervisor role) from "implementer" (the work-doing role) everywhere it matters *(partly met — document layer V6-aligned; the skills + CLAUDE.md template V6-aligned via EPIC-005 (APPROVED); the 22 command files remain — candidate Epic B)*
+- The Supervisor Distinct From Implementer business rule is named in conceptual_design and referenced consistently *(met — conceptual_design v1.7; referenced from technical_design and development_guide)*
+- Skills and commands refuse self-approval flows (an implementer subagent does not call its own `*-review` command) *(partly met — convention documented; self-approval-refusal language landed in the skills via EPIC-005; the command files remain)*
+- Technical_design § Gate Enforcement honestly documents that enforcement is by convention, not technical control, with a path to future agent-identity checks *(met — technical_design v1.2)*
+- UX patterns surface the role distinction at gate moments when meaningful *(now met — ux_guide v1.2 § Interaction Patterns → *Supervisor-Approved Gate Notification* + the *Gate Approval* refresh ship the pattern previously deferred as too speculative)*
 - Multi-agent configurations work in practice — supervisor and implementer coordinate via cooperative access (no file locking; conflicts surface as diffs)
 - Cooperative access conventions are documented and the development_guide spells out the practice *(met — development_guide v1.2 § Multi-Agent Coordination)*
 - Shannon can be adopted retrospectively into projects that already operate with multi-agent configurations — the framework captures their existing supervisor/implementer arrangements without special-casing
@@ -61,12 +61,13 @@ The capability is foundational to scaling Shannon beyond solo developers. The co
 
 ### Context
 
-- **Vision (v2.2+)**: Core Principle 2 ("Strategic External Review"), Vision Statement (directing party = human or supervising agent, "from adoption through full maturity"), § Target Users — "The directing role is separable" and "Retrospective adoption"
-- **Conceptual Design (v1.3+)**: *Directing Party*, *Implementer* glossary entries; *Supervisor Distinct From Implementer* business rule; updated *Three Hard Gates* and *Iterative Implementation Zone* rules; all Key Workflows use directing-party / implementer vocabulary (currently five workflows including *Re-reviewing an APPROVED Mandated Document*)
-- **Technology Stack**: § Security Considerations — points to *Cooperative Access assumption* (canonical home is now conceptual_design + technical_design)
-- **Technical Design**: § Cooperative Access, § Gate Enforcement
-- **Development Guide**: § Multi-Agent Coordination
-- **UX Guide**: § Cooperative Access Collision pattern, § Presenting Findings (Gate Enforcement visibility deferred to scratchpad)
+- **Vision (v2.4)**: Core Principle 2 ("Strategic External Review"), Vision Statement (directing party = human or supervising agent, "from adoption through full maturity"), § Target Users — "The directing role is separable" and "Retrospective adoption"
+- **Conceptual Design (v1.7)**: *Directing Party*, *Implementer* glossary entries; *Supervisor Distinct From Implementer* business rule; *Three Hard Gates* and *Iterative Implementation Zone* rules; Key Workflows use directing-party / implementer vocabulary
+- **Technology Stack (v1.3)**: § Security Considerations — points to *Cooperative Access assumption* (canonical home is conceptual_design + technical_design)
+- **Technical Design (v1.2)**: § Cooperative Access, § Gate Enforcement
+- **Development Guide (v1.4)**: § Multi-Agent Coordination
+- **UX Guide (v1.2)**: § Cooperative Access Collision pattern; § Interaction Patterns → *Supervisor-Approved Gate Notification* (the Gate Enforcement visibility pattern — previously deferred, now shipped)
+- **Related Feature — [FEAT-009](FEAT-009-supervisor.md)**: the concrete implementing Feature for the supervisor role. FEAT-006 defines the *multi-party pattern* (the directing party may be a supervising agent distinct from the implementer); FEAT-009 delivers the *supervisor's existence and operation* (the `/shannon-report` supervisor skill; EPIC-009 APPROVED 2026-07-11). The scope split: FEAT-006 owns the role-independence constraint and its cross-cutting vocabulary/self-approval discipline; FEAT-009 owns the operational supervisor. FEAT-006's "multi-agent configuration exercised in practice" remains the open validation — EPIC-009 shipped a single-agent reporting surface, not yet a supervisor directing over a separate implementer.
 
 ---
 
@@ -99,7 +100,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ## Success Metrics
 
-- **Vocabulary consistency** — "User" appears in framework prose only where it means "human terminal reader"; "directing party" / "implementer" used otherwise (currently incomplete — see remaining V6 propagation Epic)
+- **Vocabulary consistency** — "User" appears in framework prose only where it means "human terminal reader"; "directing party" / "implementer" used otherwise (skills + CLAUDE.md template complete via EPIC-005 APPROVED; the 22 command files remain — candidate Epic B)
 - **Self-approval prevention** — Zero observed cases of an implementer approving its own work across a gate
 - **Multi-agent project shipped** — At least one Shannon project successfully operated by a supervisor + implementer pair distinct from the human at the top
 
@@ -107,6 +108,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ## Activity Log
 
+- **2026-07-11** — Re-elaborated (additive). **Trigger**: downstream-gap — a sibling Feature, **FEAT-009 (Supervisor)**, now exists as the concrete implementing Feature for the supervisor role, and its first Epic **EPIC-009 (Health Reporting Surface) reached APPROVED** (commit `cc78667`); FEAT-009's own Activity Log flagged this FEAT-006 re-elaboration as owed. (The trigger fits the *downstream-gap*-adjacent "sibling Feature implements part of my scope" case that scratchpad M-1 notes is not yet a perfectly-fitting canonical trigger category — a pending `conceptual_design.md` § Re-elaborating refinement.) **Change** — four additive refreshes, no previously-approved requirement or scope claim contradicted (verified by an independent alignment subagent, four-category findings): (1) **added a Related-Feature cross-reference to FEAT-009** in § Context with the scope split (FEAT-006 = the multi-party pattern + role-independence constraint; FEAT-009 = the operational supervisor); (2) **refreshed all § Context and Ideal-State doc-version citations to current** (Vision v2.4, conceptual_design v1.7, technical_design v1.2, technology_stack v1.3, development_guide v1.4, ux_guide v1.2); (3) **moved the EPIC-005-delivered work from *Remaining* to *Met*** in the Initial Implementation block and narrowed the two "partly met" Ideal-State annotations accordingly (skills + CLAUDE.md template V6-aligned; only the 22 command files / candidate Epic B remain) — resolving the Metadata-vs-Plan internal contradiction the alignment check found; (4) **re-annotated the *Gate Enforcement visibility UX* Ideal-State bullet from deferred → met**, now shipped by ux_guide v1.2 § Interaction Patterns → *Supervisor-Approved Gate Notification* + the *Gate Approval* refresh. **Deliberately NOT changed**: the *Multi-agent project shipped* Success Metric stays **pending** — EPIC-009 shipped a *single-agent* supervisor reporting surface, not a supervisor directing over a separate implementer, so the multi-party configuration remains unexercised; the core Overview intent and the Risks are preserved verbatim. No previously-approved claim contradicted — additive; status stays ELABORATED.
 - **2026-05-22** — Re-elaborated (additive). **Trigger**: framework evolution — EPIC-006 (via TASK-002, commit `09844df`) delivered the queryable Partial-completeness affordance that pre-existing Partial Features must absorb. **Change**: added the `**Met:** / **Remaining:**` sub-block beneath the `Initial Implementation` line, surfacing the Partial state at a glance without an Activity Log dive; applied via TASK-003. No previously-approved claim contradicted — additive; status stays ELABORATED.
 - **2026-05-18** — Re-elaborated. Triggered by upstream evolution since initial elaboration (Vision v2.2 added retrospective adoption acknowledgement; conceptual_design v1.3 added the *Re-reviewing an APPROVED Mandated Document* workflow). Changes applied:
   - Context updated to reflect Vision v2.2 and conceptual_design v1.3 (five Key Workflows; ux_guide § Presenting Findings added)
