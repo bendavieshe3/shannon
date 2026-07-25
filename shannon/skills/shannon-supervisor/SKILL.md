@@ -2,7 +2,7 @@
 
 When invoked, **start your response with**: "Activating shannon-supervisor skill for [verb]."
 
-The self-identification line above is emitted **only** for direct slash-command invocations (currently `/shannon-report`; additional verbs may be added by sibling work items). Hook-event activations (PreToolUse, PostToolUse, SessionStart, preCompact, Stop) and autonomous-cadence invocations are not user-message responses and do not emit a self-identification line.
+The self-identification line above is emitted **only** for direct slash-command invocations (`/shannon-report` and `/shannon-goal`; additional verbs may be added by sibling work items). Hook-event activations (PreToolUse, PostToolUse, SessionStart, preCompact, Stop) and autonomous-cadence invocations are not user-message responses and do not emit a self-identification line.
 
 ## Purpose
 
@@ -13,6 +13,7 @@ The supervisor is invokable both interactively (via slash commands) and autonomo
 ## When to Invoke
 
 - `/shannon-report` — interactively, when the directing party wants a current health report. Contract codified below.
+- `/shannon-goal [intent]` — interactively, when the directing party wants a free-text intent decomposed into candidate work items. Contract codified below.
 - Autonomous cadence runs (forward work — invoked by a sibling work item's headless contract).
 - Hook events (forward work — sibling work items configure PreToolUse, PostToolUse, SessionStart, preCompact, and Stop).
 
@@ -40,6 +41,50 @@ The skill:
 The report follows the hybrid-presentation default: a diagnostic header (counts of findings, stuck items, push lag) followed by a one- or two-finding narrative body.
 
 The implementation body of the report-writing pipeline — template instantiation, same-day-suffix handling for repeated runs, knowledge-index update flow — is forward work to be added by a sibling work item as a § Report Pipeline section appended below the Configuration section.
+
+## /shannon-goal — Contract
+
+Invocation: `/shannon-goal [intent]`, where `[intent]` is a free-text hint describing something the directing party wants (e.g. *"make onboarding feel less abrupt"*).
+
+The verb decomposes the intent into a categorised list of candidate work items and presents it for the directing party to act on. It is a **read-only** verb — it writes nothing (see *Read-only reuse* below).
+
+The skill:
+
+1. Reads the supervisor configuration per § Configuration to determine the directing-party-reserved gate authorities — these decide which candidates the supervisor may promote autonomously and which require directing-party approval.
+2. Discovers the existing artefacts the intent touches by reusing the § Report Pipeline checker fan-out (Flow step 1 only): the three checkers traverse the mandated documents and the work items and return four-category fragments that name specific artefacts by ID. Goal-decomposition maps those artefacts to the intent.
+3. Sorts the candidate work items into two categories:
+   - those aligned with existing artefacts — each candidate names the specific Feature, Epic, or document section it aligns with, cited by ID (e.g. FEAT-001, EPIC-005) or by document-and-section.
+   - those surfacing gaps — each candidate names what no current artefact covers, and flags the promotion authority it requires: a Task may be auto-promoted on supervisor authority, but promotion to an Epic or a Feature requires directing-party approval (per the *Gate Authority Split* business rule).
+4. Renders the result in the shape below.
+
+### Output shape
+
+The output carries four elements — an `Intent:` echo of the hint, one heading per category each carrying a parenthesised count, and a closing promotion-authority footer:
+
+```
+Intent: "make onboarding feel less abrupt"
+
+Candidates aligned with existing artefacts (2):
+  - Extend FEAT-001 § Ideal State to name first-session experience
+  - New Task under EPIC-005 — Soften /shannon-setup conclusion message
+
+Candidates surfacing gaps (1):
+  - No Feature elaborates "first-session experience" yet — directing-party
+    approval needed before scratchpad promotion to Feature
+
+Promote which? (Tasks may be auto-promoted on supervisor authority;
+Epics and Features require your approval.)
+```
+
+When a category is empty, its heading still renders with a `(0)` count and an explicit "no candidates in this category" line, so the directing party can distinguish a considered-empty category from a truncated run.
+
+### Read-only reuse
+
+`/shannon-goal` reuses only the § Report Pipeline checker fan-out — Flow step 1 (the parallel Alignment/Lifecycle/Drift spawn and the canonical four-category fragment schema) — for artefact discovery. It does **not** run the report-construction steps (Flow steps 2–6): no template instantiation, no dated report written under the configured `report_directory`, and no entry appended to `./docs/knowledge/knowledge_index.md`. The verb's entire output is the categorised candidate list rendered to the directing party; it produces no file.
+
+### Failure modes
+
+Configuration handling follows § Configuration and § Failure Modes exactly. A **missing** `./.claude/shannon-supervisor.json` is not an error — the file is optional and `/shannon-goal` proceeds on the § Configuration defaults. A **malformed** file (present but not valid JSON) is surfaced explicitly: `/shannon-goal` names the offending file — `./.claude/shannon-supervisor.json` — reports the parse error, and refuses to run rather than silently falling back to defaults. In neither case is a generic "config missing" string emitted; the actual file path is always named.
 
 ## Configuration
 
@@ -104,6 +149,6 @@ Hook event activations are not user-message responses and do not emit the self-i
 
 ## Self-Identification
 
-The self-identification line — *"Activating shannon-supervisor skill for [verb]."* — is emitted **only** when this skill activates in response to a direct slash-command invocation (`/shannon-report`). Hook-event activations and autonomous-cadence invocations do not emit the self-identification line; they are not user-message responses.
+The self-identification line — *"Activating shannon-supervisor skill for [verb]."* — is emitted **only** when this skill activates in response to a direct slash-command invocation (`/shannon-report` or `/shannon-goal`). Hook-event activations and autonomous-cadence invocations do not emit the self-identification line; they are not user-message responses.
 
 If this skill cannot perform its work for any reason, it must say so explicitly rather than silently doing something else.

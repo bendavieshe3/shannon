@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -76,19 +76,21 @@ Author the `/shannon-goal` contract and its verb registrations in the source-of-
 
 ## Implementation Notes
 
-*Filled during implementation.*
+*Filled during implementation (2026-07-19).*
 
 ### Deviations from Plan
 
-- *None yet.*
+- **Reuse boundary stated as "Flow step 1 only", not "steps 1–4".** The Plan (and prepared draft) described the read-only reuse as "§ Report Pipeline steps 1–4". On implementation this proved imprecise: Flow steps 2–4 are report-*template* instantiation (`header.md` / `finding-section.md` / `footer.md`), which `/shannon-goal` does not perform either. The accurate boundary — and what the contract now states — is that `/shannon-goal` reuses **only Flow step 1** (the checker fan-out + four-category fragment schema) and runs **none** of steps 2–6. This is a strictly tighter, more honest statement of AC#7 (no file writes *and* no report-template use); it does not change what was built or widen scope.
 
 ### Gotchas
 
-- *None yet.*
+- **`ux_guide.md:92` "a missing supervisor configuration file is named" reads as if a missing config is an error, but `SKILL.md` § Configuration makes the file optional (missing → silent defaults).** Reconciled by treating the ux_guide's `(not "Error: config missing")` parenthetical as *message-quality* guidance (name the real file path; never emit a generic string), not as a directive to treat a missing file as failure. The `/shannon-goal` failure-mode clause therefore: missing → proceed on defaults (honours § Configuration); malformed → name `./.claude/shannon-supervisor.json` and refuse (honours § Failure Modes). This preserves the shipped EPIC-009 optional-file invariant while satisfying AC#8. The underlying ux_guide phrasing ambiguity is a candidate for the pending `/document-review ux_guide.md` sweep — noted, not separately routed (it rides the existing scratchpad cluster).
 
 ### Documents Updated
 
-- *None yet.*
+- `shannon/skills/shannon-supervisor/SKILL.md` — added `## /shannon-goal — Contract` (invocation, decomposition steps, output shape, read-only reuse, failure modes); registered the verb at the header note, § When to Invoke, and § Self-Identification. Deployed to `./.claude/`.
+- `shannon/commands/shannon-goal.md` — new thin command file on the `/shannon-report` pattern. Deployed to `./.claude/`.
+- No mandated document, checker, template, hook, script, or other skill was modified (AC#6 cross-type guard held).
 
 ---
 
@@ -112,6 +114,7 @@ Author the `/shannon-goal` contract and its verb registrations in the source-of-
 
 ## Activity Log
 
+- **2026-07-19** — IMPLEMENTED. Executed the 7-step plan. **AC#1/#1b**: `## /shannon-goal — Contract` authored in `SKILL.md` (after the `/shannon-report` contract) and the verb registered at all three verb-facing sites (header note, § When to Invoke, § Self-Identification); thin `shannon/commands/shannon-goal.md` authored on the `/shannon-report` pattern; both deployed to `./.claude/` and `diff`-confirmed byte-identical. **AC#2**: output shape carries the four ratified elements; the two category labels ("Candidates aligned with existing artefacts", "Candidates surfacing gaps") land as plain prose in the fenced example and pass a literal `grep -F`. **AC#5**: live dogfood run via the deployed `/shannon-goal` against the real Shannon-self intent *"reduce the guide-vs-upstream alignment drift accumulating in the scratchpad"* rendered both categories non-empty (2 aligned / 2 gaps), aligned candidates citing FEAT-009 § Ideal State by ID (AC#3), gap candidates each flagging the directing-party approval required (AC#4). **AC#7**: the run wrote no report file and no `knowledge_index.md` entry — verified by working-tree inspection; the contract restricts reuse to Flow step 1 (see Deviations). **AC#6**: `git diff` confirmed only `SKILL.md` + the new command file changed (tracked side); no checker, template, hook, script, mandated document, the `/shannon-report` contract section, or other skill touched. One deviation and one gotcha recorded (reuse-boundary precision; the ux_guide missing-config phrasing reconciliation). Status: PLANNED → IMPLEMENTED. Ready for Gate 3 via `/task-review TASK-022`.
 - **2026-07-19** — PLANNED (Gate 2 approved). Reconciled the EPIC-010-prepared plan draft (written for the pre-Gate-1 6-AC form) against the now-9-AC Requirements via a planning subagent; SKILL.md structural anchors independently re-verified (§ /shannon-report — Contract line 29, § When to Invoke line 13, § Report Pipeline line 67, § Failure Modes line 99, § Self-Identification line 105). Draft grew 6 steps → 7, with three previously-uncovered ACs folded in: **step 2 added** for AC#1b (register the verb at the header note, § When to Invoke, and § Self-Identification — the draft created the verb but never registered it); the **AC#7 read-only boundary** written into step 1 (contract reuses § Report Pipeline steps 1–4 only, never the file-writing steps 5–6) and verified behaviourally in step 5 + by git-diff in step 7; the **AC#8 failure-mode clause** required in step 1. Two corrections to the superseded draft: its Dependencies mislabelled the Task "first (or parallel)" — corrected to strictly first-in-sequence (siblings TASK-023/024 edit the same SKILL.md); and a third Risk added (an implementer copying § Report Pipeline steps 5–6 wholesale would give `/shannon-goal` spurious report-writing — mitigated by the AC#7 boundary + step-7 diff check). AC-coverage confirmed: all 9 ACs map to ≥1 step. Meta-gap soft-prompt: nothing new to route (the Spike-footer discrepancy was already routed at Gate 1). Status: ELABORATED → PLANNED.
 - **2026-07-19** — ELABORATED (Gate 1 approved). Verification pass on the prepared elaboration draft against the authoritative documents: all three cited doc sections confirmed to exist, all version numbers (`ux_guide` v1.2, `technical_design` v1.2) confirmed correct, and the Gate Authority Split direction confirmed *not* reversed (Tasks auto-promotable; Epic/Feature require directing-party approval). Requirements grew from 6 ACs to 9. **AC#1b added** — the prepared draft created the verb but never registered it, leaving `SKILL.md` § Self-Identification factually wrong (names only `/shannon-report`) and § When to Invoke silent on `/shannon-goal`. **AC#7 added** — the "reuses EPIC-009's aggregation" claim was overstated; the shipped § Report Pipeline writes a dated file and appends to `knowledge_index.md`, so reuse is now explicitly bounded read-only (no file side-effects, matching the ux_guide example). **AC#8 added** — `ux_guide.md:92` binds both supervisor commands to naming a missing config and pointing at `./.claude/shannon-supervisor.json`; no AC had covered `/shannon-goal` failure modes. **AC#2 revised** — the ratified example has four elements (Intent echo, both counts, footer), not two; the greppable category labels now land as plain prose. **AC#3 revised** — restored parent AC#6's *Verifiable* clause (name the Feature by ID). **AC#5 revised** — scoped honestly: verifies contract behaviour when exercised; literal slash-command auto-triggering stays deferred to EPIC-011 per EPIC-009's honest deferral. **AC#6 revised** — guard widened to include mandated documents (sibling TASK-024 contemplates a `ux_guide` amendment, so document-editing is live in this Epic). Context gained the `development_guide` v1.4 source-before-deploy rule and doc versions. Directing-party disposition: the Spike-promotion case that `conceptual_design.md` v1.7 establishes but the `ux_guide.md` v1.2 footer omits is a Guide-vs-upstream alignment question — routed to `scratchpad.md` for `/document-review ux_guide.md`, not folded into this Task (Tasks consume Guides; they do not update them). Status: DRAFT → ELABORATED.
 - **2026-07-18** — DRAFT: Task created during EPIC-010 planning (Gate 2) with **prepared elaboration draft** and **prepared plan draft** (Cascading Preparation per `technical_design.md` v1.2 § Key Algorithms → *Cascading Operations*). Covers EPIC-010 AC#1 and AC#6. Descriptive title used from the outset. Prepared drafts surface at `/task-elaborate TASK-022` (Gate 1) and `/task-plan TASK-022` (Gate 2).
