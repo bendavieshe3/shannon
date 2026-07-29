@@ -21,7 +21,7 @@
 - [TASK-019](./archive/TASK-019-supervisor-shipping-source-and-backfill.md) — APPROVED — Supervisor Shipping-Source Establishment and APPROVED-Deliverable Backfill (EPIC-009 Task 9, corrective) #supervisor #shipping-source #backfill #portability #distribution #corrective
 - [TASK-020](./archive/TASK-020-shannon-report-command-file.md) — APPROVED — Shannon-Report Command File (EPIC-009 Task 10, corrective) #supervisor #command #shannon-report #entry-point #corrective
 - [TASK-021](./archive/TASK-021-knowledge-index-path-correction.md) — APPROVED — Knowledge-Index Path Correction (EPIC-009 Task 11, corrective) #supervisor #bug #knowledge-index #path #corrective #dogfood
-- [TASK-022](./TASK-022-shannon-goal-decomposition-skill.md) — IMPLEMENTED — Goal-Decomposition `/shannon-goal` Skill and Command (EPIC-010 Task 1) #supervisor #skill #command #goal-decomposition
+- [TASK-022](./archive/TASK-022-shannon-goal-decomposition-skill.md) — APPROVED — Goal-Decomposition `/shannon-goal` Skill and Command (EPIC-010 Task 1) #supervisor #skill #command #goal-decomposition
 - [TASK-023](./TASK-023-report-presentation-customisation-prose.md) — DRAFT — Report-Presentation Customisation Prose (EPIC-010 Task 2) #supervisor #skill #presentation #documentation
 - [TASK-024](./TASK-024-zero-findings-degenerate-case.md) — DRAFT — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
 - [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — DRAFT — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
