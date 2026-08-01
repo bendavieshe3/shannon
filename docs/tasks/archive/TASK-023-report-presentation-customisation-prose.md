@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: IMPLEMENTED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -92,20 +92,21 @@ A small **additive** `SKILL.md` prose change, authored in the tracked `./shannon
 
 ### Verification
 
-- [ ] All acceptance criteria met
-- [ ] Code follows development_guide.md
-- [ ] Tests added or updated, passing
-- [ ] Relevant documents updated
-- [ ] Knowledge captured where useful
+- [x] All acceptance criteria met — all 4 (AC#1–AC#4) independently re-derived MET by the Gate 3 verification subagent
+- [x] Code follows development_guide.md — source-before-deploy editing order honoured; Markdown-only, additive, no code
+- [x] Tests added or updated, passing — for a prose deliverable: plain-prose `grep -F` of the 5 key phrases, deploy `diff` (empty), and `git diff` scope + Flow-non-renumber check, all run before commit
+- [x] Relevant documents updated — `SKILL.md` § Report Pipeline gained a `### Presentation` sub-heading; no mandated document required updating (cross-type guard held)
+- [x] Knowledge captured where useful — the two-count-triple distinction (report header leads with total findings vs SessionStart leads with drift) is documented in the prose itself, so future readers and TASK-025 inherit it
 
 ### Review Notes
 
-*Filled at Gate 3.*
+Gate 3 verified by an independent verification subagent (implementer-cannot-self-approve): all 4 ACs re-derived MET against committed source. The one thing this Task exists to get right — the drift-vs-total-findings distinction — is stated correctly and checked against the shipped `templates/header.md` (real leading slot `{{FINDING_COUNT}}`); the original Gate-1 conflation bug is absent. Deploy byte-identical to source (empty `diff`), Flow steps not renumbered (TASK-022's by-number cross-references still resolve), edit additive and scope-bounded (only `SKILL.md` + Task-tracking docs). The verifier noted the bundled Gate-2+implementation commit `6c2c071` as a sanctioned proportionality call for a prose-only Task (batch authorised by the directing party, recorded in the Activity Log), not a gate violation. No PARTIAL/NOT MET, no uncovered defects. Recommendation APPROVE; directing party approved 2026-08-02.
 
 ---
 
 ## Activity Log
 
+- **2026-08-02** — APPROVED (Gate 3 approved). Independent verification subagent re-derived all 4 ACs as MET against committed source (implementer-cannot-self-approve): the drift-vs-total-findings distinction — the reason this Task exists — is stated correctly and checked against the shipped `templates/header.md` (`{{FINDING_COUNT}}` leads the header, drift leads the SessionStart summary); deploy byte-identical to source; Flow steps not renumbered so TASK-022's by-number cross-references still resolve; edit additive and scope-bounded (only `SKILL.md` + Task-tracking docs, no `templates/`). No defects. Closes the customisation-docs residual of EPIC-010 AC#2. File archived to `./docs/tasks/archive/` (links kept in the prevailing `../` convention per the open scratchpad broken-archive-link item); `task_index.md` updated. Status: REVIEW → APPROVED.
 - **2026-08-02** — IMPLEMENTED. Executed the 5-step plan in a single pass (gateless zone). Added a `### Presentation` sub-heading under § Report Pipeline in `SKILL.md`: **AC#1** — names hybrid as the shipped default and documents diagnostic-only / conversational-only as valid project-level customisations, citing `ux_guide.md` § Interaction Patterns → *Supervisor Report Presentation*; **AC#2** — documents the SessionStart terse-style reuse, keeping the two count-triples distinct (report header leads with total findings `{{FINDING_COUNT}}`; SessionStart summary leads with the Drift-category count; shared terse form, different leading count). Deployed to `./.claude/`, `diff` byte-identical. **AC#4**: all five key phrases (hybrid by default, diagnostic-only, conversational-only, leads with total findings, leads with the Drift-category count) confirmed to land as plain prose via `grep -F`. **AC#3**: Flow steps verified still numbered 1–6 (no renumber; TASK-022's four Flow-step cross-references remain resolvable), `templates/` untouched, `git diff` shows only `SKILL.md` on the tracked side — no checker, hook, script, command, mandated document, or other skill changed. Documentation-only prose, so grep + deploy-diff + scope check is the complete verification (no runtime surface to dogfood). Status: PLANNED → IMPLEMENTED. Ready for Gate 3 via `/task-review TASK-023`.
 - **2026-08-02** — PLANNED (Gate 2 approved). Plan reconciled directly against the 4 Gate-1-corrected ACs (proportionate to a prose-only Task; no planning subagent). The prepared 5-step draft was already close; reconciliation named the source-before-deploy editing order in the Approach, made the paragraph/sub-heading-not-a-Flow-step constraint explicit (step 1 + AC#3), split the SessionStart-reuse step to keep the two count-triples distinct (step 2), and folded the Flow-renumbering guard into step 5's scope check. Added the second Risk (prose accidentally renumbering the Flow, breaking TASK-022's by-number cross-references). All 4 ACs map to steps (AC#1→1, AC#2→2, AC#3→1+5, AC#4→3+4+5). Directing party authorised commit-plan-implement as a batch. Status: ELABORATED → PLANNED.
 - **2026-08-01** — ELABORATED (Gate 1 approved). Verification pass on the prepared draft against source. Confirmed sound and left untouched: **AC#1** (the diagnostic-only / conversational-only / hybrid-default distinction is verbatim in `ux_guide.md` v1.2 § Interaction Patterns → *Supervisor Report Presentation*, line 223 — not an invented distinction); **AC#4** (cross-type-guard scope phrasing complies); the (a)/(b) derivation mapping to EPIC-010 AC#2 is real; version citation v1.2 correct; landing site "near § Report Pipeline" survives TASK-022's `/shannon-goal` insertion. **One substantive fix — AC#2 conflation corrected**: the draft said SessionStart "reuses the hybrid/terse header-counts shape (drift / stuck / push-lag)", but the shipped `templates/header.md` leads with **total findings** (`{{FINDING_COUNT}}`), not drift; the drift/stuck/push-lag triple is the *SessionStart summary* shape (EPIC-010 AC#3), a sibling of the header shape, not the header itself. AC#2 (and the Overview + Plan Risk) rewritten to keep the two triples distinct — same terse style, different leading count — so the implemented prose cannot misstate the shipped template. **Structural guard added to AC#3**: TASK-022 introduced by-number cross-references to "Flow step 1"/"steps 2–6" in § Report Pipeline (TASK-024/026 also anchor to Flow step numbers), so the customisation prose must land as a paragraph/sub-heading, not a renumbered Flow step. **Parent note**: EPIC-010 AC#2's "reuses the shipped hybrid default" is loose against AC#3's different lead count, but it is defensible as reusing the presentation *approach*; not reverting the PLANNED parent — the Task-level fix removes the actual risk. Status: DRAFT → ELABORATED.
