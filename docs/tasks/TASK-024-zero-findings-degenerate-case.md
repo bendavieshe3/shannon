@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -41,11 +41,11 @@ Land the zero-findings positively-stated diagnostic so a clean supervisor run re
 
 ## Plan
 
-*Prepared during EPIC-010 planning, not yet reviewed. Surfaces at `/task-plan TASK-024` (Gate 2).*
+*Reconciled and approved at Gate 2 on 2026-08-02 (ELABORATED → PLANNED). Small, single-surface Task (the ux_guide-editing branch was removed at Gate 1); plan reconciled directly against the 5 corrected ACs rather than via a planning subagent.*
 
 ### Approach
 
-Replace the deferral clause with the zero-findings diagnostic; confirm the header template's zero-count rendering; land a ux_guide amendment only if a framework-level home is genuinely warranted.
+Replace the deferral clause **in place within § Report Pipeline Flow step 3** (no renumber) with the positively-stated zero-findings diagnostic, authored in the tracked `./shannon/` source and deployed to `./.claude/` with a `diff`-confirm, per the source-before-deploy editing order. Confirm `templates/header.md` already renders the ran-cleanly signal at zero counts (`Checkers run: {{CHECKERS_SUCCEEDED}} of 3`, `{{FINDING_COUNT}}=0`) — adjust only its prose if genuinely needed, no structural change. **No `ux_guide.md` edit**: if a framework-level home is warranted it is routed to `/document-review` (already captured in scratchpad). Verified by plain-prose grep, a Flow-non-renumber re-check of the four by-number cross-references, and a `git diff` scope check before commit.
 
 ### Steps
 
@@ -58,7 +58,10 @@ Replace the deferral clause with the zero-findings diagnostic; confirm the heade
 
 ### Dependencies
 
-- EPIC-009 APPROVED (Report Pipeline + header template). Independent of hooks/goal-skill.
+- **EPIC-009 APPROVED** (Report Pipeline + header template — the surfaces this Task edits/confirms). Independent of the hooks (TASK-025/026) and the goal-skill (TASK-022, done).
+- **Editing order** — follows TASK-022/023 (both APPROVED) in the `SKILL.md` edit chain; edits Flow step 3 content, so the no-renumber constraint (AC#1) protects the cross-references those Tasks introduced.
+
+**AC coverage**: AC#1→steps 1+6 (in-place rewrite + no-renumber check); AC#2→step 1 (positive phrasing); AC#3→step 2 (template confirm); AC#4→step 3 (route, not edit); AC#5→steps 5+6 (plain-prose grep + scope/`git diff`).
 
 ### Risks
 
@@ -70,19 +73,21 @@ Replace the deferral clause with the zero-findings diagnostic; confirm the heade
 
 ## Implementation Notes
 
-*Filled during implementation.*
+*Filled during implementation (2026-08-02).*
 
 ### Deviations from Plan
 
-- *None yet.*
+- *None.* The deferral clause was replaced **in place within Flow step 3** — no new numbered step, no renumber — exactly as AC#1 constrains. The Flow remains 1–6 and all four by-number cross-references (§ /shannon-goal "Flow step 1", § Read-only reuse "Flow steps 2–6", § Presentation "Flow-step-2"/"Flow step 3") were re-verified present after the edit.
 
 ### Gotchas
 
-- *None yet.*
+- **AC#3 required no template change — confirmation only.** `templates/header.md` already renders the ran-cleanly signal at zero counts (`Checkers run: {{CHECKERS_SUCCEEDED}} of 3` reads "3 of 3" on a healthy run; `Findings: {{FINDING_COUNT}}` renders the literal `0`, never blank). The step-3 prose now explicitly ties the zero-findings body line to that header note, so the two surfaces reinforce the same "checked vs silently failed" signal rather than duplicating it. No `templates/` file was touched.
+- **AC#4 satisfied by *not* acting.** The pattern landed in `SKILL.md` prose (the compliant path); `ux_guide.md` was deliberately left untouched, with its framework-level home routed to `/document-review` via the scratchpad cluster at Gate 1. Verified `ux_guide.md` is absent from the diff.
 
 ### Documents Updated
 
-- *None yet.*
+- `shannon/skills/shannon-supervisor/SKILL.md` — § Report Pipeline Flow step 3: replaced the "out of scope … future Epic" deferral clause with the positively-stated zero-findings diagnostic ("3 checkers ran cleanly; nothing surfaced"), tied to the header's checker-success note. Deployed to `./.claude/`, `diff`-confirmed byte-identical.
+- No mandated document, template, checker, hook, script, command, guide, or other skill modified (AC#5 cross-type guard held; no Flow renumber).
 
 ---
 
@@ -106,5 +111,7 @@ Replace the deferral clause with the zero-findings diagnostic; confirm the heade
 
 ## Activity Log
 
+- **2026-08-02** — IMPLEMENTED. Executed the 6-step plan in a single pass (gateless zone). **AC#1**: the "out of scope … future Epic" deferral clause at § Report Pipeline Flow step 3 replaced in place with the positively-stated zero-findings diagnostic (grep confirms the deferral clause count is now 0); Flow verified still 1–6 with all four by-number cross-references intact (no renumber). **AC#2**: the clean-run body reads "3 checkers ran cleanly; nothing surfaced" and explicitly distinguishes "checked and found nothing" from a supervisor that silently failed to check. **AC#3**: `templates/header.md` confirmed to already carry the ran-cleanly signal at zero counts — no template change, the step-3 prose now ties the body line to the header's `Checkers run: {{CHECKERS_SUCCEEDED}} of 3` note. **AC#4**: `ux_guide.md` deliberately not edited (framework-level home routed to `/document-review` at Gate 1); confirmed absent from the diff. **AC#5**: all four key phrases land as plain prose via `grep -F`; `git diff` shows only `SKILL.md` on the tracked side — no template, checker, hook, command, guide, or other skill. Deploy byte-identical. Closes EPIC-010 AC#5 and scratchpad M-2. Documentation-only prose, so grep + deploy-diff + scope check is the complete verification (no runtime surface to dogfood). Status: PLANNED → IMPLEMENTED. Ready for Gate 3 via `/task-review TASK-024`.
+- **2026-08-02** — PLANNED (Gate 2 approved). Plan reconciled directly against the 5 corrected ACs (single-surface Task after Gate 1 removed the ux_guide-editing branch; no planning subagent). The Approach was corrected to drop the "land a ux_guide amendment" language (now routed to `/document-review`) and to name the in-place-within-step-3 / source-before-deploy discipline; Dependencies gained the editing-order note; an explicit AC-coverage map added (all 5 ACs → steps). Plan step 3 and Risks were already reconciled at Gate 1. Directing party authorised commit-plan-implement as a batch. Status: ELABORATED → PLANNED.
 - **2026-08-02** — ELABORATED (Gate 1 approved). Verification pass on the prepared draft against source. Confirmed sound and left untouched: **AC#1** (the step-3 deferral-clause quote is exact and correctly located); **AC#2** (the FEAT-009 § User Stories → *Honest Failure Modes — Supervisor Finds Nothing* anchor exists verbatim, line 93); **AC#3** (holds without a template restructure — `templates/header.md`'s `Checkers run: {{CHECKERS_SUCCEEDED}} of 3` note already carries the ran-cleanly signal at zero counts, and `{{FINDING_COUNT}}` renders `0`, never blank); the cross-type-guard phrasing of AC#5; all EPIC-010 AC#5/#7/#8 and scratchpad-M-2 derivations. **One substantive fix — AC#4 rule violation removed**: the draft directed this **Task** to "additively amend `ux_guide.md`", but a Task may not update a Guide (work-items skill § Work Item ↔ Document Relationships Key rule; `conceptual_design.md` § Business Rules → *Work Items Consume Guides*, which states "Tasks only consume documents; they do not update them"). Independently confirmed `ux_guide.md` v1.2 § Interaction Patterns → *Supervisor Report Presentation* does **not** already cover zero-findings, so the amendment would be genuine — the tension is live, not moot. AC#4 re-scoped so the pattern lands in `SKILL.md`/template prose (the compliant path EPIC-010 AC#5 already names) and any framework-level `ux_guide` home is **routed to `/document-review`**, not performed inline; `ux_guide` removed from AC#5's edit scope with "guide" added to the cross-type guard; Plan step 3 + Risks reconciled to match. **Structural guard added to AC#1**: the step-3 edit must be in-place (no Flow renumber) so TASK-022/023's by-number cross-references (Flow step 1 / steps 2–6 / step 2 / step 3) stay valid. **Parent note**: the defect originates in EPIC-010 AC#5's passive "is documented in ux_guide.md… if needed" phrasing, which the draft made active; the Task-level routing fix resolves it without reopening the PLANNED Epic. Directing-party disposition: the genuine `ux_guide` zero-findings gap routed to `scratchpad.md` for the accumulating `/document-review ux_guide.md` pass. Status: DRAFT → ELABORATED.
 - **2026-07-18** — DRAFT: Task created during EPIC-010 planning (Gate 2) with **prepared elaboration draft** and **prepared plan draft** (Cascading Preparation). Covers EPIC-010 AC#5; closes scratchpad item M-2 (zero-findings degenerate case, deferred from FEAT-009 elaboration). Descriptive title used from the outset. Prepared drafts surface at `/task-elaborate TASK-024` (Gate 1) and `/task-plan TASK-024` (Gate 2).
