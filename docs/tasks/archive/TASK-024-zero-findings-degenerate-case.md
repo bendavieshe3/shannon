@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: IMPLEMENTED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -97,20 +97,21 @@ Replace the deferral clause **in place within § Report Pipeline Flow step 3** (
 
 ### Verification
 
-- [ ] All acceptance criteria met
-- [ ] Code follows development_guide.md
-- [ ] Tests added or updated, passing
-- [ ] Relevant documents updated
-- [ ] Knowledge captured where useful
+- [x] All acceptance criteria met — all 5 (AC#1–AC#5) independently re-derived MET by the Gate 3 verification subagent
+- [x] Code follows development_guide.md — source-before-deploy editing order; Markdown-only, in-place edit, no code
+- [x] Tests added or updated, passing — for a prose deliverable: deferral-clause-gone grep, 3 plain-prose key-phrase greps, Flow-non-renumber + 4-cross-ref check, deploy `diff` (empty), and `git diff` scope check, all run before commit
+- [x] Relevant documents updated — `SKILL.md` § Report Pipeline step 3; `templates/header.md` confirmed needing no change; `ux_guide.md` framework-level home routed to `/document-review` (not edited)
+- [x] Knowledge captured where useful — the clean-vs-silent-failure distinction is now documented in the pipeline itself, and the genuine `ux_guide` gap is captured in the scratchpad `/document-review ux_guide.md` cluster
 
 ### Review Notes
 
-*Filled at Gate 3.*
+Gate 3 verified by an independent verification subagent (implementer-cannot-self-approve): all 5 ACs re-derived MET against committed source (`8a12937`). The two ways this Task could have gone wrong were both checked and came back clean — the Flow was **not** renumbered (still 1–6, all four by-number cross-references from TASK-022/023 resolve), and `ux_guide.md` was **not** edited (absent from the commit's changed-file list; framework-level home routed to `/document-review`). Deploy byte-identical to source; the rewritten step 3 is internally consistent (states no finding section is instantiated at zero findings, consistent with step 5's assemble-and-write). No PARTIAL/NOT MET, no uncovered defects. Recommendation APPROVE; directing party approved 2026-08-02. Closes EPIC-010 AC#5 and scratchpad M-2.
 
 ---
 
 ## Activity Log
 
+- **2026-08-02** — APPROVED (Gate 3 approved). Independent verification subagent re-derived all 5 ACs as MET against committed source `8a12937` (implementer-cannot-self-approve): both critical risks verified clean — the Flow was not renumbered (still 1–6, all four TASK-022/023 by-number cross-references resolve) and `ux_guide.md` was not edited (absent from the commit; framework-level home routed to `/document-review`); deploy byte-identical; rewritten step 3 internally consistent. No defects. Closes EPIC-010 AC#5 and the long-standing scratchpad M-2 (zero-findings degenerate case, deferred since FEAT-009 elaboration). File archived to `./docs/tasks/archive/` (links kept in the prevailing `../` convention per the open scratchpad broken-archive-link item); `task_index.md` updated. Status: REVIEW → APPROVED.
 - **2026-08-02** — IMPLEMENTED. Executed the 6-step plan in a single pass (gateless zone). **AC#1**: the "out of scope … future Epic" deferral clause at § Report Pipeline Flow step 3 replaced in place with the positively-stated zero-findings diagnostic (grep confirms the deferral clause count is now 0); Flow verified still 1–6 with all four by-number cross-references intact (no renumber). **AC#2**: the clean-run body reads "3 checkers ran cleanly; nothing surfaced" and explicitly distinguishes "checked and found nothing" from a supervisor that silently failed to check. **AC#3**: `templates/header.md` confirmed to already carry the ran-cleanly signal at zero counts — no template change, the step-3 prose now ties the body line to the header's `Checkers run: {{CHECKERS_SUCCEEDED}} of 3` note. **AC#4**: `ux_guide.md` deliberately not edited (framework-level home routed to `/document-review` at Gate 1); confirmed absent from the diff. **AC#5**: all four key phrases land as plain prose via `grep -F`; `git diff` shows only `SKILL.md` on the tracked side — no template, checker, hook, command, guide, or other skill. Deploy byte-identical. Closes EPIC-010 AC#5 and scratchpad M-2. Documentation-only prose, so grep + deploy-diff + scope check is the complete verification (no runtime surface to dogfood). Status: PLANNED → IMPLEMENTED. Ready for Gate 3 via `/task-review TASK-024`.
 - **2026-08-02** — PLANNED (Gate 2 approved). Plan reconciled directly against the 5 corrected ACs (single-surface Task after Gate 1 removed the ux_guide-editing branch; no planning subagent). The Approach was corrected to drop the "land a ux_guide amendment" language (now routed to `/document-review`) and to name the in-place-within-step-3 / source-before-deploy discipline; Dependencies gained the editing-order note; an explicit AC-coverage map added (all 5 ACs → steps). Plan step 3 and Risks were already reconciled at Gate 1. Directing party authorised commit-plan-implement as a batch. Status: ELABORATED → PLANNED.
 - **2026-08-02** — ELABORATED (Gate 1 approved). Verification pass on the prepared draft against source. Confirmed sound and left untouched: **AC#1** (the step-3 deferral-clause quote is exact and correctly located); **AC#2** (the FEAT-009 § User Stories → *Honest Failure Modes — Supervisor Finds Nothing* anchor exists verbatim, line 93); **AC#3** (holds without a template restructure — `templates/header.md`'s `Checkers run: {{CHECKERS_SUCCEEDED}} of 3` note already carries the ran-cleanly signal at zero counts, and `{{FINDING_COUNT}}` renders `0`, never blank); the cross-type-guard phrasing of AC#5; all EPIC-010 AC#5/#7/#8 and scratchpad-M-2 derivations. **One substantive fix — AC#4 rule violation removed**: the draft directed this **Task** to "additively amend `ux_guide.md`", but a Task may not update a Guide (work-items skill § Work Item ↔ Document Relationships Key rule; `conceptual_design.md` § Business Rules → *Work Items Consume Guides*, which states "Tasks only consume documents; they do not update them"). Independently confirmed `ux_guide.md` v1.2 § Interaction Patterns → *Supervisor Report Presentation* does **not** already cover zero-findings, so the amendment would be genuine — the tension is live, not moot. AC#4 re-scoped so the pattern lands in `SKILL.md`/template prose (the compliant path EPIC-010 AC#5 already names) and any framework-level `ux_guide` home is **routed to `/document-review`**, not performed inline; `ux_guide` removed from AC#5's edit scope with "guide" added to the cross-type guard; Plan step 3 + Risks reconciled to match. **Structural guard added to AC#1**: the step-3 edit must be in-place (no Flow renumber) so TASK-022/023's by-number cross-references (Flow step 1 / steps 2–6 / step 2 / step 3) stay valid. **Parent note**: the defect originates in EPIC-010 AC#5's passive "is documented in ux_guide.md… if needed" phrasing, which the draft made active; the Task-level routing fix resolves it without reopening the PLANNED Epic. Directing-party disposition: the genuine `ux_guide` zero-findings gap routed to `scratchpad.md` for the accumulating `/document-review ux_guide.md` pass. Status: DRAFT → ELABORATED.
