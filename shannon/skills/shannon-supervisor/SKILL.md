@@ -129,6 +129,17 @@ The `/shannon-report` contract (above) delegates report construction to this pip
 
 The configured report directory and `./docs/knowledge/knowledge_index.md` are the only paths this pipeline writes.
 
+### Presentation
+
+The report's presentation is hybrid by default, as EPIC-009 shipped it: a diagnostic header (the Flow-step-2 counts) followed by a one- or two-finding narrative body (Flow step 3). Two project-level customisations are valid but are not the framework default — diagnostic-only (the diagnostic header alone, no narrative body) and conversational-only (the narrative body alone, no header). These, and the hybrid default, are described in `ux_guide.md` § Interaction Patterns → *Supervisor Report Presentation*; choosing a non-hybrid presentation is a project configuration choice, not a change to this pipeline's behaviour.
+
+The terse three-count style is shared by two distinct surfaces that differ only in their leading count:
+
+- The report header (`templates/header.md`, Flow step 2) leads with total findings: Findings · Stuck or stale items · Push lag.
+- The SessionStart summary — the terse health line the SessionStart hook injects at session open (sibling work item) — leads with the Drift-category count: Drift · stuck items · push lag.
+
+Both share the same terse form (a leading count, then stuck-or-stale items, then push lag); only the first count differs — total findings for the report header, the Drift-category count for the SessionStart summary. The SessionStart hook reuses this terse style rather than re-deriving it.
+
 ## Hook Integration
 
 The supervisor integrates with five Claude Code hook points; each is implemented by a sibling work item:
