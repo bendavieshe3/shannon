@@ -23,7 +23,7 @@
 - [TASK-021](./archive/TASK-021-knowledge-index-path-correction.md) — APPROVED — Knowledge-Index Path Correction (EPIC-009 Task 11, corrective) #supervisor #bug #knowledge-index #path #corrective #dogfood
 - [TASK-022](./archive/TASK-022-shannon-goal-decomposition-skill.md) — APPROVED — Goal-Decomposition `/shannon-goal` Skill and Command (EPIC-010 Task 1) #supervisor #skill #command #goal-decomposition
 - [TASK-023](./archive/TASK-023-report-presentation-customisation-prose.md) — APPROVED — Report-Presentation Customisation Prose (EPIC-010 Task 2) #supervisor #skill #presentation #documentation
-- [TASK-024](./TASK-024-zero-findings-degenerate-case.md) — DRAFT — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
+- [TASK-024](./TASK-024-zero-findings-degenerate-case.md) — ELABORATED — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
 - [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — DRAFT — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
 - [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT — preCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
 
