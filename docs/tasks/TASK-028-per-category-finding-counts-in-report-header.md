@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: PLANNED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -86,7 +86,77 @@ This keeps the machine-readable line machine-readable and leaves uncertainty vis
 
 ## Plan
 
-*Drafted at `/task-plan TASK-028` (Gate 2).*
+*Drafted and approved at Gate 2 on 2026-08-21 (ELABORATED → PLANNED).*
+
+### Approach
+
+Two file edits in the tracked source, then two dry renders, then deploy. Both edits are **additive**: the header gains a line beneath the counts line it already has, and § Report Pipeline step 2 gains sentences after the prose it already carries. Nothing existing is reworded. Source-of-truth body first, deployed copy second, per `development_guide.md` § Code Style → *Source-of-truth body before derived artefacts*.
+
+The verification is by hand, because there is nothing here to execute. Shannon's "pipeline" is prompt prose an agent reads, not a program — `development_guide.md` § Testing Strategy is explicit that the framework's correctness is the correctness of templates and prompts. So this Task's evidence is a *template review* plus a *dogfood pass*: render the changed template against real data, read it, and confirm a consumer can select the line. What is verified is that the specification renders correctly and reads unambiguously — not that an executable fills it. That is the same honest scope EPIC-009 set when it verified hook *logic* and deferred live runtime integration to EPIC-011.
+
+### Steps
+
+1. **Edit `shannon/skills/shannon-supervisor/templates/header.md`.** Insert one line after the existing counts line, separated by a blank line:
+
+   ```
+   **By category:** Drift {{DRIFT_COUNT}}  ·  Gap {{GAP_COUNT}}  ·  Internal contradiction {{CONTRADICTION_COUNT}}  ·  Strength {{STRENGTH_COUNT}}
+   ```
+
+   Two-space padding around the `·` separators, matching the counts line exactly. The template's leading HTML comment needs no change — it already says "Fill the `{{...}}` slots". Satisfies **AC#1**; leaves `{{FINDING_COUNT}}` untouched, satisfying **AC#3**.
+
+2. **Extend `SKILL.md` § Report Pipeline step 2.** Append to the existing step-2 paragraph, preserving every sentence already there (the total, stuck-or-stale items, push lag, checkers-succeeded, and the hybrid-presentation framing). The added prose states two things:
+   - the header's per-category counts are filled from the collected fragments' four-category schema, in the fixed order Drift, Gap, Internal contradiction, Strength, with a literal `0` for any category that surfaced nothing (**AC#2**, **AC#5**);
+   - the four counts partition exactly the finding set the leading total's principal number counts and therefore sum to it; findings a checker returned as uncertain are carried as the parenthesised annotation on the total, never folded into a category; a set of four that does not sum to the total means the aggregation is wrong (**AC#4**).
+
+3. **Dry render A — real data.** Render the changed header against `report-2026-08-20.md`'s fragment counts, which that report enumerates exhaustively: two narrated Gaps, plus one uncertain and seven Strengths in its § Additional findings. Expected line:
+
+   ```
+   **By category:** Drift 0  ·  Gap 2  ·  Internal contradiction 0  ·  Strength 7
+   ```
+
+   `0 + 2 + 0 + 7 = 9`, matching that report's `Findings: 9 (+1 uncertain)` principal number with the uncertain item correctly outside the partition. This is the counting rule confirmed against real data rather than asserted. Record the render in § Implementation Notes (**AC#7**).
+
+   *Caveat to record with it*: hand-counting works on this report because it happens to enumerate its full finding set. That is **not** a general property — `report-2026-07-05.md` says 10 in the header and enumerates 9. The dry render is a one-off manual exercise for verification, and must not be read as a sanctioned way to derive counts from a report body. Deriving them that way is precisely what this Task exists to make unnecessary.
+
+4. **Dry render B — the zero case.** Render against an all-zero fragment set and confirm the line reads `**By category:** Drift 0  ·  Gap 0  ·  Internal contradiction 0  ·  Strength 0` — four categories present, four literal zeroes, nothing blank or omitted. Read it alongside the clean-run body line ("3 checkers ran cleanly; nothing surfaced") that TASK-024 shipped, to confirm the two read coherently together rather than redundantly. Completes **AC#5**.
+
+5. **Consumer-selection check.** On both dry renders, select the line by its `**By category:**` prefix and read the four integers; confirm the values are correct and that no other line in the rendered report carries that prefix. Then apply the same selection to `report-2026-07-05.md` and `report-2026-08-20.md` as they stand on disk and confirm it returns **nothing** — the absent-line case TASK-025 must handle honestly. Satisfies **AC#6** and hands TASK-025 a verified selection method rather than an assumed one. Note for TASK-025's consumption: the separator is a non-ASCII middot (`·`) already in use on the counts line, so a consumer's pattern must not assume ASCII.
+
+6. **Deploy.** Copy the two changed files to `.claude/skills/shannon-supervisor/`, then confirm with a recursive diff that source and deployed trees are identical apart from the runtime-generated `audit.log`. Satisfies **AC#8**.
+
+7. **Scope check.** Confirm the changed-file set is exactly: `templates/header.md` and `SKILL.md` under `shannon/skills/shannon-supervisor/`, their two deployed counterparts, and this Task file — plus the index and parent-Epic bookkeeping the gate transition itself requires. No supervisor report, checker, hook script or registration snippet, command file, work-item or document template of any type, or mandated document is touched. Satisfies **AC#9**.
+
+8. **Record and transition.** Write both renders and the caveat into § Implementation Notes, append the Activity Log entry, mark IMPLEMENTED.
+
+### Dependencies
+
+- **Blocks**: [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — consumes this line; its Gate 2 should follow this Task's implementation so its plan can cite a line that exists.
+- **Blocked by**: nothing. `SKILL.md` § Report Pipeline step 2 was last touched by TASK-024, which is APPROVED; there is no in-flight edit to serialise against.
+- **Unaffected**: TASK-026 and TASK-027 touch different surfaces (`SKILL.md` § Report Pipeline step 5 / the `/shannon-goal` contract) and need no sequencing against this.
+
+### Risks
+
+- **Rewording step 2 while extending it.** § Report Pipeline step 2 is one long paragraph carrying TASK-024's zero-findings prose; an "improving" edit would silently re-open settled ground. Mitigation: append only, then re-read the whole step and review the diff before deploying.
+- **Verifying a specification and calling it a working feature.** No code fills these slots — the next real `/shannon-report` run is the first true exercise. Mitigation: § Implementation Notes says so plainly, and the Task claims specification correctness only.
+- **Drift renders `0` on the most recent real report.** Dry render A produces `Drift 0` while both of that report's lead findings are Gaps — fresh evidence on the open scratchpad question of whether Drift is the right lead count for the SessionStart summary. Mitigation: record the observation in § Implementation Notes and leave it in the scratchpad. A Task may not amend a Guide, and one more data point does not settle it.
+
+### Verification summary
+
+| AC | Verified by |
+|---|---|
+| AC#1 line renders | Step 1; read back in the changed template |
+| AC#2 pipeline fills it | Step 2; step-2 prose names the fragment schema as the source |
+| AC#3 leading total unchanged | Step 1 diff shows `{{FINDING_COUNT}}` untouched |
+| AC#4 counting rule written down | Step 2 prose |
+| AC#5 zero renders as `0` | Dry render B (step 4) |
+| AC#6 selectable without parsing prose | Step 5, including the returns-nothing case on both shipped reports |
+| AC#7 dry render against real data | Dry render A (step 3), recorded with its caveat |
+| AC#8 source before deployed, re-synced | Step 6 recursive diff |
+| AC#9 scope guard | Step 7 changed-file set |
+
+### Framework-general capture
+
+*Gate 2 soft prompt (`development_guide.md` § Testing Strategy → Pre-Commit Checklist).* One item was surfaced at this Task's Gate 1 and is already routed: the `{{SLOT}}` versus `[Placeholder]` divergence across all three supervisor templates, captured in `scratchpad.md` as a `/document-review development_guide.md` question. Nothing further surfaced at Gate 2.
 
 ---
 
@@ -103,6 +173,8 @@ This keeps the machine-readable line machine-readable and leaves uncertainty vis
 ---
 
 ## Activity Log
+
+- **2026-08-21** — PLANNED (Gate 2, directing-party approval). Eight steps: two additive edits (a `**By category:**` line in `templates/header.md`; extension of `SKILL.md` § Report Pipeline step 2 with the fill source and the counting rule), two dry renders, a consumer-selection check, deploy, scope check, and recording. Verification is by hand throughout — Shannon's report pipeline is prompt prose an agent reads, not a program, so the evidence is `development_guide.md` § Testing Strategy's *template review* and *dogfood pass*, and the Task claims specification correctness only, not a working executable. **Dry render A validated the Gate 1 counting rule against real data before it ships**: `report-2026-08-20.md`'s enumerated fragments give Drift 0, Gap 2, Internal contradiction 0, Strength 7, summing to 9 and matching that report's `Findings: 9 (+1 uncertain)` principal number with the uncertain item correctly outside the partition. Recorded with the caveat that hand-counting succeeds there only because that report happens to enumerate exhaustively — `report-2026-07-05.md` does not reconcile with its own total — so step 3 is a verification exercise and must never be read as a sanctioned way to derive counts from a report body. Three risks named: rewording § Report Pipeline step 2 while extending it (append-only, then diff-review); mistaking a verified specification for a working feature; and dry render A producing `Drift 0` while both of that report's lead findings are Gaps — a second data point against `ux_guide.md` v1.3's Drift-as-lead choice for the SessionStart summary, recorded and left in the scratchpad rather than acted on, since a Task may not amend a Guide. Noted for TASK-025's inheritance: the separator is a non-ASCII middot, so a consumer's pattern must not assume ASCII.
 
 - **2026-08-21** — ELABORATED (Gate 1, directing-party approval). Requirements drafted: the header gains one `**By category:**` line carrying the four canonical categories in schema order, rendered by `templates/header.md` and filled by `SKILL.md` § Report Pipeline step 2 from the checker fragments the pipeline already collects. Four directing-party-confirmed rulings: (1) the machine-readable anchor is the literal `**By category:**` line prefix, not the category words — `Drift` also occurs in the header's own `Checkers run:` line and in every Drift finding heading, so a consumer grepping a bare category word mis-hits; (2) the four counts partition exactly the finding set the leading total's principal number counts and therefore sum to it, with uncertain findings left as the annotation on the total (`9 (+1 uncertain)`) rather than folded into a category — this keeps the line bare integers and gives the pipeline a write-time self-invariant; (3) `ux_guide.md`'s worked announcement example (`3 findings (2 drift, 1 gap)` — inline, non-zero-only) is a different surface and an example, deliberately **not** reasoned from as a specification, that inference being the error TASK-027 exists to correct; (4) the Task enables EPIC-010 AC#3 rather than owning an Epic AC of its own, so the line is exercised at TASK-025's verification. Two findings routed rather than fixed: the `{{SLOT}}` versus `[Placeholder]` divergence across all three supervisor templates against `development_guide.md` § Code Style → *Template Structure* (framework-general → scratchpad), and a strength — `templates/footer.md`'s existing claim that the header reflects the full finding set becomes true without the footer being touched.
 
