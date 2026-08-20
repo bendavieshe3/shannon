@@ -1,8 +1,8 @@
 # UX Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-29
-**Approved**: 2026-05-29
+**Last Reviewed**: 2026-08-21
+**Approved**: 2026-08-21
 
 ---
 
@@ -68,7 +68,7 @@ Two supervisor commands surface continuous-vigilance flows (see `technical_desig
 
   ```
   Supervisor report written: docs/supervisor/report-2026-05-29.md
-    3 drift findings · 2 stuck items · push lag +5 commits.
+    3 findings · 2 stuck items · push lag +5 commits.
   Open it? (or: triage inline / defer)
   ```
 
@@ -85,11 +85,20 @@ Two supervisor commands surface continuous-vigilance flows (see `technical_desig
     - No Feature elaborates "first-session experience" yet — directing-party
       approval needed before scratchpad promotion to Feature
 
-  Promote which? (Tasks may be auto-promoted on supervisor authority;
-  Epics and Features require your approval.)
+  Promote which? (Tasks and Spikes may be auto-promoted on supervisor
+  authority; Epics and Features require your approval.)
   ```
 
-Failure modes for both commands surface specifically: a missing supervisor configuration file is named (not "Error: config missing") and the user is pointed at `./.claude/shannon-supervisor.json` per `technical_design.md` § Data Model → *Supervisor Configuration*.
+The footer names the promotion authorities the candidates in front of the directing party actually implicate — not a fixed legend. The complete model is four targets, and it is `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority* that governs it: Task is supervisor-autonomous; Spike is supervisor-autonomous unless the project has reserved Spike authority; Epic and Feature always require directing-party approval. A run whose candidates are all Tasks says so and mentions nothing else.
+
+### Supervisor Failure Modes
+
+The supervisor is never ambiguously quiet. Silence from a vigilance role is indistinguishable from a vigilance role that died, so every quiet outcome states which kind of quiet it is. Four faces of the one principle:
+
+- **Missing configuration is normal, and silent.** `./.claude/shannon-supervisor.json` is optional. When it is absent, supervisor commands proceed on the documented defaults (`technical_design.md` § Data Model → *Supervisor Configuration*) and say nothing about it — absence is not a failure and is not announced.
+- **Malformed configuration names the file and refuses.** When the file is present but is not valid JSON, the command prints that exact path, reports the parse error, and stops. It does not fall back to defaults: a configuration the directing party believes is in force must never be silently ignored. Generic strings — "Error: config missing" — are never emitted, in this or any other failure; the real path is always named.
+- **A failed checker is counted, not hidden.** The report header states how many of the three checkers completed. A run where one died reads `Checkers run: 2 of 3` and names the shortfall, so a partial run is never presented as a whole one.
+- **A clean run says so out loud.** Zero findings is reported as a positive result, not as an empty report — see § Interaction Patterns → *Supervisor Report Presentation*.
 
 ---
 
@@ -207,12 +216,12 @@ If a prepared draft is stale (parent or sibling work has moved since preparation
 
 ### Supervisor Report Presentation
 
-When a supervisor cadence run completes, its findings surface to the directing party as a dated report at `./docs/supervisor/report-YYYY-MM-DD.md` (a Knowledge Note subtype — see `conceptual_design.md` § Domain Model → *Knowledge Note*). The implementer announces the report at the next opportunity — either at session start (per the supervisor's SessionStart hook integration described in `technical_design.md` § System Architecture → *Supervisor*) or inline when the directing party invokes a command:
+When a supervisor cadence run completes, its findings surface to the directing party as a dated report at `./docs/supervisor/report-YYYY-MM-DD.md` — the default location, which a project may redirect via `report_directory`, and where a second run on the same date suffixes (`-2`, `-3`) rather than overwriting — (a Knowledge Note subtype — see `conceptual_design.md` § Domain Model → *Knowledge Note*). The implementer announces the report at the next opportunity — either at session start (per the supervisor's SessionStart hook integration described in `technical_design.md` § System Architecture → *Supervisor*) or inline when the directing party invokes a command:
 
 ```
 Supervisor report 2026-05-29 ready:
 
-  3 drift findings, 2 stuck items, push lag +5 commits.
+  3 findings (2 drift, 1 gap), 2 stuck items, push lag +5 commits.
 
   Top item: conceptual_design.md drifted from technology_stack.md on the role taxonomy
   (Gate Authority Split language not yet propagated to § Glossary).
@@ -221,6 +230,21 @@ Supervisor report 2026-05-29 ready:
 ```
 
 The presentation is **hybrid** by default: a diagnostic header (counts) followed by a one- or two-finding narrative body. Diagnostic-only or conversational-only presentations are valid project-level customisations but are not the framework default. Directing party chooses whether to open the full report, triage findings inline, or defer to the next session.
+
+The header's leading count is the **total** across all four finding categories, not the count of any one of them. The same terse three-count form recurs at session start, where the leading count is instead the **Drift-category count alone** — same shape, different lead. The two surfaces are deliberately not interchangeable.
+
+**A clean run still reports.** When nothing surfaces, the narrative body is neither omitted nor left blank: it carries a single positively-stated line naming how many checkers ran and that they found nothing. The header renders a literal `0` for the finding count rather than an empty field, and states how many of the three checkers completed. Together these let the directing party tell a healthy quiet run from a supervisor that failed before it checked — a distinction the framework treats as mandatory, because a vigilance role whose silence is ambiguous is worse than no vigilance role at all.
+
+```
+Supervisor report 2026-06-02 ready:
+
+  0 findings, 0 stuck items, push lag 0 commits.
+  3 checkers ran cleanly; nothing surfaced.
+
+  Open report / defer?
+```
+
+If a checker fails, the header count reflects it (`2 of 3`) and the shortfall is named — see § Command Surface → *Supervisor Failure Modes*.
 
 Supervisor reports are not gated artefacts — they are working knowledge, like any other Knowledge Note. The directing party's actions on report findings flow through the normal channels (`/document-review`, `/[type]-elaborate`, scratchpad capture).
 
@@ -320,6 +344,19 @@ Index updates and cross-reference maintenance happen silently as part of the gat
 ---
 
 ## Version History
+
+### 2026-08-21 - v1.3
+
+- Gate 1 re-review triggered by an accumulated scratchpad cluster (three items, all routed here) and by the second `/shannon-report` dogfood run of 2026-08-20, whose Drift Checker flagged the cluster as having passed its own declared promotion tipping point 18 days earlier. No upstream document moved since v1.2 — vision v2.4, conceptual_design v1.7, technology_stack v1.3 and technical_design v1.2 are all unchanged — so this is not a cascade. Every amendment reconciles the Guide with what EPIC-009 and EPIC-010 actually shipped, or fills a silence those Epics exposed.
+  - **§ Interaction Patterns → *Supervisor Report Presentation*** — the zero-findings clean-run case codified, with a worked example (the cluster's tipping-point item, surfaced 2026-08-02 during TASK-024 Gate 1). TASK-024 landed the shape in `shannon/skills/shannon-supervisor/SKILL.md` and `templates/header.md`; a Task may not amend a Guide (`conceptual_design.md` § Business Rules → *Work Items Consume Guides*), so the framework-level home was routed here. The wording names all three shipped mechanisms — no finding section instantiated, a literal `0` rather than a blank, and `Checkers run: N of 3`
+  - **§ Interaction Patterns → *Supervisor Report Presentation*** — the report location stated as the *default* rather than as fixed, naming `report_directory` redirection and same-date suffixing per `technical_design.md` § Data Model → *Supervisor Report Files*
+  - **§ Interaction Patterns → *Supervisor Report Presentation*** and **§ Command Surface → *Supervisor Commands*** — worked examples corrected from "3 drift findings" to a total-findings lead, and the header-vs-SessionStart distinction stated explicitly: the report header leads with the total across all four categories, the SessionStart summary leads with the Drift count alone. TASK-023 made this distinction load-bearing in `SKILL.md`; TASK-023's own prepared draft had derived the wrong shape from this Guide's example, which is the evidence that the example mis-taught
+  - **§ Command Surface → *Supervisor Commands*** — the `/shannon-goal` promotion-authority footer corrected from three promotion targets to four, adding the Spike case that `conceptual_design.md` v1.7 § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority* establishes (surfaced 2026-07-19 during TASK-022 Gate 1). Conceptual Design outranks this Guide, so the Guide was the lagging document. Accompanying prose states that the footer names the authorities the run's actual candidates implicate rather than printing a fixed legend — the shipped skill hard-copied v1.2's three-item example as if it were a specification, which is the defect underneath the drift
+  - **§ Command Surface → *Supervisor Failure Modes* (new subsection)** — replaces v1.2's single failure-mode sentence, which described a *missing* configuration file as a surfaced failure when the shipped skill treats absence as a silent non-event and reserves failure for a *malformed* file. Restated as one principle — the supervisor is never ambiguously quiet — with its four faces: missing config silent, malformed config named and refused, failed checker counted not hidden, clean run stated out loud. Also retires this Guide's last surviving bare "user", authored fresh in v1.2 and missed by v1.1's V6 vocabulary sweep
+- Classified as **substantive per `conceptual_design.md` § Re-reviewing → *Status semantics*** — the failure-mode correction reverses a claim v1.2 approved (missing configuration surfaces as a named failure) rather than widening or clarifying one, so the document returned to DRAFT for re-approval rather than bumping while APPROVED. The classification was a directing-party ruling: the alternative reading is that v1.2 conflated *missing* with *malformed* inadvertently, having been written before EPIC-009 shipped the optional-file invariant, which would have made the amendment additive. Ruled substantive deliberately — a document's approved claims are re-approved when they change, not reasoned down to fit the lighter path
+- **Downstream consequence, not deferred**: expanding the promotion-authority footer puts this Guide ahead of `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal, which carries v1.2's three-target form in both its contract prose and its fenced example. A corrective Task under EPIC-010 re-syncs it and replaces the fixed legend with candidate-derived phrasing
+- Three scratchpad items closed by this review and moved to § Processed; the TASK-022 § Implementation Notes nuance that rode the cluster is closed with them. The three `#ux-guide` deferrals whose revisit conditions have not fired (multi-agent configurations, agent-as-directing-party voice) remain open
+- Status: DRAFT → APPROVED (2026-08-21, Gate 1 approved by the directing party)
 
 ### 2026-05-29 - v1.2
 

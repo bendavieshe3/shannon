@@ -26,6 +26,7 @@
 - [TASK-024](./archive/TASK-024-zero-findings-degenerate-case.md) — APPROVED — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
 - [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — DRAFT — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
 - [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT — preCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
+- [TASK-027](./TASK-027-shannon-goal-promotion-authority-resync.md) — DRAFT — `/shannon-goal` Promotion-Authority Resync and Candidate-Derived Footer (EPIC-010 Task 6, corrective) #supervisor #skill #shannon-goal #promotion-authority #corrective
 
 ---
 
