@@ -2,6 +2,16 @@
 .claude/
 *.claude/
 
+# Other agent-runtime configuration, generated beside .claude/ (not committed)
+# Codex Desktop wrote .agents/, .codex/ and AGENTS.md into this project on
+# 2026-07-24 by deriving them from .claude/ and CLAUDE.md at first launch.
+# They are deployment/runtime artefacts of another runtime, not Shannon source —
+# shannon/ is the only shipping source. If Shannon ever ships a deliberate
+# multi-runtime artefact (see SIT-004), revisit the AGENTS.md line specifically.
+.agents/
+.codex/
+/AGENTS.md
+
 # OS generated files
 .DS_Store
 .DS_Store?
