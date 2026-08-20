@@ -34,6 +34,7 @@
 ## Supervisor Reports
 
 - **[report-2026-07-05.md](../supervisor/report-2026-07-05.md)** - Type: *Supervisor Report* - First dogfood `/shannon-report` run (EPIC-009 / TASK-018); 3/3 checkers, 10 findings; top finding: the codified `knowledge_index.md` path mismatch.
+- **[report-2026-08-20.md](../supervisor/report-2026-08-20.md)** - Type: *Supervisor Report* - Second `/shannon-report` run; 3/3 checkers, 9 findings (+1 uncertain); top finding: EPIC-010 repeating the parent-Epic bookkeeping lag EPIC-009 diagnosed and closed on 2026-07-10.
 
 ---
 
