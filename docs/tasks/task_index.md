@@ -24,9 +24,10 @@
 - [TASK-022](./archive/TASK-022-shannon-goal-decomposition-skill.md) — APPROVED — Goal-Decomposition `/shannon-goal` Skill and Command (EPIC-010 Task 1) #supervisor #skill #command #goal-decomposition
 - [TASK-023](./archive/TASK-023-report-presentation-customisation-prose.md) — APPROVED — Report-Presentation Customisation Prose (EPIC-010 Task 2) #supervisor #skill #presentation #documentation
 - [TASK-024](./archive/TASK-024-zero-findings-degenerate-case.md) — APPROVED — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
-- [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — DRAFT — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
+- [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — ELABORATED — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
 - [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT — preCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
 - [TASK-027](./TASK-027-shannon-goal-promotion-authority-resync.md) — DRAFT — `/shannon-goal` Promotion-Authority Resync and Candidate-Derived Footer (EPIC-010 Task 6, corrective) #supervisor #skill #shannon-goal #promotion-authority #corrective
+- [TASK-028](./TASK-028-per-category-finding-counts-in-report-header.md) — DRAFT — Per-Category Finding Counts in the Report Header (EPIC-010 Task 7; sequenced before TASK-025) #supervisor #templates #report-pipeline #header #machine-readable
 
 ---
 
