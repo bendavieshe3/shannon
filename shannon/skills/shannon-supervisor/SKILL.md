@@ -54,12 +54,12 @@ The skill:
 2. Discovers the existing artefacts the intent touches by reusing the § Report Pipeline checker fan-out (Flow step 1 only): the three checkers traverse the mandated documents and the work items and return four-category fragments that name specific artefacts by ID. Goal-decomposition maps those artefacts to the intent.
 3. Sorts the candidate work items into two categories:
    - those aligned with existing artefacts — each candidate names the specific Feature, Epic, or document section it aligns with, cited by ID (e.g. FEAT-001, EPIC-005) or by document-and-section.
-   - those surfacing gaps — each candidate names what no current artefact covers, and flags the promotion authority it requires: a Task may be auto-promoted on supervisor authority, but promotion to an Epic or a Feature requires directing-party approval (per the *Gate Authority Split* business rule).
+   - those surfacing gaps — each candidate names what no current artefact covers, and flags the promotion authority it requires. The complete model has four targets, governed by `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority*: a **Task** may be promoted on supervisor authority; a **Spike** may be promoted on supervisor authority **unless the project has reserved Spike authority to the directing party** — the `spike_gate_authority` field of § Configuration decides this, and the skill reads it rather than assuming the default; an **Epic** and a **Feature** always require directing-party approval.
 4. Renders the result in the shape below.
 
 ### Output shape
 
-The output carries four elements — an `Intent:` echo of the hint, one heading per category each carrying a parenthesised count, and a closing promotion-authority footer:
+The output carries four elements — an `Intent:` echo of the hint, one heading per category each carrying a parenthesised count, and a closing promotion-authority footer. The four elements are the structural commitment; the footer's *content* is derived per the rule stated beneath the example. The block below is **one worked instance, not a template** — it shows a run whose candidates implicate Task and Feature authority only, and its footer names those two and nothing else:
 
 ```
 Intent: "make onboarding feel less abrupt"
@@ -72,9 +72,11 @@ Candidates surfacing gaps (1):
   - No Feature elaborates "first-session experience" yet — directing-party
     approval needed before scratchpad promotion to Feature
 
-Promote which? (Tasks may be auto-promoted on supervisor authority;
-Epics and Features require your approval.)
+Promote which? (The Task may be auto-promoted on supervisor authority;
+the Feature requires your approval.)
 ```
+
+The footer names **only the promotion authorities the run's actual candidates implicate** — it is derived from the candidate list, never printed as a fixed legend. A run whose candidates are all Tasks says so and mentions nothing else; a run that surfaces an Epic candidate names the directing-party requirement because it is live in that run, not because a legend always carries it. The four-target model at Contract step 3 is what the footer draws from; it is not what the footer prints.
 
 When a category is empty, its heading still renders with a `(0)` count and an explicit "no candidates in this category" line, so the directing party can distinguish a considered-empty category from a truncated run.
 
