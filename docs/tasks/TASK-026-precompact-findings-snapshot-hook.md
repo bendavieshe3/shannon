@@ -2,15 +2,17 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: DRAFT — DEFERRED to EPIC-011 (directing-party decision 2026-08-24)
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #hook #precompact #context-compaction
 - **Created**: 2026-07-18
-- **Updated**: 2026-07-18
+- **Updated**: 2026-08-24
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
+>
+> **⚠️ DEFERRED to EPIC-011 (Autonomic Invocation) by directing-party decision on 2026-08-24.** This Task was never elaborated. Its Gate 1 review found the prepared premise unsound: the ACs assume an *in-flight findings buffer* written to disk, but no shipped component produces one — the report pipeline collects checker fragments in the model's context (§ Report Pipeline step 1), and a bash preCompact hook's only concrete input is the event's `transcript_path`. A real preCompact hook must therefore snapshot the transcript (or summarise it via `claude -p`), and its value is realised only during a long, context-pressured run — the runtime-integration territory EPIC-011 owns, alongside the Stop hook. With the 1M context window now GA, compaction mid-`/shannon-report` is rare, so the hook was descoped from EPIC-010 rather than built as a stub. The prepared elaboration and plan below are **retained for EPIC-011 to pick up and reconceive** (transcript-snapshot vs model-summary is the open shape question). See EPIC-010 § Activity Log 2026-08-24 and the SIT-026 Decisions record.
 
 ---
 
@@ -107,4 +109,5 @@ Author in `./shannon/`, deploy/wire to `./.claude/`. Body checks `SHANNON_SUPERV
 
 ## Activity Log
 
+- **2026-08-24** — **DEFERRED to EPIC-011** by directing-party decision at this Task's Gate 1. The elaboration surfaced a genuine divergence: the prepared AC#1/AC#4 have the hook "write the in-flight findings buffer to the named snapshot path", but no shipped component produces such a buffer — `SKILL.md` § Report Pipeline step 1 collects checker fragments in the model's context, and `SKILL.md:153`'s reference to "the report findings buffer for preCompact" names an artefact that does not exist. A bash preCompact hook's only concrete input is the event JSON's `transcript_path`; snapshotting findings therefore means snapshotting the transcript (mechanical, testable) or summarising it via `claude -p` (a model call inside a hook, not unit-testable), per the Phase-0 spike §11 example. Underneath that, the value question: with the 1M context window now GA (spike §11) and fragments written promptly, compaction *during a single `/shannon-report` run* is rare, so the hook guards a now-unlikely scenario. Three options were put to the directing party (minimal transcript-snapshot / model-summary / descope); the decision was **descope** — defer to EPIC-011, which owns runtime integration and the Stop hook, rather than build a stub against a runtime EPIC-010 cannot exercise. This Task stays DRAFT and unelaborated; its prepared drafts are retained for EPIC-011 to reconceive. FEAT-009's five-hook commitment is intact, re-allocated: SessionStart + PreToolUse + PostToolUse shipped; preCompact + Stop → EPIC-011.
 - **2026-07-18** — DRAFT: Task created during EPIC-010 planning (Gate 2) with **prepared elaboration draft** and **prepared plan draft** (Cascading Preparation). Covers EPIC-010 AC#4. Snapshot location stays in `SKILL.md` per EPIC-009's audit-log precedent (no `technical_design.md` amendment). Descriptive title used from the outset. Prepared drafts surface at `/task-elaborate TASK-026` (Gate 1) and `/task-plan TASK-026` (Gate 2).
