@@ -1,0 +1,15 @@
+{
+  "_comment": "Shippable Claude Code settings.json snippet for the supervisor SessionStart health-summary hook. Merge the SessionStart entry into the project's .claude/settings.json alongside the PreToolUse and PostToolUse entries. Unlike those two, this hook is deliberately NOT gated on SHANNON_SUPERVISOR_SCOPE — read-only session orientation must fire in ordinary sessions. It injects a terse Drift-lead health line from the most recent report under the configured report_directory (default docs/supervisor), writes nothing, and always exits 0. Mute it via .claude/supervisor/state.json (\"mute_session_start\": true).",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/skills/shannon-supervisor/scripts/sessionstart-summary.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

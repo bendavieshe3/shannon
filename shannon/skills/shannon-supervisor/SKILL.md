@@ -136,7 +136,7 @@ The report's presentation is hybrid by default, as EPIC-009 shipped it: a diagno
 The terse three-count style is shared by two distinct surfaces that differ only in their leading count:
 
 - The report header (`templates/header.md`, Flow step 2) leads with total findings: Findings · Stuck or stale items · Push lag.
-- The SessionStart summary — the terse health line the SessionStart hook injects at session open (sibling work item) — leads with the Drift-category count: Drift · stuck items · push lag.
+- The SessionStart summary — the terse health line the SessionStart hook injects at session open — leads with the Drift-category count: Drift · stuck items · push lag.
 
 Both share the same terse form (a leading count, then stuck-or-stale items, then push lag); only the first count differs — total findings for the report header, the Drift-category count for the SessionStart summary. The SessionStart hook reuses this terse style rather than re-deriving it.
 
@@ -146,7 +146,7 @@ The supervisor integrates with five Claude Code hook points; each is implemented
 
 - **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge/knowledge_index.md`.
 - **PostToolUse** — audit log recording each tool invocation with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
-- **SessionStart** — terse health summary at session open.
+- **SessionStart** — terse health summary at session open, implemented as `scripts/sessionstart-summary.sh` (registration snippet `hooks/sessionstart.settings.json`). Reads the most-recent report under the configured `report_directory` (honouring the same-day `-N` suffix) and injects one line leading with the **Drift-category count** from the header's `**By category:**` line — where the report header leads with the total. On a report predating that line it names the total and says the per-category breakdown is unavailable rather than deriving one. It states the report's date and age, distinguishes the quiet outcomes (no report / clean run / partial run / unreadable report) so it is never ambiguously silent, writes nothing, and always exits 0. Deliberately **not** `SHANNON_SUPERVISOR_SCOPE`-gated — session orientation must fire in ordinary sessions; muted instead via `.claude/supervisor/state.json`.
 - **preCompact** — snapshot of in-flight findings to disk before context compaction.
 - **Stop** — completion check on autonomous runs (warn on context threshold or unflushed findings).
 
