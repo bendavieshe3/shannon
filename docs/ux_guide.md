@@ -1,8 +1,8 @@
 # UX Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-08-21
-**Approved**: 2026-08-21
+**Last Reviewed**: 2026-08-24
+**Approved**: 2026-08-24
 
 ---
 
@@ -68,7 +68,7 @@ Two supervisor commands surface continuous-vigilance flows (see `technical_desig
 
   ```
   Supervisor report written: docs/supervisor/report-2026-05-29.md
-    3 findings · 2 stuck items · push lag +5 commits.
+    3 findings (2 drift, 1 gap) · 2 stuck items · push lag +5 commits.
   Open it? (or: triage inline / defer)
   ```
 
@@ -85,9 +85,11 @@ Two supervisor commands surface continuous-vigilance flows (see `technical_desig
     - No Feature elaborates "first-session experience" yet — directing-party
       approval needed before scratchpad promotion to Feature
 
-  Promote which? (Tasks and Spikes may be auto-promoted on supervisor
-  authority; Epics and Features require your approval.)
+  Promote which? (The Task may be auto-promoted on supervisor authority;
+  the Feature requires your approval.)
   ```
+
+This block is **one worked instance, not a template**. Its footer names two authorities because this run's candidates implicate exactly two — a Task and a Feature — and it is silent on Spike and Epic because nothing in front of the directing party raises them.
 
 The footer names the promotion authorities the candidates in front of the directing party actually implicate — not a fixed legend. The complete model is four targets, and it is `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority* that governs it: Task is supervisor-autonomous; Spike is supervisor-autonomous unless the project has reserved Spike authority; Epic and Feature always require directing-party approval. A run whose candidates are all Tasks says so and mentions nothing else.
 
@@ -233,6 +235,8 @@ The presentation is **hybrid** by default: a diagnostic header (counts) followed
 
 The header's leading count is the **total** across all four finding categories, not the count of any one of them. The same terse three-count form recurs at session start, where the leading count is instead the **Drift-category count alone** — same shape, different lead. The two surfaces are deliberately not interchangeable.
 
+**When the per-category counts are unavailable, the session-start summary says so rather than guessing.** Reports written before the by-category header line existed carry a total but no category breakdown. Against such a report the summary leads with the total and names the reason — *"per-category breakdown unavailable (report predates the by-category header line)"* — rather than silently substituting the total for the Drift count. This is the *never ambiguously quiet* principle (§ Command Surface → *Supervisor Failure Modes*) applied to a degraded input: a lead that changed shape announces that it changed shape.
+
 **A clean run still reports.** When nothing surfaces, the narrative body is neither omitted nor left blank: it carries a single positively-stated line naming how many checkers ran and that they found nothing. The header renders a literal `0` for the finding count rather than an empty field, and states how many of the three checkers completed. Together these let the directing party tell a healthy quiet run from a supervisor that failed before it checked — a distinction the framework treats as mandatory, because a vigilance role whose silence is ambiguous is worse than no vigilance role at all.
 
 ```
@@ -298,7 +302,7 @@ How do you want to proceed?
   (3) Discard the other agent's changes (rare — describe why)
 ```
 
-This is the user-visible side of the *Cooperative Access* commitment from `technology_stack.md § Security Considerations` and `technical_design.md § Cooperative Access`. The framework has no file locking; coordination happens here.
+This is the directing party's side of the *Cooperative Access* commitment from `technology_stack.md § Security Considerations` and `technical_design.md § Cooperative Access`. The framework has no file locking; coordination happens here.
 
 ### Commit Cadence Reminder
 
@@ -344,6 +348,17 @@ Index updates and cross-reference maintenance happen silently as part of the gat
 ---
 
 ## Version History
+
+### 2026-08-24 - v1.4
+
+- Gate 1 re-review triggered by a **surfaced gap at TASK-027's Gate 3** (2026-08-24) and by the firing of a scratchpad item's own revisit condition. No upstream document moved since v1.3 — vision v2.4, conceptual_design v1.7, technology_stack v1.3 and technical_design v1.2 are unchanged — so this is not a cascade. Every amendment reconciles this Guide with itself or with what EPIC-010 shipped.
+  - **§ Command Surface → *Supervisor Commands*** — the `/shannon-goal` example footer corrected from the full four-target legend to the two authorities its own worked run implicates, and the block labelled *"one worked instance, not a template"*. v1.3 added prose forbidding a fixed legend but left the example above it printing one, so the section written to fix that class of defect still contained an instance of it. TASK-027 could not amend a Guide (`conceptual_design.md` § Business Rules → *Work Items Consume Guides*), so it ported the *rule* into `shannon/skills/shannon-supervisor/SKILL.md` and deliberately diverged the skill's example from this one, routing the fix here. **That divergence is closed by this version** — the two examples now agree, and both derive their footer from their candidates
+  - **§ Command Surface → *Supervisor Commands*** — the `/shannon-report` announcement example gained the parenthesised category breakdown, matching the § Interaction Patterns rendering of the same announcement. The two examples had disagreed since v1.2 on whether the breakdown appears; TASK-028 subsequently made per-category counts a shipped commitment (`shannon/skills/shannon-supervisor/templates/header.md` § By category), which settled which of the two was lagging
+  - **§ Interaction Patterns → *Supervisor Report Presentation*** — new paragraph describing the session-start summary's behaviour against a report that predates the by-category header line: lead with the total and name the reason, never silently substitute it for the Drift count. TASK-025 shipped this path (`scripts/sessionstart-summary.sh`) and it fires in practice, but no framework document described it. Stated as the *never ambiguously quiet* principle applied to a degraded input
+  - **§ Interaction Patterns → *Cooperative Access*** — *"the user-visible side"* → *"the directing party's side"*, retiring the last hyphenated survivor of the V6 vocabulary sweep. v1.3 claimed to retire the Guide's last bare "user" and missed this compound
+- **Held, deliberately: the session-start Drift lead.** The open scratchpad item asking whether the Drift-category count is the right lead set its revisit condition as *"at the next `/document-review ux_guide.md`"*, so it fired here. No new evidence has arrived since 2026-08-21 — still the single data point of `report-2026-08-20`, where Drift is 0 while both narrated findings are Gaps. One data point does not reverse a deliberate decision, and the item's revisit condition has been **tightened** so it fires on evidence rather than on schedule: the next report where the Drift count is 0 while total findings are non-zero. Directing-party ruling, 2026-08-24
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no v1.3 approved claim is contradicted. Each correction brings a subordinate illustration into line with prose this Guide already approved, or documents shipped behaviour the Guide was silent on. The candidate-derived footer rule, the header-vs-SessionStart lead distinction, and the four faces of *never ambiguously quiet* all stand unchanged. Document stays APPROVED across the bump. Contrast v1.3, ruled substantive because it reversed the approved claim that a *missing* configuration file surfaces as a named failure
+- Status: APPROVED (2026-08-24, Gate 1 approved by the directing party)
 
 ### 2026-08-21 - v1.3
 
