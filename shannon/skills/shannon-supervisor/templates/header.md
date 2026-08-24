@@ -3,6 +3,8 @@
 
 **Findings:** {{FINDING_COUNT}}  ·  **Stuck or stale items:** {{STUCK_COUNT}}  ·  **Push lag:** {{PUSH_LAG_COMMITS}} commit(s) ahead of remote
 
+**By category:** Drift {{DRIFT_COUNT}}  ·  Gap {{GAP_COUNT}}  ·  Internal contradiction {{CONTRADICTION_COUNT}}  ·  Strength {{STRENGTH_COUNT}}
+
 **Checkers run:** {{CHECKERS_SUCCEEDED}} of 3 — Alignment, Lifecycle, Drift. {{CHECKER_STATUS_NOTE}}
 
 ---
