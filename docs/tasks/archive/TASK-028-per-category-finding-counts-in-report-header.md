@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: IMPLEMENTED
+- **Status**: APPROVED
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
@@ -234,11 +234,35 @@ The specification renders correctly and reads unambiguously, and a consumer can 
 
 ## Review
 
-*Filled during review.*
+*Gate 3 verification, 2026-08-21. Each criterion checked against the files as they stand, not against the implementation narrative.*
+
+| AC | Result | Evidence |
+|---|---|---|
+| AC#1 line renders | Pass | `templates/header.md` carries the `**By category:**` prefix with the four categories in schema order and one `{{...}}` slot each |
+| AC#2 pipeline fills it | Pass | § Report Pipeline step 2 names the four-category fragment schema as the source; TASK-024's existing sentences survive verbatim |
+| AC#3 leading total unchanged | Pass | The header diff for the implementation commit is pure addition — two inserted lines, zero deletions; `{{FINDING_COUNT}}` is untouched |
+| AC#4 counting rule written down | Pass | Step 2 states the partition, the sum-to-total consequence, the exclusion of uncertain findings, and the bare-integer constraint |
+| AC#5 zero renders as `0` | Pass | Stated in step 2 prose; dry render B produced four literal zeroes |
+| AC#6 selectable without parsing prose | Pass | Prefix selection returned `0 2 0 7` on render A and `0 0 0 0` on render B, one matching line each; the same selection returns nothing on both shipped reports |
+| AC#7 dry render against real data | Pass | Render A reconciles `0 + 2 + 0 + 7 = 9` against `report-2026-08-20.md`'s principal total; recorded in § Implementation Notes with its caveat |
+| AC#8 source before deployed, re-synced | Pass | Both files byte-identical between `shannon/` and `.claude/`; recursive diff reports only the runtime `audit.log` |
+| AC#9 scope guard | Pass | Implementation commit touched five files: the two source files plus the Task file, `task_index.md`, and the parent Epic — exactly the specified set plus required bookkeeping |
+
+### Judgement
+
+The Task did what it set out to do, and the two things worth carrying forward are not in the ACs.
+
+**The counting rule survived contact with real data.** It was asserted at Gate 1 and could have shipped unexamined; the dry render reconciled it against a real report instead. Had it not reconciled, the defect would have surfaced in TASK-025's consumption or, worse, in a live report.
+
+**The verification is honest about its own limits.** Nothing here executes. What is proven is that the specification renders and reads unambiguously — the next real `/shannon-report` run is the first true exercise. § Implementation Notes says so plainly rather than letting nine ticked boxes imply a working feature.
+
+Two observations are carried out of the Task rather than closed inside it: the non-ASCII middot separator TASK-025's pattern must not assume away, and a second data point against `ux_guide.md` v1.3's Drift-as-lead choice, left in `scratchpad.md` because a Task may not amend a Guide.
 
 ---
 
 ## Activity Log
+
+- **2026-08-21** — REVIEW → APPROVED (Gate 3, directing-party approval). All nine ACs verified against the files as they stand; verification table in § Review. The Gate-1 counting rule reconciled against `report-2026-08-20.md`'s real fragments (`0 + 2 + 0 + 7 = 9`), and the consumer-selection counter-case is on record — a bare category-word search collides with the header's own `Checkers run:` line, so the `**By category:**` prefix is the machine anchor and TASK-025 inherits a verified selection method (non-ASCII middot separator included). What is proven is specification correctness, not execution; the next real `/shannon-report` run is the first true exercise. Task archived to `docs/tasks/archive/`. EPIC-010 now 4 of 7 Tasks APPROVED.
 
 - **2026-08-21** — IMPLEMENTING → IMPLEMENTED. Both additive edits applied to the tracked source and deployed; all nine ACs verified. Dry render A against `report-2026-08-20.md`'s enumerated fragments produced `Drift 0  ·  Gap 2  ·  Internal contradiction 0  ·  Strength 7`, summing to 9 and matching that report's leading total's principal number with the uncertain item outside the partition — the counting rule confirmed against real data. Dry render B produced four literal zeroes. The consumer-selection check passed on both renders and returned nothing on the two shipped reports, as TASK-025 requires; the counter-case was recorded, since a bare `Drift` search matches two lines in the header alone and every Drift finding heading in a full report. Deploy verified by recursive diff (only the runtime `audit.log` differs). Recorded honestly in § Implementation Notes: what is proven is that the specification renders and reads unambiguously, not that anything executes — the next real `/shannon-report` run is the first true exercise. Two observations carried forward: the non-ASCII middot separator that TASK-025's pattern must not assume away, and a second data point against `ux_guide.md` v1.3's Drift-as-lead choice, left in the scratchpad rather than acted on.
 

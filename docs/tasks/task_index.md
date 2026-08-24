@@ -27,7 +27,7 @@
 - [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — ELABORATED — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
 - [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT — preCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
 - [TASK-027](./TASK-027-shannon-goal-promotion-authority-resync.md) — DRAFT — `/shannon-goal` Promotion-Authority Resync and Candidate-Derived Footer (EPIC-010 Task 6, corrective) #supervisor #skill #shannon-goal #promotion-authority #corrective
-- [TASK-028](./TASK-028-per-category-finding-counts-in-report-header.md) — IMPLEMENTED — Per-Category Finding Counts in the Report Header (EPIC-010 Task 7; sequenced before TASK-025) #supervisor #templates #report-pipeline #header #machine-readable
+- [TASK-028](./archive/TASK-028-per-category-finding-counts-in-report-header.md) — APPROVED — Per-Category Finding Counts in the Report Header (EPIC-010 Task 7; sequenced before TASK-025) #supervisor #templates #report-pipeline #header #machine-readable
 
 ---
 
