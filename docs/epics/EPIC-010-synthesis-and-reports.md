@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: IMPLEMENTING
+- **Status**: APPROVED
 - **Type**: Epic
 - **Parent**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Created**: 2026-05-30
@@ -155,7 +155,32 @@ Multiple Tasks touch `SKILL.md`; they are sequenced so source-of-truth edits ser
 
 ---
 
+---
+
+## Review
+
+*Gate 3, 2026-08-24. Verified by the supervisor; **approved by the directing party** (Epic gates are surfaced, not self-approved, per the SIT-026 standing directive).*
+
+Six of seven acceptance criteria verified met; AC#4 was descoped to EPIC-011 by directing-party decision earlier the same day and does not gate this Epic.
+
+**AC#1 and AC#6 were verified by live invocation**, as the criteria themselves specify — not by inspection of prose. A `/shannon-goal` run against the intent *"make it obvious when a shipped skill has drifted from the document that governs it"* produced three aligned candidates and one gap candidate, citing FEAT-009 and EPIC-011 by ID, with both category headings carrying parenthesised counts. The run's footer named **Task and Epic** authority — a different mix from the worked example in `SKILL.md`, which is the substantive test that the footer derives from candidates rather than reproducing the example. The absent `./.claude/shannon-supervisor.json` correctly stayed silent, exercising the missing-config path of § Supervisor Failure Modes.
+
+AC#3's same-day suffix resolution was read at `scripts/sessionstart-summary.sh:42-57` (zero-padded lexical sort; a bare filename sorts as suffix 0), and the hook fired live at this session's start. Its dormant gate-notification branch is present at `:137-140` with delegated gate-exercise named as its future activator.
+
+### Findings
+
+- **AC#1 and AC#2 cite `ux_guide.md` v1.2, three versions stale — and v1.2's `/shannon-goal` shape is what TASK-027 corrected away from.** Read literally, AC#1 now requires the defect the Epic's own sixth Task removed. Verification was performed against the current v1.4 and the citation is **recorded as superseded, not failed**: the ACs' intent was always "matches the ratified shape", and the ratified shape moved. This is the **third instance** in this Epic of an artefact binding to a version or an example instead of to the governing rule (TASK-022's footer, TASK-023's report header, now these two ACs), and it materially strengthens the `docs/scratchpad.md` item *an illustrative example in a Guide is being read as a specification*. The general form is broader than examples: **an acceptance criterion should cite the governing rule and treat any version-pinned artefact as corroborating evidence**.
+- **Deploy gap found and closed at review.** `hooks/sessionstart.settings.json` was present in `shannon/` but had never been copied to `.claude/skills/shannon-supervisor/hooks/`, though both sibling fragments were. TASK-025 wired `SessionStart` straight into `.claude/settings.json` and skipped the shippable snippet, so the dogfood deployment did not match what a downstream project copying `.claude/skills/` would receive. The shipping source was complete throughout, so this is local deployment drift rather than a repository defect (`.claude/` is gitignored). Copied at review; the trees now differ only by `audit.log`, which is runtime telemetry and correctly deployed-only. **Worth noting as a pattern risk**: a hook Task that wires its own hook directly has no natural prompt to deploy the fragment, because the hook works either way.
+
+### Gate 3 disposition
+
+All live acceptance criteria met. **APPROVED.** EPIC-010 remains in place as the historical record of FEAT-009's third phase.
+
+---
+
 ## Activity Log
+
+- **2026-08-24** — IMPLEMENTING → IMPLEMENTED → REVIEW → **APPROVED** at Gate 3, approved by the directing party. Six live ACs verified (AC#4 descoped to EPIC-011 earlier the same day); AC#1 and AC#6 verified by live `/shannon-goal` invocation per their own stated method, the run's footer naming a Task/Epic authority mix distinct from the shipped example — the real test that it derives rather than copies. Two findings recorded, neither blocking: AC#1/AC#2 cite `ux_guide.md` v1.2 and are three versions stale (verification performed against v1.4, citation recorded superseded — the third instance in this Epic of binding to a version or example instead of the governing rule), and a deploy gap where `hooks/sessionstart.settings.json` had never reached the dogfood `.claude/` tree, closed at review. **EPIC-010 delivers FEAT-009's third phase**: `/shannon-goal` goal decomposition, the SessionStart health-summary hook, per-category report counts, presentation-customisation prose, and the zero-findings clean-run pattern.
 
 - **2026-08-24** — **TASK-027 APPROVED** (supervisor authority, SIT-026 standing directive), closing the Epic's last outstanding child. The `/shannon-goal` promotion-authority footer in `shannon/skills/shannon-supervisor/SKILL.md` now names all four promotion targets with Spike's reservation condition and the `spike_gate_authority` field, and the fenced example is labelled a worked instance with the candidate-derived rule stated in prose — the durable half of the fix, since a hardcoded legend is what drifted in the first place. **Deviation upheld at Gate 3**: the example's footer was *not* ported from `ux_guide.md` v1.3, because the Guide's own example still prints the fixed legend its prose forbids; the rule was ported instead, leaving a deliberate Guide-vs-skill divergence routed to `/document-review ux_guide.md`. Also promoted the framework-general lesson *an illustrative example in a Guide is not a specification* to `docs/scratchpad.md` — two shipped defects (TASK-022, TASK-023) from one document. **Consequence**: EPIC-010 has no child work left; the Epic gate is the only remaining step.
 
