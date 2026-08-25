@@ -8,7 +8,7 @@
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #acceptance-criteria #meta-gap #dogfood
 - **Created**: 2026-08-25
-- **Updated**: 2026-08-25
+- **Updated**: 2026-08-26
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -16,7 +16,7 @@
 
 ## Requirements
 
-*Initial intent captured at task creation, promoted from `docs/scratchpad.md` by directing-party instruction 2026-08-25. Full elaboration pending `/task-elaborate TASK-029` — and blocked on one authority question, see § Open Question.*
+*Initial intent captured at task creation, promoted from `docs/scratchpad.md` by directing-party instruction 2026-08-25. Unblocked by `conceptual_design.md` v1.8 (APPROVED 2026-08-26); full elaboration pending `/task-elaborate TASK-029`.*
 
 ### Overview
 
@@ -38,7 +38,7 @@ An acceptance criterion cites the **governing rule** — a `conceptual_design.md
 
 ### Acceptance Criteria
 
-*Drafted at `/task-elaborate TASK-029`. Scope depends on the § Open Question below.*
+*Drafted at `/task-elaborate TASK-029`. Scope confirmed single-Task by the 2026-08-25 ruling (see § Ruling below); full elaboration still pending the verb.*
 
 Expected shape — the doc-half:
 
@@ -52,19 +52,15 @@ Expected shape — the skill-half (mirrors EPIC-008's two-touch pattern):
 - [ ] Source and deployed copy re-synced
 - [ ] No mandated document other than `development_guide.md` modified; no template, checker, hook, or command file touched
 
-### Open Question — blocks elaboration
+### Ruling — resolved 2026-08-25
 
-**May a Task amend `development_guide.md`?** `conceptual_design.md:163` § Business Rules → *Work Items Consume Guides* says no, without qualification: *"The Development Guide and UX Guide are reference material. Work items consume them; they are not updated by work items. Updates to guides happen through `/document-create` or `/document-review` flows."* `:165` reinforces it: *"Tasks only consume documents; they do not update them."*
+**Question was:** may a Task amend `development_guide.md`, given `conceptual_design.md:163` said work items never update Guides while EPIC-008 / TASK-007 did exactly that with approval?
 
-But **EPIC-008 / TASK-007 amended `development_guide.md` three times** — the editing-order convention at `:79`, the Push Cadence subsection at `:149`, and the meta-gap Pre-Commit Checklist line at `:114` — all APPROVED 2026-05-27, and all recorded in FEAT-008 § Ideal State as delivered *by a Task*. Meanwhile TASK-027 was held to the opposite reading four days ago: it could not correct `ux_guide.md`'s self-contradicting example and had to route the fix to `/document-review`, which is why `ux_guide.md` v1.4 exists as a separate gate.
+**Directing-party ruling (2026-08-25):** the two Guides are **not the same kind of document**. *"The Development Guide decides the process and the UX Guide decides the product, so they aren't the same."* A work item **executes** the development process, so refining the Development Guide when it discovers a process convention is part of doing the work — the amendment rides the work item's own gates. The UX Guide defines the **product**, which a work item must not unilaterally redefine — that stays `/document-review` only. This is resolution 3 of the three candidates, and it makes both precedents correct: TASK-007's `development_guide.md` amendments were legitimate; TASK-027's `ux_guide.md` routing was also correct.
 
-Both readings cannot be right. The three candidate resolutions:
+**The ruling is encoded** in `conceptual_design.md` **v1.8** (APPROVED 2026-08-26) (§ Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*, renamed and rewritten from *Work Items Consume Guides*; the *Higher Work Items May Update Mid-Level Docs* rule carved out to match). Substantive re-review, **APPROVED at Gate 1 on 2026-08-26**. **This Task is unblocked** — it elaborates and implements under the corrected rule, and the doc-half lands in `development_guide.md` **via this Task**, no split.
 
-1. **The rule means what it says; TASK-007 was a violation.** This Task splits: the convention lands via `/document-review development_guide.md`, and the Task covers only the skill-half.
-2. **The rule governs *authority*, not *hands*.** A Task may carry out a Guide edit once the directing party has ratified the content at a gate; what it may not do is decide the amendment unilaterally. TASK-007 and TASK-027 are then both correct, and the rule needs rewording to say so.
-3. **The rule distinguishes the two Guides.** Nothing in the text supports this, but the lived practice does — `development_guide.md` has been amended by Tasks; `ux_guide.md` has not.
-
-This is a framework-general ruling with a live inconsistency behind it, so it is surfaced to the directing party rather than decided by the supervisor. **It determines this Task's scope**, so elaboration waits on it.
+**Consequence for scope: TASK-029 is a single Task, not a split.** Both halves — the `development_guide.md` § Code Style convention and the `work-items/skill.md` § Process: Elaborate prompt — land through this Task's own lifecycle. The recursion is worth stating: the convention *"cite the governing rule, not a version-pinned reference"* could not be written to cite `conceptual_design.md`'s Guide-authority rule until that rule was itself made correct — the Task's own thesis, exercised on the Task's own dependency.
 
 ### Context
 
@@ -97,3 +93,5 @@ This is a framework-general ruling with a live inconsistency behind it, so it is
 ## Activity Log
 
 - **2026-08-25** — DRAFT: Task created by directing-party instruction, promoting the `docs/scratchpad.md` item *an illustrative example in a Guide is being read as a specification* after its third instance appeared at EPIC-010's Gate 3. Created as an **orphan Task** under FEAT-008 — EPIC-008 is APPROVED and closed, and the convention is too small to warrant a new Epic; orphan-ness does not change gate authority. Elaboration is **blocked on one framework-general ruling**: whether a Task may amend `development_guide.md`. `conceptual_design.md:163` says work items never update Guides, but EPIC-008 / TASK-007 amended `development_guide.md` three times with approval, while TASK-027 was held to the opposite reading four days ago and had to route its Guide fix through `/document-review`. Both readings cannot be right, and the answer determines this Task's scope. Surfaced to the directing party per the standing directive's *genuine divergence* clause.
+- **2026-08-25** — Blocking question **resolved by directing-party ruling**: the Development Guide governs the *process* a work item executes (so a work item may refine it, riding its own gates) while the UX Guide governs the *product* (consume-only, `/document-review`). Resolution 3 of the three candidates; reconciles TASK-007 and TASK-027. Scope collapses to a **single Task** — no split — with the doc-half landing in `development_guide.md` directly. The ruling is being encoded in `conceptual_design.md` v1.8; this Task's remaining dependency is that document's Gate 1. Elaboration proceeds once v1.8 is APPROVED.
+- **2026-08-26** — **Unblocked.** `conceptual_design.md` v1.8 APPROVED at Gate 1, encoding the 2026-08-25 ruling as § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*. This Task may now amend `development_guide.md` directly under the corrected rule; scope stands as a single Task with both halves. Ready for `/task-elaborate TASK-029`.

@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-29
-**Approved**: 2026-05-29
+**Last Reviewed**: 2026-08-26
+**Approved**: 2026-08-26
 
 ---
 
@@ -160,9 +160,9 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Document Alignment Direction** — Lower documents in the authority graph must enable higher documents. A technology stack cannot specify desktop-only technology if the vision describes a web application. Drift between layers is a defect.
 
-- **Work Items Consume Guides** — The Development Guide and UX Guide are reference material. Work items consume them; they are not updated by work items. Updates to guides happen through `/document-create` or `/document-review` flows.
+- **Work Items Consume the UX Guide; May Refine the Development Guide** — The two Guides differ in kind, and the authority rule follows the difference. The **UX Guide describes the product** — Shannon's command surface and the prose it emits — so a work item must not redefine it: work items consume the UX Guide, and changes to it go through `/document-create` or `/document-review`. The **Development Guide describes the process** that work items themselves execute, so a work item that discovers or ratifies a development convention *during* its work may amend the Development Guide as part of that work, the amendment riding the work item's own gates rather than requiring a separate `/document-review`. This is why TASK-007 legitimately amended `development_guide.md` (editing-order convention, Push Cadence, the meta-gap routing channel) while TASK-027 correctly routed a UX Guide correction to `/document-review`. Either Guide may also be amended directly through `/document-create` or `/document-review`; that route is always available and is the *only* route for the UX Guide.
 
-- **Higher Work Items May Update Mid-Level Docs** — Features and Epics may elaborate the Technical Design when planning. Tasks only consume documents; they do not update them.
+- **Higher Work Items May Update Mid-Level Docs** — Features and Epics may elaborate the Technical Design when planning. Tasks only consume documents, with one exception: the **Development Guide**, which any work item — Task included — may refine per *Work Items Consume the UX Guide; May Refine the Development Guide* above, because the Development Guide is the process the work item executes rather than a document above it in the authority graph.
 
 - **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle. Features additionally carry an orthogonal `Activity` attribute (STABLE / ACTIVE) describing whether an epic is in progress *under* the feature; this is descriptive state, not a lifecycle stage.
 
@@ -227,7 +227,7 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 4. `/task-implement` — Implementer executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
 5. `/task-review` — Verification against acceptance criteria; **Gate 3**: gate authority holder approves (per *Gate Authority Split*) → APPROVED; task moved to archive
 
-**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Work Items Consume Guides; Approved Tasks Are Archived.
+**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Work Items Consume the UX Guide, May Refine the Development Guide; Approved Tasks Are Archived.
 
 ### Capturing Knowledge as the Project Runs
 
@@ -365,6 +365,15 @@ The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workf
 ---
 
 ## Version History
+
+### 2026-08-26 - v1.8
+
+- Re-review triggered by a **live framework contradiction surfaced at TASK-029's creation** (2026-08-25) and resolved by directing-party ruling the same day; drafted 2026-08-25, ratified at Gate 1 on 2026-08-26. The rule *Work Items Consume Guides* (v1.7 and earlier) said, without qualification, that neither the Development Guide nor the UX Guide is updated by work items — yet EPIC-008 / TASK-007 amended `development_guide.md` three times with approval (all APPROVED 2026-05-27, recorded in FEAT-008 § Ideal State as Task-delivered), while TASK-027 was held to the literal rule and had to route a `ux_guide.md` correction through `/document-review`. Both could not be right under one undifferentiated rule.
+  - **§ Business Rules → *Work Items Consume Guides*** renamed to **_Work Items Consume the UX Guide; May Refine the Development Guide_** and rewritten to distinguish the two Guides by kind: the **UX Guide describes the product** (a work item may not redefine it — consume only, changes via `/document-review`); the **Development Guide describes the process work items execute** (a work item that discovers or ratifies a development convention during its work may amend it, riding the work item's own gates). Names TASK-007 and TASK-027 as the two worked precedents the split reconciles. Directing-party ruling: *"the Development Guide decides the process and the UX Guide decides the product, so they aren't the same."*
+  - **§ Business Rules → *Higher Work Items May Update Mid-Level Docs*** — the closing clause *"Tasks only consume documents; they do not update them"* carved out to name the Development Guide exception, so the two rules no longer contradict each other.
+- Classified as **substantive revision per § Re-reviewing**: v1.7 and earlier approved the claim that work items never update either Guide; this version reverses that claim for the Development Guide. Per § Re-reviewing → *Status semantics*, the document transited APPROVED → DRAFT for the duration of the revision and returns to APPROVED via Gate 1.
+- **Downstream, not deferred**: unblocks [TASK-029](../tasks/TASK-029-acceptance-criteria-cite-governing-rules.md), whose scope was pending this ruling — the convention it carries (an acceptance criterion cites the governing rule, not a version-pinned reference or illustrative example) may now land its doc-half in `development_guide.md` via the Task itself, no split required. No cascade to lower documents: `development_guide.md` and `ux_guide.md` already behave per this split; the rule change ratifies practice rather than redirecting it.
+- Status: DRAFT → APPROVED (2026-08-26, Gate 1 approved by the directing party)
 
 ### 2026-05-29 - v1.7
 
