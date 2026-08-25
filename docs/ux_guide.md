@@ -1,8 +1,8 @@
 # UX Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-08-24
-**Approved**: 2026-08-24
+**Last Reviewed**: 2026-08-25
+**Approved**: 2026-08-25
 
 ---
 
@@ -349,16 +349,16 @@ Index updates and cross-reference maintenance happen silently as part of the gat
 
 ## Version History
 
-### 2026-08-24 - v1.4
+### 2026-08-25 - v1.4
 
-- Gate 1 re-review triggered by a **surfaced gap at TASK-027's Gate 3** (2026-08-24) and by the firing of a scratchpad item's own revisit condition. No upstream document moved since v1.3 — vision v2.4, conceptual_design v1.7, technology_stack v1.3 and technical_design v1.2 are unchanged — so this is not a cascade. Every amendment reconciles this Guide with itself or with what EPIC-010 shipped.
+- Gate 1 re-review triggered by a **surfaced gap at TASK-027's Gate 3** (2026-08-25) and by the firing of a scratchpad item's own revisit condition. No upstream document moved since v1.3 — vision v2.4, conceptual_design v1.7, technology_stack v1.3 and technical_design v1.2 are unchanged — so this is not a cascade. Every amendment reconciles this Guide with itself or with what EPIC-010 shipped.
   - **§ Command Surface → *Supervisor Commands*** — the `/shannon-goal` example footer corrected from the full four-target legend to the two authorities its own worked run implicates, and the block labelled *"one worked instance, not a template"*. v1.3 added prose forbidding a fixed legend but left the example above it printing one, so the section written to fix that class of defect still contained an instance of it. TASK-027 could not amend a Guide (`conceptual_design.md` § Business Rules → *Work Items Consume Guides*), so it ported the *rule* into `shannon/skills/shannon-supervisor/SKILL.md` and deliberately diverged the skill's example from this one, routing the fix here. **That divergence is closed by this version** — the two examples now agree, and both derive their footer from their candidates
   - **§ Command Surface → *Supervisor Commands*** — the `/shannon-report` announcement example gained the parenthesised category breakdown, matching the § Interaction Patterns rendering of the same announcement. The two examples had disagreed since v1.2 on whether the breakdown appears; TASK-028 subsequently made per-category counts a shipped commitment (`shannon/skills/shannon-supervisor/templates/header.md` § By category), which settled which of the two was lagging
   - **§ Interaction Patterns → *Supervisor Report Presentation*** — new paragraph describing the session-start summary's behaviour against a report that predates the by-category header line: lead with the total and name the reason, never silently substitute it for the Drift count. TASK-025 shipped this path (`scripts/sessionstart-summary.sh`) and it fires in practice, but no framework document described it. Stated as the *never ambiguously quiet* principle applied to a degraded input
   - **§ Interaction Patterns → *Cooperative Access*** — *"the user-visible side"* → *"the directing party's side"*, retiring the last hyphenated survivor of the V6 vocabulary sweep. v1.3 claimed to retire the Guide's last bare "user" and missed this compound
-- **Held, deliberately: the session-start Drift lead.** The open scratchpad item asking whether the Drift-category count is the right lead set its revisit condition as *"at the next `/document-review ux_guide.md`"*, so it fired here. No new evidence has arrived since 2026-08-21 — still the single data point of `report-2026-08-20`, where Drift is 0 while both narrated findings are Gaps. One data point does not reverse a deliberate decision, and the item's revisit condition has been **tightened** so it fires on evidence rather than on schedule: the next report where the Drift count is 0 while total findings are non-zero. Directing-party ruling, 2026-08-24
+- **Held, deliberately: the session-start Drift lead.** The open scratchpad item asking whether the Drift-category count is the right lead set its revisit condition as *"at the next `/document-review ux_guide.md`"*, so it fired here. No new evidence has arrived since 2026-08-21 — still the single data point of `report-2026-08-20`, where Drift is 0 while both narrated findings are Gaps. One data point does not reverse a deliberate decision, and the item's revisit condition has been **tightened** so it fires on evidence rather than on schedule: the next report where the Drift count is 0 while total findings are non-zero. Directing-party ruling, 2026-08-25
 - Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no v1.3 approved claim is contradicted. Each correction brings a subordinate illustration into line with prose this Guide already approved, or documents shipped behaviour the Guide was silent on. The candidate-derived footer rule, the header-vs-SessionStart lead distinction, and the four faces of *never ambiguously quiet* all stand unchanged. Document stays APPROVED across the bump. Contrast v1.3, ruled substantive because it reversed the approved claim that a *missing* configuration file surfaces as a named failure
-- Status: APPROVED (2026-08-24, Gate 1 approved by the directing party)
+- Status: APPROVED (2026-08-25, Gate 1 approved by the directing party)
 
 ### 2026-08-21 - v1.3
 

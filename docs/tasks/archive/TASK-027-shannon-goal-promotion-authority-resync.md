@@ -8,7 +8,7 @@
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #shannon-goal #promotion-authority #corrective
 - **Created**: 2026-08-21
-- **Updated**: 2026-08-24
+- **Updated**: 2026-08-25
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -16,7 +16,7 @@
 
 ## Requirements
 
-*Elaborated 2026-08-24 (Gate 1). Initial intent was captured at task creation, downstream of the `ux_guide.md` v1.3 Gate 1 approval (2026-08-21).*
+*Elaborated 2026-08-25 (Gate 1). Initial intent was captured at task creation, downstream of the `ux_guide.md` v1.3 Gate 1 approval (2026-08-21).*
 
 ### Overview
 
@@ -34,7 +34,7 @@ The defect's origin is instructive and should be recorded rather than quietly pa
 
 ### Acceptance Criteria
 
-*Drafted at `/task-elaborate TASK-027` (Gate 1, 2026-08-24).*
+*Drafted at `/task-elaborate TASK-027` (Gate 1, 2026-08-25).*
 
 - [ ] **AC#1 — Contract step 3 names all four promotion authorities.** `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal — Contract step 3 states the complete model of `conceptual_design.md` v1.7 § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority*: Task supervisor-autonomous; Spike supervisor-autonomous unless the project has reserved Spike authority; Epic and Feature always directing-party. The Spike clause names its condition, not just its default.
 - [ ] **AC#2 — The footer is specified as candidate-derived, not a fixed legend.** § Output shape states in prose that the closing footer names only the promotion authorities the run's actual candidates implicate, and that a run whose candidates are all Tasks says so and mentions nothing else. The fenced example remains one worked instance and is labelled as such, so it cannot be re-copied as a specification — the defect this Task corrects.
@@ -63,7 +63,7 @@ The defect's origin is instructive and should be recorded rather than quietly pa
 
 ## Plan
 
-*Drafted at `/task-plan TASK-027` (Gate 2, 2026-08-24).*
+*Drafted at `/task-plan TASK-027` (Gate 2, 2026-08-25).*
 
 ### Approach
 
@@ -107,7 +107,7 @@ None outstanding. Both upstream authorities are APPROVED: `ux_guide.md` v1.3 (20
 
 ## Implementation Notes
 
-*Implemented 2026-08-24.*
+*Implemented 2026-08-25.*
 
 ### What changed
 
@@ -148,7 +148,7 @@ Two items added to `docs/scratchpad.md`:
 
 ## Review
 
-*Gate 3, 2026-08-24. Verified on supervisor authority under the SIT-026 standing directive.*
+*Gate 3, 2026-08-25. Verified on supervisor authority under the SIT-026 standing directive.*
 
 | AC | Verdict | Evidence |
 |---|---|---|
@@ -173,6 +173,6 @@ All five acceptance criteria met. **APPROVED** — Task archived to `docs/tasks/
 ## Activity Log
 
 - **2026-08-21** — DRAFT: Task created as a corrective, downstream of the `ux_guide.md` v1.3 Gate 1 approval the same day. The Guide's promotion-authority footer was corrected from three targets to four and committed to candidate-derived phrasing; the shipped skill still carries the v1.2 three-target form in two places. Created rather than recorded as an intention, per the directing party's instruction that the cluster's eighteen-day stall was caused by notes naming their own fix and nobody executing it. Full elaboration pending `/task-elaborate TASK-027`.
-- **2026-08-24** — DRAFT → ELABORATED: Gate 1 passed on **supervisor authority** (Tasks are always supervisor-authority per `conceptual_design.md` § Business Rules → *Gate Authority Split*; exercised under the SIT-026 standing directive of 2026-08-24). Acceptance criteria drafted as five: four naming the substance of the resync, one scope guard. The DRAFT's expected AC#4 was **corrected during elaboration** — its "repo-wide grep returns zero" is unmeetable, because the archived TASK-022 and this Task's own Requirements quote the defective phrasing as deliberate historical record; the criterion is now scoped to shipping artefacts (`shannon/` and `.claude/`). Alignment pass found the upstream `ux_guide.md` v1.3 wording unambiguous and directly portable. One framework-general lesson logged for scratchpad routing at implementation: an illustrative example in a Guide is not a specification — second occurrence from the same document in this cluster.
-- **2026-08-24** — ELABORATED → PLANNED: Gate 2 passed on **supervisor authority** under the SIT-026 standing directive. Plan is a single-file prose edit to `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal — Contract plus a redeploy; six steps, verified by grep, `diff`, and read-back against `ux_guide.md` v1.3 and `conceptual_design.md` v1.7. An end-to-end `/shannon-goal` run was **considered and deliberately deferred** — the footer is model-rendered from these instructions, so one run demonstrates one candidate mix rather than the derivation rule; read-back against the two upstream authorities is the tighter check. Two risks recorded, the load-bearing one being that correcting the fenced example without correcting its framing would reproduce the original defect.
-- **2026-08-24** — PLANNED → IMPLEMENTING → IMPLEMENTED → REVIEW → APPROVED: implemented and Gate 3 passed on **supervisor authority** under the SIT-026 standing directive. Three edits to `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal — Contract, plus redeploy; all five ACs verified (greps zero, `diff` identical, diff hunks confined to lines 57–79, five expected files changed). **One deviation, upheld**: the fenced example's footer was not ported from `ux_guide.md` v1.3, because the Guide's own example still prints the fixed legend its prose forbids — the rule was ported instead, deliberately diverging the skill's example from the Guide's. That divergence is routed to `/document-review ux_guide.md` and surfaced to the directing party. Two scratchpad items added: the framework-general *an example is not a specification* lesson (two shipped defects, flagged promotion-worthy) and the Guide-example drift. Archived to `docs/tasks/archive/`.
+- **2026-08-25** — DRAFT → ELABORATED: Gate 1 passed on **supervisor authority** (Tasks are always supervisor-authority per `conceptual_design.md` § Business Rules → *Gate Authority Split*; exercised under the SIT-026 standing directive of 2026-08-25). Acceptance criteria drafted as five: four naming the substance of the resync, one scope guard. The DRAFT's expected AC#4 was **corrected during elaboration** — its "repo-wide grep returns zero" is unmeetable, because the archived TASK-022 and this Task's own Requirements quote the defective phrasing as deliberate historical record; the criterion is now scoped to shipping artefacts (`shannon/` and `.claude/`). Alignment pass found the upstream `ux_guide.md` v1.3 wording unambiguous and directly portable. One framework-general lesson logged for scratchpad routing at implementation: an illustrative example in a Guide is not a specification — second occurrence from the same document in this cluster.
+- **2026-08-25** — ELABORATED → PLANNED: Gate 2 passed on **supervisor authority** under the SIT-026 standing directive. Plan is a single-file prose edit to `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal — Contract plus a redeploy; six steps, verified by grep, `diff`, and read-back against `ux_guide.md` v1.3 and `conceptual_design.md` v1.7. An end-to-end `/shannon-goal` run was **considered and deliberately deferred** — the footer is model-rendered from these instructions, so one run demonstrates one candidate mix rather than the derivation rule; read-back against the two upstream authorities is the tighter check. Two risks recorded, the load-bearing one being that correcting the fenced example without correcting its framing would reproduce the original defect.
+- **2026-08-25** — PLANNED → IMPLEMENTING → IMPLEMENTED → REVIEW → APPROVED: implemented and Gate 3 passed on **supervisor authority** under the SIT-026 standing directive. Three edits to `shannon/skills/shannon-supervisor/SKILL.md` § /shannon-goal — Contract, plus redeploy; all five ACs verified (greps zero, `diff` identical, diff hunks confined to lines 57–79, five expected files changed). **One deviation, upheld**: the fenced example's footer was not ported from `ux_guide.md` v1.3, because the Guide's own example still prints the fixed legend its prose forbids — the rule was ported instead, deliberately diverging the skill's example from the Guide's. That divergence is routed to `/document-review ux_guide.md` and surfaced to the directing party. Two scratchpad items added: the framework-general *an example is not a specification* lesson (two shipped defects, flagged promotion-worthy) and the Guide-example drift. Archived to `docs/tasks/archive/`.
