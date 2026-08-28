@@ -121,6 +121,8 @@ Report creation to the directing party. Resume the original conversation topic.
 
 ## Process: Elaborate (Gate 1)
 
+*Soft prompt at the moment acceptance criteria are drafted: does each criterion cite the **governing rule** it asserts — a `conceptual_design.md` business rule, or the prose commitment in a Guide — rather than a worked example or a version-pinned document reference? An example may corroborate; it must not be the thing asserted, because examples abbreviate and pinned documents move. See `development_guide.md` § Code Style → Patterns to Follow → *Acceptance criteria cite the governing rule*.*
+
 ### 1. Identify Target
 
 Use the ID supplied. If ambiguous, list candidates and ask.

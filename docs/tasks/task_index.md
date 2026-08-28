@@ -42,4 +42,4 @@
 **Tags**: `#component` (e.g. `#frontend`, `#backend`, `#framework`, `#templates`), `#type` (e.g. `#bug`, `#refactor`, `#docs`), parent identifier may be embedded in the description (preferred) or as a tag.
 
 Flat list — no grouping.
-- [TASK-029](./TASK-029-acceptance-criteria-cite-governing-rules.md) — DRAFT — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References (FEAT-008, orphan Task) #framework #development-guide #acceptance-criteria #meta-gap #dogfood
+- [TASK-029](./archive/TASK-029-acceptance-criteria-cite-governing-rules.md) — APPROVED — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References (FEAT-008, orphan Task) #framework #development-guide #acceptance-criteria #meta-gap #dogfood

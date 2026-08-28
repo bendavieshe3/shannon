@@ -1,7 +1,7 @@
 # Development Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-29
+**Last Reviewed**: 2026-08-28
 **Approved**: 2026-05-29
 
 ---
@@ -77,6 +77,15 @@ Shannon contains almost no code — its substance is Markdown templates and prom
 - **Explicit skill invocation** — Commands state "You MUST invoke the [skill] skill" rather than assuming activation
 - **Single source of truth per concept** — If a concept (e.g. the unified status model) appears in multiple files, one file is canonical and others reference it
 - **Source-of-truth body before derived artefacts** — When an edit touches a source-of-truth body and one or more derived indexes, references, or bookkeeping artefacts, work *source-of-truth body before derived index / references, then verify*. *Derived artefacts* explicitly include: **work-item index entries** (e.g. `task_index.md`, `epic_index.md`, `feature_index.md`); **parent Tasks-line entries** (the line in a parent work item's § Tasks / § Plan list naming the child); and **cross-references that name the source-of-truth artefact by path or ID** (other documents pointing at the edited artefact). Verification is re-reading the body and, where applicable, a `grep` of the derived state to confirm convergence. Worked precedent: **TASK-003** (`docs/tasks/archive/TASK-003-apply-partial-completeness-affordance.md`). Companion edit-discipline rule: see `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* (the AC-writing convention from EPIC-007 AC#4)
+- **Acceptance criteria cite the governing rule** — An acceptance criterion asserts the **governing rule**: a `conceptual_design.md` business rule, or the prose commitment in a Guide. Two forms of citation fail, and both fail the same way — the criterion ends up asserting something other than the rule:
+  - **A worked example read as a specification.** An example is illustrative and may abbreviate. Copying it verbatim into an AC imports the abbreviation as shipped behaviour.
+  - **A version-pinned document citation** (*"`ux_guide.md` v1.2 § Command Surface"*). Documents move. The pin does not, so the criterion silently starts asserting a superseded shape.
+
+  A fenced example or a version-pinned reference may be cited as **corroborating evidence** — never as the thing the criterion asserts. Where an AC needs a grep-verifiable substring, draw the substring from the rule, not from an illustration of it.
+
+  The pull toward the example is not carelessness: a worked example is *testable* where Guide prose usually is not, so an implementer drafting an AC reaches for the example precisely because it yields a verifiable criterion. The convention's job is to give them the rule to reach for instead.
+
+  Worked precedent — three instances across two Epics, one cause: **TASK-022 AC#2** (cited the ratified `ux_guide.md` example, which listed three promotion targets where the rule has four; corrected by TASK-027); the **TASK-023 prepared draft** (derived the wrong report-header shape from an abbreviated example in the same Guide); **EPIC-010 AC#1/AC#2** (pinned `ux_guide.md` v1.2 while the Guide reached v1.4, so read literally at Gate 3 the AC demanded the output shape TASK-027 had just corrected away from). Companion AC-writing rule: `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards*
 
 ### Patterns to Avoid
 
@@ -210,6 +219,15 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-08-28 - v1.5
+
+- Per TASK-029 — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References — one additive amendment codifying a convention surfaced through three shipped defects across two Epics:
+  - **§ Code Style → Patterns to Follow** — new bullet *Acceptance criteria cite the governing rule*, sibling to *Source-of-truth body before derived artefacts*. Names both failure forms (a worked example read as a specification; a version-pinned document citation), states the corroborating-evidence allowance, and names why the pull toward the example exists (an example is testable where Guide prose is not). Cites three instances as worked precedent — TASK-022 AC#2, the TASK-023 prepared draft, EPIC-010 AC#1/AC#2. Cross-references `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* as companion AC-writing rule
+- Companion skill-half landed in the same Task per the EPIC-008 two-touch precedent: `shannon/skills/work-items/skill.md` § Process: Elaborate carries a step-adjoining soft prompt at the moment acceptance criteria are drafted, pointing back at this pattern
+- Amended **by a work item rather than `/document-review`**, per `conceptual_design.md` v1.8 § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide* — the Development Guide describes the process work items execute, so the amendment rides TASK-029's own gates
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no existing approved claim contradicted; document stays APPROVED across the bump (no DRAFT transition)
+- Status: APPROVED (2026-08-28)
 
 ### 2026-05-29 - v1.4
 
