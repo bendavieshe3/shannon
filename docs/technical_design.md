@@ -97,7 +97,7 @@ Each checker runs in roughly 30 seconds to 2 minutes and returns a structured fi
 - `/shannon-report` — Run the full audit fan-out and write a dated report
 - `/shannon-goal [intent]` — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't
 
-**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `preCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation), to which they were re-allocated by directing-party decision on 2026-08-24:
+**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `preCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation). `Stop` has been allocated to EPIC-011 since FEAT-009's plan; `preCompact` moved there from EPIC-010 by directing-party decision on 2026-08-24:
 
 | Hook | Role | State |
 |---|---|---|
@@ -348,7 +348,7 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 ### 2026-10-08 - v1.3
 
 - Corrects present-tense drift in § System Architecture → *Supervisor* → *Hook integration*, surfaced by the Alignment checker in supervisor report 2026-09-29 (Gap: "`technical_design.md` claims five supervisor hooks in the present tense; three are registered"):
-  - The five-hook design is restated as the **committed architecture**, and the table gains a *State* column: SessionStart (EPIC-010), PreToolUse and PostToolUse (EPIC-009) shipped; preCompact and Stop pending EPIC-011, per the 2026-08-24 re-allocation recorded in EPIC-010 and EPIC-011's Activity Logs
+  - The five-hook design is restated as the **committed architecture**, and the table gains a *State* column: SessionStart (EPIC-010), PreToolUse and PostToolUse (EPIC-009) shipped; preCompact and Stop pending EPIC-011 (Stop by FEAT-009's original allocation; preCompact by the 2026-08-24 deferral recorded in EPIC-010 and EPIC-011's Activity Logs)
   - Verified against the shipped registration snippets at `shannon/skills/shannon-supervisor/hooks/` (sessionstart, pretooluse, posttooluse — no preCompact or Stop)
 - Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics***: the five-hook commitment is unchanged; only its delivery state is now stated. Document stays APPROVED across the bump (no DRAFT transition)
 - Status: APPROVED (2026-10-08, on directing-party merge)
