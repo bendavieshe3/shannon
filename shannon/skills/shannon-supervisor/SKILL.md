@@ -144,13 +144,13 @@ Both share the same terse form (a leading count, then stuck-or-stale items, then
 
 ## Hook Integration
 
-The supervisor integrates with five Claude Code hook points; each is implemented by a sibling work item:
+The supervisor's architecture names five Claude Code hook points. Three ship with this skill (PreToolUse, PostToolUse, SessionStart, each with a registration snippet under `hooks/`); preCompact and Stop are not yet implemented and are pending EPIC-011 (Autonomic Invocation):
 
 - **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge/knowledge_index.md`.
 - **PostToolUse** — audit log recording each tool invocation with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
 - **SessionStart** — terse health summary at session open, implemented as `scripts/sessionstart-summary.sh` (registration snippet `hooks/sessionstart.settings.json`). Reads the most-recent report under the configured `report_directory` (honouring the same-day `-N` suffix) and injects one line leading with the **Drift-category count** from the header's `**By category:**` line — where the report header leads with the total. On a report predating that line it names the total and says the per-category breakdown is unavailable rather than deriving one. It states the report's date and age, distinguishes the quiet outcomes (no report / clean run / partial run / unreadable report) so it is never ambiguously silent, writes nothing, and always exits 0. Deliberately **not** `SHANNON_SUPERVISOR_SCOPE`-gated — session orientation must fire in ordinary sessions; muted instead via `.claude/supervisor/state.json`.
-- **preCompact** — snapshot of in-flight findings to disk before context compaction.
-- **Stop** — completion check on autonomous runs (warn on context threshold or unflushed findings).
+- **preCompact** *(pending EPIC-011)* — snapshot of in-flight findings to disk before context compaction.
+- **Stop** *(pending EPIC-011)* — completion check on autonomous runs (warn on context threshold or unflushed findings).
 
 Hook event activations are not user-message responses and do not emit the self-identification line — the supervisor performs its hook role silently and writes its output to the relevant location (the audit log for PostToolUse, the report findings buffer for preCompact, etc.).
 

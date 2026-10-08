@@ -1,8 +1,8 @@
 # Technical Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-29
-**Approved**: 2026-05-29
+**Last Reviewed**: 2026-10-08
+**Approved**: 2026-10-08
 
 ---
 
@@ -97,15 +97,15 @@ Each checker runs in roughly 30 seconds to 2 minutes and returns a structured fi
 - `/shannon-report` — Run the full audit fan-out and write a dated report
 - `/shannon-goal [intent]` — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't
 
-**Hook integration**: the supervisor leverages five Claude Code hook points to weave vigilance into the interactive session lifecycle:
+**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `preCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation), to which they were re-allocated by directing-party decision on 2026-08-24:
 
-| Hook | Role |
-|---|---|
-| `SessionStart` | Inject a terse health summary (drift count, stuck items, push lag) so the directing party opens a session already oriented |
-| `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation |
-| `PostToolUse` | Log supervisor operations for audit trail |
-| `preCompact` | Snapshot in-flight findings before context compaction so the report survives compaction |
-| `Stop` | Run a completion check; warn if context is still over threshold or if findings remain unflushed |
+| Hook | Role | State |
+|---|---|---|
+| `SessionStart` | Inject a terse health summary (drift count, stuck items, push lag) so the directing party opens a session already oriented | Shipped (EPIC-010) |
+| `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation | Shipped (EPIC-009) |
+| `PostToolUse` | Log supervisor operations for audit trail | Shipped (EPIC-009) |
+| `preCompact` | Snapshot in-flight findings before context compaction so the report survives compaction | Pending EPIC-011 |
+| `Stop` | Run a completion check; warn if context is still over threshold or if findings remain unflushed | Pending EPIC-011 |
 
 Hook configuration lives in the project's `settings.json` per Claude Code conventions; specific hook bodies ship with the supervisor skill.
 
@@ -344,6 +344,14 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 ---
 
 ## Version History
+
+### 2026-10-08 - v1.3
+
+- Corrects present-tense drift in § System Architecture → *Supervisor* → *Hook integration*, surfaced by the Alignment checker in supervisor report 2026-09-29 (Gap: "`technical_design.md` claims five supervisor hooks in the present tense; three are registered"):
+  - The five-hook design is restated as the **committed architecture**, and the table gains a *State* column: SessionStart (EPIC-010), PreToolUse and PostToolUse (EPIC-009) shipped; preCompact and Stop pending EPIC-011, per the 2026-08-24 re-allocation recorded in EPIC-010 and EPIC-011's Activity Logs
+  - Verified against the shipped registration snippets at `shannon/skills/shannon-supervisor/hooks/` (sessionstart, pretooluse, posttooluse — no preCompact or Stop)
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics***: the five-hook commitment is unchanged; only its delivery state is now stated. Document stays APPROVED across the bump (no DRAFT transition)
+- Status: APPROVED (2026-10-08, on directing-party merge)
 
 ### 2026-05-29 - v1.2
 
