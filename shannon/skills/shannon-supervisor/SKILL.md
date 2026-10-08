@@ -15,7 +15,7 @@ The supervisor is invokable both interactively (via slash commands) and autonomo
 - `/shannon-report` — interactively, when the directing party wants a current health report. Contract codified below.
 - `/shannon-goal [intent]` — interactively, when the directing party wants a free-text intent decomposed into candidate work items. Contract codified below.
 - Autonomous cadence runs (forward work — invoked by a sibling work item's headless contract).
-- Hook events (forward work — sibling work items configure PreToolUse, PostToolUse, SessionStart, preCompact, and Stop).
+- Hook events — PreToolUse, PostToolUse and SessionStart ship with this skill; preCompact and Stop are forward work (see § Hook Integration).
 
 ## Skill Directory Layout
 
@@ -152,7 +152,7 @@ The supervisor's architecture names five Claude Code hook points. Three ship wit
 - **preCompact** *(pending EPIC-011)* — snapshot of in-flight findings to disk before context compaction.
 - **Stop** *(pending EPIC-011)* — completion check on autonomous runs (warn on context threshold or unflushed findings).
 
-Hook event activations are not user-message responses and do not emit the self-identification line — the supervisor performs its hook role silently and writes its output to the relevant location (the audit log for PostToolUse, the report findings buffer for preCompact, etc.).
+Hook event activations are not user-message responses and do not emit the self-identification line — the supervisor performs its hook role silently and writes its output to the relevant location (the audit log for PostToolUse, the session context for SessionStart).
 
 ## Failure Modes
 
