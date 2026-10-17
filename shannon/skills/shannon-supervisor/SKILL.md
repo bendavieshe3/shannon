@@ -2,7 +2,7 @@
 
 When invoked, **start your response with**: "Activating shannon-supervisor skill for [verb]."
 
-The self-identification line above is emitted **only** for direct slash-command invocations (`/shannon-report` and `/shannon-goal`; additional verbs may be added by sibling work items). Hook-event activations (PreToolUse, PostToolUse, SessionStart, preCompact, Stop) and autonomous-cadence invocations are not user-message responses and do not emit a self-identification line.
+The self-identification line above is emitted **only** for direct slash-command invocations (`/shannon-report` and `/shannon-goal`; additional verbs may be added by sibling work items). Hook-event activations (PreToolUse, PostToolUse, SessionStart, PreCompact, Stop) and autonomous-cadence invocations are not user-message responses and do not emit a self-identification line.
 
 ## Purpose
 
@@ -15,7 +15,7 @@ The supervisor is invokable both interactively (via slash commands) and autonomo
 - `/shannon-report` — interactively, when the directing party wants a current health report. Contract codified below.
 - `/shannon-goal [intent]` — interactively, when the directing party wants a free-text intent decomposed into candidate work items. Contract codified below.
 - Autonomous cadence runs (forward work — invoked by a sibling work item's headless contract).
-- Hook events — PreToolUse, PostToolUse and SessionStart ship with this skill; preCompact and Stop are forward work (see § Hook Integration).
+- Hook events — PreToolUse, PostToolUse and SessionStart ship with this skill; PreCompact and Stop are forward work (see § Hook Integration).
 
 ## Skill Directory Layout
 
@@ -144,12 +144,12 @@ Both share the same terse form (a leading count, then stuck-or-stale items, then
 
 ## Hook Integration
 
-The supervisor's architecture names five Claude Code hook points. Three ship with this skill (PreToolUse, PostToolUse, SessionStart, each with a registration snippet under `hooks/`); preCompact and Stop are not yet implemented and are pending EPIC-011 (Autonomic Invocation):
+The supervisor's architecture names five Claude Code hook points. Three ship with this skill (PreToolUse, PostToolUse, SessionStart, each with a registration snippet under `hooks/`); PreCompact and Stop are not yet implemented and are pending EPIC-011 (Autonomic Invocation):
 
 - **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge/knowledge_index.md`.
-- **PostToolUse** — audit log recording each tool invocation with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
-- **SessionStart** — terse health summary at session open, implemented as `scripts/sessionstart-summary.sh` (registration snippet `hooks/sessionstart.settings.json`). Reads the most-recent report under the configured `report_directory` (honouring the same-day `-N` suffix) and injects one line leading with the **Drift-category count** from the header's `**By category:**` line — where the report header leads with the total. On a report predating that line it names the total and says the per-category breakdown is unavailable rather than deriving one. It states the report's date and age, distinguishes the quiet outcomes (no report / clean run / partial run / unreadable report) so it is never ambiguously silent, writes nothing, and always exits 0. Deliberately **not** `SHANNON_SUPERVISOR_SCOPE`-gated — session orientation must fire in ordinary sessions; muted instead via `.claude/supervisor/state.json`.
-- **preCompact** *(pending EPIC-011)* — snapshot of in-flight findings to disk before context compaction.
+- **PostToolUse** — audit log recording each Bash, Edit and Write invocation (the registered matcher) with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
+- **SessionStart** — terse health summary at session open, implemented as `scripts/sessionstart-summary.sh` (registration snippet `hooks/sessionstart.settings.json`). Reads the most-recent report under the configured `report_directory` (honouring the same-day `-N` suffix) and injects a summary line leading with the **Drift-category count** from the header's `**By category:**` line — where the report header leads with the total. On a report predating that line it names the total and says the per-category breakdown is unavailable rather than deriving one. It states the report's date and age, distinguishes the quiet outcomes (no report / clean run / partial run / unreadable report) so it is never ambiguously silent, and appends a second line noting a partial run when fewer than three checkers ran. It writes nothing and always exits 0. Deliberately **not** `SHANNON_SUPERVISOR_SCOPE`-gated — session orientation must fire in ordinary sessions; muted instead via `.claude/supervisor/state.json`.
+- **PreCompact** *(pending EPIC-011)* — snapshot of in-flight findings to disk before context compaction.
 - **Stop** *(pending EPIC-011)* — completion check on autonomous runs (warn on context threshold or unflushed findings).
 
 Hook event activations are not user-message responses and do not emit the self-identification line — the supervisor performs its hook role silently and writes its output to the relevant location (the audit log for PostToolUse, the session context for SessionStart).

@@ -1,6 +1,6 @@
 # Spike Index
 
-*No spikes yet.*
+- [SPIKE-001](./SPIKE-001-claude-code-skill-and-subagent-file-conventions.md) — DRAFT — Claude Code Skill and Subagent File Conventions (FEAT-009) #framework #skills #frontmatter #claude-code
 
 ---
 
