@@ -154,4 +154,4 @@ Each Task bumps `development_guide.md` by one minor version (v1.5 → v1.6 and o
 
 ## Activity Log
 
-- **2026-10-18** — DRAFT: Epic created during `/feature-plan FEAT-008` (Gate 2, pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during FEAT-008 planning, not yet reviewed". Source: the six items in FEAT-008 § Plan → *Known forward work*, plus the `{{SLOT}}` placeholder item (surfaced at TASK-028 Gate 1) and FEAT-008 Ideal State bullet 5.
+- **2026-10-18** — DRAFT: Epic created during `/feature-plan FEAT-008` (Gate 2, approved 2026-10-19) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during FEAT-008 planning, not yet reviewed". Source: the six items in FEAT-008 § Plan → *Known forward work*, plus the `{{SLOT}}` placeholder item (surfaced at TASK-028 Gate 1) and FEAT-008 Ideal State bullet 5.
