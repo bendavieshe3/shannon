@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-001](../features/FEAT-001-easy-to-setup.md)
 - **Created**: 2026-05-15
-- **Updated**: 2026-05-15
+- **Updated**: 2026-10-17
 
 ---
 
@@ -61,4 +61,5 @@ A developer can answer "which version of Shannon am I on?", be notified when a n
 
 ## Activity Log
 
+- **2026-10-17** — **Inbound elaboration input** from the scratchpad triage: an upgrade path for projects already on an older Shannon. The worked case is `endless-worlds`, a pre-Epic Shannon project (Feature → Phase → Task, with `feature-phase-*` commands). `/shannon-setup` is greenfield-only. The upgrade flow and migration-guide ACs here cover version bumps but not legacy-vocabulary reconciliation (Phase → Epic, document-canon merges and orphans, PRD → `vision.md`, CLAUDE.md and template collisions). Captured, not committed; the item stays in `docs/scratchpad.md` until this Epic is elaborated. Revisit when EPIC-011 is APPROVED (supervisor stable) or an endless-worlds upgrade is scheduled.
 - **2026-05-15** — DRAFT: Created as part of refactor; migrated from FEAT-001 Phase 3

@@ -1,8 +1,8 @@
 # Technical Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-10-08
-**Approved**: 2026-10-08
+**Last Reviewed**: 2026-10-17
+**Approved**: 2026-10-17
 
 ---
 
@@ -40,17 +40,18 @@ User-invoked entry points. Intentionally thin — they identify what to do and d
 
 Reusable framework logic with templates. Where Shannon's behaviour lives. Located at `./.claude/skills/<name>/` (or `./shannon/skills/<name>/` in source).
 
-Three skills exist:
+Four skills exist:
 
 | Skill | Purpose |
 |---|---|
 | `project-setup` | Initialise a new project with Shannon |
 | `project-documentation` | Manage mandated documents (create, review, approve) |
 | `work-items` | Manage all work item types through their lifecycle |
+| `shannon-supervisor` | Continuous health vigilance and goal decomposition (see *Supervisor* below) |
 
 Each skill consists of:
 
-- `skill.md` — Skill definition: purpose, invocation contract, process logic
+- `skill.md` — Skill definition: purpose, invocation contract, process logic (the supervisor ships its manifest as `SKILL.md`; which casing Claude Code's skill discovery requires is an open question, see `scratchpad.md`)
 - `templates/` — Markdown templates the skill instantiates
 
 Skills are responsible for:
@@ -80,7 +81,8 @@ A specialised skill for continuous health vigilance, located at `./.claude/skill
 - `SKILL.md` — supervisor logic and the contracts for the slash commands below
 - `templates/` — report templates (header, finding sections, footer)
 - `checkers/` — definitions for the three specialised checker subagents
-- `scripts/` — helper scripts (git log parsers, index validators)
+- `scripts/` — helper scripts (git log parsers, index validators) and hook bodies
+- `hooks/` — shippable `settings.json` registration snippets, one per shipped hook
 
 **Checker subagents**: a supervisor invocation fans out into three specialised checkers, each with restricted tool access and a model chosen for its workload:
 
@@ -97,17 +99,17 @@ Each checker runs in roughly 30 seconds to 2 minutes and returns a structured fi
 - `/shannon-report` — Run the full audit fan-out and write a dated report
 - `/shannon-goal [intent]` — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't
 
-**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `preCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation). `Stop` has been allocated to EPIC-011 since FEAT-009's plan; `preCompact` moved there from EPIC-010 by directing-party decision on 2026-08-24:
+**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `PreCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation). `Stop` has been allocated to EPIC-011 since FEAT-009's plan; `PreCompact` moved there from EPIC-010 by directing-party decision on 2026-08-24:
 
 | Hook | Role | State |
 |---|---|---|
 | `SessionStart` | Inject a terse health summary (drift count, stuck items, push lag) so the directing party opens a session already oriented | Shipped (EPIC-010) |
 | `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation | Shipped (EPIC-009) |
 | `PostToolUse` | Log supervisor operations for audit trail | Shipped (EPIC-009) |
-| `preCompact` | Snapshot in-flight findings before context compaction so the report survives compaction | Pending EPIC-011 |
+| `PreCompact` | Snapshot in-flight findings before context compaction so the report survives compaction | Pending EPIC-011 |
 | `Stop` | Run a completion check; warn if context is still over threshold or if findings remain unflushed | Pending EPIC-011 |
 
-Hook configuration lives in the project's `settings.json` per Claude Code conventions; specific hook bodies ship with the supervisor skill.
+Hook configuration lives in the project's `settings.json` per Claude Code conventions. Event names are written exactly as Claude Code's hooks reference spells them (`PreCompact`, not `preCompact`), since a misspelt key registers nothing; specific hook bodies ship with the supervisor skill.
 
 ---
 
@@ -304,7 +306,7 @@ The contract Shannon commits to:
 
 - **`--bare`** — skip hook, skill, and plugin discovery beyond what the supervisor needs, for reproducible runs
 - **`-p`** — supervisor prompt (typically `/shannon-report` semantics rendered as a direct instruction)
-- **`--allowedTools`** — explicit allow-list scoped to read operations and read-only git invocations; the supervisor is read-mostly and writes only its dated report. When the cadence run needs to write its report, `--allowedTools` is extended to include `Write(docs/supervisor/*)`; the PreToolUse hook (§ System Architecture → *Supervisor* → *Hook integration*) enforces the path scope at runtime
+- **`--allowedTools`** — explicit allow-list scoped to read operations and read-only git invocations; the supervisor is read-mostly and writes only its dated report. When the cadence run needs to write its report, `--allowedTools` is extended to include `Write(docs/supervisor/*)`; the PreToolUse hook (§ System Architecture → *Supervisor* → *Hook integration*) enforces the path scope at runtime once the invocation sets `SHANNON_SUPERVISOR_SCOPE`. Until EPIC-011's launcher sets that signal the write-guard is inert, so the path scope rests on `--allowedTools` alone
 - **`--output-format json`** — structured output so the scheduler can inspect exit conditions, finding counts, and surface failures
 
 ### Worktree isolation
@@ -344,6 +346,16 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 ---
 
 ## Version History
+
+### 2026-10-17 - v1.4
+
+- Corrections from the 2026-10-17 scratchpad triage, each checked against the shipped files:
+  - **§ System Architecture → *Supervisor* → *Hook integration*** — the compaction hook is written `PreCompact`, the casing Claude Code's hooks reference uses (https://code.claude.com/docs/en/hooks); settings keys are case-sensitive, so the lowercase form would register nothing. A sentence now says event names follow the reference's spelling
+  - **§ Cadence → *Headless invocation contract*** — the `--allowedTools` bullet no longer claims runtime enforcement unconditionally: the PreToolUse write-guard is inert until `SHANNON_SUPERVISOR_SCOPE` is set, which EPIC-011 builds
+  - **§ System Architecture → *Skills*** — four skills, not three; the table gains `shannon-supervisor`, and the manifest-casing difference (`skill.md` vs `SKILL.md`) is named as open
+  - **§ System Architecture → *Supervisor* → *Skill directory layout*** — adds the shipped `hooks/` directory and names hook bodies under `scripts/`
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics***: no commitment changes; stated facts are brought in line with what ships. Document stays APPROVED across the bump
+- Status: APPROVED (2026-10-17, on directing-party merge)
 
 ### 2026-10-08 - v1.3
 

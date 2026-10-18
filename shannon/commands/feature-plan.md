@@ -9,7 +9,7 @@ Pass:
 - **Verb**: `plan`
 - **Target**: Feature ID from `$ARGUMENTS` (must be in ELABORATED status). If empty, list candidate ELABORATED features and ask.
 
-The skill will read the feature's Requirements, Vision § referenced sections, Conceptual Design, and Technology Stack; draft an Epic breakdown; and may create child Epic stubs in PLAN-PENDING. Gate 2 requires explicit user approval to transition ELABORATED → PLANNED.
+The skill will read the feature's Requirements, Vision § referenced sections, Conceptual Design, and Technology Stack; draft an Epic breakdown; and may create child Epic stubs in DRAFT carrying prepared drafts, which surface when `/epic-elaborate` and `/epic-plan` run (each child still passes its own gates). Gate 2 requires explicit user approval to transition ELABORATED → PLANNED.
 
 If the `work-items` skill does not activate, report:
 "Error: work-items skill failed to activate."

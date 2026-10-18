@@ -1,4 +1,4 @@
-# TASK-026: preCompact Findings-Snapshot Hook
+# TASK-026: PreCompact Findings-Snapshot Hook
 
 ## Metadata
 
@@ -22,20 +22,20 @@
 
 ### Overview
 
-Implement the preCompact hook — body + registration snippet authored in `./shannon/`, deployed/merged to `./.claude/` — that snapshots in-flight findings to a disk location named in `SKILL.md` when a long `/shannon-report` run approaches context compaction, so the findings survive and are automatically flushed into the report at write time. Inert outside a supervisor-scoped run (per the `SHANNON_SUPERVISOR_SCOPE` convention). Logic unit-tested before commit; live auto-firing deferred to EPIC-011. Out of scope: the SessionStart hook (TASK-025), the already-shipped PreToolUse/PostToolUse hooks.
+Implement the PreCompact hook — body + registration snippet authored in `./shannon/`, deployed/merged to `./.claude/` — that snapshots in-flight findings to a disk location named in `SKILL.md` when a long `/shannon-report` run approaches context compaction, so the findings survive and are automatically flushed into the report at write time. Inert outside a supervisor-scoped run (per the `SHANNON_SUPERVISOR_SCOPE` convention). Logic unit-tested before commit; live auto-firing deferred to EPIC-011. Out of scope: the SessionStart hook (TASK-025), the already-shipped PreToolUse/PostToolUse hooks.
 
 ### Acceptance Criteria
 
 - [ ] **AC#1 — Hook body + registration snippet authored in `./shannon/`; live `settings.json` wired.** Body at `./shannon/skills/shannon-supervisor/scripts/precompact-snapshot.sh`; tracked snippet at `./shannon/skills/shannon-supervisor/hooks/precompact.settings.json`; `SKILL.md` § Hook Integration additively updated (preCompact row now implemented); deployed to `./.claude/` and merged into live `./.claude/settings.json`. *Derives from* `technical_design.md` v1.2 § System Architecture → *Supervisor* → *Hook integration* (preCompact row); EPIC-009 TASK-016/017 hook precedent + shipping-source DECISION.
 - [ ] **AC#2 — Snapshot location named in `SKILL.md`.** `SKILL.md` names the snapshot file path under `./.claude/skills/shannon-supervisor/` (a gitignored operational artefact, consistent with the audit-log location precedent from EPIC-009 AC#5). *Derives from* parent EPIC-010 AC#4; EPIC-009 audit-log-location precedent (`SKILL.md` § Hook Integration).
-- [ ] **AC#3 — Snapshot incorporated at report write-time.** `SKILL.md` § Report Pipeline is additively extended so any preCompact snapshot is flushed into the report during the assemble-and-write step. *Derives from* parent EPIC-010 AC#4; EPIC-009 `SKILL.md` § Report Pipeline.
+- [ ] **AC#3 — Snapshot incorporated at report write-time.** `SKILL.md` § Report Pipeline is additively extended so any PreCompact snapshot is flushed into the report during the assemble-and-write step. *Derives from* parent EPIC-010 AC#4; EPIC-009 `SKILL.md` § Report Pipeline.
 - [ ] **AC#4 — Inert outside supervisor scope; unit-tested before commit.** The hook fires only when `SHANNON_SUPERVISOR_SCOPE` is set (a long `/shannon-report` run); inert otherwise. Logic unit-tested before commit: (a) signal present → snapshot written; (b) signal absent → no-op. *Derives from* EPIC-009 § Implementation Notes *SHANNON_SUPERVISOR_SCOPE* convention; `development_guide.md` v1.4 § Testing Strategy + global test-before-commit rule.
-- [ ] **AC#5 — Plain-prose discipline + scope-bounded edit.** Grep-verified phrases as plain prose (parent AC#7); creates the preCompact script + snippet + additive `SKILL.md` § Hook Integration / § Report Pipeline edits only — does **not** modify the other hooks, checkers, templates, the goal-skill/command, or any other skill (cross-type-guard, parent AC#8). *Derives from* `conceptual_design.md` § Business Rules → *Scope-Boundary…Cross-Type Guards*.
+- [ ] **AC#5 — Plain-prose discipline + scope-bounded edit.** Grep-verified phrases as plain prose (parent AC#7); creates the PreCompact script + snippet + additive `SKILL.md` § Hook Integration / § Report Pipeline edits only — does **not** modify the other hooks, checkers, templates, the goal-skill/command, or any other skill (cross-type-guard, parent AC#8). *Derives from* `conceptual_design.md` § Business Rules → *Scope-Boundary…Cross-Type Guards*.
 
 ### Context
 
 - **Parent Epic**: [EPIC-010 — Synthesis and Reports](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (preCompact half)
+- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (PreCompact half)
 - **Relevant documents**: `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*; Phase-0 Spike § 11 (Context Compaction & Memory)
 - **Related work**: EPIC-009 hook precedent (TASK-016/017) + audit-log-location precedent (AC#5) + `SKILL.md` § Report Pipeline
 

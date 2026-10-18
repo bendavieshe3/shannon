@@ -72,7 +72,7 @@ Different work items consult different documents at different stages.
 | Spike | Elaborate | — | — |
 | Spike | Implement | — | Knowledge Base (output) |
 
-**Key rule**: Guides (Development Guide, UX Guide) are reference material. Work items consume them; they are not updated by work items. Updates to guides happen via `/document-review`.
+**Key rule**: Guides are reference material, and the two differ (`conceptual_design.md` § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*). Work items consume the UX Guide; changes to it go through `/document-create` or `/document-review`. Any work item, a Task included, may refine the Development Guide, because it describes the process the work item executes.
 
 ## Process: Create
 
