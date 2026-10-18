@@ -34,8 +34,8 @@ With all eight landed, FEAT-008 Ideal State bullets 1 and 5 move to *met*, and t
 
 **Out of scope**:
 
-- The `/shannon-setup` half of item 5: deploying a targeted ignore for the audit log into projects that track `.claude/skills/`. That belongs to the deferred `/shannon-setup` deployment Epic named in the scratchpad item.
-- The scratchpad item *A hook Task that wires its own hook has no prompt to deploy the shippable settings fragment*. Its most durable route is a source-vs-deploy comparison in the Drift Checker, which is FEAT-009 work. If item 4's mirror convention is written so that deploying a skill includes its settings fragments, the convention covers route (c) of that item; the implementing Task records whether it did.
+- The installer halves of items 4 and 5: `/shannon-setup` deploying the whole skill tree, hook registrations and a targeted ignore for the audit log into a new project. Those belong to [EPIC-016](EPIC-016-supervisor-deployment-via-shannon-setup.md) (Supervisor Deployment via /shannon-setup, FEAT-009), which depends on the conventions this Epic ratifies.
+- The scratchpad item *A hook Task that wires its own hook has no prompt to deploy the shippable settings fragment*. Its most durable route, a source-vs-deploy comparison in the Drift Checker, was folded into [EPIC-011](EPIC-011-autonomic-invocation.md) (Autonomic Invocation) by the 2026-10-17 scratchpad triage. If item 4's mirror convention is written so that deploying a skill includes its settings fragments, the convention covers route (c) of that item; the implementing Task records whether it did.
 - Any `technical_design.md` change, including the open question of grouping transient supervisor artefact locations under § Data Model.
 
 ### Goal
@@ -110,7 +110,7 @@ Each Task bumps `development_guide.md` by one minor version (v1.5 → v1.6 and o
 
 **Depends on**: `development_guide.md` v1.5 APPROVED; `conceptual_design.md` v1.8 (the authority rule that lets these Tasks amend the Guide).
 
-**Depended on by**: EPIC-011 (Autonomic Invocation) amends `development_guide.md` too (its AC#5 scheduler section). Whichever Epic implements second re-reads the Guide's landed state first, per AC#2.
+**Depended on by**: [EPIC-016](EPIC-016-supervisor-deployment-via-shannon-setup.md) (Supervisor Deployment via /shannon-setup), which installs what AC#3 and AC#4 codify. EPIC-011 (Autonomic Invocation) amends `development_guide.md` too (its AC#5 scheduler section). Whichever Epic implements second re-reads the Guide's landed state first, per AC#2.
 
 ### Risks
 

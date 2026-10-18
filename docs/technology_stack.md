@@ -1,8 +1,8 @@
 # Technology Stack
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-29
-**Approved**: 2026-05-29
+**Last Reviewed**: 2026-10-17
+**Approved**: 2026-10-17
 
 ---
 
@@ -98,7 +98,7 @@ The supervisor role introduced at Vision v2.4 (§ Core Principles → *Continuou
 
 ### Committed primitives
 
-- **Hooks** (`SessionStart`, `PreToolUse`, `PostToolUse`, `preCompact`, `Stop`) — Lifecycle interception points used to inject health summaries at session start, guard against accidental writes outside supervisor scope, log operations for audit trail, snapshot findings before context compaction, and run completion checks. All five hook kinds are production-ready.
+- **Hooks** (`SessionStart`, `PreToolUse`, `PostToolUse`, `PreCompact`, `Stop`) — Lifecycle interception points used to inject health summaries at session start, guard against accidental writes outside supervisor scope, log operations for audit trail, snapshot findings before context compaction, and run completion checks. All five hook kinds are production-ready.
 - **Subagents** — Specialised parallel checkers (alignment, lifecycle, drift) run with isolated context windows, per-task model selection (Haiku for fast scans, Sonnet for synthesis), and restricted tool access. The existing Commands + Skills + Subagents architecture (see `technical_design.md` § System Architecture) already commits to subagents for context-heavy reading; the supervisor extends that commitment to parallel health checks.
 - **Headless mode** (`claude -p`) **with an external cron mechanism the project configures** — The autonomous-cadence invocation path for the supervisor. Shannon commits to the *pattern* (headless invocation triggered by an external scheduler) and leaves the specific scheduler (a host cron daemon, a launchd job, a remote scheduler such as OpenClaw, or equivalent) to the project's configuration. Structured output (`--output-format json`, `--json-schema`) and explicit `--allowedTools` make headless runs scriptable and auditable.
 - **Worktree isolation** (`--worktree`) — Read-only audits run in a temporary worktree so the supervisor never contaminates the interactive working tree. Used when the audit cadence overlaps with interactive directing-party sessions.
@@ -132,6 +132,12 @@ Vision § Core Principles 5 (*Continuous Health Vigilance*) and Vision § Key Fe
 ---
 
 ## Version History
+
+### 2026-10-17 - v1.4
+
+- **§ Supervisor Tooling → *Hooks*** — the compaction hook is written `PreCompact`, as Claude Code's hooks reference spells it (https://code.claude.com/docs/en/hooks), replacing `preCompact`. Settings keys are case-sensitive, so the old spelling copied into `settings.json` would register nothing. Surfaced by the 2026-10-17 scratchpad triage
+- Classified as **additive amendment per `conceptual_design.md` § Re-reviewing**: a spelling correction; no commitment changes. Document stays APPROVED across the bump
+- Status: APPROVED (2026-10-17, on directing-party merge)
 
 ### 2026-05-29 - v1.3
 

@@ -25,9 +25,13 @@
 - [TASK-023](./archive/TASK-023-report-presentation-customisation-prose.md) — APPROVED — Report-Presentation Customisation Prose (EPIC-010 Task 2) #supervisor #skill #presentation #documentation
 - [TASK-024](./archive/TASK-024-zero-findings-degenerate-case.md) — APPROVED — Zero-Findings Degenerate-Case Presentation (EPIC-010 Task 3) #supervisor #skill #presentation #zero-findings
 - [TASK-025](./archive/TASK-025-sessionstart-health-summary-hook.md) — APPROVED — SessionStart Health-Summary Hook (EPIC-010 Task 4) #supervisor #hook #sessionstart #reporting
-- [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT (DEFERRED to EPIC-011, 2026-08-24) — preCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
+- [TASK-026](./TASK-026-precompact-findings-snapshot-hook.md) — DRAFT (DEFERRED to EPIC-011, 2026-08-24) — PreCompact Findings-Snapshot Hook (EPIC-010 Task 5) #supervisor #hook #precompact #context-compaction
 - [TASK-027](./archive/TASK-027-shannon-goal-promotion-authority-resync.md) — APPROVED — `/shannon-goal` Promotion-Authority Resync and Candidate-Derived Footer (EPIC-010 Task 6, corrective) #supervisor #skill #shannon-goal #promotion-authority #corrective
 - [TASK-028](./archive/TASK-028-per-category-finding-counts-in-report-header.md) — APPROVED — Per-Category Finding Counts in the Report Header (EPIC-010 Task 7; sequenced before TASK-025) #supervisor #templates #report-pipeline #header #machine-readable
+- [TASK-029](./archive/TASK-029-acceptance-criteria-cite-governing-rules.md) — APPROVED — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References (FEAT-008, orphan Task) #framework #development-guide #acceptance-criteria #meta-gap #dogfood
+- [TASK-030](./TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT — Skill-Creating Epics Scope the Command Entry Point (FEAT-003, orphan Task) #framework #work-items
+- [TASK-031](./TASK-031-parent-epic-advances-with-children.md) — DRAFT — Parent Epic Advances Through the Iterative Zone With Its Children (FEAT-003, orphan Task) #framework #lifecycle
+- [TASK-032](./TASK-032-archived-task-link-depth.md) — DRAFT — Archived Tasks Keep Working Parent Links (FEAT-003, orphan Task) #framework #archive
 
 ---
 
@@ -42,4 +46,3 @@
 **Tags**: `#component` (e.g. `#frontend`, `#backend`, `#framework`, `#templates`), `#type` (e.g. `#bug`, `#refactor`, `#docs`), parent identifier may be embedded in the description (preferred) or as a tag.
 
 Flat list — no grouping.
-- [TASK-029](./archive/TASK-029-acceptance-criteria-cite-governing-rules.md) — APPROVED — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References (FEAT-008, orphan Task) #framework #development-guide #acceptance-criteria #meta-gap #dogfood
