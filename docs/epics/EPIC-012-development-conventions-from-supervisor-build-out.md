@@ -2,11 +2,11 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: ELABORATED
 - **Type**: Epic
 - **Parent**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-20
+- **Updated**: 2026-10-21
 - **Tags**: #framework #conventions #development-guide
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -15,7 +15,7 @@
 
 ## Requirements
 
-*Prepared during FEAT-008 planning; reviewed and refined at `/epic-elaborate EPIC-012` on 2026-10-20 (Gate 1 pending).*
+*Prepared during FEAT-008 planning; reviewed and refined at `/epic-elaborate EPIC-012` on 2026-10-20; Gate 1 approved by the directing party 2026-10-21.*
 
 ### Overview
 
@@ -159,3 +159,4 @@ Each Task bumps `development_guide.md` by one minor version (v1.5 → v1.6 and o
 - **2026-10-18** — DRAFT: Epic created during `/feature-plan FEAT-008` (Gate 2, approved 2026-10-19) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during FEAT-008 planning, not yet reviewed". Source: the six items in FEAT-008 § Plan → *Known forward work*, plus the `{{SLOT}}` placeholder item (surfaced at TASK-028 Gate 1) and FEAT-008 Ideal State bullet 5.
 - **2026-10-20** — DRAFT (elaboration pass, Gate 1 pending): Prepared Requirements reviewed at `/epic-elaborate EPIC-012` against Vision § Core Principles #4, FEAT-008, `conceptual_design.md` and `development_guide.md` v1.5, and every cited Task. Findings applied (Drift / Gap / Internal contradiction / Strength). **Drift**: the `{{SLOT}}` item did not surface after FEAT-008's Gate 1 (TASK-028 Gate 1 and its scratchpad entry are 2026-08-21, before FEAT-008's elaboration); corrected here and in FEAT-008 § Plan → Approach. Item 8's "met in practice by every convention" held only for § Code Style → Patterns to Follow; narrowed. Source count corrected to seven scratchpad entries plus Ideal State bullet 5. **Gap**: AC#1 now reconciles the four sibling "no test suite" claims; AC#4 says how the audit log stays uncommitted outside Shannon; AC#5 adds the EPIC-009 AC#7 and EPIC-011 AC#8 precedents; AC#6 excludes link targets and value masks from the placeholder sweep; AC#7 defines the bootstrapping cut-off (v1.1) and what counts as naming a precedent; AC#9 cites its rule and guards every other mandated document and guide; AC#10 records route (c) on the hook-fragment item; Context gains a Technical Design line. **Internal contradiction**: the Out-of-scope hedge on settings fragments now matches AC#3; AC#8 allows the single-bump option the Plan offers; the AC preamble's nested italics removed. Plan: EPIC-011 Guide-version collision recorded as a risk for Gate 2. **Strengths** confirmed: verbatim "no units" quote, Guide v1.5 APPROVED, conceptual_design v1.8, all section paths and links resolve, every Task precedent accurate, AC#9 is a cross-type guard. Status stays DRAFT; Gate 1 not given.
 - **2026-10-20** — DRAFT (Gate 1 review nits, additive): Three PR #5 review nits applied. AC#1: a sibling "no test suite" claim left standing must carry a clause naming the new Test Level, so the check is grep-able. AC#7: precedent must be named in the convention body; a Version History entry alone no longer satisfies it, so the final Task backfills the § Git Workflow conventions. Plan → Risks: the EPIC-011 version-collision mitigation is stated directly instead of resting on AC#2, and EPIC-011's Risks gains the matching line. Status stays DRAFT; Gate 1 not given.
+- **2026-10-21** — DRAFT → ELABORATED (Gate 1): Directing party approved the refined Requirements (PR #5, after the review-nit commit `9644ace`). Next: `/epic-plan EPIC-012` (Gate 2), where the prepared Plan surfaces.
