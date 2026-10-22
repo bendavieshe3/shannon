@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Created**: 2026-05-30
-- **Updated**: 2026-10-17
+- **Updated**: 2026-10-20
 - **Tags**: #supervisor #phase-4 #headless #scheduler #cadence
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -101,6 +101,7 @@ The first dogfood autonomous run is its own Task because it exercises the full c
 - **Worktree leak.** A worktree-isolated run that fails partway could leave the worktree directory uncleaned. **Mitigation**: AC#2 verifies auto-cleanup; the Task 2 wrapper includes an unconditional cleanup branch that engages even on failure.
 - **Supervisor-batch commit ratifying same-agent work.** Per `conceptual_design.md` § Business Rules → *Supervisor Distinct From Implementer*, the supervisor commit must not ratify work the same agent implemented. In a solo (directing-party-as-supervisor) configuration this is a discipline rather than a technical guarantee. **Mitigation**: the supervisor-batch commit logic (Task 3) refuses self-approval flows by protocol per `technical_design.md` v1.2 § Security Model → *Gate Enforcement*; the directing party is responsible for not approving gates on work they themselves implemented.
 - **First dogfood autonomous run revealing cost overrun.** The per-run 6–7× single-session cost band (per `technical_design.md` v1.2 § Cadence → *Cost note*) is the spike's prediction, not measured evidence. The first dogfood run may exceed the band, triggering FEAT-009's *Cost compounding* Risk. **Mitigation**: AC#1's dogfood run captures `/usage` output (per FEAT-009 § Success Metrics → Cadence run cost); if cost exceeds 7×, surface as a finding at this Epic's Gate 3 and route to scratchpad for follow-up tuning.
+- **Guide version collision with EPIC-012.** Task 7 plans the `development_guide.md` bump as v1.4 → v1.5, but TASK-029 took v1.5 and [EPIC-012](EPIC-012-development-conventions-from-supervisor-build-out.md) (Development Conventions Surfaced Through the Supervisor Build-Out) numbers its own amendments from v1.6. **Mitigation**: the Epic implementing second renumbers against the Guide's landed version. *(Added 2026-10-20 at EPIC-012's Gate 1 review.)*
 
 ---
 
@@ -145,3 +146,4 @@ The first dogfood autonomous run is its own Task because it exercises the full c
   - **Report integrity.** "Considered and not upheld" items are excluded from the header total, and the rule is stated in `SKILL.md` § Report Pipeline. Historical reports are left untouched, per TASK-028.
   - **Source-vs-deploy drift.** The Drift checker compares `./shannon/` against `./.claude/` so that an undeployed shippable file (such as the SessionStart snippet missed at EPIC-010) is caught. In a clone with no `.claude/` it reports "no deployment present" rather than drift.
   - **Watch-list.** Two open scratchpad items fire on this Epic's outputs. The supervisor artefact-locations question is revisited when the PreCompact snapshot and state file land. The session-start Drift-lead question is revisited on the first report with Drift 0 and non-zero findings.
+- **2026-10-20** — DRAFT (cross-Epic risk, additive): § Plan → Risks gains *Guide version collision with EPIC-012*, added during EPIC-012 Gate 1 review (PR #5). Status unchanged.
