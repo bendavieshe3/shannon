@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-21
+- **Updated**: 2026-10-23
 - **Tags**: #framework #conventions #development-guide
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -80,46 +80,59 @@ With all eight landed, FEAT-008 Ideal State bullets 1 and 5 move to *met*, and t
 
 ## Plan
 
-*Prepared during FEAT-008 planning, not yet reviewed. Surfaces at `/epic-plan EPIC-012` (Gate 2).*
+*Prepared during FEAT-008 planning; reviewed and refined at `/epic-plan EPIC-012` on 2026-10-23. Gate 2 pending.*
 
 ### Approach
 
 One Task per convention, each amending `development_guide.md` inside its own gates, with two exceptions where items share a home: the two skill-packaging rules (items 3 and 4) land together, and the precedent requirement (item 8) lands last because it is checked against every convention, including the ones this Epic adds.
 
-Ordering:
+Ordering. The Tasks run one at a time, in this order:
 
 1. The Testing Strategy Task goes first. It is the only item that makes a FEAT-008 claim false today, and it is the one that may be a substantive revision rather than an additive one.
 2. The cross-Task editing-order Task goes second, because every later Task in this Epic edits the same source-of-truth body its predecessor just edited. The Epic is a live instance of the case the convention covers, so the convention should be in place before the chain runs.
-3. The packaging, audit-log, plain-prose and placeholder Tasks follow in any order.
-4. The precedent-requirement Task goes last and doubles as the Epic's sweep: it checks every post-bootstrapping convention for a named precedent.
+3. The packaging, audit-log and plain-prose Tasks follow.
+4. The placeholder Task goes sixth, because its Gate 1 carries a directing-party decision and nothing else in the Epic waits on it.
+5. The precedent-requirement Task goes last and doubles as the Epic's sweep: it checks every post-bootstrapping convention for a named precedent, and it closes the Epic's single Guide version.
 
-Each Task bumps `development_guide.md` by one minor version (v1.5 → v1.6 and onward) and writes its own Version History entry, so the record of who amended what stays per-Task. If the directing party prefers one bump for the whole Epic, the Tasks can stage their entries and the final Task folds them into one; the choice is made at this Epic's Gate 2.
+**Versioning: one bump for the Epic** (directing-party choice at this Gate 2, 2026-10-23, per AC#8's single-bump option). The Guide's version moves once, when the last Task lands:
+
+- The first amending Task opens a `### Unreleased (EPIC-012)` heading at the top of `development_guide.md` § Version History. Each Task, the first included, adds one bullet under it naming the Task, the section it amended, its route (amended by a work item, not `/document-review`) and its classification (additive, or substantive with its Gate 1 decision recorded).
+- The last Task folds the heading into one dated entry, `### YYYY-MM-DD - v1.N`, where v1.N is the next minor number after the Guide's landed version at that moment, and updates the Guide's `**Last Reviewed**` date. The per-Task bullets stay inside the entry, so the record of who amended what stays per-Task.
+- **Collision with EPIC-011**: whichever Epic merges its Guide version second rebases and takes the next number. If EPIC-011 lands v1.6 first, this Epic folds as v1.7; if this Epic lands first, EPIC-011's documentation Task renumbers.
+- **Exception, if AC#1 is substantive**: a substantive revision is a major bump and puts the Guide in DRAFT until Gate 1 re-passes (`conceptual_design.md` § Re-reviewing an APPROVED Mandated Document → *Status semantics*). Holding the Guide in DRAFT across six further Tasks would leave every one of them relying on a non-authoritative document. So if the Testing Strategy Task's Gate 1 classifies its change substantive, that Task closes its own major version (v2.0) at its Gate 3, and the remaining six Tasks stage under `Unreleased` against v2.0 and fold as v2.1. The Testing Strategy Task's prepared draft recommends the additive route (scope the sentence rather than retract it), which AC#1 allows.
+
+**Bookkeeping**. AC#10 runs at this Epic's own Gate 3 (`/epic-review EPIC-012`), not inside a Task: the scratchpad moves, the FEAT-008 Ideal State re-marking, Metadata → Remaining and § Plan → *Known forward work* are the Epic's outcome edits, the same work the § Review checklist line "Parent feature updated with epic outcome" names.
+
+**Documents consulted at planning**: Technology Stack (no change; the conventions concern Markdown, Git and the hook scripts the supervisor already ships); Technical Design (no change, per the Requirements' out-of-scope list); FEAT-008 § Plan.
 
 ### Tasks
 
-*Task candidates, with descriptive titles from the outset. IDs are allocated when the Tasks are created at `/epic-plan EPIC-012`.*
+*Child Tasks created in DRAFT at `/epic-plan EPIC-012` on 2026-10-23, each with a prepared elaboration draft and a prepared plan draft. Each passes its own Gate 1 and Gate 2.*
 
-1. **Testing Strategy covers shipped executables** — AC#1
-2. **Cross-Task editing order** — AC#2
-3. **Skill packaging conventions: shipping-source mirror and project-relative paths** — AC#3
-4. **Audit log named in Supervisor Report Files** — AC#4
-5. **Verification substrings land in plain prose** — AC#5
-6. **Placeholder syntax for machine-filled templates** — AC#6 (carries a directing-party decision at its Gate 1)
-7. **Precedent named for every post-bootstrapping convention** — AC#7, plus the AC#10 bookkeeping sweep
+1. [TASK-033](../tasks/TASK-033-testing-strategy-covers-shipped-executables.md) — **Testing Strategy covers shipped executables** — AC#1; opens the `Unreleased (EPIC-012)` heading; its Gate 1 decides additive vs substantive
+2. [TASK-034](../tasks/TASK-034-cross-task-editing-order.md) — **Cross-Task editing order** — AC#2
+3. [TASK-035](../tasks/TASK-035-skill-packaging-conventions.md) — **Skill packaging conventions: shipping-source mirror and project-relative paths** — AC#3
+4. [TASK-036](../tasks/TASK-036-audit-log-in-supervisor-report-files.md) — **Audit log named in Supervisor Report Files** — AC#4
+5. [TASK-037](../tasks/TASK-037-verification-substrings-in-plain-prose.md) — **Verification substrings land in plain prose** — AC#5
+6. [TASK-038](../tasks/TASK-038-placeholder-syntax-for-machine-filled-templates.md) — **Placeholder syntax for machine-filled templates** — AC#6 (carries a directing-party decision at its Gate 1)
+7. [TASK-039](../tasks/TASK-039-precedent-named-for-every-convention.md) — **Precedent named for every post-bootstrapping convention** — AC#7; folds the `Unreleased` heading into the Epic's one Guide version
+
+Every Task carries AC#8 (its own `Unreleased` bullet, route and classification) and AC#9 (the cross-type scope guard) as Task-level criteria.
 
 ### Dependencies
 
 **Depends on**: `development_guide.md` v1.5 APPROVED; `conceptual_design.md` v1.8 (the authority rule that lets these Tasks amend the Guide).
 
-**Depended on by**: [EPIC-016](EPIC-016-supervisor-deployment-via-shannon-setup.md) (Supervisor Deployment via /shannon-setup), which installs what AC#3 and AC#4 codify. EPIC-011 (Autonomic Invocation) amends `development_guide.md` too (its AC#5 scheduler section). Whichever Epic implements second re-reads the Guide's landed state first, per AC#2.
+**Depended on by**: [EPIC-016](EPIC-016-supervisor-deployment-via-shannon-setup.md) (Supervisor Deployment via /shannon-setup), which installs what AC#3 and AC#4 codify. EPIC-011 (Autonomic Invocation) amends `development_guide.md` too (its AC#5 scheduler section). Whichever Epic implements second re-reads the Guide's landed state first, per AC#2, and whichever merges its Guide version second takes the next number (see Approach → *Collision with EPIC-011*).
 
 ### Risks
 
-- **AC#1 is a retraction, not an addition.** Removing "Shannon has no units" contradicts an approved claim. *Mitigation*: the Task decides at its Gate 1 whether the change is additive (scoping the sentence to templates and prompts) or substantive (retracting it), and follows `conceptual_design.md` § Re-reviewing → *Status semantics* for whichever it is.
-- **Seven sequential edits to one document.** Version-number collisions and stale reads are likely if Tasks overlap. *Mitigation*: Tasks run one at a time in the order above; AC#2 lands early so the rest follow it.
-- **Convention creep.** Eight conventions in one pass could bloat § Code Style → Patterns to Follow. *Mitigation*: each Task states its rule in the fewest words that carry it, and the final Task checks the section still reads as a list of rules rather than a log.
-- **Guide version collision with EPIC-011.** EPIC-011's documentation Task still plans its Guide bump as v1.4 → v1.5, but TASK-029 took v1.5 and this Epic numbers from v1.6. *Mitigation*: the Epic implementing second renumbers against the Guide's landed version, whichever that is. This holds whether or not AC#2 has landed yet; a matching line sits in EPIC-011's Risks. *(Noted at EPIC-012 Gate 1 review 2026-10-20; for confirmation at Gate 2.)*
-- **Placeholder decision stalls.** AC#6 needs a directing-party call. *Mitigation*: the Task carries a recommendation (sanction `{{SLOT}}` for machine-filled slots, which matches the shipped templates and needs no template edit) and can run late in the order.
+- **AC#1 is a retraction, not an addition.** Removing "Shannon has no units" contradicts an approved claim. *Mitigation*: the Task decides at its Gate 1 whether the change is additive (scoping the sentence to templates and prompts) or substantive (retracting it), and follows `conceptual_design.md` § Re-reviewing → *Status semantics* for whichever it is. If substantive, the Task closes its own major version rather than holding the Guide in DRAFT across the Epic (see Approach → *Exception*).
+- **Seven sequential edits to one document.** Stale reads are likely if Tasks overlap. *Mitigation*: Tasks run one at a time in the order above; each Task's first plan step re-reads the Guide's landed state; AC#2 lands second so the rest follow it as a ratified rule. The single bump removes the per-Task version-number collision the per-Task plan carried.
+- **The Guide body moves ahead of its version.** Between the first Task's Gate 3 and the last Task's, the Guide carries ratified amendments under an `Unreleased` heading with no new version number. *Mitigation*: each bullet names its Task and classification, so the state is legible at any point; each amendment is additive (the Guide stays APPROVED); the last Task folds the heading. If the Epic stalls before its last Task, the heading is folded by whichever Task is last to land, and the Epic's Gate 3 checks that no `Unreleased` heading remains.
+- **Convention creep.** Eight conventions in one pass could bloat § Code Style → Patterns to Follow. *Mitigation*: each Task states its rule in the fewest words that carry it, and the last Task checks the section still reads as a list of rules rather than a log.
+- **Guide version collision with EPIC-011.** EPIC-011's documentation Task still plans its Guide bump as v1.4 → v1.5, but TASK-029 took v1.5. *Mitigation*: whichever Epic merges its Guide version second rebases and takes the next number; a matching line sits in EPIC-011's Risks. Confirmed at this Gate 2.
+- **Placeholder decision stalls.** AC#6 needs a directing-party call. *Mitigation*: TASK-038 carries a recommendation (sanction `{{SLOT}}` for machine-filled slots, which matches the shipped templates and needs no template edit) and runs sixth, so a slow decision delays only it and TASK-039.
 
 ---
 
@@ -160,3 +173,4 @@ Each Task bumps `development_guide.md` by one minor version (v1.5 → v1.6 and o
 - **2026-10-20** — DRAFT (elaboration pass, Gate 1 pending): Prepared Requirements reviewed at `/epic-elaborate EPIC-012` against Vision § Core Principles #4, FEAT-008, `conceptual_design.md` and `development_guide.md` v1.5, and every cited Task. Findings applied (Drift / Gap / Internal contradiction / Strength). **Drift**: the `{{SLOT}}` item did not surface after FEAT-008's Gate 1 (TASK-028 Gate 1 and its scratchpad entry are 2026-08-21, before FEAT-008's elaboration); corrected here and in FEAT-008 § Plan → Approach. Item 8's "met in practice by every convention" held only for § Code Style → Patterns to Follow; narrowed. Source count corrected to seven scratchpad entries plus Ideal State bullet 5. **Gap**: AC#1 now reconciles the four sibling "no test suite" claims; AC#4 says how the audit log stays uncommitted outside Shannon; AC#5 adds the EPIC-009 AC#7 and EPIC-011 AC#8 precedents; AC#6 excludes link targets and value masks from the placeholder sweep; AC#7 defines the bootstrapping cut-off (v1.1) and what counts as naming a precedent; AC#9 cites its rule and guards every other mandated document and guide; AC#10 records route (c) on the hook-fragment item; Context gains a Technical Design line. **Internal contradiction**: the Out-of-scope hedge on settings fragments now matches AC#3; AC#8 allows the single-bump option the Plan offers; the AC preamble's nested italics removed. Plan: EPIC-011 Guide-version collision recorded as a risk for Gate 2. **Strengths** confirmed: verbatim "no units" quote, Guide v1.5 APPROVED, conceptual_design v1.8, all section paths and links resolve, every Task precedent accurate, AC#9 is a cross-type guard. Status stays DRAFT; Gate 1 not given.
 - **2026-10-20** — DRAFT (Gate 1 review nits, additive): Three PR #5 review nits applied. AC#1: a sibling "no test suite" claim left standing must carry a clause naming the new Test Level, so the check is grep-able. AC#7: precedent must be named in the convention body; a Version History entry alone no longer satisfies it, so the final Task backfills the § Git Workflow conventions. Plan → Risks: the EPIC-011 version-collision mitigation is stated directly instead of resting on AC#2, and EPIC-011's Risks gains the matching line. Status stays DRAFT; Gate 1 not given.
 - **2026-10-21** — DRAFT → ELABORATED (Gate 1): Directing party approved the refined Requirements (PR #5, after the review-nit commit `9644ace`). Next: `/epic-plan EPIC-012` (Gate 2), where the prepared Plan surfaces.
+- **2026-10-23** — ELABORATED (Gate 2 drafted, pending approval): Prepared Plan reviewed at `/epic-plan EPIC-012` against the Gate-1 Requirements, FEAT-008 § Plan, Technology Stack and Technical Design. Findings (Drift / Gap / Internal contradiction / Strength). **Internal contradiction**: the prepared Plan put the AC#10 bookkeeping sweep inside the last Task, while AC#10 places it at this Epic's Gate 3; moved to the Epic's own review. **Drift**: the prepared Plan versioned per Task (v1.6 onward); the directing party chose the single bump AC#8 allows (one `Unreleased (EPIC-012)` heading, folded by the last Task into the next minor number), so Approach is rewritten and the per-Task collision risk drops. **Gap**: a substantive AC#1 would hold the Guide in DRAFT across the whole Epic under a single bump; Approach now has that Task close its own major version instead. **Gap**: the EPIC-011 collision rule is now stated as "whichever merges its Guide version second takes the next number". **Gap, routed out**: neither `technology_stack.md` nor `technical_design.md` names `bash` or `jq`, which all three shipped hook scripts need; out of scope here by AC#9, so captured in `docs/scratchpad.md` per § Testing Strategy → Pre-Commit Checklist. **Strengths** confirmed: the seven-Task split and its ordering hold; no Technical Design change needed; no Task overlaps EPIC-011 or EPIC-016. **Cascading Preparation performed**: seven child Tasks created in DRAFT, [TASK-033](../tasks/TASK-033-testing-strategy-covers-shipped-executables.md) to [TASK-039](../tasks/TASK-039-precedent-named-for-every-convention.md), each with a prepared elaboration draft and a prepared plan draft marked "Prepared during EPIC-012 planning, not yet reviewed"; seven entries added to `task_index.md`. Status stays ELABORATED until the directing party approves Gate 2.
