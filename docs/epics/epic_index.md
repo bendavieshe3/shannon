@@ -11,7 +11,7 @@
 - [EPIC-009](./EPIC-009-health-reporting-surface.md) — APPROVED — Health Reporting Surface (FEAT-009) #supervisor #phase-2 #skill #hooks #reporting
 - [EPIC-010](./EPIC-010-synthesis-and-reports.md) — APPROVED — Synthesis and Reports (FEAT-009) #supervisor #phase-3 #goal-decomposition #hooks #presentation
 - [EPIC-011](./EPIC-011-autonomic-invocation.md) — DRAFT — Autonomic Invocation (FEAT-009) #supervisor #phase-4 #headless #scheduler #cadence
-- [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — ELABORATED — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
+- [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — PLANNED — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
 - [EPIC-013](./EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT — V6 Vocabulary in Command Files (FEAT-006) #v6 #framework #commands
 - [EPIC-014](./EPIC-014-work-item-conventions-round-2.md) — DRAFT — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (FEAT-003) #framework #conventions
 - [EPIC-015](./EPIC-015-document-consultation-at-elaborate-and-plan.md) — DRAFT — Document Consultation at Elaborate and Plan (FEAT-003) #framework #work-items #alignment
