@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #bug #knowledge-index #path #corrective #dogfood
 - **Created**: 2026-07-06
 - **Updated**: 2026-07-10
@@ -42,7 +42,7 @@ This Task corrects the path at every codified site, authored in the tracked `./s
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — corrective Task added post-dogfood (Task 11), fixing the defect TASK-018 surfaced; should land before EPIC-009's own Gate 3 so the Epic closes on a working supervisor.
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — corrective Task added post-dogfood (Task 11), fixing the defect TASK-018 surfaced; should land before EPIC-009's own Gate 3 so the Epic closes on a working supervisor.
 - **Predecessors / superseded strings**: TASK-011 (SKILL.md), TASK-015 (footer template), TASK-016 (write-guard + snippet) — all APPROVED; only the path string is corrected.
 - **Surfaced by**: TASK-018 (first dogfood run) — the finding and live demonstration.
 - **Scratchpad**: the knowledge-index-path-mismatch item (2026-07-05).

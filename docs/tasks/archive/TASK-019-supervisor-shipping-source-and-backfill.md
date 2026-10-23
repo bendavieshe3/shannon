@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #shipping-source #backfill #portability #distribution #corrective
 - **Created**: 2026-06-27
 - **Updated**: 2026-06-27
@@ -42,7 +42,7 @@ This Task establishes `./shannon/skills/shannon-supervisor/` as the tracked ship
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — corrective Task added mid-implementation (Task 9, sequenced before TASK-015 implementation).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — corrective Task added mid-implementation (Task 9, sequenced before TASK-015 implementation).
 - **Predecessors**: TASK-011/012/013/014 (APPROVED — their deliverables are what this Task backfills).
 - **Depended on by**: TASK-015 (extends `SKILL.md`; needs the tracked `./shannon/` home to exist first), and TASKs 16–18 (author in `./shannon/` going forward).
 - **Scratchpad**: shipping-source-mirror item, DECISION 2026-06-27.

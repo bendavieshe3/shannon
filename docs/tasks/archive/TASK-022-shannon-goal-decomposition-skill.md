@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #command #goal-decomposition
 - **Created**: 2026-07-18
 - **Updated**: 2026-07-19
@@ -36,8 +36,8 @@ Implement the `/shannon-goal [intent]` entry-point as a new contract section in 
 
 ### Context
 
-- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Goal decomposition via `/shannon-goal`*
+- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Goal decomposition via `/shannon-goal`*
 - **Relevant documents**: `technical_design.md` v1.2 § System Architecture → *Supervisor* + § API Design → *Supervisor Verbs*; `ux_guide.md` v1.2 § Command Surface → *Supervisor Commands*; `conceptual_design.md` v1.7 § Business Rules → *Gate Authority Split* + *Scope-Boundary Acceptance Criteria Use Cross-Type Guards*; `development_guide.md` v1.4 § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts* (source-before-deploy editing order)
 - **Related work**: EPIC-009 (shipped aggregation pipeline; TASK-020 command-entry-point lesson)
 

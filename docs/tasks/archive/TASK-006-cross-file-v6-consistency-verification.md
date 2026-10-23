@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-005](../epics/EPIC-005-v6-skills-and-claude-template.md)
-- **Feature**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
+- **Parent**: [EPIC-005](../../epics/EPIC-005-v6-skills-and-claude-template.md)
+- **Feature**: [FEAT-006](../../features/FEAT-006-multi-party-supervision.md)
 - **Tags**: #framework #v6 #verification #skills
 - **Created**: 2026-05-23
 - **Updated**: 2026-05-23 (approved)
@@ -20,7 +20,7 @@
 
 TASK-006 is the final Task of EPIC-005's three-Task plan and the last work item before EPIC-005's own Gate 3. It is **pure verification work, not editing** — a cross-file audit confirming that the post-TASK-004 / post-TASK-005 state of the four EPIC-005 files (the three skills + the CLAUDE.md template) is mutually consistent at the phrase level and tracks the canonical sources (conceptual_design v1.5 — *Directing Party* / *Implementer* glossary, *Three Hard Gates*, *Supervisor Distinct From Implementer*, *Iterative Implementation Zone*; technical_design v1.1 — § Gate Enforcement, § Cascading Operations).
 
-The Task was deliberately deferred until [TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md) and [TASK-005](archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) were both APPROVED — its `rg` survey and consistency audit must run against final text, not work-in-progress. Both editing Tasks are APPROVED and archived (both 2026-05-23); this audit runs against final text and closes the four cross-file EPIC-005 ACs (AC#1, AC#2, AC#3, AC#8) by writing a single conclusion entry into EPIC-005's Activity Log.
+The Task was deliberately deferred until [TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md) and [TASK-005](TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) were both APPROVED — its `rg` survey and consistency audit must run against final text, not work-in-progress. Both editing Tasks are APPROVED and archived (both 2026-05-23); this audit runs against final text and closes the four cross-file EPIC-005 ACs (AC#1, AC#2, AC#3, AC#8) by writing a single conclusion entry into EPIC-005's Activity Log.
 
 A preliminary `rg "\b[Uu]sers?\b"` and `rg "PENDING"` survey of the four target files was run at elaboration. Findings:
 
@@ -86,9 +86,9 @@ Markdown / development_guide alignment:
 
 ### Context
 
-- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../epics/EPIC-005-v6-skills-and-claude-template.md) — this is the verification Task in its § Plan; closes EPIC-005 AC#1 (`rg` survey + Activity Log justifications), AC#2 (gate-approval consistency), AC#3 (four-way § Quality Gates consistency), AC#8 (self-identification lines unchanged)
-- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../features/FEAT-006-multi-party-supervision.md) — § Ideal State "Skills and commands refuse self-approval flows" bullet (partly met, this Epic closes the skills half)
-- **Sibling Tasks (both APPROVED 2026-05-23, archived — their outputs are what this Task audits)**: [TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md) (`project-setup/skill.md`, `project-documentation/skill.md`, `templates/CLAUDE.md` — homogeneous vocabulary judgement; the project-documentation § Quality Gates rewrite established the house phrases) and [TASK-005](archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) (`work-items/skill.md` — vocabulary sweep + the AC#4 `PLAN-PENDING` structural rewrite + AC#5 line-227 reword; Implementation Notes § Gotchas disclosed the bullet-structure variance; Review noted the line-227 phrasing nit as non-blocking)
+- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../../epics/EPIC-005-v6-skills-and-claude-template.md) — this is the verification Task in its § Plan; closes EPIC-005 AC#1 (`rg` survey + Activity Log justifications), AC#2 (gate-approval consistency), AC#3 (four-way § Quality Gates consistency), AC#8 (self-identification lines unchanged)
+- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../../features/FEAT-006-multi-party-supervision.md) — § Ideal State "Skills and commands refuse self-approval flows" bullet (partly met, this Epic closes the skills half)
+- **Sibling Tasks (both APPROVED 2026-05-23, archived — their outputs are what this Task audits)**: [TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md) (`project-setup/skill.md`, `project-documentation/skill.md`, `templates/CLAUDE.md` — homogeneous vocabulary judgement; the project-documentation § Quality Gates rewrite established the house phrases) and [TASK-005](TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) (`work-items/skill.md` — vocabulary sweep + the AC#4 `PLAN-PENDING` structural rewrite + AC#5 line-227 reword; Implementation Notes § Gotchas disclosed the bullet-structure variance; Review noted the line-227 phrasing nit as non-blocking)
 - **Audit targets** (read-only, unless an audit-surfaced defect mandates inline correction): `shannon/skills/project-setup/skill.md`, `shannon/skills/project-documentation/skill.md`, `shannon/skills/work-items/skill.md`, `shannon/skills/project-setup/templates/CLAUDE.md`
 - **Canonical sources** (the references the audit compares against): `conceptual_design.md` v1.5 — *Directing Party* / *Implementer* glossary; *Three Hard Gates* business rule ("explicit approval by the directing party"; "The implementer cannot approve its own work across a gate"); *Supervisor Distinct From Implementer* business rule; *Iterative Implementation Zone* business rule ("the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone"). `technical_design.md` v1.1 — § Gate Enforcement (the `Supervisor Distinct From Implementer` rule is "enforced by convention, not by technical control"); § Cascading Operations: Batch Preparation, Individual Gates (the load-bearing reference TASK-005's structural rewrite copied verbatim)
 - **Relevant Guide**: `development_guide.md` § Code Style (British-English Markdown conventions; heading hierarchy), § Distribution (the `.claude/skills/` re-sync obligation triggered only if a defect requires inline correction), § Git Workflow → Commit Cadence (no commit until Gate 3 — batched with EPIC-005's APPROVED state at the end of the A → B → C sequence)
@@ -136,7 +136,7 @@ Canonical phrasing is lifted, not invented: gate-approval phrasing tracks concep
 
 ### Dependencies
 
-- [TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md) APPROVED 2026-05-23 (met); [TASK-005](archive/TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) APPROVED 2026-05-23 (met). Both editing Tasks must be APPROVED before this verification audit runs against final text — TASK-005 in particular because its § Cascading Operations structural rewrite shifted line numbers, so all anchor lines in the Audit-target ACs reference *post-TASK-005* numbering.
+- [TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md) APPROVED 2026-05-23 (met); [TASK-005](TASK-005-v6-vocabulary-and-plan-pending-work-items-skill.md) APPROVED 2026-05-23 (met). Both editing Tasks must be APPROVED before this verification audit runs against final text — TASK-005 in particular because its § Cascading Operations structural rewrite shifted line numbers, so all anchor lines in the Audit-target ACs reference *post-TASK-005* numbering.
 - EPIC-005 PLANNED (met); `conceptual_design.md` v1.5 (*Directing Party* / *Implementer* glossary, *Three Hard Gates*, *Supervisor Distinct From Implementer*, *Iterative Implementation Zone*) and `technical_design.md` v1.1 (§ Gate Enforcement, § Cascading Operations: Batch Preparation, Individual Gates) APPROVED — both load-bearing canonical references.
 - `development_guide.md` v1.2 § Code Style (British-English Markdown), § Distribution (the `.claude/skills/` re-sync obligation triggered only in Step 8's conditional branch), § Commit Cadence (no commit until after Gate 3, batched with EPIC-005's APPROVED state).
 

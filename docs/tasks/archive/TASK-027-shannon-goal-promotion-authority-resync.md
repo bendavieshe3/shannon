@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #shannon-goal #promotion-authority #corrective
 - **Created**: 2026-08-21
 - **Updated**: 2026-08-25
@@ -53,10 +53,10 @@ The defect's origin is instructive and should be recorded rather than quietly pa
 
 ### Context
 
-- **Parent Epic**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md) — Synthesis and Reports (IMPLEMENTING). This is the Epic's sixth Task, added corrective mid-implementation, as EPIC-009 took three correctives (TASK-019/020/021).
+- **Parent Epic**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md) — Synthesis and Reports (IMPLEMENTING). This is the Epic's sixth Task, added corrective mid-implementation, as EPIC-009 took three correctives (TASK-019/020/021).
 - **Upstream document**: `ux_guide.md` v1.3 (APPROVED 2026-08-21) § Command Surface → *Supervisor Commands* — the amendment this Task implements.
 - **Governing rule**: `conceptual_design.md` v1.7 § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority*.
-- **Sibling**: [TASK-022](./archive/TASK-022-shannon-goal-decomposition-skill.md) — shipped `/shannon-goal`; its § Implementation Notes records the configuration-phrasing nuance that rode the same `ux_guide` cluster.
+- **Sibling**: [TASK-022](TASK-022-shannon-goal-decomposition-skill.md) — shipped `/shannon-goal`; its § Implementation Notes records the configuration-phrasing nuance that rode the same `ux_guide` cluster.
 - **Discipline**: `development_guide.md` § Code Style → *Source-of-truth body before derived artefacts* — edit `shannon/`, then deploy to `.claude/`.
 
 ---

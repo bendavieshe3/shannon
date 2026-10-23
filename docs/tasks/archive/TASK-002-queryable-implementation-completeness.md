@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md)
-- **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
+- **Parent**: [EPIC-006](../../epics/EPIC-006-work-item-lifecycle-maturation.md)
+- **Feature**: [FEAT-003](../../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #templates #work-items #features
 - **Created**: 2026-05-19
 - **Updated**: 2026-05-22 (approved)
@@ -40,8 +40,8 @@ The goal is at-a-glance visibility and mechanical queryability (`grep "(Partial)
 
 ### Context
 
-- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../epics/EPIC-006-work-item-lifecycle-maturation.md), specifically the F2 Acceptance Criteria group (bullets 1-3; bullet 4 — applying the affordance to FEAT-003 and FEAT-006 — sits in the forward-declared follow-up Task)
-- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md), aspirational Ideal State bullet 2 (added 2026-05-19)
+- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../../epics/EPIC-006-work-item-lifecycle-maturation.md), specifically the F2 Acceptance Criteria group (bullets 1-3; bullet 4 — applying the affordance to FEAT-003 and FEAT-006 — sits in the forward-declared follow-up Task)
+- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../../features/FEAT-003-unified-work-item-model.md), aspirational Ideal State bullet 2 (added 2026-05-19)
 - **Files in scope**:
   - `shannon/skills/work-items/templates/feature.md` — extend Metadata + Notes blocks; `Initial Implementation` field at line 9 is the canonical anchor
   - `docs/features/feature_index.md` — extend Notes section to formalise the `(Partial)` annotation; the existing line 5 entry for FEAT-003 already uses the convention informally

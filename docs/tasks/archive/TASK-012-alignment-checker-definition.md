@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #checker #alignment #subagent #haiku
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-20
@@ -38,8 +38,8 @@ Define the Alignment Checker subagent at `./.claude/skills/shannon-supervisor/ch
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 2 of 8; closes one third of EPIC-009 AC#2 (the Alignment Checker third).
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Three-checker fan-out* (this Task delivers one of the three).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 2 of 8; closes one third of EPIC-009 AC#2 (the Alignment Checker third).
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Three-checker fan-out* (this Task delivers one of the three).
 - **Sibling Task** (predecessor): TASK-011 (Skeleton) — must exist so `./.claude/skills/shannon-supervisor/checkers/` is in place.
 - **Sibling Tasks** (peers): TASK-013 (Lifecycle Checker), TASK-014 (Drift Checker) — three checker definitions parallel-able once TASK-011 has landed the skeleton.
 - **Technical Design**: § System Architecture → *Supervisor* → *Checker subagents* (model + purpose); § Key Algorithms → *Document Alignment Check* → *Finding schema* (four-category return shape).

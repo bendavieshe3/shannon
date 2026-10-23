@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #report-writer #templates #knowledge-index #hybrid-presentation
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-27
@@ -40,8 +40,8 @@ Implement the report-writing pipeline that aggregates the three checkers' findin
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 5 of 8; closes the writer/index half of EPIC-009 AC#3; AC#3's first-report dogfood verification is TASK-018's scope.
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Hybrid report presentation by default*; § Measurable Targets *Phase 2 adoption* (the first-report artefact is the Measurable Target's evidence — landed by TASK-018 against this Task's pipeline).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 5 of 8; closes the writer/index half of EPIC-009 AC#3; AC#3's first-report dogfood verification is TASK-018's scope.
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Hybrid report presentation by default*; § Measurable Targets *Phase 2 adoption* (the first-report artefact is the Measurable Target's evidence — landed by TASK-018 against this Task's pipeline).
 - **Sibling Task** (predecessor): TASK-011 (Skeleton — `SKILL.md` and `templates/` directory must exist); TASKs 12–14 (checker definitions — the pipeline aggregates their fragments).
 - **Sibling Tasks** (downstream): TASK-016 (PreToolUse hook — must permit the `knowledge_index.md` write per AC#4); TASK-018 (Dogfood run — first end-to-end exercise).
 - **Technical Design**: § Data Model → *Supervisor Report Files* (AC#2 and AC#4 source — same-day-suffix handling, knowledge_index integration); § System Architecture → *Supervisor* → *Skill directory layout* (AC#1 source); § Key Algorithms → *Document Alignment Check* → *Finding schema* (the four-category schema the per-finding template instantiates).

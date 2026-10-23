@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-005](../epics/EPIC-005-v6-skills-and-claude-template.md)
-- **Feature**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
+- **Parent**: [EPIC-005](../../epics/EPIC-005-v6-skills-and-claude-template.md)
+- **Feature**: [FEAT-006](../../features/FEAT-006-multi-party-supervision.md)
 - **Tags**: #framework #v6 #skills #work-items
 - **Created**: 2026-05-23
 - **Updated**: 2026-05-23 (approved)
@@ -18,7 +18,7 @@
 
 ### Overview
 
-This is **TASK-005** of EPIC-005's three-Task plan (TASK-004 → TASK-005 → the verification Task). TASK-004 ([TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md), APPROVED 2026-05-23) settled the V6 vocabulary house style on the lower-risk files; **TASK-005 applies that style to `shannon/skills/work-items/skill.md` alone, AND completes the structural `PLAN-PENDING` rewrite that the file still contradicts technical_design v1.1 on.**
+This is **TASK-005** of EPIC-005's three-Task plan (TASK-004 → TASK-005 → the verification Task). TASK-004 ([TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md), APPROVED 2026-05-23) settled the V6 vocabulary house style on the lower-risk files; **TASK-005 applies that style to `shannon/skills/work-items/skill.md` alone, AND completes the structural `PLAN-PENDING` rewrite that the file still contradicts technical_design v1.1 on.**
 
 TASK-005 carries the heaviest and structurally distinct load of the three sibling Tasks — vocabulary judgement **plus** a structural rewrite. Elaboration verified the actual occurrence map by `rg -n "\b[Uu]sers?\b"` and `rg -n "PENDING"` against `shannon/skills/work-items/skill.md`:
 
@@ -88,9 +88,9 @@ Distribution and Markdown alignment:
 
 ### Context
 
-- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../epics/EPIC-005-v6-skills-and-claude-template.md) — this is TASK-005 in its § Plan; delivers EPIC-005 AC#4 (`PLAN-PENDING` structural rewrite) and AC#5 (§ Process: Implement step 5), and contributes the work-items half of AC#2 (gate-approval names directing party; self-approval-prevention names implementer) and AC#3 (§ Quality Gates consistent with conceptual_design and technical_design)
-- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../features/FEAT-006-multi-party-supervision.md)
-- **Sibling Tasks**: [TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md) (TASK-004, APPROVED 2026-05-23 — the V6 vocabulary precedent on `project-setup/skill.md`, `project-documentation/skill.md`, and the `CLAUDE.md` template; copy its house phrasing rather than invent new) and the verification Task (cross-file verification audit — the AC#1 `rg` survey, AC#2/AC#3 four-way consistency, AC#8 self-identification check; created only after TASK-004 and TASK-005 are APPROVED)
+- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../../epics/EPIC-005-v6-skills-and-claude-template.md) — this is TASK-005 in its § Plan; delivers EPIC-005 AC#4 (`PLAN-PENDING` structural rewrite) and AC#5 (§ Process: Implement step 5), and contributes the work-items half of AC#2 (gate-approval names directing party; self-approval-prevention names implementer) and AC#3 (§ Quality Gates consistent with conceptual_design and technical_design)
+- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../../features/FEAT-006-multi-party-supervision.md)
+- **Sibling Tasks**: [TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md) (TASK-004, APPROVED 2026-05-23 — the V6 vocabulary precedent on `project-setup/skill.md`, `project-documentation/skill.md`, and the `CLAUDE.md` template; copy its house phrasing rather than invent new) and the verification Task (cross-file verification audit — the AC#1 `rg` survey, AC#2/AC#3 four-way consistency, AC#8 self-identification check; created only after TASK-004 and TASK-005 are APPROVED)
 - **Canonical phrasing references** (lift, do not paraphrase):
   - `conceptual_design.md` v1.5 — *Directing Party* / *Implementer* glossary entries (lines 16–17); *Three Hard Gates* business rule ("explicit approval by the directing party"; "the implementer cannot approve its own work across a gate"); *Supervisor Distinct From Implementer* business rule; *Iterative Implementation Zone* glossary entry ("the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone")
   - `technical_design.md` v1.1 — **§ Cascading Operations: Batch Preparation, Individual Gates** (the load-bearing reference for AC#4 — implementer creates each child in DRAFT with a *prepared elaboration draft* and a *prepared plan draft* stored in the relevant sections, marked "prepared during EPIC-XXX planning, not yet reviewed"; surfaced when each child's gate command runs; no new sub-statuses) and § Gate Enforcement ("by convention, not technical control")
@@ -152,7 +152,7 @@ After the source edits, the gitignored `.claude/skills/work-items/` deployed cop
 
 ### Dependencies
 
-- TASK-004 ([TASK-004](archive/TASK-004-v6-vocabulary-setup-documentation-template.md)) — APPROVED 2026-05-23. The vocabulary precedent set by TASK-004 (phrasing choices in the sibling skills, especially `project-documentation/skill.md § Quality Gates`: "Explicit approval by the directing party. The implementer cannot approve its own work.") is the house style this Task copies verbatim where the same concept is named.
+- TASK-004 ([TASK-004](TASK-004-v6-vocabulary-setup-documentation-template.md)) — APPROVED 2026-05-23. The vocabulary precedent set by TASK-004 (phrasing choices in the sibling skills, especially `project-documentation/skill.md § Quality Gates`: "Explicit approval by the directing party. The implementer cannot approve its own work.") is the house style this Task copies verbatim where the same concept is named.
 - EPIC-005 PLANNED (met); conceptual_design v1.5 and technical_design v1.1 APPROVED and stable — both load-bearing references (the *Directing Party* / *Implementer* glossary, *Three Hard Gates*, *Supervisor Distinct From Implementer*, *Iterative Implementation Zone*, § Gate Enforcement, and § Cascading Operations: Batch Preparation, Individual Gates) are the canonical phrasing source.
 - `.claude/skills/work-items/` deployed tree present and gitignored — re-sync in step 6 produces no tracked diff, which is expected.
 

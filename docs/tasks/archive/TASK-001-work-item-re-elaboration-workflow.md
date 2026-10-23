@@ -40,8 +40,8 @@ Closes the gap conceptual_design v1.4 § Responsible Promotion step 5 explicitly
 
 ### Context
 
-- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../epics/EPIC-006-work-item-lifecycle-maturation.md), specifically the F1 Acceptance Criteria group
-- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md), aspirational Ideal State bullet 1 (added 2026-05-19)
+- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../../epics/EPIC-006-work-item-lifecycle-maturation.md), specifically the F1 Acceptance Criteria group
+- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../../features/FEAT-003-unified-work-item-model.md), aspirational Ideal State bullet 1 (added 2026-05-19)
 - **Precedent pattern**: `conceptual_design.md` § *Re-reviewing an APPROVED Mandated Document* (lines 227-256) — same shape, adapted from documents to work items
 - **Related workflow**: `conceptual_design.md` § *Responsible Promotion* (lines 258-285) — this Task closes the gap step 5 of that workflow flags
 - **Files in scope**:
