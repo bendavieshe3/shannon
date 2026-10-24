@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #templates #report-pipeline #header #machine-readable
 - **Created**: 2026-08-21
 - **Updated**: 2026-08-21
@@ -75,7 +75,7 @@ This keeps the machine-readable line machine-readable and leaves uncertainty vis
 
 ### Context
 
-- **Parent Epic**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md) — Synthesis and Reports (IMPLEMENTING). Seventh child Task; sequenced **before** TASK-025, which consumes this line. Enables EPIC-010 **AC#3** by giving the SessionStart summary a Drift count to read; adds no new Epic AC.
+- **Parent Epic**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md) — Synthesis and Reports (IMPLEMENTING). Seventh child Task; sequenced **before** TASK-025, which consumes this line. Enables EPIC-010 **AC#3** by giving the SessionStart summary a Drift count to read; adds no new Epic AC.
 - **Consumer**: [TASK-025](./TASK-025-sessionstart-health-summary-hook.md) — the SessionStart summary leads with the Drift count and reads it from this line, and must handle its absence honestly on the two historical reports.
 - **Governing documents**: `ux_guide.md` v1.3 § Interaction Patterns → *Supervisor Report Presentation* (the leading count is the total; the clean run still reports); § Interaction Patterns → *Presenting Findings* (canonical four-category schema and its order); § Command Surface → *Supervisor Failure Modes* (never ambiguously quiet).
 - **Shipped surfaces extended**: `shannon/skills/shannon-supervisor/templates/header.md` (TASK-015, last amended TASK-024); `shannon/skills/shannon-supervisor/SKILL.md` § Report Pipeline step 2.

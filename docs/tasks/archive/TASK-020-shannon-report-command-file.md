@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #command #shannon-report #entry-point #corrective
 - **Created**: 2026-06-28
 - **Updated**: 2026-07-03
@@ -40,7 +40,7 @@ This Task creates that thin command file — a delegate-to-skill entry point in 
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — corrective Task added mid-implementation (Task 10), sequenced before TASK-018.
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — corrective Task added mid-implementation (Task 10), sequenced before TASK-018.
 - **Predecessors**: TASK-011 (skill skeleton + `/shannon-report` contract this command invokes), TASK-019 (tracked `./shannon/` convention).
 - **Depended on by**: TASK-018 (the dogfood needs an invocable `/shannon-report`).
 - **Reference**: `shannon/commands/README.md` (command-file shape); existing `shannon/commands/*.md` (thin-delegate pattern).

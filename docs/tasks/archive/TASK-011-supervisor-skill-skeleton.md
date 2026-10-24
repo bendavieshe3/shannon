@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #skeleton #configuration #portability
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-06
@@ -38,8 +38,8 @@ The foundational Task of EPIC-009: create the supervisor skill's directory skele
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — this is Task 1 of 8; closes EPIC-009 AC#1 (structural half) and AC#6 (configuration-file handling half).
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Portability to non-Shannon-self projects* (AC#5 here is the portability discipline's first lived exercise).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — this is Task 1 of 8; closes EPIC-009 AC#1 (structural half) and AC#6 (configuration-file handling half).
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Portability to non-Shannon-self projects* (AC#5 here is the portability discipline's first lived exercise).
 - **Technical Design**: § System Architecture → *Supervisor* → *Skill directory layout* (AC#1 source); § API Design → *Skill Invocation Pattern* (AC#2 source); § API Design → *Supervisor Verbs* + § System Architecture → *Supervisor* → *Slash-command surface* (AC#3 source); § Data Model → *Supervisor Configuration* (AC#4 source).
 - **Technology Stack**: § Supervisor Tooling → *Committed primitives* → *Skill frontmatter control* (the primitive this Task exercises); § Supervisor Tooling → *Configuration storage* (`./.claude/` as the configuration root).
 - **Conceptual Design**: § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* (AC#6 source).

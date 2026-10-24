@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #presentation #zero-findings
 - **Created**: 2026-07-18
 - **Updated**: 2026-08-02
@@ -32,8 +32,8 @@ Land the zero-findings positively-stated diagnostic so a clean supervisor run re
 
 ### Context
 
-- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § User Stories → *Honest Failure Modes — Supervisor Finds Nothing*
+- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § User Stories → *Honest Failure Modes — Supervisor Finds Nothing*
 - **Relevant documents**: `ux_guide.md` v1.2 § Interaction Patterns → *Supervisor Report Presentation* (alignment reference only — a framework-level home for the pattern is routed via `/document-review` if warranted, not edited by this Task); `conceptual_design.md` § Business Rules → *Work Items Consume Guides*
 - **Related work**: scratchpad M-2; EPIC-009 `SKILL.md` § Report Pipeline + `templates/header.md`
 

@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #checker #drift #subagent #haiku
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-27
@@ -38,8 +38,8 @@ Define the Drift Checker subagent at `./.claude/skills/shannon-supervisor/checke
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 4 of 8; closes one third of EPIC-009 AC#2 (the Drift Checker third).
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Three-checker fan-out*.
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 4 of 8; closes one third of EPIC-009 AC#2 (the Drift Checker third).
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Three-checker fan-out*.
 - **Sibling Task** (predecessor): TASK-011 (Skeleton).
 - **Sibling Tasks** (peers): TASK-012 (Alignment Checker), TASK-013 (Lifecycle Checker).
 - **Technical Design**: § System Architecture → *Supervisor* → *Checker subagents* (model + purpose); § Key Algorithms → *Document Alignment Check* → *Finding schema*; § Cadence → *Cost note*.

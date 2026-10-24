@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #dogfood #report #knowledge-index #commit #shannon-self
 - **Created**: 2026-05-30
 - **Updated**: 2026-07-06
@@ -46,8 +46,8 @@ This Task is the end-to-end exercise of the prior EPIC-009 work: TASK-011's skel
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 8 of 8 (the closing dogfood Task); closes parent Epic AC#3 (dogfood half), AC#4 (hook-verification half), AC#5 (audit-log half), AC#7 (verbatim grep half), and is the primary acceptance evidence for the Epic's first end-to-end run.
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Success Metrics → *Phase 2 adoption* (this Task's report is the Measurable Target's first evidence — "Shannon-self project produces at least one `docs/supervisor/report-YYYY-MM-DD.md`").
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 8 of 8 (the closing dogfood Task); closes parent Epic AC#3 (dogfood half), AC#4 (hook-verification half), AC#5 (audit-log half), AC#7 (verbatim grep half), and is the primary acceptance evidence for the Epic's first end-to-end run.
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Success Metrics → *Phase 2 adoption* (this Task's report is the Measurable Target's first evidence — "Shannon-self project produces at least one `docs/supervisor/report-YYYY-MM-DD.md`").
 - **Sibling Tasks** (predecessors): All of TASKs 11–17 must be APPROVED — this Task exercises every component they delivered.
 - **Technical Design**: § Data Model → *Supervisor Report Files* (AC#1, AC#2 source); § System Architecture → *Supervisor* → *Hook integration* (AC#3, AC#4 source).
 - **UX Guide**: § Interaction Patterns → *Supervisor Report Presentation* (AC#1 source — hybrid-presentation shape).

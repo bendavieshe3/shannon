@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-005](../epics/EPIC-005-v6-skills-and-claude-template.md)
-- **Feature**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
+- **Parent**: [EPIC-005](../../epics/EPIC-005-v6-skills-and-claude-template.md)
+- **Feature**: [FEAT-006](../../features/FEAT-006-multi-party-supervision.md)
 - **Tags**: #framework #v6 #skills
 - **Created**: 2026-05-23
 - **Updated**: 2026-05-23 (approved)
@@ -63,8 +63,8 @@ Verification and distribution:
 
 ### Context
 
-- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../epics/EPIC-005-v6-skills-and-claude-template.md) — this is TASK-A in its § Plan; delivers AC#6 (CLAUDE.md template lines 65/71/133, line 25 preserved) and AC#7 (project-setup "user content" vs directing-party distinction), and contributes the project-documentation half of AC#2 (gate-approval sentences name the directing party; self-approval-prevention names the implementer) and AC#3 (§ Quality Gates consistent with conceptual_design and technical_design). TASK-C verifies all four cross-file.
-- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../features/FEAT-006-multi-party-supervision.md)
+- **Parent Epic**: [EPIC-005 — V6 Vocabulary in Skills and CLAUDE.md Template](../../epics/EPIC-005-v6-skills-and-claude-template.md) — this is TASK-A in its § Plan; delivers AC#6 (CLAUDE.md template lines 65/71/133, line 25 preserved) and AC#7 (project-setup "user content" vs directing-party distinction), and contributes the project-documentation half of AC#2 (gate-approval sentences name the directing party; self-approval-prevention names the implementer) and AC#3 (§ Quality Gates consistent with conceptual_design and technical_design). TASK-C verifies all four cross-file.
+- **Parent Feature**: [FEAT-006 — Multi-Party Supervision](../../features/FEAT-006-multi-party-supervision.md)
 - **Sibling Tasks**: TASK-B (`work-items/skill.md` — vocabulary sweep + the `PLAN-PENDING` structural rewrite; follows this Task) and TASK-C (cross-file verification audit — the AC#1 `rg` survey, AC#2/AC#3 four-way consistency, AC#8 self-identification check; created only after TASK-A and TASK-B are APPROVED)
 - **Relevant documents**: `conceptual_design.md` v1.5 (*Supervisor Distinct From Implementer* business rule; *Three Hard Gates*; *Iterative Implementation Zone*; *Directing Party* / *Implementer* glossary — the canonical vocabulary); `technical_design.md` v1.1 § Gate Enforcement (convention-based enforcement, "by convention, not technical control"); `development_guide.md` § Distribution / § CI/CD (the `.claude/` re-sync obligation), § Code Style (British-English Markdown conventions)
 - **Target files**: `shannon/skills/project-setup/skill.md`, `shannon/skills/project-documentation/skill.md`, `shannon/skills/project-setup/templates/CLAUDE.md`

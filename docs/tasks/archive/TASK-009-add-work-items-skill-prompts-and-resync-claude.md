@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md)
-- **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
+- **Parent**: [EPIC-007](../../epics/EPIC-007-work-item-conventions-from-dogfooding.md)
+- **Feature**: [FEAT-003](../../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #work-items #skills #conventions
 - **Created**: 2026-05-25
 - **Updated**: 2026-05-25 (approved)
@@ -58,8 +58,8 @@
 
 ### Context
 
-- **Parent Epic**: [EPIC-007 — Work-Item Conventions Surfaced Through Dogfooding](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — this is Task 2 of 2; closes EPIC-007 AC#3 skill-half, AC#4 skill-half, AC#6 inbound half (the skill prompts cross-referencing their `conceptual_design.md` counterparts by file path + section anchor). EPIC-007 AC#7 (scratchpad bookkeeping) remains Epic Gate 3 work.
-- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md) — Ideal State bullet 4 (added 2026-05-24 re-elaboration) anchors EPIC-007; this Task delivers the *"relevant skills"* half of bullet 4, completing the work-item-conventions half (re-elaboration mechanics + AC writing patterns + naming discipline) that TASK-008 delivered at the doc level.
+- **Parent Epic**: [EPIC-007 — Work-Item Conventions Surfaced Through Dogfooding](../../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — this is Task 2 of 2; closes EPIC-007 AC#3 skill-half, AC#4 skill-half, AC#6 inbound half (the skill prompts cross-referencing their `conceptual_design.md` counterparts by file path + section anchor). EPIC-007 AC#7 (scratchpad bookkeeping) remains Epic Gate 3 work.
+- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../../features/FEAT-003-unified-work-item-model.md) — Ideal State bullet 4 (added 2026-05-24 re-elaboration) anchors EPIC-007; this Task delivers the *"relevant skills"* half of bullet 4, completing the work-item-conventions half (re-elaboration mechanics + AC writing patterns + naming discipline) that TASK-008 delivered at the doc level.
 - **Source-of-truth body**: `shannon/skills/work-items/skill.md` (the source). Specific anchor points to confirm at elaboration: § Process: Plan step 2 (*Spawn Planning Subagent*, AC-drafting bullet — for AC#4 skill-half); § Process: Plan step 3 (*Cascading Preparation (for Epics)* — for AC#3 skill-half).
 - **Deployed copy** (must re-sync after editing source): `.claude/skills/work-items/skill.md`. Note `.claude/` is gitignored per repository convention but the file exists and is the runtime artefact Claude Code reads; re-syncing it is required for changes to take effect in the deployed framework.
 - **Sibling Task (already APPROVED)**: TASK-008 (EPIC-007 Task 1, APPROVED 2026-05-25, commit `dd8b0a5`) landed the four `conceptual_design.md` amendments this Task's prompts cross-reference. Specifically:

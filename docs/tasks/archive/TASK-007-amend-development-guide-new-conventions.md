@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md)
-- **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
+- **Parent**: [EPIC-008](../../epics/EPIC-008-development-conventions-from-dogfooding.md)
+- **Feature**: [FEAT-008](../../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #conventions
 - **Created**: 2026-05-24
 - **Updated**: 2026-05-24 (approved)
@@ -75,8 +75,8 @@ EPIC-008's Plan also definitively resolves Push Cadence as a new `### Push Caden
 
 ### Context
 
-- **Parent Epic**: [EPIC-008 — Development Conventions Surfaced Through Dogfooding](../epics/EPIC-008-development-conventions-from-dogfooding.md) — this is Task 1 of 2; closes EPIC-008 AC#1 (AC1–AC2), AC#2 (AC3), AC#3a (AC4), AC#4 (AC5 + AC9), AC#5 outbound half (AC6–AC8). EPIC-008 AC#3b is Task 2; EPIC-008 AC#5 inbound half is also Task 2; EPIC-008 AC#6 (scratchpad bookkeeping) and AC#7 (recursive-dogfood knowledge note) are Gate-3 review work for the Epic.
-- **Parent Feature**: [FEAT-008 — Development Discipline](../features/FEAT-008-development-discipline.md) — Ideal State bullets 2 ("Development disciplines surfaced during framework use are promoted into ratified `development_guide` rules via canonical work-item workflows") and 3 ("framework provides a routing channel for [resolved framework-general ambiguity → route it back]") anchor EPIC-008; this Task delivers the `development_guide.md` half of bullets 2 and 3.
+- **Parent Epic**: [EPIC-008 — Development Conventions Surfaced Through Dogfooding](../../epics/EPIC-008-development-conventions-from-dogfooding.md) — this is Task 1 of 2; closes EPIC-008 AC#1 (AC1–AC2), AC#2 (AC3), AC#3a (AC4), AC#4 (AC5 + AC9), AC#5 outbound half (AC6–AC8). EPIC-008 AC#3b is Task 2; EPIC-008 AC#5 inbound half is also Task 2; EPIC-008 AC#6 (scratchpad bookkeeping) and AC#7 (recursive-dogfood knowledge note) are Gate-3 review work for the Epic.
+- **Parent Feature**: [FEAT-008 — Development Discipline](../../features/FEAT-008-development-discipline.md) — Ideal State bullets 2 ("Development disciplines surfaced during framework use are promoted into ratified `development_guide` rules via canonical work-item workflows") and 3 ("framework provides a routing channel for [resolved framework-general ambiguity → route it back]") anchor EPIC-008; this Task delivers the `development_guide.md` half of bullets 2 and 3.
 - **Mandated document amended**: `docs/development_guide.md` v1.2 (APPROVED 2026-05-16). Confirmed anchor points: § Code Style → Patterns to Follow (lines 74–78, three existing bullets); § Git Workflow → Commit Cadence (lines 138–145) with § Pull Requests at line 147; § Testing Strategy → Pre-Commit Checklist (lines 105–112, four existing items); § Version History (line 177 onward; top entry `### 2026-05-16 - v1.2` at line 179, chronological convention most-recent-first). Top-of-file metadata at lines 3–5 (`Status: APPROVED`, `Last Reviewed: 2026-05-16`, `Approved: 2026-05-16`).
 - **Additivity reference**: `docs/conceptual_design.md` § Re-reviewing an APPROVED Mandated Document → *Status semantics* (lines 249–254) — defines additive amendment as content that does not contradict existing approved claims; document stays APPROVED through the edit. AC10 enacts this test.
 - **Cross-Epic forward reference target**: EPIC-007 AC#4 names the anchor home as `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* (a new entry to be landed by EPIC-007's `conceptual_design` amendment Task). The anchor does not exist at this Task's landing time. AC2 handles the forward-only state per EPIC-008's risk-mitigation rule.

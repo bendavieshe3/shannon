@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #skill #presentation #documentation
 - **Created**: 2026-07-18
 - **Updated**: 2026-08-01
@@ -31,8 +31,8 @@ Add prose to `SKILL.md` documenting the diagnostic-only and conversational-only 
 
 ### Context
 
-- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Hybrid report presentation by default*
+- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Hybrid report presentation by default*
 - **Relevant documents**: `ux_guide.md` § Interaction Patterns → *Supervisor Report Presentation*
 - **Related work**: EPIC-009 TASK-015 (shipped hybrid default); sibling TASK-025 (SessionStart reuses the documented shape)
 

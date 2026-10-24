@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #hook #pretooluse #write-guard #scope
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-27
@@ -40,8 +40,8 @@ Implement the PreToolUse hook that write-guards a **supervisor-scoped invocation
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 6 of 8; closes parent Epic AC#4.
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (PreToolUse half).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 6 of 8; closes parent Epic AC#4.
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (PreToolUse half).
 - **Sibling Task** (predecessor): TASK-011 (Skeleton — `scripts/` directory must exist; `SKILL.md` configuration handling provides the `report_directory` override path).
 - **Sibling Task** (peer): TASK-015 (Report writer — must be able to write to `./docs/knowledge_index.md` per AC#3 exception); TASK-017 (PostToolUse hook — distinct hook, distinct scope).
 - **Sibling Task** (downstream): TASK-018 (Dogfood run — verifies both an in-scope write succeeds and an out-of-scope write is blocked).

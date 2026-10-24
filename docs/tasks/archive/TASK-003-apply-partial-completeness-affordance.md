@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md)
-- **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
+- **Parent**: [EPIC-006](../../epics/EPIC-006-work-item-lifecycle-maturation.md)
+- **Feature**: [FEAT-003](../../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #dogfood #work-items #features
 - **Created**: 2026-05-22
 - **Updated**: 2026-05-22 (approved)
@@ -53,9 +53,9 @@ Per the lesson EPIC-006's Plan records from TASK-002's Gate 3 (AC#6 "only two fi
 
 ### Context
 
-- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../epics/EPIC-006-work-item-lifecycle-maturation.md) — closes F2 bullet 4 ("Pattern is applied to every Feature currently carrying `Initial Implementation: Partial` — FEAT-003, FEAT-006, and FEAT-007") and all three recursive-dogfood Acceptance Criteria (FEAT-003's `Initial Implementation` reflects post-Epic reality; `(Partial)` index suffix consistent across all Partial Features; scratchpad F1/F2 pointers refreshed). It is the forward-declared follow-up Task described in EPIC-006 § Plan, and is the sole remaining work before EPIC-006 reaches Gate 3.
-- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md) — aspirational Ideal State bullets 1 (re-elaboration workflow) and 2 (queryable completeness); this Task marks them `*(met)*` and adds FEAT-003's Partial sub-block. FEAT-003 is this Task's own parent Feature — re-elaborating it here is the deliberate recursion noted in the Overview.
-- **Related work**: [TASK-001](archive/TASK-001-work-item-re-elaboration-workflow.md) (APPROVED — delivered the *Re-elaborating a Work Item* workflow this Task exercises on three Features) and [TASK-002](archive/TASK-002-queryable-implementation-completeness.md) (APPROVED — delivered the affordance this Task applies; its Review section records the three follow-up obligations routed here, including the FEAT-007 widening from a two-Feature to a three-Feature Partial set).
+- **Parent Epic**: [EPIC-006 — Work Item Lifecycle Maturation](../../epics/EPIC-006-work-item-lifecycle-maturation.md) — closes F2 bullet 4 ("Pattern is applied to every Feature currently carrying `Initial Implementation: Partial` — FEAT-003, FEAT-006, and FEAT-007") and all three recursive-dogfood Acceptance Criteria (FEAT-003's `Initial Implementation` reflects post-Epic reality; `(Partial)` index suffix consistent across all Partial Features; scratchpad F1/F2 pointers refreshed). It is the forward-declared follow-up Task described in EPIC-006 § Plan, and is the sole remaining work before EPIC-006 reaches Gate 3.
+- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../../features/FEAT-003-unified-work-item-model.md) — aspirational Ideal State bullets 1 (re-elaboration workflow) and 2 (queryable completeness); this Task marks them `*(met)*` and adds FEAT-003's Partial sub-block. FEAT-003 is this Task's own parent Feature — re-elaborating it here is the deliberate recursion noted in the Overview.
+- **Related work**: [TASK-001](TASK-001-work-item-re-elaboration-workflow.md) (APPROVED — delivered the *Re-elaborating a Work Item* workflow this Task exercises on three Features) and [TASK-002](TASK-002-queryable-implementation-completeness.md) (APPROVED — delivered the affordance this Task applies; its Review section records the three follow-up obligations routed here, including the FEAT-007 widening from a two-Feature to a three-Feature Partial set).
 - **Relevant documents**: `conceptual_design.md` v1.5 § *Re-elaborating a Work Item* (the workflow each per-Feature re-elaboration follows — triggers, additive/substantive semantics, the three-field Activity Log pattern); `shannon/skills/work-items/templates/feature.md` (the HTML-commented Partial sub-block stub — the shape to apply, read-only here); `docs/features/feature_index.md` Notes section (the canonised `(Partial)` suffix rule); `development_guide.md` § Code Style, § Testing Strategy → Pre-Commit Checklist, § Git Workflow → Commit Cadence (the Guide a Task aligns to).
 - **Target files** (the only files this Task edits): `docs/features/FEAT-003-unified-work-item-model.md`, `docs/features/FEAT-006-multi-party-supervision.md`, `docs/features/FEAT-007-lightweight-idea-capture.md`, `docs/features/feature_index.md`, `docs/scratchpad.md`. Read-only inputs: the `feature.md` template (sub-block shape), conceptual_design v1.5 (workflow).
 - **Out of scope**: any template, index Notes block, or `work-items` skill change — TASK-002 delivered the mechanism; this Task only applies it. Scratchpad item C4 (orphan-task business rule) is untouched.

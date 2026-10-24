@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md)
-- **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
+- **Parent**: [EPIC-007](../../epics/EPIC-007-work-item-conventions-from-dogfooding.md)
+- **Feature**: [FEAT-003](../../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #conceptual-design #conventions #work-items
 - **Created**: 2026-05-24
 - **Updated**: 2026-05-25 (approved)
@@ -65,8 +65,8 @@ The four amendments — locations definitively resolved at EPIC-007 § Plan (imp
 
 ### Context
 
-- **Parent Epic**: [EPIC-007 — Work-Item Conventions Surfaced Through Dogfooding](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — this is Task 1 of 2; closes EPIC-007 AC#1, AC#2, AC#3 doc-half, AC#4 doc-half, AC#5 (additive Version History entry), AC#6 outbound (cross-references whose origin lives in `conceptual_design.md`). EPIC-007 AC#3 skill-half, AC#4 skill-half, AC#6 inbound are Task 2; AC#7 (scratchpad bookkeeping) is Epic Gate 3 review work.
-- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md) — Ideal State bullet 4 (added 2026-05-24 re-elaboration) anchors EPIC-007; this Task delivers the `conceptual_design.md` half of bullet 4.
+- **Parent Epic**: [EPIC-007 — Work-Item Conventions Surfaced Through Dogfooding](../../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — this is Task 1 of 2; closes EPIC-007 AC#1, AC#2, AC#3 doc-half, AC#4 doc-half, AC#5 (additive Version History entry), AC#6 outbound (cross-references whose origin lives in `conceptual_design.md`). EPIC-007 AC#3 skill-half, AC#4 skill-half, AC#6 inbound are Task 2; AC#7 (scratchpad bookkeeping) is Epic Gate 3 review work.
+- **Parent Feature**: [FEAT-003 — Unified Work Item Model](../../features/FEAT-003-unified-work-item-model.md) — Ideal State bullet 4 (added 2026-05-24 re-elaboration) anchors EPIC-007; this Task delivers the `conceptual_design.md` half of bullet 4.
 - **Mandated document amended**: `docs/conceptual_design.md` v1.5 (current APPROVED). Specific anchor points to confirm at elaboration: § Re-elaborating a Work Item *Flow* (for AC#1 step-6 inline + AC#2 step-5 sub-bullet); § Domain Model *Work Item* entity Attributes (for AC#3); § Business Rules (for AC#4 new entry); § Version History (for AC#5).
 - **Sibling Task within EPIC-007** (Task 2): not yet created; follows this Task; will add the matching `work-items` skill prompts at § Process: Plan steps 2 and 3 and re-sync `.claude/skills/work-items/`.
 - **Cross-Epic sibling**: EPIC-008's TASK-007 (APPROVED 2026-05-24, commit `eac486b`) is the landed counterpart for the cross-Epic AC#6 pair — `development_guide.md` v1.3 § Code Style → Patterns to Follow line 79 already carries the forward reference and HTML comment that self-heal when this Task lands AC#4's § Business Rules entry.

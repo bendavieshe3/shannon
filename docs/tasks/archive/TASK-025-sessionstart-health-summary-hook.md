@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-010](../../epics/EPIC-010-synthesis-and-reports.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #hook #sessionstart #reporting
 - **Created**: 2026-07-18
 - **Updated**: 2026-08-24
@@ -48,8 +48,8 @@ The *Supervisor-Approved Gate Notification* one-liner pathway is wired but **dor
 
 ### Context
 
-- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../epics/EPIC-010-synthesis-and-reports.md) — Task 4 of 7; covers AC#3 and confirms AC#2(b)
-- **Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (SessionStart half) and *Hybrid report presentation by default*; § User Stories *Cadence-Driven Health Summary at Session Start*
+- **Parent Epic**: [EPIC-010 — Synthesis and Reports](../../epics/EPIC-010-synthesis-and-reports.md) — Task 4 of 7; covers AC#3 and confirms AC#2(b)
+- **Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (SessionStart half) and *Hybrid report presentation by default*; § User Stories *Cadence-Driven Health Summary at Session Start*
 - **UX Guide** (v1.3, APPROVED 2026-08-21 — later than this Task's prepared draft): § Interaction Patterns → *Supervisor Report Presentation* (the header-total versus session-start-Drift distinction, and the clean-run paragraph); § Interaction Patterns → *Supervisor-Approved Gate Notification*; § Command Surface → *Supervisor Failure Modes*
 - **Technical Design** (v1.2): § System Architecture → *Supervisor* → *Hook integration*; § Data Model → *Supervisor Report Files* / *Supervisor Configuration* / *Cadence State*; § Cadence → *Scheduler*
 - **Development Guide** (v1.4): § Testing Strategy (test-before-commit); § Code Style → *Source-of-truth body before derived artefacts*

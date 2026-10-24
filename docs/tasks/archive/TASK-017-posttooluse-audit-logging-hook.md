@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-009](../epics/EPIC-009-health-reporting-surface.md)
-- **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)
+- **Parent**: [EPIC-009](../../epics/EPIC-009-health-reporting-surface.md)
+- **Feature**: [FEAT-009](../../features/FEAT-009-supervisor.md)
 - **Tags**: #supervisor #hook #posttooluse #audit-log #gitignore
 - **Created**: 2026-05-30
 - **Updated**: 2026-06-28
@@ -40,8 +40,8 @@ Implement the PostToolUse hook that audit-logs **supervisor-scoped** tool operat
 
 ### Context
 
-- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../epics/EPIC-009-health-reporting-surface.md) — Task 7 of 8; closes parent Epic AC#5.
-- **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (PostToolUse half).
+- **Parent Epic**: [EPIC-009 — Health Reporting Surface](../../epics/EPIC-009-health-reporting-surface.md) — Task 7 of 8; closes parent Epic AC#5.
+- **Parent Feature**: [FEAT-009 — Supervisor](../../features/FEAT-009-supervisor.md) — § Ideal State *Five Claude Code hook integration points* (PostToolUse half).
 - **Sibling Task** (predecessor): TASK-011 (Skeleton — `scripts/` directory must exist; `SKILL.md` codifies the audit-log filename).
 - **Sibling Task** (peer): TASK-016 (PreToolUse hook — same `settings.json`, distinct entry, distinct script).
 - **Sibling Task** (downstream): TASK-018 (Dogfood run — verifies the audit log accumulates entries per AC#3 of the parent Epic — the audit-log evidence check tied to the first dogfood run, per the R-5 amendment).

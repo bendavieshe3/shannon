@@ -4,8 +4,8 @@
 
 - **Status**: APPROVED
 - **Type**: Task
-- **Parent**: [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md)
-- **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
+- **Parent**: [EPIC-008](../../epics/EPIC-008-development-conventions-from-dogfooding.md)
+- **Feature**: [FEAT-008](../../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #work-items #skills #meta-gap #routing-channel
 - **Created**: 2026-05-27
 - **Updated**: 2026-05-27 (approved)
@@ -58,8 +58,8 @@
 
 ### Context
 
-- **Parent Epic**: [EPIC-008 — Development Conventions Surfaced Through Dogfooding](../epics/EPIC-008-development-conventions-from-dogfooding.md) — this is Task 2 of 2; closes EPIC-008 AC#3b (Gate 2 half + Gate 3 half), AC#5 inbound half. EPIC-008 AC#6 (scratchpad bookkeeping) and AC#7 (recursive-dogfood Extension knowledge note) remain Epic Gate 3 work.
-- **Parent Feature**: [FEAT-008 — Development Discipline](../features/FEAT-008-development-discipline.md) — Ideal State bullets 2 and 3 anchor EPIC-008; TASK-007 delivered the `development_guide.md` half; this Task completes the work-items-skill half of bullet 3 (the routing channel reaching the implementer at the moments of relevance).
+- **Parent Epic**: [EPIC-008 — Development Conventions Surfaced Through Dogfooding](../../epics/EPIC-008-development-conventions-from-dogfooding.md) — this is Task 2 of 2; closes EPIC-008 AC#3b (Gate 2 half + Gate 3 half), AC#5 inbound half. EPIC-008 AC#6 (scratchpad bookkeeping) and AC#7 (recursive-dogfood Extension knowledge note) remain Epic Gate 3 work.
+- **Parent Feature**: [FEAT-008 — Development Discipline](../../features/FEAT-008-development-discipline.md) — Ideal State bullets 2 and 3 anchor EPIC-008; TASK-007 delivered the `development_guide.md` half; this Task completes the work-items-skill half of bullet 3 (the routing channel reaching the implementer at the moments of relevance).
 - **Source-of-truth body**: `shannon/skills/work-items/skill.md` (the source). Specific anchor points to confirm at elaboration: § Process: Plan section header (the entire section is the target anchor for the Gate 2 prompt — not any single numbered step); § Process: Review section header (the entire section is the target anchor for the Gate 3 prompt).
 - **Deployed copy** (must re-sync after editing source): `.claude/skills/work-items/skill.md`.
 - **Sibling Task (already APPROVED)**: TASK-007 (EPIC-008 Task 1, APPROVED 2026-05-24, commit `eac486b`) landed the Pre-Commit Checklist line at `development_guide.md:114` that this Task's prompts cross-reference inbound. Specifically the verbatim trigger phrasing: *"framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive"*.

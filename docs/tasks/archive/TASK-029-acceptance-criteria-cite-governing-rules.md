@@ -5,7 +5,7 @@
 - **Status**: APPROVED
 - **Type**: Task
 - **Parent**: — (orphan Task; no parent Epic — see § Context)
-- **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
+- **Feature**: [FEAT-008](../../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #acceptance-criteria #meta-gap #dogfood
 - **Created**: 2026-08-25
 - **Updated**: 2026-08-28
@@ -62,7 +62,7 @@ Scope:
 
 ### Context
 
-- **Parent Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md) — Development Discipline. **Orphan Task**: FEAT-008's only Epic, [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md), is APPROVED and closed, and this convention is too small to warrant a new Epic. Orphan Tasks follow the Task default at all three gates per `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Orphan Tasks*: *"The absence of a parent Epic does not promote gate authority to the directing party; orphan-ness is a parentage attribute, not an authority attribute."*
+- **Parent Feature**: [FEAT-008](../../features/FEAT-008-development-discipline.md) — Development Discipline. **Orphan Task**: FEAT-008's only Epic, [EPIC-008](../../epics/EPIC-008-development-conventions-from-dogfooding.md), is APPROVED and closed, and this convention is too small to warrant a new Epic. Orphan Tasks follow the Task default at all three gates per `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Orphan Tasks*: *"The absence of a parent Epic does not promote gate authority to the directing party; orphan-ness is a parentage attribute, not an authority attribute."*
 - **Note — the parent Feature is DRAFT.** FEAT-008 reads DRAFT in both its body and `feature_index.md` despite EPIC-008 having been APPROVED on 2026-05-27 and its Ideal State bullets marked met. This is a known reconciliation item (SIT-026 working plan T03) and is a Feature-gate matter, so it is not resolved here. It does not block this Task, but a Task whose parent Feature is DRAFT is worth flagging rather than passing over.
 - **This Task is the meta-gap routing channel firing.** FEAT-008 § Ideal State bullet 3 commits to exactly this: *"a routing channel for 'this resolved a framework-general ambiguity → route it back' so the discipline of capturing learnings is visible at the moments of action"*. The item was captured in `docs/scratchpad.md` at TASK-027's Gate 2, strengthened at EPIC-010's Gate 3 when the third instance appeared, and promoted here. The channel EPIC-008 built is what carried it.
 - **Precedent for shape**: EPIC-008 landed its conventions as a **two-touch** — the doc-half in `development_guide.md` and the skill-half as step-adjoining prompts in `shannon/skills/work-items/skill.md` (TASK-007 + TASK-010), each half cross-referencing the other. A convention that only lives in a Guide is one nobody reads at the moment of action.
