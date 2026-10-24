@@ -41,7 +41,7 @@
 
 **Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
 
-**Archive**: When a task reaches APPROVED, move the file to `./archive/` and update the link.
+**Archive**: When a task reaches APPROVED, move the file to `./archive/` and update the link. The work-items skill also rewrites the moved file's relative links for its new depth (§ Process: Review).
 
 **Tags**: `#component` (e.g. `#frontend`, `#backend`, `#framework`, `#templates`), `#type` (e.g. `#bug`, `#refactor`, `#docs`), parent identifier may be embedded in the description (preferred) or as a tag.
 

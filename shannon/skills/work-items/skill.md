@@ -266,7 +266,9 @@ Ask explicitly: "Approve this work to mark this APPROVED?"
   - Set Status to APPROVED
   - Update Updated date and Activity Log
   - Update index
-  - **For Tasks**: move file to `./docs/tasks/archive/` and update link in index
+  - **For Tasks**: move file to `./docs/tasks/archive/` and update link in index. The move puts the file one level deeper, so keep its links working:
+    - In the moved file, rewrite relative links for the new depth: `../epics/…` → `../../epics/…`, `../features/…` → `../../features/…` (and any other `../` link the same way); a sibling link written as `archive/TASK-…` or `./archive/TASK-…` becomes `TASK-…`
+    - Repoint links elsewhere in `./docs/` that pointed at the Task's old path (open sibling Tasks, Epics, documents) to its archive path
   - **For Spikes**: confirm the knowledge note has been created and indexed
   - **For Features**: update Activity to STABLE
 - On rejection: iterate
