@@ -40,7 +40,7 @@ This Task gives the Guide a Test Level for shipped executables and reconciles th
 
 - **Parent Epic**: [EPIC-012 — Development Conventions Surfaced Through the Supervisor Build-Out](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md) — Task 1 of 7; covers Epic AC#1, and opens the Epic's `Unreleased` Version History heading
 - **Feature**: [FEAT-008 — Development Discipline](../features/FEAT-008-development-discipline.md)
-- **Relevant documents**: `development_guide.md` § Build and Run, § Testing Strategy (opening, Test Levels, Instrumentation), § Git Workflow → Commits, § CI/CD → Pipeline Stages, § Version History; `conceptual_design.md` § Re-reviewing an APPROVED Mandated Document → *Status semantics*
+- **Relevant documents**: `development_guide.md` § Build and Run, § Testing Strategy (opening, Test Levels, What to Test, Pre-Commit Checklist, Instrumentation), § Git Workflow → Commits, § CI/CD → Pipeline Stages, § Version History; `conceptual_design.md` § Re-reviewing an APPROVED Mandated Document → *Status semantics*
 - **Related work**: [TASK-016](./archive/TASK-016-pretooluse-write-guard-hook.md), [TASK-017](./archive/TASK-017-posttooluse-audit-logging-hook.md), [TASK-025](./archive/TASK-025-sessionstart-health-summary-hook.md) (the three precedents; read each one's record of how its script was exercised); `docs/scratchpad.md` § Items entry *`development_guide.md` § Testing Strategy claims Shannon has no units*
 
 ---
