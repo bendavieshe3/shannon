@@ -36,6 +36,7 @@
 - **[report-2026-07-05.md](../supervisor/report-2026-07-05.md)** - Type: *Supervisor Report* - First dogfood `/shannon-report` run (EPIC-009 / TASK-018); 3/3 checkers, 10 findings; top finding: the codified `knowledge_index.md` path mismatch.
 - **[report-2026-08-20.md](../supervisor/report-2026-08-20.md)** - Type: *Supervisor Report* - Second `/shannon-report` run; 3/3 checkers, 9 findings (+1 uncertain); top finding: EPIC-010 repeating the parent-Epic bookkeeping lag EPIC-009 diagnosed and closed on 2026-07-10.
 - **[report-2026-09-29.md](../supervisor/report-2026-09-29.md)** - Type: *Supervisor Report* - Third `/shannon-report` run; 3/3 checkers, 14 findings (+1 uncertain); top finding: the meta-gap routing channel has silted up — 39 active scratchpad items, oldest unrouted 127 days.
+- **[report-2026-10-24.md](../supervisor/report-2026-10-24.md)** - Type: *Supervisor Report* - Fourth `/shannon-report` run; 3/3 checkers, 23 findings (+5 uncertain); top finding: FEAT-009 still reads PLANNED, and still says the supervisor does not exist, after EPIC-009 and EPIC-010 were APPROVED.
 
 ---
 
