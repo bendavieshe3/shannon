@@ -32,6 +32,13 @@
 - [TASK-030](./TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT — Skill-Creating Epics Scope the Command Entry Point (FEAT-003, orphan Task) #framework #work-items
 - [TASK-031](./TASK-031-parent-epic-advances-with-children.md) — DRAFT — Parent Epic Advances Through the Iterative Zone With Its Children (FEAT-003, orphan Task) #framework #lifecycle
 - [TASK-032](./TASK-032-archived-task-link-depth.md) — DRAFT — Archived Tasks Keep Working Parent Links (FEAT-003, orphan Task) #framework #archive
+- [TASK-033](./TASK-033-testing-strategy-covers-shipped-executables.md) — DRAFT — Testing Strategy Covers Shipped Executables (EPIC-012 Task 1) #framework #development-guide #testing
+- [TASK-034](./TASK-034-cross-task-editing-order.md) — DRAFT — Cross-Task Editing Order (EPIC-012 Task 2) #framework #development-guide #editing-order
+- [TASK-035](./TASK-035-skill-packaging-conventions.md) — DRAFT — Skill Packaging Conventions: Shipping-Source Mirror and Project-Relative Paths (EPIC-012 Task 3) #framework #development-guide #skills #portability
+- [TASK-036](./TASK-036-audit-log-in-supervisor-report-files.md) — DRAFT — Audit Log Named in Supervisor Report Files (EPIC-012 Task 4) #framework #development-guide #supervisor #audit-log
+- [TASK-037](./TASK-037-verification-substrings-in-plain-prose.md) — DRAFT — Verification Substrings Land in Plain Prose (EPIC-012 Task 5) #framework #development-guide #acceptance-criteria
+- [TASK-038](./TASK-038-placeholder-syntax-for-machine-filled-templates.md) — DRAFT — Placeholder Syntax for Machine-Filled Templates (EPIC-012 Task 6) #framework #development-guide #templates
+- [TASK-039](./TASK-039-precedent-named-for-every-convention.md) — DRAFT — Precedent Named for Every Post-Bootstrapping Convention (EPIC-012 Task 7) #framework #development-guide #precedent #sweep
 
 ---
 
