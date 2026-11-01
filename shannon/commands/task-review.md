@@ -1,15 +1,11 @@
 # /task-review
 
-Review and approve a task (Gate 3).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to review this task.
+Pass Type `task`, Verb `review`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `task`
-- **Verb**: `review`
-- **Target**: Task ID from `$ARGUMENTS`. If empty, list candidate IMPLEMENTED or REVIEW tasks and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill verifies each acceptance criterion, checks alignment with the parent epic and feature, and confirms that any relevant documents were updated. Gate 3 requires explicit user approval to transition REVIEW → APPROVED. On approval, the task file is moved to `./docs/tasks/archive/`.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

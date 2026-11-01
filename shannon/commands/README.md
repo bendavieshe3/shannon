@@ -1,67 +1,23 @@
 # Shannon Commands
 
-This directory contains slash command definitions for the Shannon framework. Commands are thin entry points — each delegates to a skill in `../skills/` for the actual work.
+Commands are thin entry points to skills. The core chain is Vision → governing documents and Features → implementation and verification.
 
-## Command Reference
+## Feature delivery
 
-### Project Setup
+- `/feature-create [hint]` captures a persistent capability.
+- `/feature-elaborate [ID]` drafts requirements/acceptance criteria for human Gate 1.
+- `/feature-plan [ID]` drafts the approach and consequential trade-offs for human Gate 2.
+- `/feature-implement [ID]` delivers the approved Feature directly; agents choose decomposition and update context/evidence.
+- `/feature-review [ID]` presents verified, independently reviewed delivery for human Gate 3.
 
-| Command | Purpose |
-|---|---|
-| `/shannon-setup` | Initialise (or update) a project with Shannon |
+## Optional execution aids
 
-### Supervisor
+`/epic-*`, `/task-*` and `/spike-*` retain create/elaborate/plan/implement/review verbs for useful execution records. They have no mandatory human gates or fixed progress-label sequence. No children are required to deliver a Feature. Missing optional indexes are not defects; existing indexes must remain consistent.
 
-| Command | Purpose |
-|---|---|
-| `/shannon-report` | Produce a current supervisor health report (delegates to the `shannon-supervisor` skill) |
+## Documents and supervision
 
-### Document Management
-
-| Command | Purpose | Gate |
-|---|---|---|
-| `/document-create [type]` | Create a mandated document or knowledge note | — |
-| `/document-review [path]` | Review and approve a document | Gate 1 |
-
-### Work Item Lifecycle
-
-Every work item type follows the same five-verb pattern. Substitute `[type]` with one of `feature`, `epic`, `task`, or `spike`.
-
-| Verb | Command | Status Transition | Gate |
-|---|---|---|---|
-| Create | `/[type]-create [hint]` | → DRAFT | — |
-| Elaborate | `/[type]-elaborate [ID]` | DRAFT → ELABORATED | Gate 1 |
-| Plan | `/[type]-plan [ID]` | ELABORATED → PLANNED | Gate 2 |
-| Implement | `/[type]-implement [ID]` | PLANNED → IMPLEMENTING ↔ IMPLEMENTED | — |
-| Review | `/[type]-review [ID]` | IMPLEMENTED/REVIEW → APPROVED | Gate 3 |
-
-Full unified lifecycle:
-
-```
-DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
-     │           │          │                                       │
-   Gate 1     Gate 2    (iterative zone)                         Gate 3
-```
-
-## How Commands Work
-
-Each command is a thin Markdown file that:
-
-1. States explicitly which skill to invoke ("You MUST invoke the X skill")
-2. Passes the relevant parameters (type, verb, target, hint)
-3. Includes fallback wording if the skill fails to activate
-4. Returns the user to the original conversation topic when done
-
-The actual workflow logic — reading documents, drafting elaborations, enforcing gates, updating indexes — lives in the skills, not the commands.
+`/shannon-setup` prepares the six project documents. `/document-create [type]` and `/document-review [path]` maintain their authority/alignment; approved meaning changes remain human decisions, factual upkeep is agent work. `/shannon-report` produces health evidence; `/shannon-goal [intent]` identifies aligned work and genuine new Feature decisions. Neither delegates human Feature authority.
 
 ## Installation
 
-Copy this directory and its sibling `skills/` and `guides/` directories into your project's `.claude/`:
-
-```
-cp -r shannon/commands /path/to/project/.claude/commands
-cp -r shannon/skills   /path/to/project/.claude/skills
-cp -r shannon/guides   /path/to/project/.claude/guides
-```
-
-Then run `/shannon-setup` inside the project to instantiate documentation.
+Copy this commands directory and sibling skills/guides into the project's `.claude/` through the project's approved installation procedure. Preserve existing project customisations and permissions. A source change or successful copy is not runtime validation or Feature acceptance. Commands invoke skills by name and report missing activation explicitly.

@@ -29,9 +29,9 @@ This project uses **Shannon** — a structured documentation system for AI-assis
 ├── development_guide.md      # Code style, testing, git, build, CI/CD, setup
 ├── ux_guide.md               # Design principles, colours, components, a11y
 ├── features/                 # Persistent product capabilities (FEAT-XXX)
-├── epics/                    # Coherent units of work under a feature (EPIC-XXX)
-├── tasks/                    # Atomic implementation work (TASK-XXX)
-│   └── archive/              # Approved tasks live here
+├── epics/                    # Optional execution organisation (EPIC-XXX)
+├── tasks/                    # Optional execution notes (TASK-XXX)
+│   └── archive/              # Existing archives; no automatic move
 └── knowledge/                # Research, implementation details, doc extensions
 
 ./spikes/                     # Disposable exploratory work — output is knowledge
@@ -41,36 +41,15 @@ This project uses **Shannon** — a structured documentation system for AI-assis
 
 ## Work Items
 
-Shannon organises work into four types, each with the same lifecycle and file structure:
+Features are persistent, human-governed product capabilities. Epics, Tasks and Spikes are optional agent-managed execution aids. Work directly against an approved Feature when useful; do not introduce a replacement work-order layer or require child files.
 
-| Type | Persistence | Granularity |
-|---|---|---|
-| **Feature** | Persistent — what the product IS | 5-15 per project |
-| **Epic** | Historical record once complete | 3-10 tasks each |
-| **Task** | Archived once approved | One focused session |
-| **Spike** | Disposable; output is a knowledge note | Hours, not days |
+### Feature Status Model
 
-Primary chain: **Features → Epics → Tasks**. Spikes stand alone (may link to a feature for context). Tasks can be orphaned for one-off work.
+`DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`
 
-### Unified Status Model
+Human Gate 1 approves requirements/acceptance criteria; Gate 2 approves approach/consequential trade-offs; Gate 3 accepts delivered capability against evidence. Reuse actual explicit approval; silence and technical review cannot substitute for human acceptance.
 
-All work items move through the same lifecycle:
-
-```
-DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
-     │           │          │                                       │
-   Gate 1     Gate 2    (iterative zone)                         Gate 3
-```
-
-**Three quality gates require explicit directing-party approval:**
-
-1. **Gate 1 (DRAFT → ELABORATED)**: Are the requirements complete and aligned?
-2. **Gate 2 (ELABORATED → PLANNED)**: Is the implementation plan sound?
-3. **Gate 3 (REVIEW → APPROVED)**: Does the implementation meet requirements?
-
-Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and directing party iterate freely.
-
----
+Agents choose/revise execution plans and maintain factual documentation below approved Features. Optional records may retain legacy progress labels but have no mandatory sequence or human gates. Preserve old identifiers and history. Explicit project holds still require disposition.
 
 ## Document Authority
 
@@ -87,7 +66,7 @@ Documents form a directed authority graph. Lower documents must **enable** highe
         Development Guide      UX Guide
 ```
 
-**Work items consume guides; they do not update them.** Higher-level work items (features, epics) may elaborate mid-level documents (technical_design.md); tasks only consume them.
+Everything traces from the Vision through relevant documents and Features to implementation, checks and independent review. Maintenance traces through its governing engineering rule and product purpose. Agents maintain all relevant documents within approved meaning. Material scope, meaning, design, acceptance, access or cost changes return to the human before affected work.
 
 ---
 
@@ -104,38 +83,17 @@ Documents form a directed authority graph. Lower documents must **enable** highe
 
 ### Work Item Lifecycle
 
-For each work item type (`feature`, `epic`, `task`, `spike`):
-
-| Command | Purpose | Gate |
-|---|---|---|
-| `/[type]-create [hint]` | Create work item in DRAFT | — |
-| `/[type]-elaborate [ID]` | Complete requirements | Gate 1 |
-| `/[type]-plan [ID]` | Define implementation plan | Gate 2 |
-| `/[type]-implement [ID]` | Execute the plan | — |
-| `/[type]-review [ID]` | Verify and approve | Gate 3 |
-
-See `./.claude/commands/README.md` for full command reference.
-
----
+All four types retain create/elaborate/plan/implement/review commands. Only Feature elaborate/plan/review cross human gates. `/feature-implement` delivers directly; optional verbs do not require prior progress labels. Read the work-items skill and current governing context. Existing indexes must agree with bodies, but missing optional indexes are not defects.
 
 ## Critical Guardrails
 
-### Always
-
-✅ Read relevant documents before elaborating, planning, or implementing
-✅ Update the relevant index when creating or transitioning work items
-✅ Capture decisions in the Activity Log of the work item
-✅ Capture reusable learnings as knowledge notes
-✅ Treat DRAFT documents as not-yet-authoritative
-
-### Never
-
-❌ Skip a quality gate — every gate requires explicit directing-party approval
-❌ Plan or implement without reading the documents listed in the work item's Context section
-❌ Update a Guide (Development Guide, UX Guide) from a task — guides are reference material
-❌ Use DRAFT mandated documents as authoritative context
-
----
+- Read relevant Vision, Feature, design/Guide context and actual implementation before changing it.
+- Preserve traceability, prior decisions, outstanding obligations and honest status; keep enough evidence to resume.
+- Run appropriate checks, maintain affected documents and obtain independent technical review from a reviewer who did not implement the work.
+- Present delivered behaviour, checks, review verdict, remaining defects and limitations for human Feature acceptance. Never self-accept or infer acceptance from merge.
+- Resolve routine execution details within approved authority. Stop affected work on consequential divergence; continue independent authorised work.
+- Respect existing permissions for publication, deployment, external actions, credentials and spending.
+- Do not silently overwrite another writer, bulk migrate historical records or automatically archive/delete them.
 
 ## Project-Specific Notes
 

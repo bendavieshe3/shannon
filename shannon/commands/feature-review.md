@@ -1,17 +1,11 @@
 # /feature-review
 
-Review and approve a feature (Gate 3).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to review this feature.
+Pass Type `feature`, Verb `review`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `feature`
-- **Verb**: `review`
-- **Target**: Feature ID from `$ARGUMENTS`. If empty, list candidate IMPLEMENTED or REVIEW features and ask.
+This is human Feature Gate 3 — delivered capability. Record actual explicit approval, reusing approval already supplied for this exact decision. The implementer cannot approve its own work.
 
-For a feature reaching APPROVED, the skill verifies that the constituent epics have themselves been APPROVED, that the feature's acceptance has been met, and that the parent Vision section is still aligned. Gate 3 requires explicit user approval. Once APPROVED, the feature's Activity becomes STABLE.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-Note: Features rarely fully "complete" — they accumulate epics over time. `/feature-review` is typically used to confirm a milestone state rather than a terminal one.
-
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

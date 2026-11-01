@@ -7,7 +7,7 @@ This file provides guidance to Claude Code when working with this repository.
 This is **Shannon** — a documentation and workflow framework for AI-assisted development with Claude Code. It provides:
 
 1. **Mandated document templates** for project documentation (six core documents)
-2. **Unified work item system** (Features, Epics, Tasks, Spikes) with a shared lifecycle and three quality gates
+2. **Feature-led delivery** with three human Feature gates and optional Epic, Task and Spike execution aids
 3. **Knowledge base structure** for research, implementation details, and document extensions
 4. **Slash commands** built on a Commands + Skills + Subagents architecture
 
@@ -76,35 +76,18 @@ Documentation Layer (six mandated documents + knowledge base)
     ↓ informs
 Vision Layer (supreme authority)
     ↓ elaborates into
-Work Item Layer (Features → Epics → Tasks; plus Spikes)
+Feature Layer (human-governed capabilities; optional execution aids)
     ↓ produces
 Implementation
 ```
 
 ### Work Items
 
-Four types, one unified lifecycle:
-
-```
-DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
-     │           │          │                                       │
-   Gate 1     Gate 2    (iterative zone)                         Gate 3
-```
-
-| Type | Persistence |
-|---|---|
-| **Feature** | Persistent — what the product IS; accumulates epics over time |
-| **Epic** | Coherent unit of work under a feature; remains as historical record |
-| **Task** | Atomic implementation work; archived once APPROVED |
-| **Spike** | Time-boxed investigation; disposable, knowledge note is durable output |
+Features retain `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Epics, Tasks and Spikes are optional agent-managed records with no mandatory sequence or human gates. Preserve their identifiers and history. Direct Feature implementation requires no children.
 
 ### Three Quality Gates
 
-Explicit human approval points:
-
-1. **Gate 1** (DRAFT → ELABORATED): Requirements complete and aligned
-2. **Gate 2** (ELABORATED → PLANNED): Implementation plan sound
-3. **Gate 3** (REVIEW → APPROVED): Implementation meets requirements
+Human Feature gates approve (1) requirements/acceptance criteria, (2) approach/consequential trade-offs and (3) delivered capability against evidence. Vision and consequential changes to approved meaning remain human-owned. Reuse exact explicit approvals; never infer acceptance from silence, self-tests or a merged pull request. Independent technical review remains separate from implementation and human acceptance.
 
 ### Document Authority Graph
 
@@ -125,7 +108,7 @@ Lower documents must enable higher ones. Drift is a defect.
 
 - **Commands** — thin entry points; delegate to skills
 - **Skills** — reusable framework logic with templates
-- **Subagents** — spawned by skills for context-heavy reading; keep main conversation lean
+- **Subagents** — optional, separately authorised help; independent technical review must remain distinct from implementation
 
 ## How to Use This Repository
 
@@ -156,14 +139,7 @@ This instantiates mandated documents and walks through initial vision content.
 
 ### Workflow in a New Project
 
-```
-/document-review vision.md             # Approve the vision (Gate 1)
-/feature-create [hint]                 # Capture a feature
-/feature-elaborate FEAT-001            # Drafts requirements (Gate 1)
-/feature-plan FEAT-001                 # Identifies epics (Gate 2)
-/epic-elaborate EPIC-001               # ...and so on down the chain
-/task-elaborate / -plan / -implement / -review
-```
+Approve the Vision and relevant governing meaning. Capture a Feature, approve its requirements with `/feature-elaborate`, approve approach with `/feature-plan`, then `/feature-implement` delivers directly. Agents choose useful decomposition, maintain relevant documents and trace implementation/checks/review from the Feature. `/feature-review` presents evidence for human acceptance. Optional Epic/Task/Spike commands remain available without routine human gates.
 
 ## Improving This Repository
 
@@ -183,7 +159,7 @@ Shannon eats its own dog food: changes to templates should be reflected in `docs
 ❌ Don't introduce build steps or runtime dependencies
 ❌ Don't commit without testing changes against a real project workflow
 ❌ Don't add features that increase maintenance burden without commensurate value
-❌ Don't skip the unified status model — every work item uses the same lifecycle
+❌ Don't add mandatory child hierarchies or human gates below Features
 
 ## Key Design Principles
 
@@ -225,4 +201,4 @@ This repository is one project inside Ben's wider agent estate (**xDDS** — Cro
 
 ---
 
-**Remember**: Shannon works because AI reads documentation for context, follows the unified workflow for consistency, and captures knowledge for the future. The framework's value comes from the discipline of using it — not bypassing it.
+**Remember**: Shannon works because AI reads documentation for context, preserves Vision-to-Feature-to-evidence traceability, and captures knowledge for the future. The framework's value comes from the discipline of using it — not bypassing it.

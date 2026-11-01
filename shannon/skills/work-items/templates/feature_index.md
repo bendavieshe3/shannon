@@ -10,6 +10,6 @@
 
 **Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
 
-**Activity** (only meaningful for APPROVED features): `STABLE` (no epic in progress) | `ACTIVE` (epic in progress)
+**Activity**: `STABLE` (no active implementation) | `ACTIVE` (implementation in progress, with or without an Epic)
 
 **When to update**: Adjust status and activity as the feature progresses. Flat list — no grouping.

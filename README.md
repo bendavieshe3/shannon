@@ -2,7 +2,7 @@
 
 **A development framework for AI-assisted software projects with Claude Code.**
 
-Shannon is a workflow and documentation system for solo developers and knowledge workers building software with AI. It takes the context-management burden off the developer by providing a structured documentation system, a unified work item lifecycle, and explicit human review gates at the highest-leverage moments.
+Shannon is a workflow and documentation system for solo developers and knowledge workers building software with AI. It takes the context-management burden off the developer by providing a structured documentation system, Feature-led delivery, and explicit human review gates at the highest-leverage moments.
 
 The framework is plain Markdown. No build step. No runtime. Nothing to install but the files themselves.
 
@@ -25,7 +25,7 @@ In your project, inside Claude Code:
 /shannon-setup
 ```
 
-This creates the six mandated documents, the work item directory structure, and a project-level `CLAUDE.md` with AI guidance.
+This creates the six mandated documents, the Feature and knowledge directories (optional execution folders may be added when useful), and a project-level `CLAUDE.md` with AI guidance.
 
 ### Start Working
 
@@ -33,8 +33,9 @@ This creates the six mandated documents, the work item directory structure, and 
 /document-review vision.md           # Approve the vision (Gate 1)
 /feature-create [hint]               # Capture a feature
 /feature-elaborate FEAT-001          # Draft requirements (Gate 1)
-/feature-plan FEAT-001               # Identify epics (Gate 2)
-/task-create / -elaborate / -plan / -implement / -review
+/feature-plan FEAT-001               # Approve approach (Gate 2)
+/feature-implement FEAT-001          # Deliver directly; optional execution aids
+/feature-review FEAT-001             # Evidence, independent review, human acceptance
 ```
 
 ## What Shannon Provides
@@ -54,36 +55,19 @@ Documents form an explicit **authority graph** — lower documents must enable h
 
 ### Four Work Item Types, One Lifecycle
 
-| Type | What it is |
-|---|---|
-| **Feature** | A persistent capability of the product |
-| **Epic** | A coherent unit of work under a feature |
-| **Task** | An atomic implementation work item |
-| **Spike** | A time-boxed investigation producing knowledge |
+Features are persistent product capabilities with human requirements, approach and delivery gates. Epics, Tasks and Spikes remain available as optional execution aids, without mandatory human gates or a fixed status sequence.
 
-All four use the same status flow:
-
-```
-DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
-     │           │          │                                       │
-   Gate 1     Gate 2    (iterative zone)                         Gate 3
-```
+Everything extends traceably from the Vision through relevant governing documents and Features to implementation, verification and independent review. Agents choose decomposition and execution; no child hierarchy or replacement work-order layer is required. Existing identifiers and history remain intact.
 
 ### Three Quality Gates
 
-Explicit human approval points:
-
-1. **Gate 1** — Requirements complete and aligned (DRAFT → ELABORATED)
-2. **Gate 2** — Implementation plan sound (ELABORATED → PLANNED)
-3. **Gate 3** — Implementation meets requirements (REVIEW → APPROVED)
-
-Between IMPLEMENTING, IMPLEMENTED, and REVIEW, AI and user iterate freely without crossing a gate.
+The human approves Feature requirements/acceptance criteria (Gate 1), approach/consequential trade-offs (Gate 2), and delivered capability against evidence (Gate 3). Vision and consequential changes to approved meaning remain human-owned. Agents maintain factual documentation and execution plans within approved intent. Independent technical review remains distinct from implementation, merge and human acceptance.
 
 ### Commands + Skills + Subagents
 
 - **Commands** — Thin entry points (`/shannon-setup`, `/[type]-[verb]`, `/document-[verb]`)
 - **Skills** — Reusable framework logic with templates (`project-setup`, `project-documentation`, `work-items`)
-- **Subagents** — Spawned by skills for context-heavy reading; keep the main conversation lean
+- **Subagents** — Optional, separately authorised help; independent review must come from someone who did not implement the change
 
 ## Repository Structure
 

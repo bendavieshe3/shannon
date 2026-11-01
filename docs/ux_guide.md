@@ -1,8 +1,8 @@
 # UX Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-08-25
-**Approved**: 2026-08-25
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -20,7 +20,7 @@ Every command follows `/[type]-[verb]`. A directing party who learns `/task-elab
 
 ### 2. **Explicit Gates, Implicit Bookkeeping**
 
-Quality gate outcomes always announce themselves: "I have drafted the requirements. Please review and approve to mark this ELABORATED." Bookkeeping that does not cross a gate — index updates, cross-reference maintenance, file moves below the directing party's notice — happens silently. The directing party attends to decisions; Shannon attends to housekeeping.
+Human approval is explicit at Feature requirements, approach and acceptance. Agents maintain indexes, references, documentation and execution notes within approved intent. Existing file-movement permissions still apply. Do not ask for routine lower-level approvals or silently cross a Feature gate.
 
 ### 3. **Conversation Resumes**
 
@@ -42,17 +42,17 @@ Every artefact Shannon produces is human-readable Markdown. No tool is required 
 
 ### Verb Vocabulary
 
-The same five verbs apply to every work item type:
+All types retain the five command names. Only Features have human gates:
 
-| Verb | What it does | Gate |
+| Verb | Feature | Optional Epic, Task or Spike |
 |---|---|---|
-| `create` | Capture in DRAFT | — |
-| `elaborate` | Complete requirements | **G1** — DRAFT → ELABORATED |
-| `plan` | Define implementation approach | **G2** — ELABORATED → PLANNED |
-| `implement` | Execute the plan; iterate freely between IMPLEMENTING, IMPLEMENTED, and REVIEW | — |
-| `review` | Verify and approve | **G3** — REVIEW → APPROVED |
+| `create` | Capture DRAFT capability and Vision link | Capture useful execution context |
+| `elaborate` | Requirements/acceptance criteria; human Gate 1 | Refine agent-managed notes |
+| `plan` | Approach/trade-offs; human Gate 2 | Choose or revise execution plan |
+| `implement` | Deliver directly within approved scope | Execute within governing authority |
+| `review` | Evidence and independent review; human Gate 3 | Record actual verification and remaining work |
 
-Consistency across types is the point. A directing party who has learned the task lifecycle knows the spike lifecycle. The three quality gates are named G1, G2, G3 throughout Shannon and in this guide.
+Optional records have no mandatory prior progress label or human stage gates. Existing identifiers and historical decisions remain intact.
 
 ### Argument Conventions
 
@@ -62,36 +62,10 @@ Consistency across types is the point. A directing party who has learned the tas
 
 ### Supervisor Commands
 
-Two supervisor commands surface continuous-vigilance flows (see `technical_design.md` § API Design → *Supervisor Verbs*):
+- **`/shannon-report`** audits project health and writes a dated, source-linked report using the established presentation below.
+- **`/shannon-goal [intent]`** returns a read-only list of candidates, each citing the relevant Feature/document or the missing authority. Work within approved Feature scope can be organised by agents. New or materially changed Feature meaning requires the human decision. The command does not execute candidates or create files. Preserve the Intent echo, two counted categories (aligned candidates and candidates surfacing gaps), explicit empty-category lines, and a candidate-derived decision footer.
 
-- **`/shannon-report`** — Run a cadence audit and write a dated report. Takes no arguments. Output is a one-line confirmation pointing at the new report file (full presentation pattern: see § Interaction Patterns → *Supervisor Report Presentation*):
-
-  ```
-  Supervisor report written: docs/supervisor/report-2026-05-29.md
-    3 findings (2 drift, 1 gap) · 2 stuck items · push lag +5 commits.
-  Open it? (or: triage inline / defer)
-  ```
-
-- **`/shannon-goal [intent]`** — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't. `[intent]` is a free-text hint (e.g. *"make onboarding feel less abrupt"*). Output is a categorised list of candidate work items with their alignment story:
-
-  ```
-  Intent: "make onboarding feel less abrupt"
-
-  Candidates aligned with existing artefacts (2):
-    - Extend FEAT-001 § Ideal State to name first-session experience
-    - New Task under EPIC-005 — Soften /shannon-setup conclusion message
-
-  Candidates surfacing gaps (1):
-    - No Feature elaborates "first-session experience" yet — directing-party
-      approval needed before scratchpad promotion to Feature
-
-  Promote which? (The Task may be auto-promoted on supervisor authority;
-  the Feature requires your approval.)
-  ```
-
-This block is **one worked instance, not a template**. Its footer names two authorities because this run's candidates implicate exactly two — a Task and a Feature — and it is silent on Spike and Epic because nothing in front of the directing party raises them.
-
-The footer names the promotion authorities the candidates in front of the directing party actually implicate — not a fixed legend. The complete model is four targets, and it is `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority* that governs it: Task is supervisor-autonomous; Spike is supervisor-autonomous unless the project has reserved Spike authority; Epic and Feature always require directing-party approval. A run whose candidates are all Tasks says so and mentions nothing else.
+Example: “The setup-message improvement is covered by the approved onboarding Feature; agents can implement it. A new first-session product promise needs Feature requirements and approach approval.” State only decisions relevant to the candidates shown; no fixed four-type authority legend or routine Task approval prompt.
 
 ### Supervisor Failure Modes
 
@@ -130,37 +104,11 @@ The supervisor is never ambiguously quiet. Silence from a vigilance role is indi
 
 ### Gate Approval
 
-When Shannon reaches a quality gate (G1, G2, or G3), it presents the proposed transition and waits for explicit approval from the gate authority holder for that work-item type (the directing party or the supervisor, per `conceptual_design.md` § Business Rules → *Gate Authority Split*).
+At a Feature gate, show the concrete decision and wait for explicit human approval. Gate 1 approves requirements and acceptance criteria; Gate 2 approves approach and consequential trade-offs; Gate 3 accepts delivered capability against verification and independent review.
 
-When the directing party holds gate authority (Vision and Features always; Epics and Spikes when reserved by the project), the gate is interactive:
+For example: “The onboarding Feature now has observable acceptance criteria [summary]. Approve these requirements, or describe changes.”
 
-```
-I've drafted the requirements for FEAT-009:
-
-  [summary of requirements]
-
-Approve to mark this ELABORATED (G1), or describe changes you'd like.
-```
-
-The directing party's response is the gate. Silent transitions across gates are a defect.
-
-When the supervisor holds gate authority (Tasks always; Epics and Spikes by default), the gate is exercised on the supervisor's cadence and surfaced to the directing party after the fact via *Supervisor-Approved Gate Notification* (below). In an interactive session, a supervisor that recognises a gate ripeness still presents the transition explicitly to the directing party for visibility:
-
-```
-TASK-042 elaboration ready for G1. Supervisor authority applies.
-
-  [summary of requirements]
-
-Approving on supervisor authority; override or annotate before I proceed.
-```
-
-Silence after the announcement counts as approval (supervisor authority is delegated, not requested); explicit override returns the gate to interactive directing-party approval.
-
-For G3 task approvals specifically — whether the gate authority holder is the directing party or the supervisor — the announcement names archive movement:
-
-```
-TASK-042 marked APPROVED (G3). Moving to docs/tasks/archive/.
-```
+Record and reuse approval already supplied for the exact decision. Silence never supplies approval. The implementer and supervisor cannot approve Feature delivery on the human's behalf. Epics, Tasks and Spikes have no mandatory human gates; announce useful progress without asking permission for routine execution. No automatic archive movement follows a legacy APPROVED label.
 
 ### Presenting Findings
 
@@ -170,7 +118,7 @@ When an alignment subagent, review, or analysis surfaces findings, Shannon prese
 Review of conceptual_design.md against vision.md (APPROVED):
 
   Drift (1)
-    - Glossary "Quality Gate" still says "human approval point" — vision now allows directing party (human or supervising agent)
+    - Task command still asks for Gate 1 approval — Vision now reserves human gates to Features
 
   Gaps (2)
     - No workflow for alignment drift detection (vision § Directional Targets commits to it)
@@ -189,32 +137,11 @@ Findings are categorised, then the directing party decides which to apply inline
 
 ### DRAFT Context Caveat
 
-When the implementer uses a DRAFT document as authoritative context, it surfaces the uncertainty before proceeding:
-
-```
-Note: I'm using technical_design.md as context for this plan, but it's still DRAFT and not yet authoritative. Findings may need reconciliation when it's approved. Proceed?
-```
-
-The pattern is mandatory — the *DRAFT Documents Are Not Authoritative* business rule (conceptual_design.md) depends on it being visible.
+DRAFT documents supply tentative context, not authority. Surface uncertainty when it materially affects the outcome and obtain the missing decision before affected execution. Continue independent work covered by existing approved sources; no ritual “Proceed?” is needed for every draft reference.
 
 ### Cascading Operations
 
-When the directing party invokes an operation on a parent work item that affects children (e.g. `/epic-plan`), Shannon does bulk preparation, stashes prepared drafts inside the child work items in DRAFT status, and reports the result:
-
-```
-EPIC-003 planned and marked PLANNED (G2). Drafted 4 child tasks in DRAFT with prepared elaborations and plans:
-
-  TASK-042 — Add Google OAuth provider (elaboration + plan drafted)
-  TASK-043 — Add GitHub OAuth provider (elaboration + plan drafted)
-  TASK-044 — Wire OAuth UI components (elaboration drafted)
-  TASK-045 — Add E2E tests (elaboration drafted)
-
-When you run /task-elaborate or /task-plan on any of these, I'll surface the prepared draft for your review at G1 / G2.
-```
-
-Each child still passes through its own gates individually. No new statuses are introduced; the prepared content surfaces at the moment the child's standard gate command is invoked. See `technical_design.md § Cascading Operations` for the reasoning.
-
-If a prepared draft is stale (parent or sibling work has moved since preparation), the implementer warns when surfacing and offers to refresh.
+Agents may prepare child records when useful, but direct Feature implementation requires none. Report concrete progress, evidence and remaining work, for example: “Implemented the approved onboarding copy and checked the rendered output; accessibility review remains.” Do not instruct the user to pass each child through requirements and plan gates. Refresh stale execution notes within approved meaning.
 
 ### Supervisor Report Presentation
 
@@ -254,36 +181,11 @@ Supervisor reports are not gated artefacts — they are working knowledge, like 
 
 ### Supervisor-Approved Gate Notification
 
-When the supervisor exercises delegated gate authority (Task gates always; Epic and Spike gates by default per `conceptual_design.md` § Business Rules → *Gate Authority Split*), the directing party learns about the decision after the fact rather than being asked to approve in the moment. The supervisor records the decision in the work item's Activity Log and surfaces a one-line notification at the next session start or relevant command:
-
-```
-Since your last session, the supervisor approved:
-
-  TASK-042  Gate 1 (ELABORATED)  — Add Google OAuth provider
-  TASK-043  Gate 2 (PLANNED)     — Add GitHub OAuth provider
-  TASK-041  Gate 3 (APPROVED)    — Wire OAuth UI components → archived
-
-Review any decision? (Override is permitted — supervisor decisions are not infallible.)
-```
-
-The directing party can override any supervisor-approved gate by invoking the relevant command on the work item; this returns the item to the prior status and re-runs the gate under directing-party authority. Override is rare by design — the supervisor's delegated authority exists precisely to spare the directing party from routine decisions — but the override channel is always open.
-
-Vision and Feature gates never appear in this notification stream because they are never supervisor-approved (the fixed floor per *Gate Authority Split*).
+This retained heading describes a superseded interaction. Supervisors now report authorised execution progress and actual review findings, not delegated Task/Epic/Spike approvals. Distinguish implementation, tests, independent review, merge, deployment and human acceptance. A notification cannot create authority or imply Feature acceptance.
 
 ### Knowledge Note Creation
 
-When the implementer encounters something worth persisting as knowledge (research finding, implementation gotcha, decision rationale, doc extension), it prompts:
-
-```
-This investigation produced findings worth a knowledge note:
-  - Comparison of OAuth approaches, with recommendation for PKCE
-
-Capture as: Research / Implementation Details / Extension?
-```
-
-The directing party picks the type (or declines). On accept, the implementer creates the note from the template into `./docs/knowledge/`, adds an entry to `knowledge_index.md`, and cross-references from the originating work item.
-
-Spike outputs always produce a knowledge note as the durable artefact; for other work items, knowledge capture is optional but suggested when the implementer notices a candidate.
+Capture reusable research, implementation cautions and decision rationale in `docs/knowledge/`, update its index and link from the originating Feature. Choose the existing note type directly when clear. Spike outputs include a durable knowledge result, including an honest inconclusive result. Ask only when the meaning, scope or permission is consequential, not to approve routine bookkeeping.
 
 ### Cooperative Access Collision
 
@@ -306,15 +208,7 @@ This is the directing party's side of the *Cooperative Access* commitment from `
 
 ### Commit Cadence Reminder
 
-When the directing party reaches a gate moment (G1, G2, G3) and there are uncommitted changes from a prior gate, the implementer reminds before proceeding:
-
-```
-Before approving this Gate 1 transition: you have uncommitted changes from the prior approval of vision.md (Gate 1, 2026-05-15). Per development_guide.md § Commit Cadence, the default is "commit after every approved gate."
-
-Commit those changes now, or proceed and commit both together?
-```
-
-The default convention (per `development_guide.md § Commit Cadence`) is one commit per approved gate. The reminder makes the convention visible; it does not enforce.
+Commit coherent changes after appropriate checks, with traceability to the Feature or governing maintenance rule. Record actual human Feature/document decisions alongside the changed source. A lower-level progress update does not require a separate commit or permission prompt. Contribution, publication and external-action permissions continue to govern.
 
 ### Error Surfacing
 
@@ -348,6 +242,11 @@ Index updates and cross-reference maintenance happen silently as part of the gat
 ---
 
 ## Version History
+
+### 2026-11-01 - v2.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-08-25 - v1.4
 

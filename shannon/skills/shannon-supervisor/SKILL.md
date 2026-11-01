@@ -33,7 +33,7 @@ Invocation: `/shannon-report` (takes no arguments).
 
 The skill:
 
-1. Reads the supervisor configuration per § Configuration below to determine the report directory and any directing-party-reserved gate authorities.
+1. Reads the supervisor configuration per § Configuration below to determine the report directory and any compatibility warnings.
 2. Spawns three checker subagents in parallel — Alignment, Lifecycle, Drift — each returning a structured finding fragment using the canonical four-category schema: Drift, Gap, Internal contradiction, Strength.
 3. Aggregates the fragments into a single dated report at `./docs/supervisor/report-YYYY-MM-DD.md` (or under the configured `report_directory` if overridden).
 4. Indexes the report in `./docs/knowledge/knowledge_index.md` with Type marked as *Supervisor Report* per the Knowledge Note subtype convention.
@@ -44,72 +44,21 @@ The implementation body of the report-writing pipeline — template instantiatio
 
 ## /shannon-goal — Contract
 
-Invocation: `/shannon-goal [intent]`, where `[intent]` is a free-text hint describing something the directing party wants (e.g. *"make onboarding feel less abrupt"*).
+**Invocation**: `/shannon-goal [intent]` — a free-text product or engineering intent.
 
-The verb decomposes the intent into a categorised list of candidate work items and presents it for the directing party to act on. It is a **read-only** verb — it writes nothing (see *Read-only reuse* below).
+Read the configuration and relevant governing documents, current Features, actual implementation and existing requests. Reuse the checker discovery flow only when separately authorised to delegate; otherwise read directly. Return candidates with source-linked alignment, missing evidence and the exact decision needed. Do not execute them, create records, write a report or update an index.
 
-The skill:
+Candidates within approved Feature meaning and permissions may be agent-managed; new or materially changed Feature requirements, approach or consequential governing meaning require human approval. Optional Epic, Task and Spike records introduce no human stage gates. A scratchpad note supplies context, not authority. Honour existing explicit project holds.
 
-1. Reads the supervisor configuration per § Configuration to determine the directing-party-reserved gate authorities — these decide which candidates the supervisor may promote autonomously and which require directing-party approval.
-2. Discovers the existing artefacts the intent touches by reusing the § Report Pipeline checker fan-out (Flow step 1 only): the three checkers traverse the mandated documents and the work items and return four-category fragments that name specific artefacts by ID. Goal-decomposition maps those artefacts to the intent.
-3. Sorts the candidate work items into two categories:
-   - those aligned with existing artefacts — each candidate names the specific Feature, Epic, or document section it aligns with, cited by ID (e.g. FEAT-001, EPIC-005) or by document-and-section.
-   - those surfacing gaps — each candidate names what no current artefact covers, and flags the promotion authority it requires. The complete model has four targets, governed by `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Scratchpad promotion authority*: a **Task** may be promoted on supervisor authority; a **Spike** may be promoted on supervisor authority **unless the project has reserved Spike authority to the directing party** — the `spike_gate_authority` field of § Configuration decides this, and the skill reads it rather than assuming the default; an **Epic** and a **Feature** always require directing-party approval.
-4. Renders the result in the shape below.
+Preserve the output structure: an `Intent:` echo, one counted heading per category (aligned candidates; candidates surfacing gaps), and a candidate-derived authority footer. Empty categories keep `(0)` and an explicit no-candidates line so a considered-empty result is distinguishable from truncation. The output groups covered work and work awaiting a named decision. Its footer mentions only the actual relevant decisions; never a generic four-type promotion-authority legend. For example: “The onboarding copy change is covered by the approved Feature. Adding a new first-session promise needs human Feature approval.”
 
-### Output shape
-
-The output carries four elements — an `Intent:` echo of the hint, one heading per category each carrying a parenthesised count, and a closing promotion-authority footer. The four elements are the structural commitment; the footer's *content* is derived per the rule stated beneath the example. The block below is **one worked instance, not a template** — it shows a run whose candidates implicate Task and Feature authority only, and its footer names those two and nothing else:
-
-```
-Intent: "make onboarding feel less abrupt"
-
-Candidates aligned with existing artefacts (2):
-  - Extend FEAT-001 § Ideal State to name first-session experience
-  - New Task under EPIC-005 — Soften /shannon-setup conclusion message
-
-Candidates surfacing gaps (1):
-  - No Feature elaborates "first-session experience" yet — directing-party
-    approval needed before scratchpad promotion to Feature
-
-Promote which? (The Task may be auto-promoted on supervisor authority;
-the Feature requires your approval.)
-```
-
-The footer names **only the promotion authorities the run's actual candidates implicate** — it is derived from the candidate list, never printed as a fixed legend. A run whose candidates are all Tasks says so and mentions nothing else; a run that surfaces an Epic candidate names the directing-party requirement because it is live in that run, not because a legend always carries it. The four-target model at Contract step 3 is what the footer draws from; it is not what the footer prints.
-
-When a category is empty, its heading still renders with a `(0)` count and an explicit "no candidates in this category" line, so the directing party can distinguish a considered-empty category from a truncated run.
-
-### Read-only reuse
-
-`/shannon-goal` reuses only the § Report Pipeline checker fan-out — Flow step 1 (the parallel Alignment/Lifecycle/Drift spawn and the canonical four-category fragment schema) — for artefact discovery. It does **not** run the report-construction steps (Flow steps 2–6): no template instantiation, no dated report written under the configured `report_directory`, and no entry appended to `./docs/knowledge/knowledge_index.md`. The verb's entire output is the categorised candidate list rendered to the directing party; it produces no file.
-
-### Failure modes
-
-Configuration handling follows § Configuration and § Failure Modes exactly. A **missing** `./.claude/shannon-supervisor.json` is not an error — the file is optional and `/shannon-goal` proceeds on the § Configuration defaults. A **malformed** file (present but not valid JSON) is surfaced explicitly: `/shannon-goal` names the offending file — `./.claude/shannon-supervisor.json` — reports the parse error, and refuses to run rather than silently falling back to defaults. In neither case is a generic "config missing" string emitted; the actual file path is always named.
+Configuration failure is explicit per § Configuration. An empty candidate set is valid and stated positively. This command produces no file.
 
 ## Configuration
 
-The supervisor reads `./.claude/shannon-supervisor.json` for project-specific configuration. The file is optional.
+Read optional `./.claude/shannon-supervisor.json`. Missing file or `{}` uses `report_directory: docs/supervisor` silently. A supplied `report_directory` is relative to the project root. Malformed JSON names the file and parse error, then refuses; an empty non-JSON file is malformed, not an empty object.
 
-**Default values** — applied when the file is absent or a specific field is absent:
-
-| Field | Default |
-|---|---|
-| epic_gate_authority | supervisor |
-| spike_gate_authority | supervisor |
-| report_directory | docs/supervisor |
-
-**Override semantics**:
-
-- File absent → all fields take defaults; the skill must not crash on a missing file.
-- File present but empty (`{}`) → all fields take defaults; the skill must not crash on an empty file.
-- File present with a subset of fields → named fields override defaults; absent fields take the default value.
-- File present with all fields → each field's value is honoured uniformly.
-
-The supervisor handles file-not-found and empty-JSON-document cases gracefully — no exception raised, defaults applied silently.
-
-The `report_directory` value is interpreted as a path relative to the project root. The `epic_gate_authority` and `spike_gate_authority` fields each take the value `supervisor` (the default, meaning the supervisor may approve the corresponding gate autonomously) or `directing_party` (meaning the gate is reserved to the directing party). Task gates are always supervisor authority and not configurable per the *Gate Authority Split* business rule. The fixed-floor gates (Vision, Features) are always directing-party authority and not configurable.
+Legacy `epic_gate_authority` and `spike_gate_authority` fields are compatibility inputs only. When present, explain that they no longer grant or create approval gates. Do not automatically delete/rewrite the configuration. Separately recorded explicit project holds still need disposition. Vision and Feature approval remain human decisions; optional execution records have no mandatory gates.
 
 ## Report Pipeline
 

@@ -1,18 +1,11 @@
 # /spike-create
 
-Create a new spike in DRAFT.
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to create this spike.
+Pass Type `spike`, Verb `create`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `spike`
-- **Verb**: `create`
-- **Target**: Optional title hint from `$ARGUMENTS`. If empty, suggest from recent conversation context.
-- **Feature** *(optional)*: Linked feature for context, or `standalone`.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will allocate the next SPIKE-XXX ID, create the file under `./spikes/` (project root, not under `docs/`), update `spike_index.md`, and capture the initial question to investigate.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
-
-After creation, resume the original conversation topic.
+If the skill does not activate, report “Error: work-items skill failed to activate.”
