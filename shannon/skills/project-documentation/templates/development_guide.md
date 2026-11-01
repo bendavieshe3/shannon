@@ -110,14 +110,7 @@
 
 ### Commit Cadence
 
-Shannon's default: **commit after every approved gate**. Source control is assumed.
-
-- **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
-- **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
-
-This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project."
-
-[Adjust this cadence if your project has different needs.]
+Commit coherent, checked changes during authorised execution. Record Feature/document decisions and link changes and verification to the Feature or governing engineering rule. Optional execution records do not require gates, automatic archiving or one commit per progress label. Run appropriate checks before committing. A commit or merge does not imply human Feature acceptance.
 
 ### Pull Requests
 

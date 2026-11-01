@@ -1,8 +1,8 @@
 # Technology Stack
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-10-17
-**Approved**: 2026-10-17
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -80,7 +80,7 @@ Shannon has no runtime dependencies. The only requirement is Claude Code.
 - **No secrets** — Shannon stores no credentials. Projects built with Shannon document their own secrets management in their development_guide.md
 - **No Shannon-originated network calls** — Shannon adds no network calls of its own; the framework operates on local files within the Claude Code runtime (which makes its own network calls outside Shannon's scope)
 - **Trust boundary** — When Shannon templates and commands are installed into a project, they execute as part of Claude Code's permission model; the directing party reviews and approves commands like any other Claude Code skill or command
-- **Cooperative access assumption** — The file-based model assumes cooperative access. Concurrent writes by multiple agents are out of scope at this version. The three roles named at `vision.md` § Target Users → *Three roles, configurably separable* (directing party, supervisor, implementer) coexist on shared files by convention — including the canonical gate-integrity constraint (the agent approving any gate is not the same agent that produced the work under review, per `conceptual_design.md` § Business Rules → *Supervisor Distinct From Implementer*). Enforcement is by skill protocol and reviewer discipline, not by technical concurrency control or agent-identity attestation
+- **Cooperative access assumption** — Multiple agents coordinate by convention, re-read before writes and reconcile diffs rather than silently overwriting. Human Vision/Feature authority is distinct from independent technical review; the implementer cannot provide its own independent review.
 
 ---
 
@@ -115,7 +115,7 @@ Named so the boundary is honest, not implied:
 
 ### Configuration storage
 
-Per `conceptual_design.md` § Business Rules → *Gate Authority Split*, the Epic and Spike gate-authority ceilings are configurable per project. Shannon stores this configuration under `./.claude/` (the same root that houses commands, skills, and templates). The specific filename and schema are codified in `technical_design.md` § Data Model. Storing supervisor configuration under `./.claude/` keeps the project's Shannon installation self-describing and version-controllable through the same Git mechanism the rest of the framework relies on.
+Supervisor configuration under `./.claude/` controls report settings. Legacy Epic/Spike gate-authority fields are compatibility inputs without authority: optional execution records have no mandatory gates. Explicitly recorded project holds still require disposition; see `technical_design.md` § Data Model → *Supervisor Configuration*.
 
 ### Aligns to
 
@@ -132,6 +132,11 @@ Vision § Core Principles 5 (*Continuous Health Vigilance*) and Vision § Key Fe
 ---
 
 ## Version History
+
+### 2026-11-01 - v2.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-10-17 - v1.4
 

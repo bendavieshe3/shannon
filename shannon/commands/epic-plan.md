@@ -1,15 +1,11 @@
 # /epic-plan
 
-Plan an epic's tasks (Gate 2).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to plan this epic.
+Pass Type `epic`, Verb `plan`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `epic`
-- **Verb**: `plan`
-- **Target**: Epic ID from `$ARGUMENTS` (must be in ELABORATED status). If empty, list candidate ELABORATED epics and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will read the epic's Requirements, Technology Stack, parent Feature, and may update Technical Design; draft a task breakdown; and create child Task stubs in DRAFT carrying prepared elaboration and plan drafts, which surface when `/task-elaborate` and `/task-plan` run (each child still passes its own Gate 1 and Gate 2). Gate 2 requires explicit user approval to transition the epic ELABORATED → PLANNED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

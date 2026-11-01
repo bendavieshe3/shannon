@@ -1,15 +1,11 @@
 # /epic-elaborate
 
-Elaborate an epic's requirements (Gate 1).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to elaborate this epic.
+Pass Type `epic`, Verb `elaborate`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `epic`
-- **Verb**: `elaborate`
-- **Target**: Epic ID from `$ARGUMENTS`. If empty, list candidate DRAFT epics and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will read the parent Feature, Vision § referenced sections, and Conceptual Design; draft the Requirements section; and present alignment findings. Gate 1 requires explicit user approval to transition DRAFT → ELABORATED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

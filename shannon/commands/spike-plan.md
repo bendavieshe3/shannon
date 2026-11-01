@@ -1,15 +1,11 @@
 # /spike-plan
 
-Plan a spike's investigation approach (Gate 2).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to plan this spike.
+Pass Type `spike`, Verb `plan`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `spike`
-- **Verb**: `plan`
-- **Target**: Spike ID from `$ARGUMENTS` (must be in ELABORATED status). If empty, list candidate ELABORATED spikes and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will define the investigation approach (experiments, comparisons, prototypes, research steps) and confirm the time-box. Gate 2 requires explicit user approval to transition ELABORATED → PLANNED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

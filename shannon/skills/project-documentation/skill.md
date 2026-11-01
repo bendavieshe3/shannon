@@ -13,7 +13,7 @@ This skill owns the mandated documents that describe a project and the knowledge
 
 - Creating mandated documents from templates
 - Creating knowledge notes
-- Walking documents through DRAFT → APPROVED with explicit directing-party approval
+- Preserving human authority for Vision/consequential meaning, with agent-managed factual upkeep
 - Enforcing document authority alignment (lower documents must enable higher ones)
 - Maintaining `knowledge_index.md`
 
@@ -75,14 +75,14 @@ Copy the relevant template from `templates/<name>.md` to `./docs/<name>.md`. Set
 
 ### 4. Elaborate Content
 
-Spawn a subagent to:
+Read and draft directly, or use a separately authorised helper to:
 
 - Read all higher-authority documents that already exist
 - Read any work items that reference this document
 - Draft content for each section of the template
 - Identify sections where directing-party input is required
 
-Subagent writes draft content directly into the document file and returns a structured summary.
+Record source-linked draft content and unresolved decisions; optional helpers are not mandatory.
 
 ### 5. Present and Iterate
 
@@ -98,9 +98,9 @@ When creating a knowledge note, add a line to `./docs/knowledge/knowledge_index.
 
 Use the supplied path, or ask if ambiguous.
 
-### 2. Spawn Alignment Subagent
+### 2. Check Alignment
 
-The subagent:
+The agent, or a separately authorised helper:
 
 - Reads the target document
 - Reads all higher-authority documents in the graph
@@ -118,24 +118,21 @@ Show the directing party the alignment report:
 
 ### 4. Quality Gate (Gate 1)
 
-Ask the directing party explicitly: "Approve this document to mark APPROVED?"
-
-- On approval: Set Status to APPROVED, update Last Reviewed, update Version History
-- On rejection: Surface the changes the directing party wants and iterate
+For Vision or consequential changes to approved meaning, present the actual decision to the human and record explicit approval; reuse approval already supplied for this exact change. Routine factual upkeep within approved intent can preserve APPROVED status while recording its source and alignment check. Do not create human gates for every document edit. Unresolved changed meaning remains DRAFT; the implementer cannot declare its proposal human-approved.
 
 ### 5. Cascade Lower-Document Alignment Checks
 
-If the approved document has lower documents in the authority graph, suggest running `/document-review` on each that is currently APPROVED — they may now be misaligned and need updating.
+Read affected lower documents and maintain factual alignment within the approved decision in the same pass. Surface unresolved consequential meaning rather than requiring a separate routine review command for each document.
 
 ## Quality Gates
 
-- **Gate 1** (DRAFT → APPROVED): Explicit approval by the directing party. The implementer cannot approve its own work.
+Human Vision and Feature decisions remain explicit. Document authority/alignment is preserved; material scope, meaning, design, acceptance, cost or access changes return to the human. Factual documentation maintenance within existing authority is agent work. Independent technical review follows the project's contribution policy and cannot be supplied by the implementer itself.
 
 ## Failure Modes
 
 - **Missing higher-authority document** — Cannot review or approve a document if a required higher document is missing. Surface: "Cannot review technical_design.md — conceptual_design.md is missing. Run `/document-create conceptual_design` first."
-- **Higher document is DRAFT** — Warn the directing party that the higher document is not yet authoritative and ask whether to proceed
-- **Directing-party edits during review** — If the directing party modifies the document mid-review, restart the alignment subagent against the new content
+- **Higher document is DRAFT** — Surface the exact unresolved authority when it affects the outcome; continue independently authorised work without a ritual proceed prompt
+- **Directing-party edits during review** — If the directing party modifies the document mid-review, re-read and repeat affected alignment checks against the new content
 
 ## Self-Identification
 

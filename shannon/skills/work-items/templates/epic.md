@@ -8,7 +8,7 @@
 - **Created**: [YYYY-MM-DD]
 - **Updated**: [YYYY-MM-DD]
 
-> **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
+> Optional execution record. Progress labels describe actual work; no fixed lifecycle or mandatory human gates apply. Preserve the approved Feature or governing maintenance-rule reference. Self-tests do not constitute independent approval.
 
 ---
 
@@ -26,7 +26,7 @@
 
 ### Acceptance Criteria
 
-[Epic-level criteria. Specific task-level acceptance criteria live in the task files.]
+[Epic-level criteria. Optional execution notes may add implementation checks.]
 
 - [ ] [Criterion]
 - [ ] [Criterion]
@@ -45,16 +45,15 @@
 
 ## Plan
 
-[Filled during planning. The epic's plan is its list of tasks plus the integration story across them.]
+[Choose the approach within approved Feature scope; create child Task records only when useful.]
 
 ### Approach
 
-[High-level approach. How the tasks combine to deliver the goal. What gets built first, what depends on what.]
+[High-level approach, execution order and dependencies; no mandatory children.]
 
-### Tasks
+### Optional Execution Aids
 
-- [TASK-XXX](../tasks/TASK-XXX-slug.md) — STATUS — [Task name]
-- [TASK-XXX](../tasks/TASK-XXX-slug.md) — STATUS — [Task name]
+[Use Tasks only if helpful; no mandatory child hierarchy.]
 
 ### Dependencies
 
@@ -86,14 +85,14 @@
 
 ## Review
 
-[Filled during review (Gate 3).]
+[Record verification honestly; independent review and human Feature acceptance are distinct.]
 
 ### Verification
 
-- [ ] All tasks APPROVED
+- [ ] Feature-level outcome verified; optional child evidence linked
 - [ ] Epic acceptance criteria met
 - [ ] Parent feature updated with epic outcome
-- [ ] Relevant documents updated and approved
+- [ ] Relevant documents updated within approved meaning; consequential changes explicitly approved
 
 ### Review Notes
 

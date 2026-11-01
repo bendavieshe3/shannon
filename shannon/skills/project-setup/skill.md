@@ -73,10 +73,9 @@ For each mandated document template in `./.claude/skills/project-documentation/t
 Create these directories with their index files:
 
 - `./docs/features/` with `feature_index.md`
-- `./docs/epics/` with `epic_index.md`
-- `./docs/tasks/` with `task_index.md` and `tasks/archive/`
+- Optional execution-aid directories/indexes only when useful; do not require `docs/epics/`, `docs/tasks/` or `spikes/`
+- Preserve existing execution records and indexes; no bulk migration
 - `./docs/knowledge/` with `knowledge_index.md`
-- `./spikes/` with `spike_index.md` (project root, not under `docs/`)
 
 ### 5. Produce Project CLAUDE.md
 
@@ -104,7 +103,7 @@ Report verification results to the directing party with a list of created files 
 
 ## Quality Gates
 
-This skill operates **before** the work item lifecycle, so no Gates 1–3 apply directly. The vision content captured here will pass through Gate 1 when the directing party runs `/document-review vision.md`.
+Setup establishes the six documents and Feature context. The human approves Vision and consequential meaning; Feature requirements/approach/delivery retain human gates. Agents manage factual upkeep and execution below Features without mandatory lower-level gates.
 
 ## Templates
 

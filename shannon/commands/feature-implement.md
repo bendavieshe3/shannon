@@ -1,15 +1,11 @@
 # /feature-implement
 
-Execute a feature's plan (typically by progressing its epics).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to implement this feature.
+Pass Type `feature`, Verb `implement`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `feature`
-- **Verb**: `implement`
-- **Target**: Feature ID from `$ARGUMENTS` (must be in PLANNED status). If empty, list candidate PLANNED features and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence. Implement the Feature directly, choosing useful decomposition. Do not merely route to an Epic or require child records.
 
-For a feature, "implement" typically means progressing one or more epics. The skill will mark the feature ACTIVE and surface the next epic to work on. Use `/epic-implement EPIC-XXX` to do the actual epic work.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

@@ -5,12 +5,12 @@
 - **Status**: DRAFT
 - **Type**: Task
 - **Parent**: [EPIC-XXX](../epics/EPIC-XXX-slug.md) | *orphan*
-- **Feature**: [FEAT-XXX](../features/FEAT-XXX-slug.md) | *—*
+- **Feature or governing maintenance rule**: [approved Feature / engineering rule and product purpose]
 - **Tags**: #component #type
 - **Created**: [YYYY-MM-DD]
 - **Updated**: [YYYY-MM-DD]
 
-> **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
+> Optional execution record. Progress labels describe actual work; no fixed lifecycle or mandatory human gates apply. Preserve the approved Feature or governing maintenance-rule reference. Self-tests do not constitute independent approval.
 
 ---
 
@@ -43,7 +43,7 @@
 
 ## Plan
 
-[Filled during planning. The "how" — approved before any implementation work begins (Gate 2).]
+[Filled during planning. The "how" — chosen by the agent within approved Feature scope.]
 
 ### Approach
 
@@ -91,7 +91,7 @@
 
 ## Review
 
-[Filled during review (Gate 3).]
+[Record verification honestly; independent review and human Feature acceptance are distinct.]
 
 ### Verification
 

@@ -1,8 +1,8 @@
 # Development Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-08-28
-**Approved**: 2026-05-29
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -108,7 +108,7 @@ Shannon has no unit tests because Shannon has no units. The framework's correctn
 ### What to Test
 
 - Every command's skill invocation actually triggers the intended skill
-- Every quality gate prompts for explicit directing-party approval
+- Every Feature quality gate requires explicit human approval; optional records add no human gates
 - Every template renders to a coherent document when instantiated
 - Every index update happens at the right transition
 
@@ -120,7 +120,7 @@ Before committing template, command, or skill changes:
 - [ ] No stale references to removed concepts (e.g. "phases", "code_style_guide.md")
 - [ ] Cross-references are correct paths
 - [ ] At least a mental dry-run of the affected workflow
-- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/skill.md` § Process: Plan and § Process: Review.)
+- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/skill.md` § Plan and § Review.)
 
 ### Instrumentation
 
@@ -128,7 +128,7 @@ Distinct from the absent test suite, instrumentation is the work of capturing da
 
 - **Documentation upkeep ratio** (<10% of session time on `/document-*` commands) — Requires session-time tracking inside the `project-documentation` skill. Not yet implemented; flagged in vision § Measurable Targets as a future commitment
 - **Planning approval rate** (80%+ at Gate 2 without revision) — Measurable from Activity Log entries on work items; no separate instrumentation needed
-- **Setup time** (<5 min from `/shannon-setup` to first PLANNED task) — Measurable by timestamps; no separate instrumentation needed
+- **Setup time** (<5 min from `/shannon-setup` to first Feature approach approval) — Measurable by timestamps; no separate instrumentation needed
 
 Instrumentation lives in the skill that owns the relevant workflow. As measurable targets are added or refined, the corresponding instrumentation is part of the work that introduces them.
 
@@ -138,8 +138,8 @@ Instrumentation lives in the skill that owns the relevant workflow. As measurabl
 
 ### Branching
 
-- **master** — Single long-lived branch. Shannon has a single maintainer at present; no team-branching model required. The framework itself supports multi-agent configurations under the three-role taxonomy (directing party, supervisor, implementer — see `conceptual_design.md` § Glossary), but the codebase-of-Shannon-itself does not yet operate that way
-- **Topic branches** — Optional for substantial refactors (e.g. `refactor/shannon-v2`). Squash-merge to master
+- **master** — default integration branch, changed through reviewed pull requests.
+- **Topic branches** — implement coherent tested changes on a branch; preserve Feature or governing engineering-rule traceability.
 
 ### Commits
 
@@ -148,52 +148,23 @@ Instrumentation lives in the skill that owns the relevant workflow. As measurabl
 
 ### Commit Cadence
 
-Shannon's default: **commit after every approved gate**. Source control is assumed.
+Commit coherent, checked changes throughout authorised execution; do not wait for an optional work-item gate. Record explicit Feature/document decisions with their source. Feature Gate 3 acceptance remains a human decision distinct from a commit or merge. Never commit before running appropriate checks.
 
-- **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
-- **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
-
-This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
-
-#### Supervisor cadence runs
-
-Autonomous supervisor runs (per `technical_design.md` § Cadence) are read-mostly: each run produces a dated report at `docs/supervisor/report-YYYY-MM-DD.md` and, in the configurable-ceiling case, may exercise delegated gate approvals on Tasks (and, by default, Epics and Spikes — see `conceptual_design.md` § Business Rules → *Gate Authority Split*). Commit cadence inside an autonomous run:
-
-- **One commit per run, not per gate** — A cadence run that approves multiple Task gates batches all of its writes (the dated report plus any per-Task transitions it ratified) into a single commit at the end of the run, rather than committing after each individual gate. This preserves the "one commit per decision" intent at the granularity that makes sense for a batched autonomous pass: the decision is the run, not each gate inside it
-- **Commit message names the run** — Subject `Supervisor report YYYY-MM-DD` (capitalised imperative-equivalent; the report's filename is the natural anchor); body enumerates any gate transitions the run ratified, by work item ID
-- **Interactive supervisor invocations follow the default** — A `/shannon-report` run inside an interactive directing-party session falls back to the standard per-gate commit cadence above. The batched form is specifically for the headless autonomous case
-
-The same agent-identity constraint applies in either case: a supervisor commit must not ratify work the same agent implemented (per `conceptual_design.md` § Business Rules → *Supervisor Distinct From Implementer*).
+Supervisor reports may be committed as a single checked reporting change under the project's existing contribution permissions. A reporting run neither approves Features nor grants publication authority.
 
 ### Push Cadence
 
-Shannon's default: **push local commits to the remote** at three named triggers, so commits do not sit unsynced.
-
-- **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion
-- **At session end** — before the implementer or directing party stops a working session for the day or hands off to another agent — i.e. before any pause long enough that local commits would otherwise sit unsynced through the gap
-- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes before exiting, so the supervisor's findings reach the remote before the directing party next opens a session. This is what makes the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflect the latest cadence findings rather than stale local state
-
-Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the cadences are paired.
+Push tested topic-branch commits during authorised work and at handoff, subject to publication permission. This repository is public: inspect the staged diff for secrets, private deployment details and unrelated changes first. Do not infer human Feature acceptance, live deployment or permission for unattended operation from a push.
 
 ### Pull Requests
 
-- **Optional** — Direct commits to master are acceptable while Shannon has a single maintainer
-- **Use PRs for**: substantial refactors, anything you want to think through in writing, anything that benefits from `/ultrareview`
+All Shannon source changes reach the default branch through a pull request. An approved reviewer who did not implement or push the change must approve the current head before merge. Resolve findings and obtain fresh approval after a head change. Human product acceptance is distinct from technical approval and merge.
 
 ### Multi-Agent Coordination
 
-Shannon's framework explicitly supports multi-agent configurations under the three-role taxonomy (directing party, supervisor, implementer — see `conceptual_design.md` § Glossary and `vision.md` § Target Users → *Three roles, configurably separable*). The agents coexist on shared files *by convention*, not by technical control (see `technical_design.md` § Cooperative Access). Two configurations are typical:
+The human directs Vision and Features; the implementer delivers and tests; a distinct reviewer provides independent technical judgement. The human can accept delivered work, including agent-produced work. Optional supervisors audit health without lower-level gate authority.
 
-- **Directing party + implementer** — solo configuration in which the directing party also occupies the supervisor role (permitted per Vision § Target Users); the agent-identity gate-integrity constraint still applies — the human cannot approve gates on work the implementer agent produced
-- **Directing party + supervisor + implementer** — fuller configuration in which a distinct supervisor agent performs continuous health vigilance and absorbs Task (and, by default, Epic and Spike) gate authority per `conceptual_design.md` § Business Rules → *Gate Authority Split*
-
-The development practice that makes shared-file operation safe applies to both configurations:
-
-- **Disjoint work items** — Agents operating concurrently should be assigned to different work items; the file-based model has no locking, and overlapping writes will surface as ordinary diffs to be resolved by the directing party
-- **No silent overwrites** — When an implementer touches a file another agent recently modified, surface the diff and ask before overwriting
-- **Cooperative ID allocation** — Simultaneous `*-create` operations may produce colliding IDs; resolve by reading the index at the moment of allocation and accepting the merge conflict if one arises (see `technical_design.md` § ID Allocation)
-
-Future versions may add architectural enforcement of the *Supervisor Distinct From Implementer* rule (`conceptual_design.md` § Business Rules); the current version trusts agents and the directing party to follow the convention.
+Delegation is optional and requires the applicable authorisation. Concurrent agents coordinate disjoint changes, re-read before writes and reconcile diffs without silent overwrite. Allocate IDs against current indexes. The implementer cannot satisfy independent review by changing its own role label.
 
 ### Supervisor Report Files
 
@@ -219,6 +190,11 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-11-01 - v2.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-08-28 - v1.5
 

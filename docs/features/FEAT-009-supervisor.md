@@ -6,12 +6,12 @@
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #5 *Continuous Health Vigilance* (primary); § Key Features *Supervisor Role* (substantive commitment); § Target Users *Three roles, configurably separable* (role model); § Future Vision *supervisor portability* (forward generalisation)
-- **Initial Implementation**: Built through Shannon — no retrospective component. The supervisor role does not yet exist in this codebase; FEAT-009 captures it as forward work to be delivered through its constituent Epics.
+- **Initial Implementation**: Built through Shannon — interactive reporting/synthesis delivered; autonomous cadence and portability still require separate validation. See Plan and Activity Log.
 - **Created**: 2026-05-29
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-01
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`.
-> **Activity** indicates current development state: `STABLE` (no epic in progress) or `ACTIVE` (an epic is being worked on). Activity is descriptive state, orthogonal to Status.
+> **Activity** indicates current development state: `STABLE` (no active implementation) or `ACTIVE` (implementation in progress). Activity is descriptive state, orthogonal to Status.
 > **Initial Implementation** records how the capability came to exist. *Built through Shannon* — full lifecycle through this framework. *Retrospective* — capability existed before Shannon was applied to the project; the Feature captures it after the fact. *Partial* — some of the capability is retrospective; the rest is forward work through new Epics.
 
 ---
@@ -22,9 +22,9 @@
 
 ### Overview
 
-FEAT-009 captures the **supervisor role** as a persistent capability of Shannon: a continuous-vigilance role distinct from the implementer and (optionally) distinct from the directing party, exercising delegated gate authority for routine work and producing dated audit reports on a project-configured cadence. The supervisor is what makes Vision § Core Principles #5 (*Continuous Health Vigilance*) operational rather than aspirational — without an actor performing vigilance on a cadence, the principle is unbacked.
+FEAT-009 captures the **supervisor role** as a persistent capability of Shannon: a continuous-vigilance role distinct from the implementer and (optionally) distinct from the directing party, organising authorised work without mandatory lower-level gates and producing dated audit reports on a project-configured cadence. The supervisor is what makes Vision § Core Principles #5 (*Continuous Health Vigilance*) operational rather than aspirational — without an actor performing vigilance on a cadence, the principle is unbacked.
 
-The Feature is **forward work from a zero baseline**: the supervisor does not yet exist as code, skill, or operational pattern in this repository. The Vision v2.4 documentation cascade (`d2fd797` → `0fe6e30`, all six mandated documents) ratified the supervisor's role and architecture at framework level; FEAT-009 is the implementing Feature that delivers it. The cascade established the *what* and the *contract*; this Feature delivers the *how*.
+The Feature began as forward work from a zero baseline; interactive reporting and synthesis have since been delivered through the historical Epics below. Autonomous cadence and portability acceptance remain separate outstanding work. The Vision v2.4 documentation cascade (`d2fd797` → `0fe6e30`, all six mandated documents) ratified the supervisor's role and architecture at framework level; FEAT-009 is the implementing Feature that delivers it. The cascade established the *what* and the *contract*; this Feature delivers the *how*.
 
 The Phase-0 spike report (`~/Documents/Vaults/general-vault/Areas/Situations/SIT-026-Shannon-Development-Framework/spike-claude-code-features-2026-05-27.md`) surveyed Claude Code primitives and produced the 5-commit / 4-defer architecture that `technology_stack.md` v1.3 § Supervisor Tooling and `technical_design.md` v1.2 § System Architecture → *Supervisor* + § Cadence now codify. The Feature inherits the spike's phase structure (Phase 2 / Phase 3 / Phase 4 / Phase 5+) as the natural Epic boundary.
 
@@ -36,13 +36,13 @@ Each bullet cites the cascade-doc anchor it elaborates, distinguishing **contrac
 
 - **Three-checker fan-out** — A single supervisor invocation spawns three specialised checker subagents in parallel: Alignment Checker (Haiku — codebase vs documents), Lifecycle Checker (Sonnet — index vs source-of-truth bodies; stuck items), Drift Checker (Haiku — scratchpad pressure, uncommitted changes, branch lag). Findings aggregate into one report using the four-category schema (Drift / Gap / Internal contradiction / Strength). *(Contract ratified at `technical_design.md` § System Architecture → *Supervisor*; implementation forward through Phase 2.)*
 
-- **Delegated gate authority within the configurable ceiling** — The supervisor exercises Task gates always; Epic gates and Spike gates by default, each reservable per project. Vision and Feature gate authority remains permanently with the directing party. Scratchpad → Task promotion is autonomous; scratchpad → Epic/Feature promotion requires directing-party approval. *(Contract ratified at `conceptual_design.md` § Business Rules → *Gate Authority Split*; implementation forward — skill protocol + the configuration file at `./.claude/shannon-supervisor.json`.)*
+- **Feature-level authority** — The human owns Vision and Feature gates. Optional execution aids add no gates. A supervisor can organise work within existing approved intent; new meaning and explicit project holds return to the human. Legacy gate-authority fields grant no authority.
 
 - **Five Claude Code hook integration points** — `SessionStart` injects a terse health summary so sessions open already oriented; `PreToolUse` write-guards against writes outside `docs/supervisor/`; `PostToolUse` audit-logs supervisor operations; `PreCompact` snapshots in-flight findings before context compaction; `Stop` runs a completion check. *(Hook roles ratified at `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*; implementation forward through Phase 2 + Phase 3.)*
 
-- **Hybrid report presentation by default** — Reports are presented as a diagnostic header (counts of findings, stuck items, push lag) followed by a one- to two-finding narrative body. Diagnostic-only and conversational-only presentations are valid project customisations. Supervisor-approved gate decisions surface to the directing party after the fact via a one-line notification at next session start, with override always available. *(Contract ratified at `ux_guide.md` § Interaction Patterns → *Supervisor Report Presentation* + *Supervisor-Approved Gate Notification*; implementation forward through Phase 2 + Phase 3.)*
+- **Hybrid report presentation by default** — Reports are presented as a diagnostic header (counts of findings, stuck items, push lag) followed by a one- to two-finding narrative body. Diagnostic-only and conversational-only presentations are valid project customisations. Authorised execution progress and actual review findings are surfaced without implying Feature approval. *(Contract ratified at `ux_guide.md` § Interaction Patterns → *Supervisor Report Presentation* + *Supervisor-Approved Gate Notification*; implementation forward through Phase 2 + Phase 3.)*
 
-- **Agent-identity gate-integrity preserved absolutely** — The supervisor never approves a gate on work the same agent implemented, regardless of which role formally holds gate authority. Skills refuse self-approval flows by protocol. *(Contract ratified at `conceptual_design.md` § Business Rules → *Supervisor Distinct From Implementer*; implementation forward — skill-protocol refusal patterns in the supervisor skill.)*
+- **Independent review** — A reviewer who did not implement the work supplies technical judgement. The human accepts Feature delivery; self-tests, a supervisor role label and code merge do not supply that acceptance.
 
 - **Goal decomposition via `/shannon-goal`** — A directing-party intent (free-text hint) is decomposed into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it does not. Categorised output: candidates aligned with existing artefacts; candidates surfacing gaps; explicit indication of which require directing-party approval to promote. *(Contract ratified at `ux_guide.md` § Command Surface → *Supervisor Commands* + `technical_design.md` § API Design → *Supervisor Verbs*; implementation forward through Phase 3.)*
 
@@ -54,59 +54,7 @@ Each bullet cites the cascade-doc anchor it elaborates, distinguishing **contrac
 
 ### User Stories
 
-#### Cadence-Driven Health Summary at Session Start
-
-**As a** solo developer returning to a Shannon project after several days away,
-**I want** a terse health summary injected at session start (drift count, stuck items, push lag),
-**So that** I open the session already oriented instead of having to manually audit indexes and recent commits before I can act.
-
-#### Multi-Agent Configuration Absorbing Routine Gate Workload
-
-**As a** directing party in a fuller (directing party + supervisor + implementer) configuration,
-**I want** the supervisor to exercise Task gates (and Epic / Spike gates by default) without surfacing each decision in real time,
-**So that** my interventions stay reserved for Feature- and Vision-level decisions where my judgement actually compounds.
-
-#### Agentic Directing Party Reducing Surface Area
-
-**As an** agent acting in the directing-party role,
-**I want** the supervisor to absorb routine gate workload so my decision surface narrows to Vision and Feature gates,
-**So that** my cognitive scope matches the gates the framework reserves for the directing party — not the gates Shannon already partitioned away.
-
-#### Discovering Decisions Made Between Sessions
-
-**As a** directing party opening a new session,
-**I want** a one-line notification of every gate the supervisor approved since I last engaged (with override always available),
-**So that** I learn what happened during my absence without losing the ability to second-guess any individual decision.
-
-#### Goal Decomposition Flow
-
-**As a** Gardener Dev with a half-formed intent ("make onboarding feel less abrupt"),
-**I want** `/shannon-goal` to decompose the intent into candidate work items categorised by whether they align with existing artefacts or surface gaps,
-**So that** I can pick which candidates to promote without having to scan the entire artefact set myself.
-
-#### Project Customisation of the Gate-Authority Ceiling
-
-**As a** directing party who wants tighter control over Epic-level decisions on a particular project,
-**I want** to reserve Epic gate authority (and/or Spike gate authority) for myself via `./.claude/shannon-supervisor.json`,
-**So that** the supervisor remains active on Task-level vigilance and reporting while leaving Epic and Spike approvals interactive.
-
-#### Honest Failure Modes — Supervisor Finds Nothing
-
-**As a** directing party reviewing a cadence report that surfaces zero findings,
-**I want** "no findings" to land as an explicit, positively-stated diagnostic ("3 checkers ran cleanly; nothing surfaced"),
-**So that** I can distinguish a healthy quiet run from a broken supervisor that silently failed to check.
-
-#### Honest Failure Modes — False Positive
-
-**As a** directing party who has reviewed a finding and decided it is intentional (e.g. an intentional documentation drift),
-**I want** to mute the finding so the same false positive does not re-surface in every report,
-**So that** the report's signal-to-noise stays high and I trust the cadence enough to keep using it.
-
-#### Honest Failure Modes — Override of a Supervisor Decision
-
-**As a** directing party who disagrees with a supervisor-approved Task gate,
-**I want** to override the decision by invoking the relevant command on the work item, returning the item to its prior status and re-running the gate under my authority,
-**So that** supervisor delegation never becomes irrevocable — override is rare by design but always open.
+As the human directing party, I receive source-linked health findings, honest failed/clean-run signals and useful goal candidates without routine child approval requests. I retain Vision and Feature decisions. A project's legacy gate-authority configuration cannot silently grant approval power. Explicit project holds and missing evidence remain visible.
 
 ### Context
 
@@ -122,6 +70,8 @@ Each bullet cites the cascade-doc anchor it elaborates, distinguishing **contrac
 ---
 
 ## Plan
+
+**2026-11-01 governance revision:** the historical phase order and explicit scheduler/deployment/cost holds below remain outstanding. Routine child gates are superseded; this change does not start autonomous cadence, approve a scheduler or deploy hooks. Current Feature delivery acceptance remains human-owned.
 
 *Filled at `/feature-plan FEAT-009` (Gate 2) 2026-05-30. Phase structure inherited from the Phase-0 spike (2026-05-27); three child Epics created in DRAFT with prepared elaboration and plan drafts via Cascading Preparation; Phase 5+ items forward-deferred.*
 
@@ -166,9 +116,9 @@ Shannon commits to **one Epic at a time**: Phase 2 must reach APPROVED before Ph
 
 - **Cost compounding under frequent cadence** — Per-run aggregate token cost stays within the spike-predicted 6–7× single-session band (per `technical_design.md` v1.2 § Cadence → *Cost note*), but frequent cadence (e.g. every-30-minutes during a heavy work session) compounds quickly. **Mitigation**: project-tunable cadence (the scheduler choice is the lever — a host cron job can fire hourly or daily as the project chooses); per-run cost monitored via `/usage` output per the Feature's *Cadence run cost* Measurable Target; Haiku reserved for exploration-heavy checkers per `technical_design.md` v1.2 § System Architecture → *Supervisor* model selection.
 
-- **Supervisor false positives eroding directing-party trust** — The *Supervisor trust sustained* Directional Target measures this risk directly: a supervisor whose reports go unread has failed regardless of technical correctness. **Mitigation**: the mute mechanism per `technical_design.md` v1.2 § Data Model → *Cadence State* lets the directing party explicitly mark a finding as intentional so it does not re-surface; the *Override rate* Measurable Target's project-tunable ≤10% threshold provides an explicit signal for when delegation needs revisiting; honest review of the override-rate metric as part of each Epic's Gate 3.
+- **Supervisor false positives eroding directing-party trust** — The *Supervisor trust sustained* Directional Target measures this risk directly: a supervisor whose reports go unread has failed regardless of technical correctness. **Mitigation**: the mute mechanism per `technical_design.md` v1.2 § Data Model → *Cadence State* lets the directing party explicitly mark a finding as intentional so it does not re-surface; authority-integrity checks verify that reports do not invent child gates or infer human acceptance.
 
-- **Scheduler-choice deferral blocking autonomous cadence** — `development_guide.md` v1.4 deferred the Shannon-self project's specific scheduler choice to FEAT-009 (forward-cited as EPIC-011 elaboration). If EPIC-011's elaboration cannot resolve the choice, the autonomous-cadence path of the Ideal State (cadence-driven operation) never ships for Shannon-self. **Mitigation**: EPIC-011's elaboration is explicitly mandated to produce a named scheduler choice (the prepared elaboration draft surfaces this requirement as AC#5 of the prepared draft); failure surfaces as a directing-party decision point at EPIC-011 Gate 1, not as silent deferral. The G-2 elaboration gap (flagged in FEAT-009's elaboration Activity Log) is the natural home for this resolution.
+- **Scheduler-choice deferral blocking autonomous cadence** — `development_guide.md` v1.4 deferred the Shannon-self project's specific scheduler choice to FEAT-009 (forward-cited as EPIC-011 elaboration). If EPIC-011's elaboration cannot resolve the choice, the autonomous-cadence path of the Ideal State (cadence-driven operation) never ships for Shannon-self. **Mitigation**: EPIC-011's elaboration is explicitly mandated to produce a named scheduler choice (the prepared elaboration draft surfaces this requirement as AC#5 of the prepared draft); failure surfaces as the named scheduler decision before autonomous work, not as silent deferral. The G-2 elaboration gap (flagged in FEAT-009's elaboration Activity Log) is the natural home for this resolution.
 
 - **Managed Agents / Cloud Routines maturing differently than the spike predicted** — `technology_stack.md` v1.3 § Supervisor Tooling defers four primitives honestly; the deferral could revise if any of those primitives mature in ways that change the architecture (e.g. Cloud Routines reaching production SLA might displace the host-cron-headless pattern). **Mitigation**: revisit the deferral set when Phase 5+ work is contemplated; `technology_stack.md` v1.3 already names the deferrals individually so a change is easy to track; no Phase 2/3/4 Epic locks Shannon into a choice that the deferral set would invalidate.
 
@@ -184,7 +134,7 @@ Outcomes that indicate the Feature is being realised. Split honestly: Measurable
 
 - **Phase 2 adoption** — Once Phase 2 ships, the Shannon-self project produces at least one `docs/supervisor/report-YYYY-MM-DD.md` per documented cadence period. *Measured by file presence + ISO-date sequencing in `docs/supervisor/`.*
 - **Cadence run cost** — Per-run aggregate token cost stays within the spike-predicted 6–7× single-session band. *Measured by `/usage` output captured per cadence run.*
-- **Override rate** — Once Phase 2 + Phase 3 ship, supervisor-approved gates overridden by the directing party stay below a project-tunable threshold (initial sketch: ≤10% of supervisor gate decisions overridden within their first 30 days). *Measured by Activity Log entries on the relevant work items — supervisor approvals followed by directing-party reversions are countable.*
+- **Authority integrity** — Reports and goal candidates distinguish authorised execution from a human Feature decision; no mandatory child gate or inferred acceptance.
 
 ### Directional Targets
 
@@ -196,6 +146,9 @@ Outcomes that indicate the Feature is being realised. Split honestly: Measurable
 ---
 
 ## Activity Log
+
+- **2026-11-01** — Human approved Feature-level governance and implementation approach. Current requirements reconcile supervisor authority; historical delivery remains visible. No autonomous activation, deployment or Feature delivery acceptance is inferred. See [rationale](../knowledge/feature-level-governance.md).
+
 
 - **2026-10-18** — Plan bookkeeping (no status change): [EPIC-016](../epics/EPIC-016-supervisor-deployment-via-shannon-setup.md) (Supervisor Deployment via /shannon-setup, DRAFT) is created on directing-party approval of the 2026-10-17 scratchpad triage. It is the installer half of § Ideal State *Portability to non-Shannon-self projects*. [SPIKE-001](../../spikes/SPIKE-001-claude-code-skill-and-subagent-file-conventions.md) (skill and subagent file conventions) was opened under this Feature by the same triage.
 - **2026-08-25** — Epic outcome recorded: **EPIC-010 (Synthesis and Reports, Phase 3) APPROVED**. Delivers against § Ideal State *Goal decomposition via `/shannon-goal`*, *Hybrid report presentation by default* (the customisation prose and the clean-run case), and the **SessionStart third** of *Five Claude Code hook integration points* — three of five hooks now shipped (SessionStart, PreToolUse, PostToolUse). **The five-hook commitment is intact but re-allocated**: preCompact and Stop both now sit under EPIC-011, preCompact having been descoped from this Epic on 2026-08-25 when its Gate 1 elaboration found the prepared premise unsound (it was specified to snapshot an in-flight findings buffer no shipped component produces, and its value lands only in the long context-pressured runs EPIC-011 owns). **Dogfood value evidenced again**: two of the Epic's seven Tasks were correctives the supervisor's own checkers surfaced, and the Gate 3 review found a third instance of one pattern — artefacts binding to a document *version* or a worked *example* instead of to the governing rule (TASK-022's footer, TASK-023's report header, and this Epic's own AC#1/AC#2 citing `ux_guide.md` v1.2, three versions stale). That pattern is now the strongest open promotion candidate in `docs/scratchpad.md`. **§ Success Metrics *Goal decomposition usefulness*** gains its first exercised evidence (a live `/shannon-goal` run at Gate 3, though promotion rate remains unmeasured). Per the **one-Epic-at-a-time** discipline, EPIC-010 APPROVED unblocks **EPIC-011 (Autonomic Invocation, Phase 4)** elaboration — which now carries three inherited items: preCompact, Stop, and the descoped AC#4. Feature remains PLANNED (its own Gate 3 comes once its Epics complete); the flagged **FEAT-006 re-elaboration** remains due. #epic-outcome

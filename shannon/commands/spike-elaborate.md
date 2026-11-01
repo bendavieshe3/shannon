@@ -1,15 +1,11 @@
 # /spike-elaborate
 
-Elaborate a spike's question and expected output (Gate 1).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to elaborate this spike.
+Pass Type `spike`, Verb `elaborate`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `spike`
-- **Verb**: `elaborate`
-- **Target**: Spike ID from `$ARGUMENTS`. If empty, list candidate DRAFT spikes and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will sharpen the question, agree on the expected output (typically a knowledge note plus a recommendation), and set a time-box. Gate 1 requires explicit user approval to transition DRAFT → ELABORATED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

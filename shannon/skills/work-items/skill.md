@@ -1,309 +1,69 @@
 ---
 name: work-items
-description: Manage Shannon work items (Feature, Epic, Task, Spike) through the unified lifecycle (DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED). Owns create, elaborate, plan, implement, and review operations for all four types, enforces the three quality gates, and maintains the work item indexes. Invoked by /[type]-[verb] commands.
+description: Manage human-governed Features and agent-managed delivery, with optional Epic, Task and Spike records. Preserve Vision/document alignment, traceability, independent review and honest evidence.
 ---
-
 # Skill: work-items
 
-When invoked, **start your response with**: "Activating work-items skill for [type] [verb]."
+When invoked, start with “Activating work-items skill for [type] [verb].”
 
-## Purpose
+## Purpose and inputs
 
-This skill owns every work item Shannon tracks: Features, Epics, Tasks, and Spikes. It handles:
+Commands supply Type (`feature`, `epic`, `task`, `spike`), Verb (`create`, `elaborate`, `plan`, `implement`, `review`) and Target ID or hint. Resolve an unambiguous target from current context; ask only when ambiguity affects scope. Read `conceptual_design.md` § Business Rules, the target Feature and relevant documents before affected work. Resolve any other skills by name from the session catalogue.
 
-- Creating work items in DRAFT
-- Elaborating requirements through Gate 1 to ELABORATED
-- Planning implementation through Gate 2 to PLANNED
-- Executing implementation in the IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW iterative zone
-- Reviewing and approving through Gate 3 to APPROVED
-- Maintaining the four work item indexes
-- Enforcing the relationship rules between work items and mandated documents
+## Authority and traceability
 
-This skill does **not** own mandated documents — those belong to the `project-documentation` skill.
+Everything extends traceably from `docs/vision.md`. Read the Feature's Vision Reference and relevant governing design/Guide sections, then inspect actual implementation. Changes and tests cite the Feature they serve. Maintenance may cite a governing engineering rule and its product purpose without creating a new Feature. A scratchpad item or optional execution record supplies context, not authority.
 
-## When to Invoke
+The human owns Vision and Feature gates. Agents choose execution below approved Features; there are no mandatory Epic, Task or Spike gates. Do not introduce a replacement work-order abstraction. Preserve six documents, their alignment and the meaning of explicit decisions. Independent technical review is distinct from implementation/self-tests and from human acceptance. Respect separately recorded project holds and external-action/access/cost permissions.
 
-- Any `/feature-*`, `/epic-*`, `/task-*`, or `/spike-*` command
-- The directing party asks to create, elaborate, plan, implement, or review any work item
-- The directing party asks to "move TASK-042 to ELABORATED" or similar status transitions
+## Feature lifecycle
 
-## Inputs
+`DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`
 
-- **Type** — `feature`, `epic`, `task`, or `spike`
-- **Verb** — `create`, `elaborate`, `plan`, `implement`, or `review`
-- **Target** — Work item ID (e.g. `TASK-042`) or hint
-- **Working directory** — Inferred
+The three human Feature gates are requirements/acceptance criteria (Gate 1), approach/consequential trade-offs (Gate 2) and delivered capability (Gate 3). Reuse explicit approval already given for the exact change, recording its source; silence or a reviewer approving code is not human Feature acceptance.
 
-## Templates
+### Create
 
-This skill owns:
+Read the Feature index immediately before allocation. Allocate the next real `FEAT-NNN` ID and descriptive slug, instantiate `templates/feature.md`, capture Vision Reference/context, and update the existing index after the body. Do not overwrite another writer. Features remain persistent capabilities.
 
-- `templates/feature.md`
-- `templates/epic.md`
-- `templates/task.md`
-- `templates/spike.md`
-- `templates/feature_index.md`
-- `templates/epic_index.md`
-- `templates/task_index.md`
-- `templates/spike_index.md`
+### Elaborate — Gate 1
 
-## Unified Status Model
+Read the Vision, relevant governing documents and actual capability. Draft requirements, user stories and observable Feature acceptance criteria; cite governing rules rather than worked examples or stale version pins. Check scope criteria by failure mode rather than literal changed-file counts. Do this directly, or use separately authorised helpers when useful. Present the concrete scope and uncertainties for human approval; only actual approval marks ELABORATED.
 
-```
-DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED
-     │           │          │                                       │
-   Gate 1     Gate 2    (iterative zone)                         Gate 3
-```
+For re-elaboration, follow `conceptual_design.md` § Re-elaborating a Work Item: record trigger, source revision where applicable and changed meaning. A substantive Feature scope change returns to DRAFT and re-passes the affected human gates. Optional execution notes do not re-pass those gates merely because their plan changes.
 
-Every work item type uses this lifecycle. There are no type-specific status values.
+### Plan — Gate 2
 
-## Work Item ↔ Document Relationships
+Read the Feature requirements, relevant Conceptual/Technical Design, Technology Stack and Guides. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
 
-Different work items consult different documents at different stages.
+### Implement — agent-managed delivery
 
-| Work Item | Stage | Must Align To | Informed By / May Update |
-|---|---|---|---|
-| Feature | Elaborate | Vision | — |
-| Feature | Plan | Vision, Conceptual Design | Technology Stack |
-| Epic | Elaborate | Vision, parent Feature, Conceptual Design | — |
-| Epic | Plan | Technology Stack, parent Feature | Technical Design |
-| Task | Elaborate | Parent Epic/Feature, relevant Guides | — |
-| Task | Plan/Implement | Development Guide, Technical Design | — |
-| Spike | Elaborate | — | — |
-| Spike | Implement | — | Knowledge Base (output) |
+Confirm approved Feature scope and approach; respect any named hold. Set Feature Activity ACTIVE while delivering, even without an Epic. Choose and revise the plan/decomposition within those limits. `/feature-implement` performs implementation directly; it must not merely redirect to `/epic-implement` or stop because no Task exists.
 
-**Key rule**: Guides are reference material, and the two differ (`conceptual_design.md` § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*). Work items consume the UX Guide; changes to it go through `/document-create` or `/document-review`. Any work item, a Task included, may refine the Development Guide, because it describes the process the work item executes.
+Run the agreed checks and useful regressions, maintain affected documents within approved meaning, and capture consequential decisions and reusable knowledge. Stop affected work if scope, acceptance, material design, cost or access must change; explain the decision and options. Continue independent authorised work where useful. Do not weaken requirements/tests to manufacture success.
 
-## Process: Create
+Keep enough progress evidence for a fresh session: actual revision/diff, decisions and sources, checks/results or unrun checks, remaining work and next action. Link it from the Feature; no duplicate status journal is required. Retain existing identifiers and history; do not bulk migrate or delete records.
 
-### 1. Identify Type and Hint
+### Review — Gate 3
 
-Type comes from the command. Hint is the optional title or context the directing party supplied.
+Inspect the resulting implementation against Feature criteria. Record actual tests, independent technical-review identity/verdict and unresolved defects. A Feature is ready for human acceptance only with the required verification and independent review. Independent technical judgement must come from a reviewer who did not implement or push the change. The implementer cannot approve its own work. Present delivered behaviour and limitations; only explicit human Feature acceptance marks APPROVED. Activity is STABLE only when no implementation remains active. Do not infer Feature acceptance from optional-child statuses or a merged pull request.
 
-### 2. Allocate ID
+## Optional Epic, Task and Spike operations
 
-Find the highest existing ID for this type in its index, increment by 1. Format as `FEAT-001`, `EPIC-001`, `TASK-001`, `SPIKE-001`.
+All existing command names/templates remain usable, but these records are optional aids. No fixed status sequence or human approval is required to create, elaborate, plan, implement or review one. Do not refuse a verb merely because an old progress label is not ELABORATED or PLANNED. Verify the governing Feature authority or maintenance rule before execution; missing authority is a real blocker.
 
-### 3. Generate Slug
+Keep descriptive titles, real IDs where records are created and current body-before-index references. Reuse legacy progress labels honestly; a self-tested result can be IMPLEMENTED, but cannot claim independent review or human approval. Existing APPROVED labels/logs remain historical evidence and are not rewritten automatically. A Spike has a question, time-box and durable knowledge output; an inconclusive result is valid.
 
-Derive a kebab-case slug from the work item name (or hint). Sanitise.
+Optional child completion must not advance the parent to APPROVED. Feature acceptance stays human. Optional decomposition must not hide an unapproved product decision.
 
-### 4. Instantiate Template
+## Optional archive and existing indexes
 
-Copy `templates/<type>.md` to the right location:
+Only archive when authorised and useful; no automatic archive/migration is necessary for this release. If a Task is moved to `docs/tasks/archive/`, rewrite its own relative links for the extra depth, including open-Task siblings (`../TASK-…`) and archived siblings (`./TASK-…`). Repoint inbound references and any existing index in the same operation and verify every affected link. Preserve content and history. Missing optional indexes/directories are not defects; indexes that exist must agree with their bodies.
 
-- Feature: `./docs/features/FEAT-XXX-<slug>.md`
-- Epic: `./docs/epics/EPIC-XXX-<slug>.md`
-- Task: `./docs/tasks/TASK-XXX-<slug>.md`
-- Spike: `./spikes/SPIKE-XXX-<slug>.md`
+Keep the Feature `(Partial)` suffix consistent with its `Initial Implementation: Partial` metadata. Update both whenever the underlying claim changes. Meaningful unfinished work remains visible on the Feature.
 
-### 5. Pre-Fill Metadata
+## Failure handling and return
 
-- Status: DRAFT
-- Type: matches the work item type
-- Parent: from the directing party's invocation context (for Tasks and Epics)
-- Created: today
-- Updated: today
+Name missing required context, conflicting authority, failed checks or concurrent writes precisely. Do not silently overwrite, assume a DRAFT document is authoritative or substitute missing approval. For a routine detail already settled by the governing sources, resolve and cite it rather than re-asking.
 
-### 6. Capture Initial Context
-
-Add high-level intent from the directing party's hint and recent conversation. Do not block waiting for full elaboration — `create` is fast capture.
-
-### 7. Update Index
-
-Append a one-line entry to the appropriate index file.
-
-**Feature `(Partial)` index suffix**: a Feature's `feature_index.md` entry carries a trailing `(Partial)` token after the Feature Name iff its body's `Initial Implementation` field reads `Partial`. Whenever the skill sets or changes a Feature's `Initial Implementation` field — at create, during re-elaboration, or when an Epic closes out part of the capability — it updates `docs/features/feature_index.md` in the same operation to add or remove the suffix. The suffix is a derived skill responsibility, never a manual convention; index and body must not diverge (see § Failure Modes — *Index out of sync*).
-
-### 8. Confirm and Resume
-
-Report creation to the directing party. Resume the original conversation topic.
-
-## Process: Elaborate (Gate 1)
-
-*Soft prompt at the moment acceptance criteria are drafted: does each criterion cite the **governing rule** it asserts — a `conceptual_design.md` business rule, or the prose commitment in a Guide — rather than a worked example or a version-pinned document reference? An example may corroborate; it must not be the thing asserted, because examples abbreviate and pinned documents move. See `development_guide.md` § Code Style → Patterns to Follow → *Acceptance criteria cite the governing rule*.*
-
-### 1. Identify Target
-
-Use the ID supplied. If ambiguous, list candidates and ask.
-
-### 2. Spawn Elaboration Subagent
-
-The subagent:
-
-- Reads the work item file
-- Reads the parent work item (if any) and its parent
-- Reads the documents listed under "Must Align To" for this type and stage
-- Reads other documents listed under "Informed By"
-- Drafts the Requirements section
-- Checks alignment against required documents
-- Returns a structured summary
-
-Subagent writes drafted Requirements directly into the work item file.
-
-### 3. Present and Iterate
-
-Show the directing party the drafted Requirements and the alignment check results. Iterate based on feedback.
-
-### 4. Gate 1 Approval
-
-Ask explicitly: "Approve these requirements to mark this ELABORATED?"
-
-- On approval: Set Status to ELABORATED, update Updated date, append Activity Log entry, update index
-- On rejection: Iterate
-
-### 5. Resume
-
-Report the transition and resume the original conversation topic.
-
-### Re-elaboration Branch (non-DRAFT input)
-
-When `/feature-elaborate`, `/epic-elaborate`, `/task-elaborate`, or `/spike-elaborate` is invoked on a work item already in ELABORATED, PLANNED, IMPLEMENTING, IMPLEMENTED, REVIEW, or APPROVED status, the skill enters the re-elaboration branch defined by `conceptual_design.md § Re-elaborating a Work Item`. The skill:
-
-1. Recognises the input status — does **not** error (contrast § Failure Modes "Wrong status for verb")
-2. Spawns an alignment subagent per the canonical workflow's Flow step 2 (target work item + parent + Work Item ↔ Document Relationships)
-3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
-4. Directing party reviews findings; refinements applied per Gate 1
-5. **Status semantics** are defined canonically in conceptual_design — the skill does not duplicate the per-status table. In brief:
-   - **Additive** refinements: work item stays at current status; Activity Log records the refinement
-   - **Substantive** refinements: work item transitions back to DRAFT; subsequent gates re-pass per the per-status table
-6. Activity Log entry records the trigger category, upstream commit hash where applicable, and a summary of what changed (three required fields per the canonical workflow)
-
-Cross-type adjustments (Features have no upstream work-item parent; Spikes are standalone; orphan Tasks behave as Features for trigger purposes) are defined canonically in conceptual_design — the skill defers semantics to the doc rather than duplicating them.
-
-## Process: Plan (Gate 2)
-
-*Soft prompt at the moment of planning: did this work resolve a framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. See `development_guide.md` § Testing Strategy → Pre-Commit Checklist.*
-
-### 1. Identify Target
-
-Must be ELABORATED. If not, surface error.
-
-### 2. Spawn Planning Subagent
-
-The subagent:
-
-- Reads the work item's Requirements
-- Reads documents listed under "Informed By" for this type and stage
-- Drafts the Plan section: approach, steps/tasks/epics (depending on type), dependencies, risks
-  - For any Acceptance Criterion asserting scope (what is *not* touched), apply the failure-mode test: if the AC's failure mode is "an unintended file changed", it is a scope-guard AC and must use **cross-type-guard phrasing** (e.g. *"no epic/task/spike template, index, or skill modified"*) rather than a literal file count or fixed file list. See `conceptual_design.md` § Business Rules → Scope-Boundary Acceptance Criteria Use Cross-Type Guards.
-- For higher-level items (Feature, Epic), may identify the child work items needed
-- Returns a structured summary
-
-### 3. Cascading Preparation (for Epics)
-
-If the work item is an Epic, the planning subagent may draft tasks for the epic. Each prepared task is created in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stashed in the relevant sections of the task file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed"); the prepared content is surfaced when the directing party later runs the child's own `/task-elaborate` or `/task-plan`. Each child still requires its own Gate 1 and Gate 2 approval. No new sub-statuses are introduced (see § Cascading Operations).
-
-**Naming**: child Tasks must be named with a **descriptive title** paired with the allocated real ID from the outset — never with opaque plan-letter labels (TASK-A, TASK-B, TASK-C). Ordering, when relevant, is expressed by position language ("the first Task", "the verification Task"). Letter placeholders that appear in transient planning notation must not propagate into the prepared child files, the Epic Plan, the indexes, or downstream prose. See `conceptual_design.md` § Domain Model → *Work Item* for the canonical convention.
-
-### 4. Present and Iterate
-
-Show the plan to the directing party. For cascading operations, summarise the child items prepared.
-
-### 5. Gate 2 Approval
-
-Ask explicitly: "Approve this plan to mark this PLANNED?"
-
-- On approval: Set Status to PLANNED, update index. Child items (if any) remain in DRAFT with their prepared drafts stashed until the directing party runs each child's gate command individually
-- On rejection: Iterate
-
-### 6. Resume
-
-Report and resume.
-
-## Process: Implement
-
-### 1. Identify Target
-
-Must be PLANNED. If not, surface error.
-
-### 2. Mark IMPLEMENTING
-
-Update status, append Activity Log entry.
-
-### 3. Execute Plan
-
-Follow the plan steps. Update Activity Log as significant decisions are made. Capture deviations in the Implementation Notes section.
-
-### 4. Mark IMPLEMENTED
-
-When the work is complete (per the plan), update status to IMPLEMENTED.
-
-### 5. May Iterate
-
-The directing party or implementer may move the work item back to IMPLEMENTING from IMPLEMENTED or REVIEW. The iterative zone is gateless.
-
-## Process: Review (Gate 3)
-
-*Soft prompt at the moment of review: did this work resolve a framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. See `development_guide.md` § Testing Strategy → Pre-Commit Checklist.*
-
-### 1. Identify Target
-
-Must be IMPLEMENTED or REVIEW.
-
-### 2. Mark REVIEW
-
-Update status if currently IMPLEMENTED.
-
-### 3. Verify Against Acceptance Criteria
-
-Spawn a subagent to:
-
-- Read the work item file
-- Verify each acceptance criterion (checkbox) is met
-- Read related work items and documents for cross-cutting checks
-- Return a verification summary
-
-### 4. Present Verification
-
-Show findings. If issues are found, surface them as candidate iterations back to IMPLEMENTING.
-
-### 5. Gate 3 Approval
-
-Ask explicitly: "Approve this work to mark this APPROVED?"
-
-- On approval:
-  - Set Status to APPROVED
-  - Update Updated date and Activity Log
-  - Update index
-  - **For Tasks**: move file to `./docs/tasks/archive/` and update link in index. The move puts the file one level deeper, so keep its links working:
-    - In the moved file, rewrite relative links for the new depth: `../epics/…` → `../../epics/…`, `../features/…` → `../../features/…` (and any other `../` link the same way); a sibling link written as `archive/TASK-…` or `./archive/TASK-…` becomes `TASK-…`
-    - Repoint links elsewhere in `./docs/` that pointed at the Task's old path (open sibling Tasks, Epics, documents) to its archive path
-  - **For Spikes**: confirm the knowledge note has been created and indexed
-  - **For Features**: update Activity to STABLE
-- On rejection: iterate
-
-### 6. Resume
-
-Report and resume.
-
-## Quality Gates
-
-- **Gate 1** (DRAFT → ELABORATED): Explicit approval by the directing party
-- **Gate 2** (ELABORATED → PLANNED): Explicit approval by the directing party
-- **Gate 3** (REVIEW → APPROVED): Explicit approval by the directing party
-
-The implementer cannot approve its own work across a gate.
-
-## Cascading Operations
-
-When the directing party invokes a verb on a parent work item that has children (or could have children), use **Batch Preparation, Individual Gates** — the implementer does bulk preparation for the entire subtree (drafting elaborations and plans for child work items) but each child still passes through its own gate individually. No new statuses are introduced; the batch preparation happens invisibly behind the standard lifecycle commands.
-
-1. Implementer plans the parent and writes the plan into its file
-2. Implementer identifies the child work items needed
-3. Implementer creates each child in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stored in the relevant sections of the child file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed")
-4. Implementer presents a summary of the parent plan and the prepared children to the directing party
-5. When the directing party later runs `/[type]-elaborate [ID]`, the subagent surfaces the prepared elaboration instead of starting fresh; same for `/[type]-plan [ID]`. Each child still requires its own Gate 1 and Gate 2 approval
-
-This preserves granular directing-party approval at every gate while saving the bulk preparation work.
-
-## Failure Modes
-
-- **Wrong status for verb** — e.g. the directing party runs `/task-plan` on a DRAFT task. Surface error: "Cannot plan TASK-042 — it is DRAFT. Elaborate it first with `/task-elaborate TASK-042`." Conversely, `*-elaborate` on a non-DRAFT work item is *not* an error — it enters the re-elaboration branch (see § Process: Elaborate → Re-elaboration Branch and `conceptual_design.md § Re-elaborating a Work Item`).
-- **Missing parent** — A Task whose parent Epic doesn't exist. Surface and ask whether to create the parent or proceed as an orphan task.
-- **DRAFT mandated doc as context** — Warn the directing party that the document being relied on is not yet authoritative.
-- **Index out of sync** — If the index disagrees with the work item file's status, trust the file and fix the index. This includes the Feature `(Partial)` suffix: if a Feature's body reads `Initial Implementation: Partial` but its `feature_index.md` entry lacks `(Partial)` — or carries it without the body field — the body is authoritative; correct the index (see § Process: Create step 7).
-
-## Self-Identification
-
-Always begin a response with: "Activating work-items skill for [type] [verb]." If you cannot perform this skill's work for any reason, say so explicitly rather than silently doing something else.
+Return concrete changes, checks, remaining work and the relevant decision/Feature reference. Brief progress updates are sufficient; do not ask routine lower-level approvals. Resume the user's conversation after the requested action.
