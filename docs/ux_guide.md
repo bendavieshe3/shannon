@@ -63,7 +63,7 @@ Optional records have no mandatory prior progress label or human stage gates. Ex
 ### Supervisor Commands
 
 - **`/shannon-report`** audits project health and writes a dated, source-linked report using the established presentation below.
-- **`/shannon-goal [intent]`** returns a read-only list of candidates, each citing the relevant Feature/document or the missing authority. Work within approved Feature scope can be organised by agents. New or materially changed Feature meaning requires the human decision. The command does not execute candidates or create files.
+- **`/shannon-goal [intent]`** returns a read-only list of candidates, each citing the relevant Feature/document or the missing authority. Work within approved Feature scope can be organised by agents. New or materially changed Feature meaning requires the human decision. The command does not execute candidates or create files. Preserve the Intent echo, two counted categories (aligned candidates and candidates surfacing gaps), explicit empty-category lines, and a candidate-derived decision footer.
 
 Example: “The setup-message improvement is covered by the approved onboarding Feature; agents can implement it. A new first-session product promise needs Feature requirements and approach approval.” State only decisions relevant to the candidates shown; no fixed four-type authority legend or routine Task approval prompt.
 

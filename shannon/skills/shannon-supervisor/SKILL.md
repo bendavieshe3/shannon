@@ -50,7 +50,7 @@ Read the configuration and relevant governing documents, current Features, actua
 
 Candidates within approved Feature meaning and permissions may be agent-managed; new or materially changed Feature requirements, approach or consequential governing meaning require human approval. Optional Epic, Task and Spike records introduce no human stage gates. A scratchpad note supplies context, not authority. Honour existing explicit project holds.
 
-The output groups covered work and work awaiting a named decision. Its footer mentions only the actual relevant decisions; never a generic four-type promotion-authority legend. For example: “The onboarding copy change is covered by the approved Feature. Adding a new first-session promise needs human Feature approval.”
+Preserve the output structure: an `Intent:` echo, one counted heading per category (aligned candidates; candidates surfacing gaps), and a candidate-derived authority footer. Empty categories keep `(0)` and an explicit no-candidates line so a considered-empty result is distinguishable from truncation. The output groups covered work and work awaiting a named decision. Its footer mentions only the actual relevant decisions; never a generic four-type promotion-authority legend. For example: “The onboarding copy change is covered by the approved Feature. Adding a new first-session promise needs human Feature approval.”
 
 Configuration failure is explicit per § Configuration. An empty candidate set is valid and stated positively. This command produces no file.
 

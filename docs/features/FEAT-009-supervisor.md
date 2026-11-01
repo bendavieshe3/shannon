@@ -54,7 +54,53 @@ Each bullet cites the cascade-doc anchor it elaborates, distinguishing **contrac
 
 ### User Stories
 
-As the human directing party, I receive source-linked health findings, honest failed/clean-run signals and useful goal candidates without routine child approval requests. I retain Vision and Feature decisions. A project's legacy gate-authority configuration cannot silently grant approval power. Explicit project holds and missing evidence remain visible.
+#### Cadence-Driven Health Summary at Session Start
+
+**As a** solo developer returning to a Shannon project after several days away,
+**I want** a terse health summary injected at session start (drift count, stuck items, push lag),
+**So that** I open the session already oriented instead of having to manually audit indexes and recent commits before I can act.
+
+#### Agent-Managed Execution Within Approved Features
+
+**As a** directing party in a fuller (directing party + supervisor + implementer) configuration,
+**I want** agents to organise and execute approved Feature work without routine child approval requests,
+**So that** my interventions stay reserved for Feature- and Vision-level decisions where my judgement actually compounds.
+
+#### Discovering Decisions Made Between Sessions
+
+**As a** directing party opening a new session,
+**I want** a concise account of actual changes, checks, reviews and unresolved decisions since I last engaged,
+**So that** I learn what happened during my absence without losing the ability to second-guess any individual decision.
+
+#### Goal Decomposition Flow
+
+**As a** Gardener Dev with a half-formed intent ("make onboarding feel less abrupt"),
+**I want** `/shannon-goal` to decompose the intent into candidate work items categorised by whether they align with existing artefacts or surface gaps,
+**So that** I can pick which candidates to promote without having to scan the entire artefact set myself.
+
+#### Existing Project Holds
+
+**As a** directing party with explicit project-specific decisions still outstanding,
+**I want** the supervisor to surface those holds and ignore legacy gate-authority fields as approval grants,
+**So that** optional execution aids do not bypass real scope, access or cost authority.
+
+#### Honest Failure Modes — Supervisor Finds Nothing
+
+**As a** directing party reviewing a cadence report that surfaces zero findings,
+**I want** "no findings" to land as an explicit, positively-stated diagnostic ("3 checkers ran cleanly; nothing surfaced"),
+**So that** I can distinguish a healthy quiet run from a broken supervisor that silently failed to check.
+
+#### Honest Failure Modes — False Positive
+
+**As a** directing party who has reviewed a finding and decided it is intentional (e.g. an intentional documentation drift),
+**I want** to mute the finding so the same false positive does not re-surface in every report,
+**So that** the report's signal-to-noise stays high and I trust the cadence enough to keep using it.
+
+#### Honest Failure Modes — Correcting a Supervisor Recommendation
+
+**As a** directing party who disagrees with a supervisor recommendation,
+**I want** to correct its interpretation and record the decision,
+**So that** future work uses the current approved meaning without manufacturing child gates or inferred acceptance.
 
 ### Context
 
