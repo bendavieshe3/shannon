@@ -229,8 +229,8 @@ This repository is one project inside Ben's wider agent estate (**xDDS** — Cro
 
 ## Landing changes
 
-**Land code through a pull request.** In the code repos (ai-novel-studio, endless-worlds, mediate, companion, gdds-discord-bridge-, xdds-lib, xdds-build, xdds-bin, xdds-skills, shannon, bendavies.id.au), commit on a branch, push the branch, and open a pull request against the default branch with the `pull-request` skill. Never push to a default branch; GitHub refuses it, and no bot is on any bypass list. The non-code repos (xdds-config, xdds-mother, xdds-cowork, xdds-claude-commands, dotfiles) keep direct pushes.
+**Land code through a pull request.** The default branch changes only by merging a reviewed pull request: commit on a branch, push it, and open a pull request. Never push to the default branch.
 
-A pull request merges only after an approved reviewer (today the Daria App, `daria-gdds`) who did not write or push to it has APPROVED its current head commit, with no open change requests. Merge only if you own the situation the work belongs to or Ben told you to merge it. If you wrote or pushed to the pull request, owning the situation is not enough: merge it only with Ben's direction for that merge, and cite it in a PR comment. His approval of the work it delivers ("do it", "do all") is that direction. Fix what a reviewer raises on the same branch and ask for a fresh review. Vault notes and situation records are not code: write those directly.
+A pull request merges only after a reviewer who did not write or push to it has approved its current head commit, with no open change requests. Fix what a reviewer raises on the same branch and ask for a fresh review.
 
 *Why:* a reviewer outside the session catches what its author cannot see.
