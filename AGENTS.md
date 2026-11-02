@@ -205,7 +205,7 @@ This repository is one project inside Ben's wider agent estate (**xDDS** — Cro
 - **Two different skill systems, easily confused:**
   - **Shannon skills** — `shannon/skills/*/skill.md`, deployed into a project's `.claude/`. Plain Markdown, hand-authored, governed by this repo's own lifecycle.
   - **xDDS skills** — `~/xdds/skills/`, mounted at `~/.claude/skills/`. Governed by the estate's three-layer taxonomy and **always built via `xdds-skill-creator`**. That rule does **not** apply to Shannon skills.
-- **Other agent runtimes.** Codex Desktop derived `.agents/`, `.codex/` and `AGENTS.md` from `.claude/` and CLAUDE.md at first launch (2026-07-24). They are another runtime's deployment artefacts, are gitignored, and are **not** Shannon source. Multi-runtime support is a stated estate goal but not yet a Shannon commitment — see SIT-004.
+- **Other agent runtimes.** Codex Desktop derived `.agents/` and `.codex/` from `.claude/` at first launch (2026-07-24). They are another runtime's deployment artefacts, are gitignored, and are **not** Shannon source. `AGENTS.md` is this repository's committed rules file. Multi-runtime support is a stated estate goal but not yet a Shannon commitment — see SIT-004.
 
 ## Working Conventions
 
