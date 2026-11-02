@@ -22,6 +22,10 @@ Everything is plain Markdown. Nothing requires a build step, a runtime, or netwo
 
 ---
 
+## When to Use Shannon
+
+Situation-driven development is the default method. Shannon is optional for standalone projects with no upstream requirements owner.
+
 ## The Four Layers
 
 ```
