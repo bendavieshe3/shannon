@@ -8,9 +8,10 @@
 # They are deployment/runtime artefacts of another runtime, not Shannon source —
 # shannon/ is the only shipping source. If Shannon ever ships a deliberate
 # multi-runtime artefact (see SIT-004), revisit the AGENTS.md line specifically.
+# Revisited 2026-11-02 (SIT-004 rollout A2): AGENTS.md is now the committed
+# repository rules file, imported by CLAUDE.md.
 .agents/
 .codex/
-/AGENTS.md
 
 # OS generated files
 .DS_Store
