@@ -24,7 +24,7 @@ Everything is plain Markdown. Nothing requires a build step, a runtime, or netwo
 
 ## When to Use Shannon
 
-Situation-driven development is the default method. Shannon is optional for standalone projects with no upstream requirements owner.
+Shannon is optional. It suits standalone projects with no upstream requirements owner. A project whose requirements are owned and accepted elsewhere does not need it.
 
 ## The Four Layers
 
