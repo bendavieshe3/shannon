@@ -6,6 +6,10 @@ Shannon is a workflow and documentation system for solo developers and knowledge
 
 The framework is plain Markdown. No build step. No runtime. Nothing to install but the files themselves.
 
+## When to Use Shannon
+
+Shannon is optional. It suits standalone projects with no upstream requirements owner. A project whose requirements are owned and accepted elsewhere does not need it.
+
 ## Quick Start
 
 ### Install Shannon in Your Project
