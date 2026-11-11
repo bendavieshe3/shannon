@@ -5,6 +5,10 @@
 
 Shannon preserves project intent and context while agents handle execution. Everything extends traceably from the Vision. Human decisions remain at the Vision and Feature level; lower-level activity needs useful evidence, not more handholding.
 
+## When to Use Shannon
+
+Shannon is optional. It suits standalone projects with no upstream requirements owner. A project whose requirements are owned and accepted elsewhere does not need it.
+
 ## Six core documents
 
 Keep `vision.md`, `technology_stack.md`, `conceptual_design.md`, `technical_design.md`, `development_guide.md` and `ux_guide.md` under `docs/`. Read the relevant documents before affected work. Knowledge notes preserve reusable research, cautions and rationale.
