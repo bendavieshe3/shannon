@@ -91,7 +91,7 @@ Shannon contains almost no code — its substance is Markdown templates and prom
 
 - **Verbose example blocks inside templates** — Templates should be the shape; examples bloat them and tempt readers to copy the example verbatim
 - **Implicit cross-references** — Always include explicit paths or section anchors when one document references another
-- **Status fields in places without a real status** — Only DRAFT/APPROVED on mandated documents; only the unified lifecycle on work items
+- **Status fields in places without a real status** — Only DRAFT/APPROVED on mandated documents; the human-governed lifecycle on Features; optional execution records may use progress labels without mandatory gates
 
 ---
 
@@ -120,14 +120,14 @@ Before committing template, command, or skill changes:
 - [ ] No stale references to removed concepts (e.g. "phases", "code_style_guide.md")
 - [ ] Cross-references are correct paths
 - [ ] At least a mental dry-run of the affected workflow
-- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/skill.md` § Plan and § Review.)
+- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. The capture responsibility also appears in `shannon/skills/work-items/skill.md` § Feature lifecycle → Implement — agent-managed delivery.
 
 ### Instrumentation
 
 Distinct from the absent test suite, instrumentation is the work of capturing data needed to evaluate the vision's *Measurable Targets*. Currently:
 
 - **Documentation upkeep ratio** (<10% of session time on `/document-*` commands) — Requires session-time tracking inside the `project-documentation` skill. Not yet implemented; flagged in vision § Measurable Targets as a future commitment
-- **Planning approval rate** (80%+ at Gate 2 without revision) — Measurable from Activity Log entries on work items; no separate instrumentation needed
+- **Planning approval rate** (80%+ at Gate 2 without revision) — Measurable from Feature Activity Log entries; no separate instrumentation needed
 - **Setup time** (<5 min from `/shannon-setup` to first Feature approach approval) — Measurable by timestamps; no separate instrumentation needed
 
 Instrumentation lives in the skill that owns the relevant workflow. As measurable targets are added or refined, the corresponding instrumentation is part of the work that introduces them.
@@ -190,6 +190,10 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-11-12 - Reference repair
+
+- Replace the removed soft-prompt pointer with the current implementation section, clarify Feature-only lifecycle labels and measure planning approval from Feature logs. Factual alignment within the approved Feature-level governance design; no new Feature delivery acceptance is recorded.
 
 ### 2026-11-01 - v2.0
 

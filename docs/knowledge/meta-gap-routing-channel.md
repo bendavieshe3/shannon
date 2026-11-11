@@ -3,10 +3,16 @@
 ## Metadata
 
 - **Type**: Extension
-- **Related To**: `docs/development_guide.md` § Testing Strategy → Pre-Commit Checklist (the canonical checklist line); `docs/development_guide.md` § Git Workflow → Push Cadence (the paired cadence convention); `shannon/skills/work-items/skill.md` § Process: Plan (Gate 2) + § Process: Review (Gate 3) (the step-adjoining soft prompts)
+- **Historical Related To**: `docs/development_guide.md` § Testing Strategy → Pre-Commit Checklist (the canonical checklist line); `docs/development_guide.md` § Git Workflow → Push Cadence (the paired cadence convention); `shannon/skills/work-items/skill.md` § Process: Plan (Gate 2) + § Process: Review (Gate 3) (the step-adjoining soft prompts)
 - **Tags**: #framework #development-guide #work-items #meta-gap #routing-channel #FEAT-008 #EPIC-008 #EPIC-007
 - **Created**: 2026-05-27
-- **Last Updated**: 2026-05-27
+- **Last Updated**: 2026-11-12 (current routing clarification; original implementation evidence preserved)
+
+## Current routing responsibility
+
+The Feature-level governance revision replaces the Plan/Review soft prompts described in this historical implementation note. Current capture responsibility lives in [the Development Guide's Pre-Commit Checklist](../development_guide.md#pre-commit-checklist) and [the work-items skill's implementation flow](../../shannon/skills/work-items/skill.md#implement--agent-managed-delivery). Agents capture reusable learnings during implementation; consequential changes to approved meaning require a human document or Feature decision. Optional Tasks and Epics add no gates.
+
+The original section names, line numbers and approvals below describe the May 2026 implementation, not current instruction locations or deployed-copy verification.
 
 ---
 

@@ -34,7 +34,7 @@ As the human directing party, I can approve a Feature and let agents deliver it 
 
 ### Context
 
-See `vision.md` § Feature-led Delivery and Complete Traceability; `conceptual_design.md` § Unified Status Lifecycle and Re-elaborating a Work Item; `technical_design.md` § Lifecycle Verbs; source `shannon/skills/work-items/` and its command entry points. Prior delivery claims remain in metadata, Plan and Activity Log as dated evidence, not new acceptance of this revision.
+See `vision.md` § Feature-led Delivery and Complete Traceability; `conceptual_design.md` § Unified Status Lifecycle and Re-elaborating a Work Item; `technical_design.md` § API Design → Lifecycle Verbs; source `shannon/skills/work-items/` and its command entry points. Prior delivery claims remain in metadata, Plan and Activity Log as dated evidence, not new acceptance of this revision.
 
 ## Plan
 
@@ -59,7 +59,7 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 
 **Depends on**: FEAT-002 (Mandated Project Documentation) — work items consume mandated documents as context
 
-**Depended on by**: FEAT-004 (Three Quality Gates) — the gates are tied to lifecycle transitions; FEAT-005 (Knowledge Base) — spike output produces knowledge notes; FEAT-006 (Multi-Party Supervision) — supervision happens *at* lifecycle transitions
+**Depended on by**: FEAT-004 (Three Quality Gates) — the gates are tied to lifecycle transitions; FEAT-005 (Knowledge Base) — spike output produces knowledge notes; FEAT-006 (Multi-Party Supervision) — independent technical review supports human Feature acceptance
 
 ### Risks
 
@@ -76,6 +76,9 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 ---
 
 ## Activity Log
+
+- **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
+
 
 - **2026-11-01** — Human approved the Feature-level governance design and implementation approach. Requirements refreshed to preserve documents, alignment, traceability and history while removing mandatory child gates. Source implementation pending independent review; no delivery acceptance or historical status change inferred. See [governance rationale](../knowledge/feature-level-governance.md).
 

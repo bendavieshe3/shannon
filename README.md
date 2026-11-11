@@ -57,7 +57,7 @@ This creates the six mandated documents, the Feature and knowledge directories (
 
 Documents form an explicit **authority graph** — lower documents must enable higher ones.
 
-### Four Work Item Types, One Lifecycle
+### Features Carry Human Gates; Execution Aids Are Optional
 
 Features are persistent product capabilities with human requirements, approach and delivery gates. Epics, Tasks and Spikes remain available as optional execution aids, without mandatory human gates or a fixed status sequence.
 

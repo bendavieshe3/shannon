@@ -42,7 +42,7 @@ As the directing party, I exercise product judgement at Feature boundaries witho
 
 ### Dependencies
 
-**Depends on**: FEAT-003 (Unified Work Item Model) — gates are lifecycle transitions; FEAT-006 (Multi-Party Supervision) — the supervisor ≠ implementer constraint lives in V6
+**Depends on**: FEAT-003 (Unified Work Item Model) — gates are lifecycle transitions; FEAT-006 (Multi-Party Supervision) — independent technical review must be distinct from implementation
 
 **Depended on by**: All forward-development features rely on the gates being trustworthy
 
@@ -61,6 +61,9 @@ As the directing party, I exercise product judgement at Feature boundaries witho
 These are criteria to verify, not claims that this revision has passed a live trial.
 
 ## Activity Log
+
+- **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
+
 
 - **2026-11-01** — Human approved Feature-only gate design and implementation approach. Updated current requirements; retained earlier activity and identifiers. Independent review and delivery acceptance are pending. See [rationale](../knowledge/feature-level-governance.md).
 

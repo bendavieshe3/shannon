@@ -81,7 +81,7 @@ A persistent capability of the product — what the product IS, not work to be d
 
 ### Epic
 
-A coherent unit of work delivering part of a feature's ideal state. Epics replace the older "phases" concept.
+An optional coherent unit of work delivering part of a Feature's ideal state.
 
 **Attributes**:
 
@@ -247,6 +247,10 @@ Before implementing a finding, read the affected Feature and Vision or the gover
 A Spike is an optional time-boxed investigation, linked to the affected Feature or governing decision. Define the question, output and time/cost limits; research within existing authority; save reusable knowledge and a recommendation. State an inconclusive result when the time-box expires. No mandatory Spike approval stages apply, but a new external cost, access need or consequential choice still requires the human decision. An investigation result cannot approve its own resulting Feature change.
 
 ## Version History
+
+### 2026-11-12 - Reference repair
+
+- Describe Epics as optional delivery groups without the superseded phase-model comparison. Factual alignment within the approved Feature-level governance design; no new Feature delivery acceptance is recorded. The preserved v1.8 history contains an obsolete TASK-029 relative link; the record is now [archived here](tasks/archive/TASK-029-acceptance-criteria-cite-governing-rules.md).
 
 ### 2026-11-01 - v2.0
 

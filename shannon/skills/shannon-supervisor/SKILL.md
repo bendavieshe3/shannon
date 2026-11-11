@@ -40,7 +40,7 @@ The skill:
 
 The report follows the hybrid-presentation default: a diagnostic header (counts of findings, stuck items, push lag) followed by a one- or two-finding narrative body.
 
-The implementation body of the report-writing pipeline — template instantiation, same-day-suffix handling for repeated runs, knowledge-index update flow — is forward work to be added by a sibling work item as a § Report Pipeline section appended below the Configuration section.
+The report-writing pipeline below covers template instantiation, same-day suffix handling and knowledge-index updates; see § Report Pipeline.
 
 ## /shannon-goal — Contract
 

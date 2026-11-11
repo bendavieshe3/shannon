@@ -53,7 +53,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ### Dependencies
 
-**Depends on**: FEAT-003 (Unified Work Item Model), FEAT-004 (Three Quality Gates) — gates are where supervision happens
+**Depends on**: FEAT-003 (Unified Work Item Model), FEAT-004 (Three Quality Gates) — human Feature decisions use verification and independent-review evidence
 
 **Depended on by**: Future enterprise / multi-developer adoption of Shannon
 
@@ -74,6 +74,9 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 ---
 
 ## Activity Log
+
+- **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
+
 
 - **2026-11-01** — Human approved current role/Feature boundary and implementation approach. Requirements reconciled; earlier delivered/remaining claims retained as dated metadata/history. Source update does not establish live multi-agent validation or human delivery acceptance. See [rationale](../knowledge/feature-level-governance.md).
 
