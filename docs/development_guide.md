@@ -1,8 +1,8 @@
 # Development Guide
 
-**Status**: APPROVED
-**Last Reviewed**: 2026-08-28
-**Approved**: 2026-05-29
+**Status**: DRAFT
+**Last Reviewed**: 2026-11-12
+**Approved**: 2026-08-28 (v1.5; v1.6 awaiting Gate 1)
 
 ---
 
@@ -136,30 +136,44 @@ Instrumentation lives in the skill that owns the relevant workflow. As measurabl
 
 ## Git Workflow
 
+Every change reaches `master` through a reviewed pull request. A reviewer outside the session that wrote the change catches what its author cannot see, and with several agents working in the repository (see *Multi-Agent Coordination* below) the pull request is the one place each change is checked before it lands.
+
 ### Branching
 
-- **master** — Single long-lived branch. Shannon has a single maintainer at present; no team-branching model required. The framework itself supports multi-agent configurations under the three-role taxonomy (directing party, supervisor, implementer — see `conceptual_design.md` § Glossary), but the codebase-of-Shannon-itself does not yet operate that way
-- **Topic branches** — Optional for substantial refactors (e.g. `refactor/shannon-v2`). Squash-merge to master
+- **master** — The single long-lived branch, and the default branch. It changes only by merging a pull request. Nobody, human or agent, commits or pushes to it directly
+- **Topic branches** — All work happens on a topic branch cut from the latest `master`, one branch per pull request. Name it for the work (`docs/dev-guide-landing`, `task-033-testing-strategy`); an agent may prefix its own name (`claude/…`, `codex/…`). Delete the branch once its pull request has merged
+
+### Repository Rules
+
+The rules below are enforced on GitHub by a ruleset on `master`, so they hold whoever pushes:
+
+- A pull request is required, with **one approving review of the latest push**; approvals go stale and are dismissed when new commits are pushed
+- **Force-push and deletion** of `master` are blocked
+- The only bypass is the repository admin, on pull requests only. No bot or agent is on the bypass list
+- Changing the ruleset is the maintainer's decision. A building agent never changes it
 
 ### Commits
 
 - **Conventional, but not strict** — Capitalised imperative subject ("Add X", "Refactor Y", "Fix Z"). Body explains "why" when not obvious
+- **Run or test before committing** — A change is checked before it is committed: the *Pre-Commit Checklist* in § Testing Strategy, plus any check the change itself names
+- **Say who wrote it** — Each commit carries the identity of the agent that wrote it. An agent without a GitHub identity of its own commits with an author name that says which agent it is. No agent commits or pushes under a reviewer's identity
 - **No commit hooks** — Shannon has no test suite; hooks would have nothing to enforce
 
 ### Commit Cadence
 
-Shannon's default: **commit after every approved gate**. Source control is assumed.
+Shannon's default: **commit after every approved gate**, on the gate's topic branch. Source control is assumed.
 
 - **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
 - **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
 
-This produces a commit history that mirrors the framework's lifecycle: each commit corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
+Each gate's work rides its own pull request, and the squash merge of that pull request is the commit on `master`. So `master`'s history mirrors the framework's lifecycle: each commit there corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate on the branch are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
 
 #### Supervisor cadence runs
 
 Autonomous supervisor runs (per `technical_design.md` § Cadence) are read-mostly: each run produces a dated report at `docs/supervisor/report-YYYY-MM-DD.md` and, in the configurable-ceiling case, may exercise delegated gate approvals on Tasks (and, by default, Epics and Spikes — see `conceptual_design.md` § Business Rules → *Gate Authority Split*). Commit cadence inside an autonomous run:
 
 - **One commit per run, not per gate** — A cadence run that approves multiple Task gates batches all of its writes (the dated report plus any per-Task transitions it ratified) into a single commit at the end of the run, rather than committing after each individual gate. This preserves the "one commit per decision" intent at the granularity that makes sense for a batched autonomous pass: the decision is the run, not each gate inside it
+- **The run lands by pull request** — The run commits on its own topic branch, pushes the branch and opens a pull request. It never pushes to `master`, force-pushes, or rewrites history. The pull request merges like any other, after an approved reviewer has approved it
 - **Commit message names the run** — Subject `Supervisor report YYYY-MM-DD` (capitalised imperative-equivalent; the report's filename is the natural anchor); body enumerates any gate transitions the run ratified, by work item ID
 - **Interactive supervisor invocations follow the default** — A `/shannon-report` run inside an interactive directing-party session falls back to the standard per-gate commit cadence above. The batched form is specifically for the headless autonomous case
 
@@ -167,18 +181,22 @@ The same agent-identity constraint applies in either case: a supervisor commit m
 
 ### Push Cadence
 
-Shannon's default: **push local commits to the remote** at three named triggers, so commits do not sit unsynced.
+Shannon's default: **push the topic branch to the remote** at three named triggers, so commits do not sit unsynced. A push is always of a topic branch; `master` moves only by merge.
 
-- **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion
+- **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion, and followed by opening (or updating) the gate's pull request
 - **At session end** — before the implementer or directing party stops a working session for the day or hands off to another agent — i.e. before any pause long enough that local commits would otherwise sit unsynced through the gap
-- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes before exiting, so the supervisor's findings reach the remote before the directing party next opens a session. This is what makes the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflect the latest cadence findings rather than stale local state
+- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes its branch and opens its pull request before exiting, so the supervisor's findings reach the remote before the directing party next opens a session. Once that pull request merges, the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflects the latest cadence findings rather than stale local state
 
 Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the cadences are paired.
 
 ### Pull Requests
 
-- **Optional** — Direct commits to master are acceptable while Shannon has a single maintainer
-- **Use PRs for**: substantial refactors, anything you want to think through in writing, anything that benefits from `/ultrareview`
+- **Required for every change** — There are no direct commits to `master`. A pull request is PR-sized: one gate, one work item's step, or one coherent fix
+- **The description is the evidence** — Name the work item (or say it is maintenance), say what changed and why, list the checks run and their results, and say plainly what was not verified
+- **Independent review** — A pull request merges only after an **approved reviewer** that neither wrote nor pushed to it has approved its **current head commit**. Approved reviewers are GitHub Apps the maintainer has approved for this role. A fix for review findings goes on the same branch and needs a fresh approval
+- **Gate pull requests also need the directing party** — A pull request that approves a gate or a mandated document (a DRAFT → APPROVED transition, or any change that moves a document's version) merges only on the directing party's decision for that gate, in addition to the review. Ordinary pull requests (maintenance, bookkeeping, corrections) need the review alone
+- **Merging** — Squash merge, pinned to the approved head commit. Never merge with an admin bypass, and never merge a pull request whose head changed after its approval. A pull request that goes public in a new way, or touches security, waits for the maintainer's direction
+- **Keep it public-safe** — The repository is public, so a push or a pull request is publication. Nothing carries secrets or private facts, and the repository's files name no reviewers and list no other repositories
 
 ### Multi-Agent Coordination
 
@@ -192,6 +210,7 @@ The development practice that makes shared-file operation safe applies to both c
 - **Disjoint work items** — Agents operating concurrently should be assigned to different work items; the file-based model has no locking, and overlapping writes will surface as ordinary diffs to be resolved by the directing party
 - **No silent overwrites** — When an implementer touches a file another agent recently modified, surface the diff and ask before overwriting
 - **Cooperative ID allocation** — Simultaneous `*-create` operations may produce colliding IDs; resolve by reading the index at the moment of allocation and accepting the merge conflict if one arises (see `technical_design.md` § ID Allocation)
+- **One branch per agent's work** — Each agent works on its own topic branch and pull request. When two open pull requests touch the same file, whichever merges second rebases onto the new `master` and carries its edits across; the review of the rebased head is a fresh one
 
 Future versions may add architectural enforcement of the *Supervisor Distinct From Implementer* rule (`conceptual_design.md` § Business Rules); the current version trusts agents and the directing party to follow the convention.
 
@@ -209,7 +228,9 @@ Supervisor reports are Knowledge Note subtypes (per `conceptual_design.md` § Do
 
 ### Pipeline Stages
 
-None. Shannon has no compiled artefacts, no automated tests, and no deployment target. The "pipeline" is: edit Markdown, deploy into a project, exercise.
+No automated pipeline. Shannon has no compiled artefacts, no automated tests, and no deployment target. The "pipeline" is: edit Markdown on a topic branch, run the *Pre-Commit Checklist*, open a pull request, independent review, merge; then deploy into a project and exercise.
+
+If automated checks are added later, they follow two rules. Each job only calls a repository script that runs the same way locally and on CI, and the job needs no secrets. A check becomes a required check on `master` only after it has passed on a real pull request, and a new check counts only once a deliberately planted failure has been seen to make it fail.
 
 ### Distribution
 
@@ -219,6 +240,21 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 ---
 
 ## Version History
+
+### 2026-11-12 - v1.6
+
+- The directing party directed that this guide follow the reviewed pull-request standard the maintainer now applies to every development repository. § Git Workflow and § CI/CD are rewritten to it:
+  - **§ Git Workflow (opening)** — every change reaches `master` through a reviewed pull request, and why
+  - **§ Git Workflow → Branching** — `master` changes only by merge; all work on topic branches, one per pull request
+  - **§ Git Workflow → Repository Rules (new subsection)** — the ruleset already enforced on `master`: one approval of the latest push, stale approvals dismissed, force-push and deletion blocked, admin-only bypass on pull requests, ruleset changes are the maintainer's
+  - **§ Git Workflow → Commits** — run or test before committing; each commit says which agent wrote it; no agent pushes under a reviewer's identity
+  - **§ Git Workflow → Commit Cadence** — gate commits land on the gate's topic branch, and the squash merge is the commit on `master`; autonomous supervisor runs land by pull request and never push to `master`, force-push or rewrite history
+  - **§ Git Workflow → Push Cadence** — pushes are of topic branches; each trigger is followed by opening or updating the pull request
+  - **§ Git Workflow → Pull Requests** — replaces "Optional" with: required for every change; the description as evidence (work item, checks run, what was not verified); independent approval of the current head by an approved reviewer that neither wrote nor pushed to it; gate and mandated-document pull requests also need the directing party's decision; squash merge pinned to the approved head, never an admin bypass; public-safe content
+  - **§ Git Workflow → Multi-Agent Coordination** — one branch per agent's work; the second of two overlapping pull requests rebases and is reviewed afresh
+  - **§ CI/CD → Pipeline Stages** — the manual pipeline now runs through a pull request; rules for any automated checks added later (portable scripts, no secrets, required only after passing on a real pull request, proven by a planted failure)
+- Classified as a **substantive revision per `conceptual_design.md` § Re-reviewing → *Status semantics*** — it retracts the approved claims that pull requests are optional and that direct commits to `master` are acceptable. Made at the directing party's direction. The document is DRAFT for the revision and returns to APPROVED through Gate 1, given by the directing party
+- Status: DRAFT (Gate 1 pending)
 
 ### 2026-08-28 - v1.5
 
