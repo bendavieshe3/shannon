@@ -8,6 +8,9 @@ This file provides guidance to Claude Code when working in this project.
 
 [One or two sentence description of what this project does.]
 
+<!-- shannon:begin -->
+<!-- Shannon manages the text between these markers; /shannon-update replaces it. Put project-specific guidance outside them. -->
+
 ---
 
 ## Documentation System
@@ -75,6 +78,7 @@ Everything traces from the Vision through relevant documents and Features to imp
 ### Project Setup
 
 - `/shannon-setup` — Initialise this project with the Shannon framework
+- `/shannon-update [path]` — Upgrade Shannon from a newer clone, or report the installed version
 
 ### Document Management
 
@@ -99,6 +103,7 @@ All four types retain create/elaborate/plan/implement/review commands. Only Feat
 - Resolve routine execution details within approved authority. Stop affected work on consequential divergence; continue independent authorised work.
 - Respect existing permissions for publication, deployment, external actions, credentials and spending.
 - Do not silently overwrite another writer, bulk migrate historical records or automatically archive/delete them.
+<!-- shannon:end -->
 
 ## Project-Specific Notes
 

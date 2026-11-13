@@ -124,6 +124,10 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Scratchpad | `./docs/scratchpad.md` | One file per project with § Items and § Processed; instantiated by `/shannon-setup` from `work-items/templates/scratchpad.md`; no IDs and no index |
 | Supervisor Report | `./docs/supervisor/report-YYYY-MM-DD.md` | A Knowledge Note subtype per conceptual_design § Domain Model → *Knowledge Note*; ID is the report's ISO date. Indexed in `knowledge_index.md` like any other note |
 | Supervisor Configuration | `./.claude/shannon-supervisor.json` | Report settings; legacy gate fields have no authority |
+| Installed version | `./.claude/.shannon-version` | Framework version (newest heading of `guides/CHANGELOG.md`), install date and source path; written by `/shannon-setup` and `/shannon-update` |
+| Install manifest | `./.claude/.shannon-manifest` | `<sha256>  <path>` per deployed framework file; a hash mismatch on update marks a local customisation |
+| Install backups | `./.claude/.shannon-backup/YYYY-MM-DD/` | Copies of every file an install or update overwrote; never deleted by Shannon |
+| Changelog | `shannon/guides/CHANGELOG.md` (deployed to `./.claude/guides/`) | Version source of truth; each entry's *Records* notes drive framework-version absorption |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
 
 ### ID Allocation
@@ -188,6 +192,13 @@ Two supervisor commands surface the cadence and goal-decomposition flows (see §
 
 - `/shannon-report` — Run a cadence audit and write a dated report
 - `/shannon-goal [intent]` — Decompose a directing-party intent into candidate work items
+
+### Installation Verbs
+
+- `/shannon-setup` — First install or reinstall: back up, deploy, wire the supervisor, instantiate documents, merge `CLAUDE.md` inside `<!-- shannon:begin/end -->` markers, record version and manifest, verify
+- `/shannon-update [path]` — Upgrade from a Shannon clone on disk: report versions, classify files (unchanged, customised, new, retired) against the manifest, apply after go-ahead, then walk existing records through each newer changelog entry's *Records* notes
+
+Both are handled by the `project-setup` skill. Shannon makes no network calls; the directing party pulls the newer clone.
 
 ### Scratchpad Verbs
 
@@ -299,6 +310,7 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 
 ### 2026-11-13 - v2.1
 
+- **Versioned install and update (FEAT-001, FEAT-003 framework-version absorption).** § Data Model adds the installed-version file, install manifest, install backups and changelog; § API Design adds *Installation Verbs* (`/shannon-setup`, `/shannon-update`). Additive.
 - **Documents Consulted at Feature Gates 1 and 2 (FEAT-003, EPIC-015 intent).** § Key Algorithms → *Document Alignment Check* now runs at Feature elaboration and planning, recorded in a *Documents Consulted* list in the Feature template. Additive.
 - **Scratchpad ratified (FEAT-007).** Added the Scratchpad row to § Data Model and § API Design → *Scratchpad Verbs* (`/scratchpad-add`, `/scratchpad-process`, both in the `work-items` skill). Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.
 

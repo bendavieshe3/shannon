@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-001](../features/FEAT-001-easy-to-setup.md)
 - **Created**: 2026-05-15
-- **Updated**: 2026-05-15
+- **Updated**: 2026-11-13
 
 ---
 
@@ -62,5 +62,6 @@ A developer can install or update Shannon in a project that already has Claude C
 
 ## Activity Log
 
+- **2026-11-13** — Delivered directly under FEAT-001 (Vision v3.0; no Epic needed): detection report, dated backups, marked `CLAUDE.md` merge, `settings.json` merge, project-type detection and post-install verification in the `project-setup` skill. Live-tested in a scratch project. Kept as a historical record.
 - **2026-05-19** — Context references refreshed: Vision § Core Principles updated to "Adaptive Coherence" (Vision v2.3 rename); stale "Document Authority Graph" reference removed (was excluded from Vision § Key Features back in v2.1).
 - **2026-05-15** — DRAFT: Created as part of refactor; migrated from FEAT-001 Phase 2

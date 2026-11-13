@@ -18,6 +18,10 @@
 
 - **[note-name].md** — Extends [doc] § [section] — [Description]
 
+## Supervisor Reports
+
+[Dated health reports written by `/shannon-report` under `docs/supervisor/`. The supervisor appends these entries; newest first.]
+
 ---
 
 ## Notes

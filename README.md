@@ -29,7 +29,17 @@ In your project, inside Claude Code:
 /shannon-setup
 ```
 
-This creates the six mandated documents, the Feature and knowledge directories (optional execution folders may be added when useful), and a project-level `CLAUDE.md` with AI guidance.
+This backs up anything it would overwrite, wires the supervisor's hooks, records the installed version, and creates the six mandated documents, the Feature and knowledge directories (optional execution folders may be added when useful), and a project-level `CLAUDE.md` with AI guidance.
+
+### Update
+
+Pull a newer Shannon clone, then in your project:
+
+```
+/shannon-update /path/to/shannon/shannon
+```
+
+This shows what changed since your installed version (see `shannon/guides/CHANGELOG.md`), asks before replacing any framework file you customised, backs up what it overwrites, and carries existing work items across the version change.
 
 ### Start Working
 

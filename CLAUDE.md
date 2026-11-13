@@ -19,7 +19,7 @@ This is **not** a traditional software project. It is a meta-framework for organ
 shannon/                                  # Shannon deployables (source)
 ├── commands/                             # Thin command files (delegate to skills)
 │   ├── README.md
-│   ├── shannon-setup.md
+│   ├── shannon-setup.md / shannon-update.md
 │   ├── document-create.md / document-review.md
 │   ├── feature-{create,elaborate,plan,implement,review}.md
 │   ├── epic-{create,elaborate,plan,implement,review}.md
@@ -54,7 +54,8 @@ shannon/                                  # Shannon deployables (source)
 │   └── shannon-supervisor/               # SKILL.md, checkers/, hooks/, scripts/, templates/
 │
 └── guides/                               # User-facing documentation
-    └── shannon_overview.md
+    ├── shannon_overview.md
+    └── CHANGELOG.md                      # Framework version source of truth
 
 docs/                                     # Shannon's own documentation (dogfooding)
 ├── vision.md

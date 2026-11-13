@@ -1,3 +1,8 @@
+---
+name: shannon-supervisor
+description: Shannon's supervisor. Audits project health (document drift, stuck or inconsistent work items, scratchpad pressure, branch lag) and writes a dated report under docs/supervisor/; decomposes a stated intent into source-linked candidate work. Invoked by /shannon-report and /shannon-goal, by the supervisor hooks, and by unattended cadence runs. Use when asked for a health check, project status audit, or candidate work for an intent.
+---
+
 # Skill: shannon-supervisor
 
 When invoked, **start your response with**: "Activating shannon-supervisor skill for [verb]."

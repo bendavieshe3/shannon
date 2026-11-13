@@ -1,6 +1,6 @@
 # Shannon — System Overview
 
-**Version**: 5.0
+**Version**: 5.1 (see [CHANGELOG](CHANGELOG.md))
 **Last Updated**: 2026-11-13
 
 Shannon preserves project intent and context while agents handle execution. Everything extends traceably from the Vision. Human decisions remain at the Vision and Feature level; lower-level activity needs useful evidence, not more handholding.
@@ -64,7 +64,7 @@ Commands remain thin entry points; the work-items skill holds delivery behaviour
 
 ## Adoption and verification
 
-Copy the source commands, skills and guides into the project's `.claude/` directory when deployment is authorised, then run `/shannon-setup`. Existing deployments do not update themselves when source changes. Preserve real repository, publication, deployment, external-action, credentials and spending permissions.
+Copy the source commands, skills and guides into the project's `.claude/` directory when deployment is authorised, then run `/shannon-setup`. Setup backs up anything it overwrites, keeps your `CLAUDE.md` content outside the Shannon block, merges `.claude/settings.json`, wires the supervisor and records the installed version. Existing deployments do not update themselves: pull a newer Shannon clone and run `/shannon-update <clone>/shannon`, which protects local customisations and carries existing records across versions using the changelog's *Records* notes. Preserve real repository, publication, deployment, external-action, credentials and spending permissions.
 
 Use a direct Feature exercise and an optional-record exercise to check the boundary: preserve intent and evidence, avoid routine lower-level approvals, and stop on material divergence. Source checks, independent review, merge, live exercise and human acceptance are separate claims.
 
