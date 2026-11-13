@@ -2,7 +2,7 @@
 
 **Status**: DRAFT
 **Last Reviewed**: 2026-11-12
-**Approved**: 2026-08-28 (v1.5; v1.6 awaiting Gate 1)
+**Approved**: 2026-05-29 (through v1.5; v1.6 awaiting Gate 1)
 
 ---
 
@@ -166,14 +166,14 @@ Shannon's default: **commit after every approved gate**, on the gate's topic bra
 - **After document approval (Gate 1)** — Commit the document's DRAFT → APPROVED transition, along with any edits made during review
 - **After work-item review (Gate 3)** — Commit the approved state, including archive moves (for tasks), parent feature/epic updates, and any documents updated during the work
 
-Each gate's work rides its own pull request, and the squash merge of that pull request is the commit on `master`. So `master`'s history mirrors the framework's lifecycle: each commit there corresponds to a decision the directing party explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate on the branch are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
+Each gate's work rides its own pull request, and the squash merge of that pull request is the commit on `master`. So `master`'s history mirrors the framework's lifecycle: each commit there corresponds to a decision the gate's approval authority explicitly approved. Pre-gate experimentation is fine — multiple in-progress commits per gate on the branch are expected — but the gate itself is the unit of "this is now part of the project." See *Push Cadence* below for the paired sync directive.
 
 #### Supervisor cadence runs
 
 Autonomous supervisor runs (per `technical_design.md` § Cadence) are read-mostly: each run produces a dated report at `docs/supervisor/report-YYYY-MM-DD.md` and, in the configurable-ceiling case, may exercise delegated gate approvals on Tasks (and, by default, Epics and Spikes — see `conceptual_design.md` § Business Rules → *Gate Authority Split*). Commit cadence inside an autonomous run:
 
 - **One commit per run, not per gate** — A cadence run that approves multiple Task gates batches all of its writes (the dated report plus any per-Task transitions it ratified) into a single commit at the end of the run, rather than committing after each individual gate. This preserves the "one commit per decision" intent at the granularity that makes sense for a batched autonomous pass: the decision is the run, not each gate inside it
-- **The run lands by pull request** — The run commits on its own topic branch, pushes the branch and opens a pull request. It never pushes to `master`, force-pushes, or rewrites history. The pull request merges like any other, after an approved reviewer has approved it
+- **The run lands by pull request** — The run commits on its own topic branch, pushes the branch and opens a pull request. It never pushes to `master`, force-pushes, or rewrites history. The pull request merges like any other, after an approved reviewer has approved it. The headless permission contract in `technical_design.md` § Cadence does not yet allow the push or the pull request; until it does, the run leaves its commit on its topic branch and the next interactive session pushes the branch and opens the pull request
 - **Commit message names the run** — Subject `Supervisor report YYYY-MM-DD` (capitalised imperative-equivalent; the report's filename is the natural anchor); body enumerates any gate transitions the run ratified, by work item ID
 - **Interactive supervisor invocations follow the default** — A `/shannon-report` run inside an interactive directing-party session falls back to the standard per-gate commit cadence above. The batched form is specifically for the headless autonomous case
 
@@ -185,7 +185,7 @@ Shannon's default: **push the topic branch to the remote** at three named trigge
 
 - **After every Gate 3 approval** — paired with the Commit Cadence Gate-3 trigger above, so commit-then-push reads as a single motion, and followed by opening (or updating) the gate's pull request
 - **At session end** — before the implementer or directing party stops a working session for the day or hands off to another agent — i.e. before any pause long enough that local commits would otherwise sit unsynced through the gap
-- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes its branch and opens its pull request before exiting, so the supervisor's findings reach the remote before the directing party next opens a session. Once that pull request merges, the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflects the latest cadence findings rather than stale local state
+- **At the end of every autonomous supervisor run** — paired with the supervisor-batch commit described above. A headless cadence run that lands a report (and possibly delegated gate ratifications) pushes its branch and opens its pull request before exiting (once the headless contract allows it; see *Supervisor cadence runs* above), so the supervisor's findings reach the remote before the directing party next opens a session. Once that pull request merges, the SessionStart hook's health summary (per `technical_design.md` § System Architecture → *Supervisor* → *Hook integration*) reflects the latest cadence findings rather than stale local state
 
 Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above — the cadences are paired.
 
@@ -194,8 +194,8 @@ Pre-Gate-3 pushes are permitted but not required. See *Commit Cadence* above —
 - **Required for every change** — There are no direct commits to `master`. A pull request is PR-sized: one gate, one work item's step, or one coherent fix
 - **The description is the evidence** — Name the work item (or say it is maintenance), say what changed and why, list the checks run and their results, and say plainly what was not verified
 - **Independent review** — A pull request merges only after an **approved reviewer** that neither wrote nor pushed to it has approved its **current head commit**. Approved reviewers are GitHub Apps the maintainer has approved for this role. A fix for review findings goes on the same branch and needs a fresh approval
-- **Gate pull requests also need the directing party** — A pull request that approves a gate or a mandated document (a DRAFT → APPROVED transition, or any change that moves a document's version) merges only on the directing party's decision for that gate, in addition to the review. Ordinary pull requests (maintenance, bookkeeping, corrections) need the review alone
-- **Merging** — Squash merge, pinned to the approved head commit. Never merge with an admin bypass, and never merge a pull request whose head changed after its approval. A pull request that goes public in a new way, or touches security, waits for the maintainer's direction
+- **Gate pull requests also need the gate's approval authority** — A pull request that approves a gate merges only on the decision of that gate's approval authority (per `conceptual_design.md` § Business Rules → *Gate Authority Split*), in addition to the review: the directing party for the Vision and Feature gates, the supervisor for Task gates and, unless reserved, Epic and Spike gates. A pull request that approves a mandated document (a DRAFT → APPROVED transition, or any change that moves a document's version) needs the directing party's decision. Ordinary pull requests (maintenance, bookkeeping, corrections) need the review alone
+- **Merging** — Squash merge, pinned to the approved head commit. Squash-only is a convention: the ruleset does not restrict merge methods. Never merge with an admin bypass, and never merge a pull request whose head changed after its approval. A pull request that goes public in a new way, or touches security, waits for the maintainer's direction
 - **Keep it public-safe** — The repository is public, so a push or a pull request is publication. Nothing carries secrets or private facts, and the repository's files name no reviewers and list no other repositories
 
 ### Multi-Agent Coordination
@@ -250,10 +250,12 @@ If automated checks are added later, they follow two rules. Each job only calls 
   - **§ Git Workflow → Commits** — run or test before committing; each commit says which agent wrote it; no agent pushes under a reviewer's identity
   - **§ Git Workflow → Commit Cadence** — gate commits land on the gate's topic branch, and the squash merge is the commit on `master`; autonomous supervisor runs land by pull request and never push to `master`, force-push or rewrite history
   - **§ Git Workflow → Push Cadence** — pushes are of topic branches; each trigger is followed by opening or updating the pull request
-  - **§ Git Workflow → Pull Requests** — replaces "Optional" with: required for every change; the description as evidence (work item, checks run, what was not verified); independent approval of the current head by an approved reviewer that neither wrote nor pushed to it; gate and mandated-document pull requests also need the directing party's decision; squash merge pinned to the approved head, never an admin bypass; public-safe content
+  - **§ Git Workflow → Pull Requests** — replaces "Optional" with: required for every change; the description as evidence (work item, checks run, what was not verified); independent approval of the current head by an approved reviewer that neither wrote nor pushed to it; gate pull requests also need the gate's approval authority (per *Gate Authority Split*) and mandated-document pull requests the directing party's decision; squash merge pinned to the approved head, never an admin bypass; public-safe content
   - **§ Git Workflow → Multi-Agent Coordination** — one branch per agent's work; the second of two overlapping pull requests rebases and is reviewed afresh
   - **§ CI/CD → Pipeline Stages** — the manual pipeline now runs through a pull request; rules for any automated checks added later (portable scripts, no secrets, required only after passing on a real pull request, proven by a planted failure)
 - Classified as a **substantive revision per `conceptual_design.md` § Re-reviewing → *Status semantics*** — it retracts the approved claims that pull requests are optional and that direct commits to `master` are acceptable. Made at the directing party's direction. The document is DRAFT for the revision and returns to APPROVED through Gate 1, given by the directing party
+- Header keeps the original approval date (2026-05-29); v1.5 was an additive amendment that stayed APPROVED, so 2026-08-28 is its version date, not an approval
+- Known follow-up, outside this revision: the `shannon-supervisor` skill's prose and EPIC-011 AC#4 still describe an autonomous run pushing to `master`, and `technical_design.md` § Cadence does not yet let a headless run push a branch or open a pull request (captured in the scratchpad)
 - Status: DRAFT (Gate 1 pending)
 
 ### 2026-08-28 - v1.5
