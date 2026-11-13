@@ -46,7 +46,7 @@ The candidate next-Epic surface splits cleanly into two work units with differen
 
 - [EPIC-005](../epics/EPIC-005-v6-skills-and-claude-template.md) — APPROVED — V6 Vocabulary in Skills and CLAUDE.md Template — Three skill definitions (`shannon/skills/*/skill.md`) and the project-level CLAUDE.md template need semantic updates. Each touches gate language, self-approval prevention, and the directing-party / implementer distinction; not pure find-and-replace. Requires per-file review judgement. Elaboration also folded in a correction: `work-items/skill.md` still has `PLAN-PENDING` references that contradict technical_design v1.1, now part of EPIC-005's scope.
   - **Success criterion**: `rg "\b[Uu]sers?\b" shannon/skills/ shannon/skills/project-setup/templates/CLAUDE.md` returns only intentional "human reader" or "Target Users" occurrences; every gate-related sentence uses directing-party / implementer vocabulary correctly; no `*-PENDING` references remain.
-- [EPIC-013](../epics/EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT — V6 Vocabulary in Command Files (was Candidate Epic B; created 2026-10-18 from the scratchpad triage). The surface is now 26 command files, and they also misstate gate authority ("explicit user approval" for every gate)
+- [EPIC-013](../epics/EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT, superseded 2026-11-13 by the Feature-level governance revision, which rewrote every command file — V6 Vocabulary in Command Files (was Candidate Epic B; created 2026-10-18 from the scratchpad triage). The surface is now 26 command files, and they also misstate gate authority ("explicit user approval" for every gate)
   - **Success criterion**: `rg "\buser\b" shannon/commands/` returns only intentional "human reader" occurrences; every command's wording about gate approval names the authority *Gate Authority Split* assigns
 
 Promote each candidate to a real Epic via `/epic-create` when ready to schedule the work.
@@ -75,6 +75,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ## Activity Log
 
+- **2026-11-13** — Plan bookkeeping (no status change): EPIC-013 is superseded. The Feature-level governance revision rewrote all twenty work-item commands, and no command now says "explicit user approval". The command-file half of *Remaining* is therefore met in source, pending that revision's acceptance. A multi-agent configuration exercised in practice is still open.
 - **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
 
 

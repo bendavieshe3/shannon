@@ -7,7 +7,7 @@
 - **Feature**: [FEAT-003](../docs/features/FEAT-003-unified-work-item-model.md)
 - **Time-box**: One day
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 
 > **Status** moves through the unified lifecycle, but the meaningful transitions for a spike are `ELABORATED → IMPLEMENTED` (investigation done) and `APPROVED` (output captured as knowledge note). Spikes are disposable — the knowledge note is the durable artefact.
 
@@ -100,6 +100,5 @@ One day.
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Superseded by the Feature-level governance revision (Vision v3.0). The question assumed a gated lifecycle below Features, where an item could not start implementing until others were APPROVED. Optional records now have no mandatory sequence; the agent sequences execution within an approved Feature. Feature-to-Feature dependencies stay in each Feature's free-text *Dependencies* section, and the human sees them at Gate 2. No structured dependency field is warranted. Kept as a historical record; no knowledge note, because the question dissolved rather than being answered.
 - **2026-10-18** — DRAFT: Spike created from the scratchpad item "Inter-work-item dependency as a first-class concept" by the 2026-10-17 triage. The triage recommended a Spike before an Epic, because the answer changes the lifecycle model. Created on directing-party approval

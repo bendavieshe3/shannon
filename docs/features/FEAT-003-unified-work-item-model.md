@@ -44,15 +44,15 @@ See `vision.md` § Feature-led Delivery and Complete Traceability; `conceptual_d
 
 - [EPIC-006](../epics/EPIC-006-work-item-lifecycle-maturation.md) — APPROVED — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (closed scratchpad items F1 and F2; fulfilled aspirational Ideal State bullets 1 and 2 added 2026-05-19; bullet 3, framework-version absorption, remains open)
 - [EPIC-007](../epics/EPIC-007-work-item-conventions-from-dogfooding.md) — APPROVED — Work-Item Conventions Surfaced Through Dogfooding (promoted four work-item-workflow clarifications — commit-hash timing in re-elaboration, bundled re-elaboration, no opaque plan-letter labels, AC scope-guard convention — into ratified rules in `conceptual_design` v1.6 + `work-items` skill; fulfilled aspirational Ideal State bullet 4; sibling to EPIC-008 under FEAT-008 covering the dev-discipline half)
-- [EPIC-014](../epics/EPIC-014-work-item-conventions-round-2.md) — DRAFT — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (sibling re-elaboration trigger, *Cascading Preparation* workflow, *Future Epics* paragraph; serves Ideal State bullet 4)
+- [EPIC-014](../epics/EPIC-014-work-item-conventions-round-2.md) — DRAFT, superseded 2026-11-13 (only its sibling-scope trigger survives, delivered directly under this Feature) — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (sibling re-elaboration trigger, *Cascading Preparation* workflow, *Future Epics* paragraph; serves Ideal State bullet 4)
 - [EPIC-015](../epics/EPIC-015-document-consultation-at-elaborate-and-plan.md) — DRAFT — Document Consultation at Elaborate and Plan (needs an additive Ideal State bullet first, per *Responsible Promotion* step 5)
 
-Spike under this Feature: [SPIKE-002](../../spikes/SPIKE-002-inter-work-item-dependencies.md) — DRAFT — Inter-Work-Item Dependencies (precedes any dependency Epic).
+Spike under this Feature: [SPIKE-002](../../spikes/SPIKE-002-inter-work-item-dependencies.md) — DRAFT, superseded 2026-11-13 — Inter-Work-Item Dependencies (the gated lower lifecycle it assumed no longer exists).
 
 Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed, and each item is too small to warrant a new Epic; optional Task execution remains bounded by its governing Feature or engineering rule), promoted from the 2026-10-17 scratchpad triage:
 
-- [TASK-030](../tasks/TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT — Skill-Creating Epics Scope the Command Entry Point
-- [TASK-031](../tasks/TASK-031-parent-epic-advances-with-children.md) — DRAFT — Parent Epic Advances Through the Iterative Zone With Its Children
+- [TASK-030](../tasks/TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT, folded 2026-11-13 into the FEAT-008 conventions — Skill-Creating Epics Scope the Command Entry Point
+- [TASK-031](../tasks/TASK-031-parent-epic-advances-with-children.md) — DRAFT, superseded 2026-11-13 — Parent Epic Advances Through the Iterative Zone With Its Children
 - [TASK-032](../tasks/TASK-032-archived-task-link-depth.md) — DRAFT — Archived Tasks Keep Working Parent Links
 
 ### Dependencies
@@ -77,6 +77,7 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 
 ## Activity Log
 
+- **2026-11-13** — Plan bookkeeping (no status change): backlog reconciled to Vision v3.0. EPIC-014, TASK-031 and SPIKE-002 are superseded and TASK-030 folds into the FEAT-008 conventions; each record's Activity Log gives the reason. The remaining FEAT-003 work (framework-version absorption, document consultation at elaborate and plan, the sibling-scope re-elaboration trigger) is delivered directly under this Feature in the finish-to-vision push.
 - **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
 
 

@@ -1,7 +1,7 @@
 # Spike Index
 
 - [SPIKE-001](./SPIKE-001-claude-code-skill-and-subagent-file-conventions.md) — DRAFT — Claude Code Skill and Subagent File Conventions (FEAT-009) #framework #skills #frontmatter #claude-code
-- [SPIKE-002](./SPIKE-002-inter-work-item-dependencies.md) — DRAFT — Inter-Work-Item Dependencies (FEAT-003) #framework #lifecycle #work-items
+- [SPIKE-002](./SPIKE-002-inter-work-item-dependencies.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — Inter-Work-Item Dependencies (FEAT-003) #framework #lifecycle #work-items
 
 ---
 

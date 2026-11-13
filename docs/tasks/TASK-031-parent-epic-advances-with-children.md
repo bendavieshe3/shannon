@@ -8,7 +8,7 @@
 - **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #work-items #lifecycle #conceptual-design
 - **Created**: 2026-10-17
-- **Updated**: 2026-10-17
+- **Updated**: 2026-11-13
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -109,6 +109,5 @@ This Task merges two scratchpad items: "Do parent Epics advance to IMPLEMENTING�
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Superseded by the Feature-level governance revision (Vision v3.0). Epics and Tasks are optional records with no mandatory status sequence, and optional child completion never advances a parent (`work-items` skill § Optional Epic, Task and Spike operations). A rule for when a parent Epic enters IMPLEMENTING has nothing left to govern. Kept as a historical record.
 - **2026-10-17** — DRAFT: Task created from two merged scratchpad items (parent Epic advancement; settled ruling not propagating) by the 2026-10-17 triage

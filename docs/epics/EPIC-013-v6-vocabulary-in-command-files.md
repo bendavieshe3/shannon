@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-006](../features/FEAT-006-multi-party-supervision.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 - **Tags**: #v6 #framework #commands
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -105,6 +105,5 @@ Every command file names gate authority as *Gate Authority Split* assigns it, an
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Superseded by the Feature-level governance revision (PR #12, Vision v3.0). That revision rewrote all twenty work-item command files and the command README: no command now says "explicit user approval", and each gate sentence names human Feature gates and independent review instead of *Gate Authority Split* delegation. A grep of `shannon/commands/` on 2026-11-13 finds no "explicit user approval"; the remaining `user` occurrences are the human reader. The Epic's goal is met by that revision and no separate delivery remains. Kept as a historical record; not archived.
 - **2026-10-18** — DRAFT: Epic created from the scratchpad item "V6 propagation Epic under FEAT-006" by the 2026-10-17 triage, on directing-party approval

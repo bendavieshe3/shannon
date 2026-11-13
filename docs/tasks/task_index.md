@@ -29,8 +29,8 @@
 - [TASK-027](./archive/TASK-027-shannon-goal-promotion-authority-resync.md) — APPROVED — `/shannon-goal` Promotion-Authority Resync and Candidate-Derived Footer (EPIC-010 Task 6, corrective) #supervisor #skill #shannon-goal #promotion-authority #corrective
 - [TASK-028](./archive/TASK-028-per-category-finding-counts-in-report-header.md) — APPROVED — Per-Category Finding Counts in the Report Header (EPIC-010 Task 7; sequenced before TASK-025) #supervisor #templates #report-pipeline #header #machine-readable
 - [TASK-029](./archive/TASK-029-acceptance-criteria-cite-governing-rules.md) — APPROVED — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References (FEAT-008, orphan Task) #framework #development-guide #acceptance-criteria #meta-gap #dogfood
-- [TASK-030](./TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT — Skill-Creating Epics Scope the Command Entry Point (FEAT-003, orphan Task) #framework #work-items
-- [TASK-031](./TASK-031-parent-epic-advances-with-children.md) — DRAFT — Parent Epic Advances Through the Iterative Zone With Its Children (FEAT-003, orphan Task) #framework #lifecycle
+- [TASK-030](./TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT (FOLDED into FEAT-008 conventions, 2026-11-13) — Skill-Creating Epics Scope the Command Entry Point (FEAT-003, orphan Task) #framework #work-items
+- [TASK-031](./TASK-031-parent-epic-advances-with-children.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — Parent Epic Advances Through the Iterative Zone With Its Children (FEAT-003, orphan Task) #framework #lifecycle
 - [TASK-032](./TASK-032-archived-task-link-depth.md) — DRAFT — Archived Tasks Keep Working Parent Links (FEAT-003, orphan Task) #framework #archive
 - [TASK-033](./TASK-033-testing-strategy-covers-shipped-executables.md) — ELABORATED — Testing Strategy Covers Shipped Executables (EPIC-012 Task 1) #framework #development-guide #testing
 - [TASK-034](./TASK-034-cross-task-editing-order.md) — DRAFT — Cross-Task Editing Order (EPIC-012 Task 2) #framework #development-guide #editing-order

@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 - **Tags**: #framework #conventions #conceptual-design #work-items
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -108,6 +108,5 @@ All three are work-item workflow conventions, so they sit under FEAT-003 rather 
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Superseded by the Feature-level governance revision (Vision v3.0). Items 2 (*Cascading Preparation*) and 3 (*Future Epics* paragraph) only applied to a mandatory Feature → Epic → Task hierarchy, which no longer exists: Epics are optional and a Feature Plan names its approach, not a child list. Item 1 (a sibling-scope re-elaboration trigger) still applies to Features. It lands directly under FEAT-003 in `conceptual_design.md` § Re-elaborating a Work Item as part of the finish-to-vision push, without this Epic. Kept as a historical record.
 - **2026-10-18** — DRAFT: Epic created from three scratchpad items (sibling re-elaboration trigger; Cascading Preparation naming; forward-deferral pattern) by the 2026-10-17 triage, on directing-party approval
