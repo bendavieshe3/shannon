@@ -1,7 +1,7 @@
 # Technical Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-11-01
+**Last Reviewed**: 2026-11-13
 **Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
@@ -121,6 +121,7 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Task | `./docs/tasks/TASK-XXX-slug.md` (or `./docs/tasks/archive/` after an authorised archive move) | Plus an entry in `task_index.md` |
 | Spike | `./spikes/SPIKE-XXX-slug.md` | Project root, not under `docs/`; plus entry in `spike_index.md` |
 | Knowledge Note | `./docs/knowledge/<slug>.md` | Plus entry in `knowledge_index.md` |
+| Scratchpad | `./docs/scratchpad.md` | One file per project with § Items and § Processed; instantiated by `/shannon-setup` from `work-items/templates/scratchpad.md`; no IDs and no index |
 | Supervisor Report | `./docs/supervisor/report-YYYY-MM-DD.md` | A Knowledge Note subtype per conceptual_design § Domain Model → *Knowledge Note*; ID is the report's ISO date. Indexed in `knowledge_index.md` like any other note |
 | Supervisor Configuration | `./.claude/shannon-supervisor.json` | Report settings; legacy gate fields have no authority |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
@@ -187,6 +188,15 @@ Two supervisor commands surface the cadence and goal-decomposition flows (see §
 
 - `/shannon-report` — Run a cadence audit and write a dated report
 - `/shannon-goal [intent]` — Decompose a directing-party intent into candidate work items
+
+### Scratchpad Verbs
+
+The scratchpad uses the `[type]-[verb]` pattern with its own two verbs, both handled by the `work-items` skill:
+
+- `/scratchpad-add [idea]` — Append one line under § Items
+- `/scratchpad-process` — Give each item a disposition and move it to § Processed (see `conceptual_design.md` § Key Workflows → *Processing the Scratchpad*)
+
+Capture stays a one-line edit, so the verbs exist for discoverability and for the processing rhythm, not because a direct edit is wrong.
 
 ### Skill Invocation Pattern
 
@@ -284,6 +294,10 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 ---
 
 ## Version History
+
+### 2026-11-13 - v2.1
+
+- **Scratchpad ratified (FEAT-007).** Added the Scratchpad row to § Data Model and § API Design → *Scratchpad Verbs* (`/scratchpad-add`, `/scratchpad-process`, both in the `work-items` skill). Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.
 
 ### 2026-11-01 - v2.0
 

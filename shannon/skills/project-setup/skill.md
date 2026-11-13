@@ -76,6 +76,7 @@ Create these directories with their index files:
 - Optional execution-aid directories/indexes only when useful; do not require `docs/epics/`, `docs/tasks/` or `spikes/`
 - Preserve existing execution records and indexes; no bulk migration
 - `./docs/knowledge/` with `knowledge_index.md`
+- `./docs/scratchpad.md` from `./.claude/skills/work-items/templates/scratchpad.md`, if it does not already exist
 
 ### 5. Produce Project CLAUDE.md
 

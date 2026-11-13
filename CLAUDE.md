@@ -24,7 +24,9 @@ shannon/                                  # Shannon deployables (source)
 │   ├── feature-{create,elaborate,plan,implement,review}.md
 │   ├── epic-{create,elaborate,plan,implement,review}.md
 │   ├── task-{create,elaborate,plan,implement,review}.md
-│   └── spike-{create,elaborate,plan,implement,review}.md
+│   ├── spike-{create,elaborate,plan,implement,review}.md
+│   ├── scratchpad-{add,process}.md
+│   └── shannon-{report,goal}.md
 │
 ├── skills/                               # Framework logic + templates
 │   ├── project-setup/
@@ -41,13 +43,15 @@ shannon/                                  # Shannon deployables (source)
 │   │       ├── ux_guide.md
 │   │       ├── knowledge_note.md
 │   │       └── knowledge_index.md
-│   └── work-items/
-│       ├── skill.md
-│       └── templates/
-│           ├── feature.md  / feature_index.md
-│           ├── epic.md     / epic_index.md
-│           ├── task.md     / task_index.md
-│           └── spike.md    / spike_index.md
+│   ├── work-items/
+│   │   ├── skill.md
+│   │   └── templates/
+│   │       ├── feature.md  / feature_index.md
+│   │       ├── epic.md     / epic_index.md
+│   │       ├── task.md     / task_index.md
+│   │       ├── spike.md    / spike_index.md
+│   │       └── scratchpad.md
+│   └── shannon-supervisor/               # SKILL.md, checkers/, hooks/, scripts/, templates/
 │
 └── guides/                               # User-facing documentation
     └── shannon_overview.md

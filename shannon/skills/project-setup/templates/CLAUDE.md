@@ -85,6 +85,11 @@ Everything traces from the Vision through relevant documents and Features to imp
 
 All four types retain create/elaborate/plan/implement/review commands. Only Feature elaborate/plan/review cross human gates. `/feature-implement` delivers directly; optional verbs do not require prior progress labels. Read the work-items skill and current governing context. Existing indexes must agree with bodies, but missing optional indexes are not defects.
 
+### Idea Capture
+
+- `/scratchpad-add [idea]` — Capture an idea in `docs/scratchpad.md` without classifying it
+- `/scratchpad-process` — Give each scratchpad item a disposition: act, promote, move to knowledge, or drop
+
 ## Critical Guardrails
 
 - Read relevant Vision, Feature, design/Guide context and actual implementation before changing it.

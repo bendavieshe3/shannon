@@ -8,7 +8,7 @@ When invoked, start with “Activating work-items skill for [type] [verb].”
 
 ## Purpose and inputs
 
-Commands supply Type (`feature`, `epic`, `task`, `spike`), Verb (`create`, `elaborate`, `plan`, `implement`, `review`) and Target ID or hint. Resolve an unambiguous target from current context; ask only when ambiguity affects scope. Read `conceptual_design.md` § Business Rules, the target Feature and relevant documents before affected work. Resolve any other skills by name from the session catalogue.
+Commands supply Type (`feature`, `epic`, `task`, `spike`, or `scratchpad` with verbs `add` and `process`), Verb (`create`, `elaborate`, `plan`, `implement`, `review`) and Target ID or hint. Resolve an unambiguous target from current context; ask only when ambiguity affects scope. Read `conceptual_design.md` § Business Rules, the target Feature and relevant documents before affected work. Resolve any other skills by name from the session catalogue.
 
 ## Authority and traceability
 
@@ -55,6 +55,26 @@ All existing command names/templates remain usable, but these records are option
 Keep descriptive titles, real IDs where records are created and current body-before-index references. Reuse legacy progress labels honestly; a self-tested result can be IMPLEMENTED, but cannot claim independent review or human approval. Existing APPROVED labels/logs remain historical evidence and are not rewritten automatically. A Spike has a question, time-box and durable knowledge output; an inconclusive result is valid.
 
 Optional child completion must not advance the parent to APPROVED. Feature acceptance stays human. Optional decomposition must not hide an unapproved product decision.
+
+## Scratchpad
+
+`./docs/scratchpad.md` (from `templates/scratchpad.md`) is the pre-workflow capture point: one line per item, optional tags, no IDs, no status. It supplies context, not authority.
+
+### Add
+
+Append the item under § Items as one line, `- **Short title** — what and why. #tags`, keeping the user's wording. Create the file from the template if it is missing. Do not classify, plan or act on the item. When you notice a framework-general ambiguity or idea during other work that has no clear home, capture it the same way.
+
+### Process
+
+Read § Items (or the requested subset), the Feature index and the relevant Features. Give each item exactly one disposition, following `conceptual_design.md` § Key Workflows → *Processing the Scratchpad*:
+
+- **Act within approved intent** — an existing approved Feature or governing rule covers it: do it, or note it on that Feature, citing the item.
+- **Promote** — new or changed Feature scope needs the human: draft a DRAFT Feature or a re-elaboration and present it; nothing is approved by promotion. An optional Epic, Task or Spike may be created when existing approved intent covers it.
+- **Knowledge** — a durable finding moves to a knowledge note through `/document-create knowledge`.
+- **Drop** — no longer relevant; record why.
+- **Keep** — not ready; leave it, and add a one-line dated note only if something changed.
+
+Move each disposed item to § Processed with the date, disposition and a pointer (Feature or record ID, note path, or drop reason). Present the dispositions in one summary and batch any human decisions into one ask. Never delete an item without recording its disposition.
 
 ## Optional archive and existing indexes
 

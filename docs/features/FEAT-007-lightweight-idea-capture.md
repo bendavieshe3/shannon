@@ -3,14 +3,15 @@
 ## Metadata
 
 - **Status**: ELABORATED
-- **Activity**: STABLE
+- **Activity**: ACTIVE
 - **Type**: Feature
 - **Vision Reference**: § Key Features — "Lightweight Idea Capture" (added 2026-05-18 in Vision v2.2 in response to this Feature's surfaced gap)
 - **Initial Implementation**: Partial — see Activity Log
   - **Met:** The live `docs/scratchpad.md` — one-line capture format, optional tags, no IDs, a Processed section, and an informal "process periodically" workflow; plus the Vision § Key Features anchor added in v2.2.
-  - **Remaining:** Ratifying the capability upstream — a *Scratchpad* glossary entry and Processing workflow in conceptual_design, technical_design notes on file structure, surfacing in `shannon_overview.md`, and a possible `/scratchpad-*` command family (the candidate next Epic).
+  - **Implemented in source 2026-11-13 (finish-to-vision push; not yet accepted):** `conceptual_design.md` v2.1 *Scratchpad* glossary entry, *Scratchpad Item* entity and *Processing the Scratchpad* workflow; `technical_design.md` v2.1 Data Model row and *Scratchpad Verbs*; `/scratchpad-add` and `/scratchpad-process` commands backed by the `work-items` skill § Scratchpad; a shipped `work-items/templates/scratchpad.md` that `/shannon-setup` instantiates; surfacing in `shannon_overview.md`, both READMEs and the project CLAUDE.md template.
+  - **Remaining:** Human Gate 2 (approach) and Gate 3 (acceptance) for this delivery; a first real `/scratchpad-process` pass on Shannon's own scratchpad as evidence.
 - **Created**: 2026-05-18
-- **Updated**: 2026-05-22 (re-elaborated)
+- **Updated**: 2026-11-13
 
 ---
 
@@ -90,6 +91,7 @@ The capability exists because not every thought is ready to be a work item. Forc
 
 ## Activity Log
 
+- **2026-11-13** — Implementation in source of the Plan's candidate ("formalise the scratchpad as a documented Shannon capability"), delivered directly under this Feature with no Epic, per Vision v3.0. Commands are limited to `add` and `process`, which addresses the *Premature command surface* risk: capture stays a one-line edit, and processing gets a named rhythm tied to the Drift Checker's scratchpad-pressure finding (the *Junk-drawer drift* mitigation). Approach offered to the directing party for Gate 2 in the finish-to-vision plan. No status change until that decision.
 - **2026-05-22** — Re-elaborated (additive). **Trigger**: framework evolution — EPIC-006 (via TASK-002, commit `09844df`) delivered the queryable Partial-completeness affordance that pre-existing Partial Features must absorb. **Change**: added the `**Met:** / **Remaining:**` sub-block beneath the `Initial Implementation` line, surfacing the Partial state at a glance; applied via TASK-003. Additive — no previously-approved claim contradicted; status stays ELABORATED.
 - **2026-05-18** — ELABORATED: Feature created. Partially implemented: `docs/scratchpad.md` exists and is actively used (11 items, 2 processed) as of this Feature's creation. The pattern is informal — no Vision anchor, no conceptual_design entity, no canonical processing workflow. A first Epic to formalise the capability is the obvious next step, blocked on the Vision update.
 - **2026-05-18** — Vision Reference updated. Vision v2.2 (approved 2026-05-18) added "Lightweight Idea Capture" as a 5th Key Feature, closing the gap this Feature originally surfaced. Conceptual_design entity and `/scratchpad-*` commands remain Partial — candidate next Epic still applies.

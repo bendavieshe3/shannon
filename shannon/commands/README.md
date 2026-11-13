@@ -18,6 +18,10 @@ Commands are thin entry points to skills. The core chain is Vision → governing
 
 `/shannon-setup` prepares the six project documents. `/document-create [type]` and `/document-review [path]` maintain their authority/alignment; approved meaning changes remain human decisions, factual upkeep is agent work. `/shannon-report` produces health evidence; `/shannon-goal [intent]` identifies aligned work and genuine new Feature decisions. Neither delegates human Feature authority.
 
+## Idea capture
+
+`/scratchpad-add [idea]` appends one line to `docs/scratchpad.md`. `/scratchpad-process` gives each item a disposition (act, promote, knowledge, drop) and records it under § Processed. Both use the work-items skill.
+
 ## Installation
 
 Copy this commands directory and sibling skills/guides into the project's `.claude/` through the project's approved installation procedure. Preserve existing project customisations and permissions. A source change or successful copy is not runtime validation or Feature acceptance. Commands invoke skills by name and report missing activation explicitly.

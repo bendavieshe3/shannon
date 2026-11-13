@@ -67,10 +67,14 @@ Everything extends traceably from the Vision through relevant governing document
 
 The human approves Feature requirements/acceptance criteria (Gate 1), approach/consequential trade-offs (Gate 2), and delivered capability against evidence (Gate 3). Vision and consequential changes to approved meaning remain human-owned. Agents maintain factual documentation and execution plans within approved intent. Independent technical review remains distinct from implementation, merge and human acceptance.
 
+### Lightweight Idea Capture
+
+`docs/scratchpad.md` takes one-line ideas that aren't ready to be work items. `/scratchpad-add` captures one; `/scratchpad-process` acts on, promotes, files or drops each item and keeps a trail under § Processed.
+
 ### Commands + Skills + Subagents
 
-- **Commands** — Thin entry points (`/shannon-setup`, `/[type]-[verb]`, `/document-[verb]`)
-- **Skills** — Reusable framework logic with templates (`project-setup`, `project-documentation`, `work-items`)
+- **Commands** — Thin entry points (`/shannon-setup`, `/[type]-[verb]`, `/document-[verb]`, `/scratchpad-[verb]`, `/shannon-report`, `/shannon-goal`)
+- **Skills** — Reusable framework logic with templates (`project-setup`, `project-documentation`, `work-items`, `shannon-supervisor`)
 - **Subagents** — Optional, separately authorised help; independent review must come from someone who did not implement the change
 
 ## Repository Structure
@@ -81,7 +85,8 @@ shannon/                       # Deployable source
 ├── skills/                    # Framework logic + templates
 │   ├── project-setup/
 │   ├── project-documentation/
-│   └── work-items/
+│   ├── work-items/
+│   └── shannon-supervisor/
 └── guides/                    # User-facing documentation
 
 docs/                          # Shannon's own documentation (dogfooding)

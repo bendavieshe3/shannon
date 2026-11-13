@@ -4,7 +4,7 @@ Capture point for ideas, half-formed work, and unprocessed TODOs that don't yet 
 
 **Process periodically**: promote items to formal work items (Feature, Epic, Task, Spike), move durable findings to knowledge notes, or drop items that no longer matter. The scratchpad is not a backlog — it is pre-workflow. Items that already have a clear home (e.g. a Task under an existing Epic) should be captured there, not here.
 
-**Format**: one line per item. Optional tags. No IDs. No status flow. The whole point is low-friction capture.
+**Format**: one line per item. Optional tags. No IDs. No status flow. The whole point is low-friction capture. Capture with `/scratchpad-add [idea]` or a direct edit; process with `/scratchpad-process` (see `conceptual_design.md` § Key Workflows → *Processing the Scratchpad*).
 
 ---
 

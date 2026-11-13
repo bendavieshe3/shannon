@@ -1,7 +1,7 @@
 # Shannon — System Overview
 
 **Version**: 5.0
-**Last Updated**: 2026-11-01
+**Last Updated**: 2026-11-13
 
 Shannon preserves project intent and context while agents handle execution. Everything extends traceably from the Vision. Human decisions remain at the Vision and Feature level; lower-level activity needs useful evidence, not more handholding.
 
@@ -47,6 +47,10 @@ Reuse actual explicit approval rather than asking twice. Silence, self-tests, te
 `/feature-implement` delivers directly after requirements and approach approval. Agents choose and revise decomposition, execution order and tests within approved scope. Epics, Tasks and Spikes are optional aids with no required status sequence or human gates. Existing names, commands, identifiers, logs and archives remain valid; do not bulk migrate or delete them. Explicit project holds still need disposition.
 
 Read actual implementation, run appropriate checks, maintain affected documents, capture decisions and obtain independent technical review from someone who did not implement the work. Stop affected work for consequential divergence, and continue independent authorised work where useful.
+
+## Idea capture
+
+`docs/scratchpad.md` holds ideas that are not ready to be work items: one line each, optional tags, no IDs. `/scratchpad-add [idea]` captures one. `/scratchpad-process` gives each item a disposition: act on it within an approved Feature, promote it (new Feature scope goes to the human), move it to a knowledge note, or drop it, recording where it went under § Processed. The supervisor's Drift Checker reports when the scratchpad is under pressure. A scratchpad item is context, never authority.
 
 ## Traceability and resumption
 
