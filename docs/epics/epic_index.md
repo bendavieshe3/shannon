@@ -14,7 +14,7 @@
 - [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — PLANNED — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
 - [EPIC-013](./EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — V6 Vocabulary in Command Files (FEAT-006) #v6 #framework #commands
 - [EPIC-014](./EPIC-014-work-item-conventions-round-2.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (FEAT-003) #framework #conventions
-- [EPIC-015](./EPIC-015-document-consultation-at-elaborate-and-plan.md) — DRAFT — Document Consultation at Elaborate and Plan (FEAT-003) #framework #work-items #alignment
+- [EPIC-015](./EPIC-015-document-consultation-at-elaborate-and-plan.md) — DRAFT (DELIVERED directly under FEAT-003, 2026-11-13) — Document Consultation at Elaborate and Plan (FEAT-003) #framework #work-items #alignment
 - [EPIC-016](./EPIC-016-supervisor-deployment-via-shannon-setup.md) — DRAFT — Supervisor Deployment via /shannon-setup (FEAT-009) #supervisor #setup #portability
 
 ---

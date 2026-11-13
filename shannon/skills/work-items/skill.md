@@ -28,13 +28,13 @@ Read the Feature index immediately before allocation. Allocate the next real `FE
 
 ### Elaborate — Gate 1
 
-Read the Vision, relevant governing documents and actual capability. Draft requirements, user stories and observable Feature acceptance criteria; cite governing rules rather than worked examples or stale version pins. Check scope criteria by failure mode rather than literal changed-file counts. Do this directly, or use separately authorised helpers when useful. Present the concrete scope and uncertainties for human approval; only actual approval marks ELABORATED.
+Read the actual capability, and read in full the sections that bear on the Feature in `vision.md`, `conceptual_design.md` and, for anything user-facing, `ux_guide.md`, plus any APPROVED document the Vision Reference or Context names. Record each in the Feature's Requirements § Documents Consulted with the section and what it constrains; write "read; nothing bears on this Feature" rather than leaving a document out. Before presenting, check the draft against those sections and name any contradiction instead of resolving it silently. Draft requirements, user stories and observable Feature acceptance criteria; cite governing rules rather than worked examples or stale version pins. Check scope criteria by failure mode rather than literal changed-file counts. Do this directly, or use separately authorised helpers when useful. Present the concrete scope, the Documents Consulted list and uncertainties for human approval; only actual approval marks ELABORATED.
 
 For re-elaboration, follow `conceptual_design.md` § Re-elaborating a Work Item: record trigger, source revision where applicable and changed meaning. A substantive Feature scope change returns to DRAFT and re-passes the affected human gates. Optional execution notes do not re-pass those gates merely because their plan changes.
 
 ### Plan — Gate 2
 
-Read the Feature requirements, relevant Conceptual/Technical Design, Technology Stack and Guides. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
+Read the Feature requirements and the sections that bear on the approach in `technology_stack.md`, `technical_design.md`, `development_guide.md` and `conceptual_design.md` (and `ux_guide.md` when user-facing). Record each in Plan § Documents Consulted, as at elaboration, and name any contradiction the approach would create. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
 
 ### Implement — agent-managed delivery
 

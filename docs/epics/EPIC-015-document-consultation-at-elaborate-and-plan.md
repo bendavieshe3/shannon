@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 - **Tags**: #framework #work-items #alignment #gates
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -111,6 +111,5 @@ A work item's Requirements and Plan visibly trace to the documents the relations
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Delivered directly under FEAT-003 without this Epic (Vision v3.0: Epics are optional). Remedies chosen: (a) the `work-items` skill Elaborate and Plan steps name the documents to read; (c) a *Documents Consulted* list in the Feature template at Requirements and Plan, shown at Gates 1 and 2. Remedy (b), a separate mandatory alignment subagent, was not taken: the recorded list plus a contradiction check gives the reviewer the same visibility at lower cost. The Plan-subagent wording in the Overview no longer exists after the governance revision. Kept as a historical record.
 - **2026-10-18** — DRAFT: Epic created from the scratchpad item "Documentation reference at planning and elaboration not robustly enforced" by the 2026-10-17 triage, on directing-party approval. The parent re-elaboration required by *Responsible Promotion* step 5 is still outstanding

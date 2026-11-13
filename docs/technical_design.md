@@ -220,6 +220,8 @@ This retained section name records a superseded mechanism. Current delivery is F
 
 Read the target document, relevant higher-authority neighbours and affected Features/implementation; cite actual governing sections. The agent can do this directly or use separately authorised helpers. Classify Drift, Gap, Internal contradiction and Strength; report unknowns rather than inventing findings. Maintain factual alignment within approved intent, and return consequential changes to the human. Do not create a human gate for each mechanical documentation correction.
 
+The same check runs on every Feature at Gate 1 and Gate 2. Elaboration reads the Vision, Conceptual Design and (for anything user-facing) UX Guide sections that bear on the Feature; planning reads the Technology Stack, Technical Design, Development Guide and Conceptual Design. Each pass records what it read in the Feature's *Documents Consulted* list, with the constraint each section imposes or "nothing bears on this", and names any contradiction. A gate reviewer can see which documents were skipped without re-deriving the reading.
+
 ## Security Model
 
 Shannon adds no network calls of its own; the framework operates on local files within the Claude Code runtime. Its security model is the security model of Claude Code plus three Shannon-specific stances.
@@ -297,6 +299,7 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 
 ### 2026-11-13 - v2.1
 
+- **Documents Consulted at Feature Gates 1 and 2 (FEAT-003, EPIC-015 intent).** § Key Algorithms → *Document Alignment Check* now runs at Feature elaboration and planning, recorded in a *Documents Consulted* list in the Feature template. Additive.
 - **Scratchpad ratified (FEAT-007).** Added the Scratchpad row to § Data Model and § API Design → *Scratchpad Verbs* (`/scratchpad-add`, `/scratchpad-process`, both in the `work-items` skill). Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.
 
 ### 2026-11-01 - v2.0
