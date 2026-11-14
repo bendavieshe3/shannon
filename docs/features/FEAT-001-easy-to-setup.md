@@ -21,8 +21,8 @@ This feature is foundational. Every other Shannon capability depends on a develo
 
 ### Ideal State
 
-- Developers can find Shannon easily via GitHub, documentation, and (eventually) package registries
-- Multiple installation channels exist: `git clone`, curl script, GitHub template repository, language-ecosystem packages
+- Developers can find Shannon easily via GitHub and its documentation
+- Installation needs only `git clone` and `/shannon-setup`; upgrades only a newer clone and `/shannon-update` (optionally, a GitHub template repository)
 - A single command (`/shannon-setup`) detects project type and customises appropriately
 - Installation distinguishes fresh projects from existing ones and adapts behaviour
 - Existing `.claude/` customisations are preserved across installs and updates
@@ -99,7 +99,7 @@ This feature is foundational. Every other Shannon capability depends on a develo
 
 ## Plan
 
-### Approach (finish-to-vision push, 2026-11-13; offered for Gate 2)
+### Approach (finish-to-vision push, 2026-11-13; Gate 2 approved 2026-11-14)
 
 Delivered directly under this Feature, without the Epics (Vision v3.0). The Epics below are kept as the record of the original split.
 
@@ -107,7 +107,7 @@ Delivered directly under this Feature, without the Epics (Vision v3.0). The Epic
 - **Smart installation (EPIC-002)**: in source. `/shannon-setup` reports existing `.claude/` contents, backs up to `.claude/.shannon-backup/YYYY-MM-DD/` before overwriting, merges `CLAUDE.md` inside `<!-- shannon:begin/end -->` markers, merges `.claude/settings.json`, detects Node, Python, Go and Rust projects to pre-fill the stack and build commands, and verifies the result, including that every skill loads.
 - **Version management (EPIC-003)**: in source. `shannon/guides/CHANGELOG.md` is the version source; installs record `.claude/.shannon-version` and a hash manifest; `/shannon-update [path]` reports versions, classifies customised files, backs up, and walks records through each entry's *Records* notes. With no network calls, "latest available" is whatever clone the directing party has pulled.
 - **Supervisor deployment (EPIC-016, FEAT-009)**: in source. Setup merges the hook snippets, writes the default `shannon-supervisor.json`, ignores the audit log and creates `docs/supervisor/`.
-- **Distribution channels (EPIC-004)**: recommended cut, awaiting decision. Keep git clone and an optional GitHub template repository; drop the curl script and the npm and pip packages, because a Markdown-only framework with no build step gains little from packaging and each channel adds release maintenance. This trims an Ideal State bullet, so it needs Gate 1 as well as Gate 2.
+- **Distribution channels (EPIC-004)**: cut approved by the directing party 2026-11-14. Keep git clone and an optional GitHub template repository; drop the curl script and the npm and pip packages, because a Markdown-only framework with no build step gains little from packaging and each channel adds release maintenance. The Ideal State's channel bullet is trimmed to match (Gate 1 and Gate 2, 2026-11-14).
 
 **Evidence (live, `claude -p` 2.1.325, scratch projects):** a first install into a Node project with an existing `CLAUDE.md`, a `.claude/commands/deploy.md` and a `settings.json` holding a user hook and permission kept all three. It merged the four hooks once each, backed up the three touched files, pre-filled pnpm build and test commands marked *confirm at review*, and its verification caught the supervisor skill's missing frontmatter (since fixed). An update to a 5.2 fixture kept one customised command, merged another, applied a *meaning* Records note to an existing Feature as a re-elaboration, and verified. A dry run to 5.3 classified files against the manifest correctly.
 
@@ -116,7 +116,7 @@ Delivered directly under this Feature, without the Epics (Vision v3.0). The Epic
 - [EPIC-001](../epics/EPIC-001-basic-installation.md) — DRAFT, met — Basic Installation
 - [EPIC-002](../epics/EPIC-002-smart-installation.md) — DRAFT, delivered directly 2026-11-13 — Smart Installation
 - [EPIC-003](../epics/EPIC-003-version-management.md) — DRAFT, delivered directly 2026-11-13 — Version Management
-- [EPIC-004](../epics/EPIC-004-distribution-channels.md) — DRAFT, decision pending — Distribution Channels
+- [EPIC-004](../epics/EPIC-004-distribution-channels.md) — DRAFT (SUPERSEDED by the 2026-11-14 distribution cut) — Distribution Channels
 
 ### Dependencies
 

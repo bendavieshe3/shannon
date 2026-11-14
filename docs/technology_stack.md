@@ -1,7 +1,7 @@
 # Technology Stack
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-11-13
+**Last Reviewed**: 2026-11-14
 **Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
@@ -36,7 +36,7 @@ A Shannon-equipped project consists of: a `.claude/` directory containing comman
 
 - **Purpose**: Version control for templates, commands, skills, and the dogfood `docs/`; primary distribution mechanism (`git clone`)
 - **Rationale**: Ubiquitous, plain-text friendly, no additional infrastructure required
-- **Trade-offs**: Users must have git to install via the recommended path; alternative install paths (curl script, package managers) are roadmap items
+- **Trade-offs**: Users must have git to install via the recommended path; a GitHub template repository is the only alternative path kept open; a curl script and package managers were ruled out on 2026-11-14 (FEAT-001)
 
 ---
 
@@ -127,13 +127,17 @@ Vision § Core Principles 5 (*Continuous Health Vigilance*) and Vision § Key Fe
 
 ## Future Considerations
 
-- **Distribution channels** — npm package, pip package, curl install script, GitHub template repository; each lowers the barrier to first use
+- **Distribution channels** — a GitHub template repository remains an option. npm and pip packages and a curl install script were ruled out by the directing party on 2026-11-14: Shannon has no build step, so packaging adds release maintenance without removing real friction
 - **Project type templates** — Pre-customised template sets for common project types (web app, CLI tool, library); reduce the editing burden of first setup
 - **Cross-tool portability** — Templates may evolve to be usable outside Claude Code (other AI coding assistants) with minimal adaptation, but Shannon's command/skill workflow remains Claude Code-specific
 
 ---
 
 ## Version History
+
+### 2026-11-14 - v2.2
+
+- **§ Core Technologies → Git** and **§ Future Considerations** — record the directing party's distribution decision (2026-11-14, approving the FEAT-001 Gate 2 approach): git clone plus `/shannon-setup` and `/shannon-update`, with a GitHub template repository as the only open option; curl script and npm and pip packages ruled out
 
 ### 2026-11-13 - v2.1
 

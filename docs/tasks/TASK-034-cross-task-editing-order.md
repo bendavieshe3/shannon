@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md)
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #conventions #editing-order
 - **Created**: 2026-10-23
-- **Updated**: 2026-10-23
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -83,7 +83,7 @@ Prefer extending the existing bullet with one sub-clause over a new sibling, sin
 
 ### Documents Updated
 
-- *None yet.*
+- `docs/development_guide.md` v2.1: § Code Style → Patterns to Follow gains *Edit the landed body, not the upstream plan*, naming TASK-015/TASK-011 and TASK-017/TASK-016
 
 ---
 
@@ -107,4 +107,5 @@ Prefer extending the existing bullet with one sub-clause over a new sibling, sin
 
 ## Activity Log
 
+- **2026-11-14** — IMPLEMENTED in `development_guide.md` v2.1, delivered directly under FEAT-008 in the finish-to-vision push (Vision v3.0: optional records carry no human gates, so the remaining Task gates lapse; the directing party approved finishing the work, 2026-11-14). Independent review rides the pull request.
 - **2026-10-23** — DRAFT: Task created during `/epic-plan EPIC-012` (Gate 2 pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during EPIC-012 planning, not yet reviewed".

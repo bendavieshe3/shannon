@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md)
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #testing #conventions
 - **Created**: 2026-10-23
-- **Updated**: 2026-10-24
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -112,7 +112,7 @@ The level's wording is drawn from what the precedents did, stated as a rule, not
 
 ### Documents Updated
 
-- *None yet.*
+- `docs/development_guide.md` v2.1: § Testing Strategy opening scoped; *Shipped-executable test* level added with precedent line; What to Test and Pre-Commit Checklist items; four sibling clauses (Build and Run → Test, Git Workflow → Commits as *No Git commit hooks*, Instrumentation, CI/CD → Pipeline Stages). Deviation: the level also names case scripts under `tests/` (three committed for the supervisor scripts, never deployed), and the bullet folds straight into v2.1 instead of an `Unreleased` heading, since v2.1 was open. Verification: every planned substring found (`Shipped-executable test`, `Worked precedent: TASK-016, TASK-017, TASK-025`, `templates and prompts have no unit tests`, `shipped-executable` in all four sibling sections, `Claude Code hooks`); the retired sentence no longer appears
 
 ---
 
@@ -136,6 +136,7 @@ The level's wording is drawn from what the precedents did, stated as a rule, not
 
 ## Activity Log
 
+- **2026-11-14** — IMPLEMENTED in `development_guide.md` v2.1, delivered directly under FEAT-008 in the finish-to-vision push (Vision v3.0: optional records carry no human gates, so the remaining Task gates lapse; the directing party approved finishing the work, 2026-11-14). Independent review rides the pull request.
 - **2026-10-23** — DRAFT: Task created during `/epic-plan EPIC-012` (Gate 2 pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during EPIC-012 planning, not yet reviewed".
 - **2026-10-24** — DRAFT (elaboration pass, Gate 1 pending): Prepared Requirements reviewed at `/task-elaborate TASK-033` against EPIC-012 (PLANNED), FEAT-008, `development_guide.md` v1.5, `conceptual_design.md` § Re-reviewing → *Status semantics*, and the three precedent Tasks. Findings (Drift / Gap / Internal contradiction / Strength). **Gap**: AC#2 said only that "the Task records how"; it now states what the precedents actually did (controlled inputs, cases enumerated in ACs with expected results, results recorded), checked against TASK-016 AC#6 (five cases), TASK-017 Step 4 (8/8, temporary log path) and TASK-025 Step 4 (fixtures). **Gap**: the Pre-Commit Checklist and What to Test had no line for shipped executables; new AC#3. **Gap**: § Git Workflow → Commits says "No commit hooks", which now reads ambiguously next to the supervisor's Claude Code hooks; AC#4 asks its clause to disambiguate. **Strength**: the four sibling claims named by Epic AC#1 are the only "no test suite" claims in the Guide; § Code Style's "almost no code" already allows for scripts and needs no change. **Out of scope, already routed**: CLAUDE.md's "Markdown-only" and "no runtime" lines sit with the 2026-10-23 scratchpad item on the hook scripts' `bash`/`jq` runtime. AC#5 now gives the counter-case to the additive recommendation. ACs renumbered (seven). Status stays DRAFT; Gate 1 not given.
 - **2026-10-24** — DRAFT → ELABORATED (Gate 1): Directing party approved the refined Requirements (PR #10, after the review-nit commit `8de80d6`) and ruled the change **additive** per AC#5: `development_guide.md` stays APPROVED, and this Task's bullet goes under `Unreleased (EPIC-012)` with the Epic's single version bump. Next: `/task-plan TASK-033` (Gate 2).

@@ -2,15 +2,15 @@
 
 ## Metadata
 
-- **Status**: PLANNED
-- **Activity**: ACTIVE
+- **Status**: IMPLEMENTED
+- **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #4 *Adaptive Coherence* — both its framework-evolution clause ("Framework evolution … propagates to existing artefacts through the same review mechanisms") and its closing commitment ("Knowledge accumulates so the same investigation never happens twice"). Secondary anchor: § Key Features → *Mandated Project Documentation*, which mandates `development_guide.md` as one of the six.
 - **Initial Implementation**: Partial — the Development Guide contains the retrospective conventions and later dogfooding amendments. The current learning-capture channel consists of the Guide's Pre-Commit Checklist and the work-items skill's implementation responsibility; the earlier Plan/Review soft prompts were removed by the Feature-level governance revision.
   - **Met:** The Guide covers environment setup, build/run, code style, testing, git workflow and distribution. EPIC-008 added editing order, push cadence and learning capture; TASK-029 added the governing-rule citation convention. These are delivered precedents, not claims that the removed prompts still exist. [The routing-channel note](../knowledge/meta-gap-routing-channel.md) records the original implementation and its replacement.
-  - **Remaining:** Testing Strategy still omits the discipline used for shipped executable hooks; that correction remains separate work. Naming each convention's worked precedent is met in practice but not yet a stated format requirement. The backlog under Known forward work remains open; this governance repair does not deliver or accept it.
+  - **Remaining:** None in source. EPIC-012 (TASK-033..039) and TASK-030 landed in `development_guide.md` v2.1 and the work-items skill on 2026-11-14; human Gate 3 acceptance is outstanding.
 - **Created**: 2026-05-24
-- **Updated**: 2026-11-12
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`.
 > **Activity** indicates current development state: `STABLE` (no active implementation) or `ACTIVE` (implementation in progress, with or without an Epic). Activity is descriptive state, orthogonal to Status.
@@ -38,11 +38,11 @@ The authority rule at `conceptual_design.md` § Business Rules → *Work Items C
 
 *The framework's commitments around development discipline as it accumulates over time.*
 
-- The mandated `development_guide.md` exists with conventions covering § Environment Setup, § Build and Run, § Code Style, § Testing Strategy (incl. Pre-Commit Checklist), § Git Workflow (Commit Cadence and Push Cadence), § CI/CD (incl. Distribution and re-sync) *(met, with one section stale — the retrospective conventions at bootstrapping; Push Cadence and the editing-order convention added by EPIC-008. § Testing Strategy no longer describes how Shannon is tested once executable hook bodies shipped; see Metadata → Remaining)*
+- The mandated `development_guide.md` exists with conventions covering § Environment Setup, § Build and Run, § Code Style, § Testing Strategy (incl. Pre-Commit Checklist), § Git Workflow (Commit Cadence and Push Cadence), § CI/CD (incl. Distribution and re-sync) *(met — bootstrapping conventions; EPIC-008's Push Cadence and editing order; EPIC-012's shipped-executable Test Level (TASK-033) and conventions (TASK-034..039), and the reviewed pull-request landing ported from PR #15, all in development_guide.md v2.1)*
 - Development disciplines surfaced during framework use are captured in `scratchpad.md` or a follow-up record, then promoted into `development_guide.md` within the applicable authority boundary. They must remain visible beyond an individual execution plan *(met through the Guide's Pre-Commit Checklist and `shannon/skills/work-items/SKILL.md` § Feature lifecycle → Implement — agent-managed delivery; EPIC-008 and TASK-029 are earlier worked precedents)*
 - The learning-capture responsibility is visible while implementation is under way and before commit. The current channel replaces the removed Plan/Review soft prompts; it does not claim those prompts as delivered current behaviour *(met at the same Guide and skill sections; the [routing-channel note](../knowledge/meta-gap-routing-channel.md) retains the original evidence)*
 - Guide maintenance accompanies the originating work within approved meaning. Consequential changes receive the human document or Feature decision they require; optional execution records add no gates *(authority at `conceptual_design.md` § Business Rules → Work Items Consume the UX Guide; May Refine the Development Guide)*
-- Each ratified convention carries the evidence that produced it — the worked precedent, named — so a future reader can tell a rule from an opinion *(partially met — met in practice by every convention added since bootstrapping; not yet a stated requirement of the Guide's own format. Retrospective bootstrapping conventions are exempt: they are ratified as existing practice per `conceptual_design.md` § Business Rules → *Retrospective Features*)*
+- Each ratified convention carries the evidence that produced it — the worked precedent, named — so a future reader can tell a rule from an opinion *(met — stated at the head of § Code Style → Patterns to Follow by TASK-039, with every post-bootstrapping convention backfilled; bootstrapping conventions exempt per `conceptual_design.md` § Business Rules → *Retrospective Features*)*
 - (Future) Real-project use — Shannon applied to projects other than itself — surfaces dev / test / build / CI disciplines beyond framework dogfooding; these are absorbed into `development_guide` via the same channel without forcing a separate model *(forward; expected over project lifetime)*
 
 ### User Stories
@@ -101,7 +101,7 @@ Single conventions that surface outside a harvest keep the TASK-029 route: an op
 ### Epics
 
 - [EPIC-008](../epics/EPIC-008-development-conventions-from-dogfooding.md) — APPROVED — Development Conventions Surfaced Through Dogfooding (codified editing-order, Push Cadence, and the meta-gap routing channel — the dev-discipline half of the EPIC-005 / EPIC-006 dogfooding harvest, sibling to EPIC-007 under FEAT-003; APPROVED 2026-05-27 via TASK-007 + TASK-010; fulfilled aspirational Ideal State bullets 2 and 3)
-- [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md) — PLANNED — Development Conventions Surfaced Through the Supervisor Build-Out (the second dogfooding harvest: § Testing Strategy for shipped executables, cross-Task editing order, skill packaging, audit-log location, plain-prose verification substrings, placeholder syntax for machine-filled templates, and precedent-naming as a stated requirement; targets Ideal State bullets 1 and 5)
+- [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md) — IMPLEMENTED (2026-11-14) — Development Conventions Surfaced Through the Supervisor Build-Out (the second dogfooding harvest: § Testing Strategy for shipped executables, cross-Task editing order, skill packaging, audit-log location, plain-prose verification substrings, placeholder syntax for machine-filled templates, and precedent-naming as a stated requirement; targets Ideal State bullets 1 and 5)
 
 Orphan Tasks under this Feature (no parent Epic — EPIC-008 is APPROVED and closed, and each convention was too small to warrant a new Epic; optional records add no gates per `conceptual_design.md` § Business Rules → *Gate Authority Split*):
 
@@ -109,14 +109,7 @@ Orphan Tasks under this Feature (no parent Epic — EPIC-008 is APPROVED and clo
 
 ### Known forward work
 
-Active `docs/scratchpad.md` § Items that name `development_guide.md` or a dev-discipline convention as their candidate route. All six below are carried by [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md); they stay in the scratchpad until verified completion justifies moving them to § Processed.
-
-- **§ Testing Strategy has no Test Level for shipped executables** — three supervisor Tasks unit-tested hook scripts against a discipline the section does not carry. The scratchpad item's own note that this needs `/document-review` predates `conceptual_design.md` § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*; an orphan Task under this Feature may now make the amendment
-- **Cross-Task editing order** — the *Source-of-truth body before derived artefacts* convention covers one Task's diff, not a downstream Task extending an upstream Task's body
-- **Portability discipline for skill-creating Epics** — project-relative paths inside skills, checkers and templates as a verifiable convention
-- **Shipping-source mirror convention for new skills** — author in `./shannon/`, deploy to `./.claude/`
-- **Supervisor audit-log convention** — the PostToolUse audit-log location is named in an Epic AC but not at framework level
-- **Verbatim-phrasing grep tests need plain-prose substrings** — Markdown formatting that interposes between substring characters breaks verification greps
+None open. The six items EPIC-012 carried were delivered in `development_guide.md` v2.1 on 2026-11-14 and moved to the scratchpad's § Processed.
 
 *Further Epics will surface as Shannon is used on real projects beyond framework dogfooding — dev / test / build / CI disciplines absorbed into `development_guide` via the same channel EPIC-008 codifies.*
 
@@ -145,6 +138,7 @@ Active `docs/scratchpad.md` § Items that name `development_guide.md` or a dev-d
 
 ## Activity Log
 
+- **2026-11-14** — PLANNED → IMPLEMENTED. EPIC-012's seven Tasks (TASK-033 testing strategy for shipped executables; TASK-034..039 editing order, skill packaging, audit log, plain-prose substrings, placeholder syntax, precedent requirement) and TASK-030 (command entry point for skill-creating plans) landed together with the PR #15 port as `development_guide.md` v2.1, plus case scripts in `tests/`. Vision v3.0 dropped the Task gates; the directing party asked for the remaining work to be finished (2026-11-14). Evidence: every TASK-033 verification substring present and the retired sentence gone; placeholder sweep clean; case scripts 16/13/10 passing. Awaiting independent review on the pull request and the directing party's Gate 3.
 - **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains PLANNED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
 
 
