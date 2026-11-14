@@ -50,7 +50,7 @@ Read actual implementation, run appropriate checks, maintain affected documents,
 
 ## Idea capture
 
-`docs/scratchpad.md` holds ideas that are not ready to be work items: one line each, optional tags, no IDs. `/scratchpad-add [idea]` captures one. `/scratchpad-process` gives each item a disposition: act on it within an approved Feature, promote it (new Feature scope goes to the human), move it to a knowledge note, or drop it, recording where it went under § Processed. The supervisor's Drift Checker reports when the scratchpad is under pressure. A scratchpad item is context, never authority.
+`docs/scratchpad.md` holds ideas that are not ready to be work items: one line each, optional tags, no IDs. `/scratchpad-add [idea]` captures one. `/scratchpad-process` gives each item a disposition: act on it within an approved Feature, promote it (new Feature scope goes to the human), move it to a knowledge note, drop it, or keep it for later, recording where each disposed item went under § Processed. The supervisor's Drift Checker reports when the scratchpad is under pressure. A scratchpad item is context, never authority.
 
 ## Traceability and resumption
 

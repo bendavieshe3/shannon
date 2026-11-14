@@ -20,7 +20,7 @@ Commands are thin entry points to skills. The core chain is Vision → governing
 
 ## Idea capture
 
-`/scratchpad-add [idea]` appends one line to `docs/scratchpad.md`. `/scratchpad-process` gives each item a disposition (act, promote, knowledge, drop) and records it under § Processed. Both use the work-items skill.
+`/scratchpad-add [idea]` appends one line to `docs/scratchpad.md`. `/scratchpad-process` gives each item a disposition (act, promote, knowledge, drop, or keep for later) and records each disposed item under § Processed. Both use the work-items skill.
 
 ## Installation
 

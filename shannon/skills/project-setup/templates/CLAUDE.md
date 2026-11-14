@@ -92,7 +92,7 @@ All four types retain create/elaborate/plan/implement/review commands. Only Feat
 ### Idea Capture
 
 - `/scratchpad-add [idea]` — Capture an idea in `docs/scratchpad.md` without classifying it
-- `/scratchpad-process` — Give each scratchpad item a disposition: act, promote, move to knowledge, or drop
+- `/scratchpad-process` — Give each scratchpad item a disposition: act, promote, move to knowledge, drop, or keep for later
 
 ## Critical Guardrails
 

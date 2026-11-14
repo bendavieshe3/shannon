@@ -163,7 +163,7 @@ An idea, half-formed piece of work or unprocessed TODO, captured before it is re
 
 - **Title and line** — One line; what and why
 - **Tags** — Optional `#tags`
-- **Disposition** *(once processed)* — Acted on, promoted, moved to knowledge, or dropped, with the date and a pointer
+- **Disposition** *(once processed)* — Acted on, promoted, moved to knowledge, or dropped, with the date and a pointer. An item kept for later stays unprocessed, with a dated note when something changed
 
 **Relationships**:
 

@@ -37,7 +37,8 @@ case "$tool_name" in
   *) exit 0 ;;
 esac
 
-target="$(printf '%s' "$input" | jq -r '.tool_input.file_path // ""' 2>/dev/null)"
+# NotebookEdit names its target notebook_path; the other write tools use file_path.
+target="$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""' 2>/dev/null)"
 [ -z "$target" ] && exit 0
 # Write and Edit pass absolute paths. Make the target relative to the project root before
 # comparing. Candidate roots, first match wins: the git top level of the event's cwd (a

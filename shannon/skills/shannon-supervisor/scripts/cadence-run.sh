@@ -84,7 +84,9 @@ status=$?
 set -e
 
 committed=false
-git add -- "$report_dir" docs/knowledge/knowledge_index.md 2>/dev/null || true
+git add -- "$report_dir" 2>/dev/null || true
+# Staged separately: a missing index must not abort the add and discard the report.
+[ -e docs/knowledge/knowledge_index.md ] && git add -- docs/knowledge/knowledge_index.md
 git reset -q -- "$report_dir/.in-progress" 2>/dev/null || true
 if ! git diff --cached --quiet; then
   git -c user.name="${SHANNON_SUPERVISOR_GIT_NAME:-Shannon supervisor}" \
