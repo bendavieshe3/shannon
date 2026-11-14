@@ -5,12 +5,12 @@
 - **Status**: ELABORATED
 - **Activity**: STABLE
 - **Type**: Feature
-- **Vision Reference**: § Key Features — "Unified Work Item Model"
+- **Vision Reference**: § Key Features — "Feature-led Delivery"
 - **Initial Implementation**: Partial — the unified model itself is retrospective (templates, skill, commands predate this Feature). Of four aspirational criteria (three added 2026-05-19, one added 2026-05-24): three now met (re-elaboration workflow via EPIC-006 / TASK-001; queryable completeness via EPIC-006 / TASK-002; upstream lessons-into-framework-rules via EPIC-007 / TASK-008 doc amendments + TASK-009 skill prompts, APPROVED 2026-05-27), one remaining (framework-version absorption). See Met / Remaining below.
   - **Met:** The retrospective unified model — four work-item types on one status lifecycle, with shared templates, skill, and commands — plus three aspirational criteria: the *Re-elaborating a Work Item* workflow (EPIC-006 / TASK-001) and queryable implementation completeness (EPIC-006 / TASK-002), and upstream lessons-into-framework-rules (EPIC-007 / TASK-008 doc amendments at `conceptual_design.md` v1.6 + TASK-009 skill prompts at `work-items/skill.md`, APPROVED 2026-05-27).
   - **Remaining:** One aspirational criterion — framework-version absorption: framework changes (new attributes, workflows, status-model evolution) absorbed by existing work-item files via canonical re-elaboration, so adopters never recreate work items to accommodate framework evolution.
 - **Created**: 2026-05-18
-- **Updated**: 2026-10-17
+- **Updated**: 2026-11-01
 
 ---
 
@@ -18,59 +18,27 @@
 
 ### Overview
 
-Shannon represents all work — features, epics, tasks, and spikes — using a single status lifecycle and a single file structure. A directing party who learns the task lifecycle knows the spike lifecycle; templates, skills, and commands all enforce the uniformity. The model deliberately excludes per-type lifecycle variants because variance is the enemy of context predictability.
-
-This is the second foundational capability: it makes work tracking learnable in one pass. Without it, the framework would have four overlapping mental models instead of one.
+Features are persistent, human-governed product capabilities. Epics, Tasks and Spikes remain available as optional agent-managed execution records. Keep familiar names, command verbs, identifiers and history without requiring a hierarchy or a shared gated lifecycle below Features.
 
 ### Ideal State
 
-*Met aspirations (initial retrospective scope):*
-
-- Four work item types — Feature, Epic, Task, Spike — share one status sequence (`DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`) *(met)*
-- Every work item file has the same shape: Metadata, Requirements, Plan, Activity Log (plus type-specific sections) *(met)*
-- Every work item type supports the same five lifecycle verbs (`create`, `elaborate`, `plan`, `implement`, `review`) *(met)*
-- The hierarchy (Feature → Epic → Task; Spike standalone) is enforced by templates and skills *(met)*
-- Status transitions are made through the `work-items` skill rather than direct file edits *(met)*
-- Indexes (`feature_index.md`, `epic_index.md`, `task_index.md`, `spike_index.md`) reflect lifecycle state for navigation *(met)*
-- Tasks may be orphans (no Epic) when the work has no obvious parent *(partly met — affordance exists, no business rule sanctions it; captured as scratchpad item C4)*
-
-*Aspirational criteria added through ongoing re-elaborations following Vision v2.3 § Adaptive Coherence. Bullets 1 and 2 delivered by EPIC-006 (F1, F2); bullet 3 (framework-version absorption) outstanding; bullet 4 (upstream lessons-into-framework-rules, added 2026-05-24) addressed by EPIC-007:*
-
-- Work items can be re-elaborated when upstream artefacts evolve — a canonical workflow describes the trigger and steps, analogous to the *Re-reviewing an APPROVED Mandated Document* workflow for documents *(met — delivered by EPIC-006 / TASK-001)*
-- Implementation completeness of a work item is queryable at the metadata level: a Feature's "Initial Implementation" field (Built through Shannon / Retrospective / Partial) is surfaced visibly rather than buried in the Activity Log, so adopters can identify partially-built capabilities at a glance *(met — delivered by EPIC-006 / TASK-002)*
-- Framework changes affecting work items (new attributes, new workflows, status model evolution) are absorbed by existing work-item files via canonical re-elaboration; adopters never have to recreate work items from scratch to accommodate framework evolution *(not yet met — depends on the work-item re-elaboration workflow above)*
-- Work-item conventions accumulated through framework use — re-elaboration mechanics, AC writing patterns, naming discipline — are promoted into the mandated documents (primarily `conceptual_design`) and the relevant skills via the canonical work-item workflow. The upstream direction of *Adaptive Coherence*: lessons flow back into framework rules rather than being lost or re-derived. *(met — delivered by EPIC-007 / TASK-008 doc amendments at `conceptual_design.md` § Re-elaborating + § Domain Model + § Business Rules + TASK-009 skill prompts at `work-items/skill.md` § Process: Plan; APPROVED 2026-05-27)*
+- Everything traces from Vision through relevant governing documents and Features to implementation, verification and independent review.
+- Feature requirements, approach and delivered capability retain human gates. Direct Feature implementation requires no Epic or Task.
+- Optional aids have no mandatory prior progress label or human approval stage. Existing indexes agree with bodies; missing optional indexes are not defects.
+- Re-elaboration and factual upkeep preserve decisions/history rather than forcing record recreation. Framework changes do not bulk migrate or archive existing records.
+- Partial implementation remains queryable through metadata and the matching Feature-index suffix. Reusable lessons flow into governing documents and knowledge notes.
 
 ### User Stories
 
-#### Learning the Model Once
-
-**As a** directing party,
-**I want** the same lifecycle to apply to every kind of work item,
-**So that** I learn the framework once instead of four times.
-
-#### Tracking Mixed Work
-
-**As a** directing party,
-**I want** features, epics, tasks, and spikes to coexist in one navigable structure,
-**So that** strategic and atomic work are both visible without separate systems.
-
-#### Promoting Ad-Hoc Work
-
-**As a** directing party,
-**I want** orphan tasks for one-off fixes,
-**So that** I'm not forced to invent an Epic for trivial work.
+As the human directing party, I can approve a Feature and let agents deliver it directly, while retaining traceability, familiar records where useful and enough evidence for a fresh session to resume.
 
 ### Context
 
-- **Vision**: § Key Features ("Unified Work Item Model")
-- **Conceptual Design**: *Work Item*, *Feature*, *Epic*, *Task*, *Spike* entities; *Unified Status Lifecycle* and *Spike Output Is Knowledge* business rules; all three Key Workflows
-- **Technical Design**: § Data Model (file/path mapping per type), § API Design (lifecycle verbs)
-- **Project files**: `shannon/skills/work-items/templates/*` (feature.md, epic.md, task.md, spike.md and their indexes), `shannon/skills/work-items/skill.md`, 20 `[type]-[verb]` commands under `shannon/commands/`
-
----
+See `vision.md` § Feature-led Delivery and Complete Traceability; `conceptual_design.md` § Unified Status Lifecycle and Re-elaborating a Work Item; `technical_design.md` § API Design → Lifecycle Verbs; source `shannon/skills/work-items/` and its command entry points. Prior delivery claims remain in metadata, Plan and Activity Log as dated evidence, not new acceptance of this revision.
 
 ## Plan
+
+**2026-11-01 governance revision:** the following retained Epics/Tasks record earlier work and backlog. Any old per-child gate or hierarchy requirement is superseded; explicit project holds and unaccepted deliverables remain. This revision is implemented directly under the approved Feature-level approach; independent review and human delivery acceptance remain outstanding.
 
 ### Epics
 
@@ -81,7 +49,7 @@ This is the second foundational capability: it makes work tracking learnable in 
 
 Spike under this Feature: [SPIKE-002](../../spikes/SPIKE-002-inter-work-item-dependencies.md) — DRAFT — Inter-Work-Item Dependencies (precedes any dependency Epic).
 
-Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed, and each item is too small to warrant a new Epic; orphan-ness does not change gate authority per `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Orphan Tasks*), promoted from the 2026-10-17 scratchpad triage:
+Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed, and each item is too small to warrant a new Epic; optional Task execution remains bounded by its governing Feature or engineering rule), promoted from the 2026-10-17 scratchpad triage:
 
 - [TASK-030](../tasks/TASK-030-skill-creating-epics-scope-command-entry-point.md) — DRAFT — Skill-Creating Epics Scope the Command Entry Point
 - [TASK-031](../tasks/TASK-031-parent-epic-advances-with-children.md) — DRAFT — Parent Epic Advances Through the Iterative Zone With Its Children
@@ -91,7 +59,7 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 
 **Depends on**: FEAT-002 (Mandated Project Documentation) — work items consume mandated documents as context
 
-**Depended on by**: FEAT-004 (Three Quality Gates) — the gates are tied to lifecycle transitions; FEAT-005 (Knowledge Base) — spike output produces knowledge notes; FEAT-006 (Multi-Party Supervision) — supervision happens *at* lifecycle transitions
+**Depended on by**: FEAT-004 (Three Quality Gates) — the gates are tied to lifecycle transitions; FEAT-005 (Knowledge Base) — spike output produces knowledge notes; FEAT-006 (Multi-Party Supervision) — independent technical review supports human Feature acceptance
 
 ### Risks
 
@@ -108,6 +76,11 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 ---
 
 ## Activity Log
+
+- **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
+
+
+- **2026-11-01** — Human approved the Feature-level governance design and implementation approach. Requirements refreshed to preserve documents, alignment, traceability and history while removing mandatory child gates. Source implementation pending independent review; no delivery acceptance or historical status change inferred. See [governance rationale](../knowledge/feature-level-governance.md).
 
 - **2026-10-17** — Plan bookkeeping (no status change). The scratchpad triage promoted three orphan Tasks here on supervisor promotion authority: TASK-030, TASK-031 and TASK-032. It also removed the stale "candidate future Epic: orphan-task business rule" line, because `conceptual_design.md` v1.7 § Business Rules → *Gate Authority Split* → *Orphan Tasks* already carries that rule. On 2026-10-18 the directing party approved the Epic-scale items from the same triage: EPIC-014 (conventions round 2) and EPIC-015 (document consultation) are DRAFT here, and SPIKE-002 (first-class dependencies) investigates before any Epic. EPIC-015 needs an additive Ideal State bullet before its Gate 1.
 - **2026-05-24** — Re-elaborated (additive). **Trigger**: downstream gap — EPIC-007 elaboration (in flight 2026-05-24; not yet committed) surfaced that no Feature's Ideal State explicitly anchored "work-item conventions accumulated through framework use are promoted into the mandated documents." Vision § Adaptive Coherence covered it at principle level but no Feature instantiated it; per *Responsible Promotion*, EPIC-007 could not claim FEAT-003 as parent without an explicit anchor. **Change**: added fourth aspirational Ideal State bullet (upstream lessons-into-framework-rules — addressed by EPIC-007); intro updated from "two delivered, one outstanding" to four-bullet structure; `Initial Implementation` line and sub-block `Remaining` updated to reflect 4-bullet structure (2 met, 2 remaining). The directing party also identified an architectural split: dev-discipline learnings move to new FEAT-008 (created 2026-05-24); FEAT-003's bullet 4 specifically anchors the work-item-conventions half. **Additive** — no previously-approved claim contradicted; FEAT-003 stays ELABORATED. **Commit hash**: trigger is in-flight EPIC-007 (no upstream commit yet); referenced by Epic ID — exactly the case EPIC-007's AC#1 will codify (an honest dogfood: this entry is itself an instance of the commit-hash-timing case the upcoming convention names).

@@ -1,8 +1,8 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-08-26
-**Approved**: 2026-08-26
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -10,12 +10,12 @@
 
 ## Glossary
 
-- **Work Item** — Any of the four types of work-tracking entity in Shannon: Feature, Epic, Task, Spike. All share a common lifecycle and file structure.
+- **Work Item** — Any of the four types of work-tracking entity in Shannon: Feature, Epic, Task, Spike. Features carry human gates; the other types are optional execution records.
 - **Mandated Document** — One of the six core project documents that together describe the project. Vision, technology stack, conceptual design, technical design, development guide, UX guide.
-- **Quality Gate** — An explicit approval point in a work item's lifecycle, decided by the holder of gate authority for that work item type (the directing party or the supervisor; see § Business Rules → *Gate Authority Split*). Three gates exist: requirements (Gate 1), planning (Gate 2), completion (Gate 3).
-- **Directing Party** — The role that sources vision and exercises the gate authorities not delegated to the supervisor. Always holds approval authority for the Vision document and for Features; may reserve Epic gate authority per project. Most commonly a human (Architect or Gardener persona); an agent acting in the directing-party role is supported, provided that agent is not the implementer at the gate in question. The framework treats the directing role as a role, not a species. See § Business Rules → *Gate Authority Split*.
-- **Supervisor** — The role that performs continuous health vigilance between gates and absorbs delegated gate authority for routine work. By default holds approval authority for Task gates (always) and Epic gates (configurable per project), and may auto-promote scratchpad items to Tasks. Vision and Feature gate authority always remains with the directing party. May be a distinct agent or, in solo configurations, the directing party themselves; must never be the same agent as the implementer at the gate it approves. See § Business Rules → *Gate Authority Split*.
-- **Implementer** — The agent that executes work (elaboration drafts, planning drafts, implementation). At any given gate, the implementer cannot be the agent approving that gate (whether directing party or supervisor) — independence of judgement is what the gate protects.
+- **Quality Gate** — a human approval point for Feature requirements (Gate 1), approach (Gate 2), or delivered capability (Gate 3). Vision and consequential document decisions also remain human-owned.
+- **Directing Party** — the human owner of the Vision and Feature gates; decides material scope, meaning, cost and access changes.
+- **Supervisor** — project-health vigilance and synthesis; may organise authorised work but has no delegated Feature approval authority and adds no mandatory lower-level gates.
+- **Implementer** — the agent carrying out authorised execution and self-tests; independent review must come from someone who did not implement the work.
 - **Authority Graph** — The directed relationship between documents. Lower documents must align to and enable higher ones.
 - **Skill** — A reusable unit of framework logic, with templates, invoked by commands. Skills are where Shannon's behaviour lives.
 - **Command** — A user-invoked entry point. Thin — its job is to identify what to do and delegate to a skill.
@@ -49,14 +49,14 @@ The collective name for the four work-tracking entities. Each work item describe
 
 **Attributes**:
 
-- **Status** — Current position in the unified lifecycle
+- **Status** — Feature approval state, or optional execution progress
 - **Type** — Feature, Epic, Task, or Spike
 - **Parent** — Higher-level work item this belongs to (where applicable)
 - **Requirements** — The "what" and "why"
 - **Plan** — The "how"
 - **Activity Log** — Timestamped history
 
-**Naming**: Child work items in Epic plans are named by descriptive title (and by real ID once allocated) — never by opaque plan-letter labels (TASK-A, TASK-B, TASK-C). Ordering, when relevant, is expressed by position language ("the first Task", "the verification Task"). Letter placeholders that appear in transient planning notation must not propagate into the Epic § Plan, child work-item files, indexes, or downstream prose. Skill prompt at `shannon/skills/work-items/skill.md` § Process: Plan step 3 (*Cascading Preparation (for Epics)*) instructs the planning subagent to use descriptive titles from the outset.
+**Naming**: Child work items in Epic plans are named by descriptive title (and by real ID once allocated) — never by opaque plan-letter labels (TASK-A, TASK-B, TASK-C). Ordering, when relevant, is expressed by position language ("the first Task", "the verification Task"). Letter placeholders that appear in transient planning notation must not propagate into the Epic § Plan, child work-item files, indexes, or downstream prose. Use descriptive names when optional child records are useful; do not create them merely to pass a gate.
 
 **Relationships**:
 
@@ -71,8 +71,8 @@ A persistent capability of the product — what the product IS, not work to be d
 **Attributes**:
 
 - **Vision Reference** — The vision section this feature elaborates
-- **Activity** — STABLE (no epic in progress) or ACTIVE (epic in progress)
-- **Epics** — The accumulated history of work delivering this feature
+- **Activity** — STABLE (no active implementation) or ACTIVE (implementation in progress)
+- **Delivery Evidence** — linked changes, checks and independent-review results; Epics are optional organisation
 
 **Relationships**:
 
@@ -81,7 +81,7 @@ A persistent capability of the product — what the product IS, not work to be d
 
 ### Epic
 
-A coherent unit of work delivering part of a feature's ideal state. Epics replace the older "phases" concept.
+An optional coherent unit of work delivering part of a Feature's ideal state.
 
 **Attributes**:
 
@@ -160,39 +160,31 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 - **Document Alignment Direction** — Lower documents in the authority graph must enable higher documents. A technology stack cannot specify desktop-only technology if the vision describes a web application. Drift between layers is a defect.
 
-- **Work Items Consume the UX Guide; May Refine the Development Guide** — The two Guides differ in kind, and the authority rule follows the difference. The **UX Guide describes the product** — Shannon's command surface and the prose it emits — so a work item must not redefine it: work items consume the UX Guide, and changes to it go through `/document-create` or `/document-review`. The **Development Guide describes the process** that work items themselves execute, so a work item that discovers or ratifies a development convention *during* its work may amend the Development Guide as part of that work, the amendment riding the work item's own gates rather than requiring a separate `/document-review`. This is why TASK-007 legitimately amended `development_guide.md` (editing-order convention, Push Cadence, the meta-gap routing channel) while TASK-027 correctly routed a UX Guide correction to `/document-review`. Either Guide may also be amended directly through `/document-create` or `/document-review`; that route is always available and is the *only* route for the UX Guide.
+- **Work Items Consume the UX Guide; May Refine the Development Guide** — Agents read and maintain all relevant documents, including both Guides, within approved intent. A factual update, corrected link or implementation detail can accompany the change it describes. Changes to approved product meaning, consequential design, acceptance criteria or authority return to the human through document review or the affected Feature gate. Record the decision and its rationale; no lower-level work item can grant that authority. Earlier Guide-specific restrictions are superseded by this meaning-based boundary.
 
-- **Higher Work Items May Update Mid-Level Docs** — Features and Epics may elaborate the Technical Design when planning. Tasks only consume documents, with one exception: the **Development Guide**, which any work item — Task included — may refine per *Work Items Consume the UX Guide; May Refine the Development Guide* above, because the Development Guide is the process the work item executes rather than a document above it in the authority graph.
+- **Higher Work Items May Update Mid-Level Docs** — The authorisation boundary is approved meaning, not the type of execution record. Direct Feature execution and optional Epics/Tasks/Spikes may maintain relevant documents within that boundary. Surface substantive contradictions before making the affected change.
 
-- **Unified Status Lifecycle** — All work items move through the same status sequence: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. No work item type has a unique lifecycle. Features additionally carry an orthogonal `Activity` attribute (STABLE / ACTIVE) describing whether an epic is in progress *under* the feature; this is descriptive state, not a lifecycle stage.
+- **Unified Status Lifecycle** — The existing sequence `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED` remains the Feature lifecycle. Optional execution records may reuse existing progress labels for compatibility, but have no required sequence or human gates; record actual readiness and evidence, never approval that did not occur. Feature Activity is ACTIVE while implementation is under way, with or without an Epic. Existing identifiers, logs and archive locations remain valid; no bulk migration is required.
 
-- **Three Hard Gates** — DRAFT → ELABORATED, ELABORATED → PLANNED, and REVIEW → APPROVED transitions require explicit approval by the gate authority holder for the work item type, per *Gate Authority Split*. The implementer cannot approve its own work across a gate, regardless of which role holds gate authority; see *Supervisor Distinct From Implementer*.
+- **Three Hard Gates** — The three hard gates apply to Features: requirements and acceptance criteria (Gate 1), approach and consequential trade-offs (Gate 2), delivered capability (Gate 3). The human explicitly approves each; previous explicit approval is reused rather than requested again. Intermediate implementation choices and optional records are agent-managed.
 
-- **Supervisor Distinct From Implementer** — The role-holder approving any gate (whether directing party or supervisor) must not be the same agent as the implementer at that gate. The constraint is on agent identity, not role label: a human directing party approving Feature gates, a supervisor agent approving Task gates, and a directing party occupying the supervisor role in a solo configuration are all valid — provided none of them is the agent that produced the work being approved. Collapsing approver and implementer collapses the gate. See *Gate Authority Split* for which role holds which gate.
+- **Supervisor Distinct From Implementer** — Independent technical review must be performed by a reviewer who did not implement the work. Self-tests are evidence, not independent approval. Human Feature acceptance and independent technical review are distinct; a supervisor label does not make the implementer independent.
 
-- **Gate Authority Split** — Gate approval authority is partitioned by work item type into a fixed floor and a configurable ceiling:
+- **Gate Authority Split** — The human retains Vision and all Feature gates. There are no mandatory Epic, Task or Spike gates to delegate. Agents may organise authorised execution and promote scratchpad notes into optional aids when those aids stay within existing approved intent and permissions. New or materially changed Feature scope, or a consequential change to a governing document, returns to the human. Legacy `epic_gate_authority` and `spike_gate_authority` settings cannot create or delegate gates under this model; any explicitly recorded project-specific hold still needs a named disposition before affected work proceeds.
 
-  - **Fixed floor (directing party, always)** — The Vision document and all Feature gates are approved by the directing party. This authority is not delegable.
-  - **Configurable ceiling (supervisor)** — Task gates are always supervisor authority. Epic gates are supervisor authority by default, and may be reserved by the directing party per project. Spike gates are supervisor authority by default, and may be reserved by the directing party per project (mirroring the Epic ceiling pattern).
-  - **Scratchpad promotion authority** — Promotion of a scratchpad item to a Task may be exercised autonomously by the supervisor. Promotion of a scratchpad item to an Epic requires directing-party approval (because Epics live under Features whose gate authority sits in the fixed floor). Promotion to a Feature always requires directing-party approval for the same reason. Promotion to a Spike follows the configurable ceiling — supervisor exercises autonomously unless the directing party has reserved Spike authority for the project.
-  - **Solo-collapse case** — When the directing party occupies the supervisor role (permitted per Vision § Target Users), they exercise whichever authority the gate calls for. The agent-identity constraint of *Supervisor Distinct From Implementer* still applies in full: the human cannot approve gates on work an agent acting under their direction implemented if that agent is, in protocol terms, the implementer for that gate.
-  - **Orphan Tasks** — Tasks without a parent Epic still follow the Task default: supervisor authority at Gate 1, Gate 2, and Gate 3. The absence of a parent Epic does not promote gate authority to the directing party; orphan-ness is a parentage attribute, not an authority attribute.
+- **Iterative Implementation Zone** — After Feature Gate 2, agents choose and revise plans, decomposition and implementation order, maintain relevant documents, test and obtain independent review before offering Feature Gate 3. Incremental delivery does not force a new Feature or a human gate for every slice. Stop affected work on material divergence; continue unrelated authorised work where useful.
 
-  Project configuration of the Epic and Spike ceilings lives in `./.claude/` per `technical_design.md`. Reservation by the directing party is per-project and applies uniformly across all Epics (or all Spikes) in that project — no per-Epic or per-Spike toggling at this version.
-
-- **Iterative Implementation Zone** — Between IMPLEMENTING, IMPLEMENTED, and REVIEW, the implementer and the directing party iterate freely without gates. Approval to enter (Gate 2) and approval to exit (Gate 3) bracket the zone.
-
-- **Retrospective Features** — When Shannon is applied to an existing project, the project's pre-existing capabilities should be captured as Features even though their initial implementation predates Shannon's adoption. Such Features start in ELABORATED status (the description is reviewed and matches reality) with Activity: STABLE (no epic in progress), and their Activity Log records that initial implementation happened outside Shannon's lifecycle. Future evolution proceeds through Epics in the standard way. A Feature may also be *partially* retrospective: existing capability documented, with a clear next Epic for remaining work. The framework treats retrospective and forward-built Features identically once they reach ELABORATED — the distinction is historical, captured in the Activity Log and the Feature's `Initial Implementation` field.
+- **Retrospective Features** — When Shannon is applied to an existing project, the project's pre-existing capabilities should be captured as Features even though their initial implementation predates Shannon's adoption. Such Features start in ELABORATED status (the description is reviewed and matches reality) with Activity: STABLE (no active implementation), and their Activity Log records that initial implementation happened outside Shannon's lifecycle. Future evolution proceeds through Feature gates and agent-managed execution, with Epics optional. A Feature may also be *partially* retrospective: existing capability documented, with a clear next Epic for remaining work. The framework treats retrospective and forward-built Features identically once they reach ELABORATED — the distinction is historical, captured in the Activity Log and the Feature's `Initial Implementation` field.
 
 - **Spike Output Is Knowledge** — A spike's durable artefact is its knowledge note. The spike file itself is the activity record and is disposable.
 
-- **Approved Tasks Are Archived** — Tasks that reach APPROVED are moved to `./docs/tasks/archive/`. Epics, Features, and Spikes remain in place as historical records.
+- **Approved Tasks Are Archived** — Existing archived Tasks stay where they are. Optional completed Tasks may be archived when authorised and useful; no mandatory move or lower-level approval is required. Update affected relative/inbound links and any existing index in the same operation. Never automatically move or delete historical records to adopt this governance change.
 
 - **Scope-Boundary Acceptance Criteria Use Cross-Type Guards** — When a work-item Acceptance Criterion expresses scope (what is *not* touched), phrase it as a guard against changes to other types or layers — e.g. *"no epic/task/spike template, index, or skill modified"*. Do **not** enumerate a literal file count or a fixed file list as the scope assertion: work-item transitions necessarily touch routine bookkeeping files (work-item index entries, parent work-item Tasks-line entries) that literal counts and fixed enumerations cannot anticipate.
 
   Acceptance Criteria *may* name target files when describing edit-target intent (e.g. *"the FEAT-XXX file gains a `**Met:** / **Remaining:**` sub-block"*). The rule applies only when the AC's purpose is to assert what is *out of scope*. The distinguishing test: **if the AC's failure mode is "an unintended file changed", it is a scope-guard AC and must use the cross-type-guard form.** (The test phrasing is intentionally general so it transfers to non-work-item contexts later, but the rule itself is scoped to work-item Acceptance Criteria — non-work-item scope assertions are outside this Epic's mandate.)
 
-  Three-instance precedent: **TASK-002 AC#6** (the "only two files modified" literal-count assertion contradicted AC#5, which required modifying a third); **TASK-002 AC#8** (example grep mis-worded — missing bold markers around the field name); **TASK-003 AC#9** (enumerated six files when the diff carried eight). Skill prompt at `shannon/skills/work-items/skill.md` § Process: Plan step 2 (*Spawn Planning Subagent*, AC-drafting bullet) repeats the failure-mode test verbatim. Companion edit-discipline rule: see `development_guide.md` § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts* (the editing-order convention from EPIC-008 AC#1) — together they answer *"what must I edit, in what order, and how do I assert the boundary?"*
+  Three-instance precedent: **TASK-002 AC#6** (the "only two files modified" literal-count assertion contradicted AC#5, which required modifying a third); **TASK-002 AC#8** (example grep mis-worded — missing bold markers around the field name); **TASK-003 AC#9** (enumerated six files when the diff carried eight). The work-items skill applies this scope test when selecting verification. Companion edit-discipline rule: see `development_guide.md` § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts* (the editing-order convention from EPIC-008 AC#1) — together they answer *"what must I edit, in what order, and how do I assert the boundary?"*
 
 - **DRAFT Documents Are Not Authoritative** — AI must treat DRAFT mandated documents as not-yet-trustworthy context. Only APPROVED documents are authoritative.
 
@@ -202,32 +194,19 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 ### Creating and Approving a Mandated Document
 
-**Goal**: Establish a piece of project context that AI can rely on.
-
-**Flow**:
-
-1. Directing party invokes `/document-create [type]`
-2. Skill instantiates the relevant template into `./docs/`
-3. Directing party and implementer elaborate the document collaboratively
-4. Directing party invokes `/document-review [path]`
-5. Skill verifies alignment with higher documents
-6. Directing party explicitly approves; status transitions DRAFT → APPROVED
-
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Supervisor Distinct From Implementer; Gate Authority Split.
+Keep all six documents and their authority graph. Draft new authoritative meaning for human approval, beginning with the Vision. Read higher-authority neighbours and affected Features; identify contradictions and consequential choices. Routine factual upkeep within already-approved meaning is agent work, recorded with its source. Independent review of changes remains required by the project's contribution policy; neither a lower-level record nor its completion grants authority to change approved intent.
 
 ### Taking a Task from Idea to Approval
 
-**Goal**: Deliver a single unit of implementation work.
+This retained heading is a compatibility pointer: Tasks are optional execution aids, not an approval boundary.
 
-**Flow**:
+1. Identify the approved Feature, or the governing engineering rule and product purpose for maintenance.
+2. Read relevant Vision/design/Guide context and the current implementation.
+3. Choose a plan; create an Epic, Task or Spike record only if useful. No human requirements/plan gates are required for these aids.
+4. Implement and test within approved scope, maintain affected documents, and obtain independent technical review.
+5. Link changes, checks, review and remaining work from the Feature. Only human Feature acceptance crosses Gate 3.
 
-1. `/task-create [hint]` — Task captured in DRAFT
-2. `/task-elaborate` — Implementer reads parent Epic, Feature, and relevant Guides; drafts Requirements; **Gate 1**: gate authority holder approves (per *Gate Authority Split*) → ELABORATED
-3. `/task-plan` — Implementer reads Development Guide and Technical Design; drafts Plan; **Gate 2**: gate authority holder approves (per *Gate Authority Split*) → PLANNED
-4. `/task-implement` — Implementer executes the plan; status IMPLEMENTING → IMPLEMENTED, possibly iterating through REVIEW
-5. `/task-review` — Verification against acceptance criteria; **Gate 3**: gate authority holder approves (per *Gate Authority Split*) → APPROVED; task moved to archive
-
-**Rules applied**: Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Work Items Consume the UX Guide, May Refine the Development Guide; Approved Tasks Are Archived.
+Direct `/feature-implement` can perform this flow without creating any children. Keep enough decisions and next-step evidence for a fresh session to resume.
 
 ### Capturing Knowledge as the Project Runs
 
@@ -246,125 +225,37 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 
 ### Re-reviewing an APPROVED Mandated Document
 
-**Goal**: Refresh an APPROVED document when downstream evolution, an upstream cascade, or a surfaced gap means it no longer faithfully describes the project. The mechanism preserves the authority graph by re-passing Gate 1.
+Review on a governing decision change, implementation drift, a surfaced contradiction or an explicit request. Read the current document and relevant authority neighbours; optional delegated reading must be authorised. Distinguish factual maintenance from a change to approved meaning.
 
-**Triggers**:
+- **Additive/factual maintenance:** preserve APPROVED status when meaning stays within existing authority; update relevant content, source links and version history with the change.
+- **Substantive revision:** retain the prior decision, draft the proposed replacement, and obtain explicit human approval of the changed meaning. Use DRAFT while unresolved. When uncertainty affects the outcome, surface it rather than treating it as permission.
 
-- **Downstream evolution** — a feature, epic, or sibling document has elaborated capabilities the document should ratify (e.g. a new Key Feature surfaced by a work item)
-- **Upstream cascade** — a higher-authority document was just approved with changes that may affect this one
-- **Surfaced gap** — a work item or review explicitly flagged a missing anchor (e.g. a Feature whose Vision Reference does not resolve)
-- **Periodic** — time-based reviews if the project chooses to do them (not framework-mandated)
-
-**Flow**:
-
-1. Trigger identified; directing party invokes `/document-review [path]` on the APPROVED document
-2. Skill spawns an alignment subagent reading the target document plus its authority-graph neighbours, with the specific trigger named in the prompt
-3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
-4. Directing party reviews findings and decides which to apply inline, which to defer to scratchpad, and which to ignore
-5. Implementer applies the approved changes plus any cascading updates (e.g. work-item Vision References that should now point to the new content)
-6. **Gate 1**: directing party explicitly approves the new version
-7. Version bumps — minor (e.g. v2.1 → v2.2) for additive amendments, major (e.g. v1.0 → v2.0) for substantive revisions
-8. Per development_guide § Commit Cadence, the version bump and cascading updates ship in a single commit
-
-**Status semantics**:
-
-- **Additive amendment** — content that does not contradict existing approved claims. The document stays APPROVED through the edit; the version history records the new version and a new approval date
-- **Substantive revision** — content that contradicts existing approved claims and resolves the contradiction. The document transitions APPROVED → DRAFT for the duration of the revision, returning to APPROVED via Gate 1
-
-When uncertain, treat as substantive (the more cautious path).
-
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split.
+Approval already supplied for the exact design is recorded once and reused during its implementation. Updates follow source-body-before-derived-references discipline. Check downstream alignment and record any remaining obligations without mandating a new work item for each one.
 
 ### Re-elaborating a Work Item
 
-**Goal**: Refresh a non-DRAFT work item (Feature, Epic, Task, or Spike) when upstream artefacts evolve, a downstream gap surfaces, or the framework itself changes in a way the work item must accommodate. The mechanism preserves the *Unified Status Lifecycle* by re-running Gate 1 (and, for substantive cases, subsequent gates) rather than introducing new statuses.
+Features are re-elaborated when Vision, related design, delivered behaviour or a discovered gap changes their approved scope. Read the Feature and relevant sources, identify additive clarification versus substantive change, and show the concrete requirements/approach/acceptance delta to the human. Materially changed requirements return to DRAFT and re-pass affected Feature gates; accepted completed delivery is never inferred from a new design approval. Factual records can be reconciled without inventing new approval.
 
-**Triggers** *(loose-coupled — any of these surfaces a need)*:
-
-- **Upstream cascade** — a parent work item or mandated document just changed (e.g. parent Feature re-elaborated, Vision principle sharpened)
-- **Downstream gap** — a child work item or review surfaced a missing aspiration the parent should now name
-- **Framework evolution** — a Shannon version introduces a new attribute, workflow, or convention that an existing work item must absorb
-
-**Flow**:
-
-1. Trigger identified; directing party invokes `/[type]-elaborate [ID]` on a non-DRAFT work item (the work-items skill recognises this as the re-elaboration branch — see *Re-elaboration Branch* in the skill)
-2. Skill spawns an alignment subagent reading the target work item plus its parent (Feature → Vision; Epic → parent Feature; Task → parent Epic or Feature; Spike → optional Feature for context) and any documents the work item must align to per the Work Item ↔ Document Relationships table
-3. Subagent returns findings using the canonical four-category schema (Drift / Gap / Internal contradiction / Strength)
-4. Directing party reviews findings and decides which to apply inline, which to defer to scratchpad, and which to ignore
-5. Implementer applies the approved refinements; directing party explicitly approves the new state via **Gate 1**
-   - **Bundled re-elaboration.** Multiple work-item re-elaborations may be applied inside a single Task's implementation; the Task's own Gate 2 and Gate 3 serve as the per-item directing-party refinement-approval the workflow's step 5 otherwise requires. Permitted only when **(a)** the bundle is *additive* per § Status semantics below and **(b)** the parent (Epic or Task) **explicitly enumerates** the re-elaborated work items by ID in its Plan or Acceptance Criteria. Co-occurs with the commit-hash clarification at step 6 below; **TASK-003** is the worked precedent (three Feature re-elaborations on FEAT-003 / FEAT-006 / FEAT-007 bundled inside one Task, citing upstream `09844df`).
-6. Activity Log entry is added recording **(a) trigger category** (upstream cascade / downstream gap / framework evolution), **(b) upstream commit hash** where applicable, and **(c) summary of what changed**. The "where applicable" qualifier on (b) covers the **bundled-Task case** (see the bundled re-elaboration sub-bullet on step 5 above): when the re-elaboration is bundled inside a Task whose own commit lands after Gate 3 (per `development_guide.md` § Commit Cadence — commits land after Gate 3, not mid-implementation), the entry cannot cite its own work item's commit hash because that hash does not exist at write-time; the entry instead cites the **upstream commit hash** — the hash that delivered the change being absorbed — and **references the bundling work item by ID**. Worked example: **TASK-003** cited upstream `09844df` and referenced TASK-003 by ID for its bundle of three re-elaborations on FEAT-003 / FEAT-006 / FEAT-007.
-
-**Status semantics**:
-
-Re-elaboration is **additive** (refinements do not contradict the work item's previously-approved claims; the work item stays at its current status; only Gate 1 re-passes as a refinement-approval) or **substantive** (refinements contradict previously-approved claims; the work item transitions back to DRAFT and re-passes Gate 1, then re-passes any later gates that had previously been crossed). Per-status behaviour:
-
-| Status before re-elaboration | Additive | Substantive |
-|---|---|---|
-| ELABORATED | Stays ELABORATED; refinement approved at Gate 1 | Returns to DRAFT; re-passes Gate 1 |
-| PLANNED | Stays PLANNED; Plan section preserved unless refinement affects it; refinement approved at Gate 1 | Returns to DRAFT; re-passes Gate 1 and Gate 2 |
-| IMPLEMENTING | Stays IMPLEMENTING; if refinement only touches Requirements, no implementation rework required | Returns to DRAFT; re-passes Gate 1, Gate 2, then resumes implementation |
-| IMPLEMENTED | Stays IMPLEMENTED; refinement approved at Gate 1; Gate 3 review then proceeds against refined Requirements | Returns to DRAFT; full lifecycle re-pass |
-| REVIEW | Stays REVIEW; refinement approved at Gate 1; Gate 3 review continues | Returns to DRAFT; full lifecycle re-pass |
-| APPROVED | Stays APPROVED; Activity Log records the refinement | Returns to DRAFT; full lifecycle re-pass (rare — usually preferable to create a new work item) |
-
-When uncertain, treat as substantive (the more cautious path).
-
-**Cross-type applicability**: this workflow applies to all four work-item types, with these adjustments:
-
-- **Features** have no upstream work-item parent — their upstream is the Vision principle they elaborate; upstream-cascade triggers therefore originate at Vision review events
-- **Spikes** are standalone — they have no Feature/Epic parent for traceability purposes; upstream cascade rarely applies; the dominant trigger is downstream gap (an investigation surfaced a question the original framing missed)
-- **Orphan Tasks** (without a parent Epic) behave as Features for trigger purposes — their upstream is the Feature they nominally elaborate or the Vision section they touch directly
-
-**Rules applied**: Document Alignment Direction; DRAFT Documents Are Not Authoritative; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split; Unified Status Lifecycle.
+Record the trigger (upstream change, downstream gap, sibling change or framework evolution), relevant source revision where known, and the actual decision. Historical statuses/logs remain evidence. Optional execution aids may be revised by agents within approved intent; they do not re-pass Feature gates simply because their notes change.
 
 ### Responsible Promotion
 
-**Goal**: Ensure that work created downstream traces to an upstream aspiration. Before creating an Epic or Task to address a recognised gap, verify (or update) the parent Feature, Vision, or relevant document so the work corresponds to something an upstream commitment requires. Otherwise drift becomes silent: the work gets done but is not traceable; if the work is omitted, no review can detect the gap. Elaborates Vision § Adaptive Coherence (specifically the "drift caught early and resolved" commitment).
-
-**Triggers** *(loose-coupled — any of these surfaces a gap)*:
-
-- A scratchpad item ripens into actionable work
-- A review of an existing document or work item surfaces a finding
-- A directly-recognised functional gap during normal use of the framework
-- Anticipation of framework evolution (e.g. a future Shannon version introduces a new attribute that existing projects must accommodate)
-
-The scratchpad is one valid input, not the gatekeeper. Gaps flow into this workflow directly from any of the triggers above.
-
-**Flow**:
-
-1. Gap identified by any trigger
-2. Identify the natural parent for the work — usually a Feature in the existing set; occasionally a new Feature is required
-3. Read the parent Feature's Ideal State and the Vision principle(s) it derives from
-4. **Decision**: does the parent aspire to the work?
-   - **Yes** — the Ideal State explicitly requires the capability the work delivers → proceed to step 6
-   - **No** — the Ideal State does not name the capability → step 5
-5. Re-elaborate the parent (and, if necessary, re-review the Vision principle the parent derives from) to add aspirational criteria the proposed work will fulfil. Use the *Re-reviewing an APPROVED Mandated Document* workflow for documents; for work items, use the *Re-elaborating a Work Item* workflow
-6. Create the downstream work (Epic, Task) with Acceptance Criteria that explicitly fulfil the upstream aspiration
-7. If the gap was first captured in the scratchpad, move that item to Processed pointing at the new downstream artefact
-
-**Why this matters**: the framework's self-correcting property depends on upstream aspirations being specific enough that downstream omissions register as drift. Creating downstream work that no upstream artefact requires breaks the chain — the work exists but cannot be missed by a future alignment check.
-
-**Rules applied**: Document Alignment Direction; Three Hard Gates (at each upstream re-approval or downstream creation).
+Before implementing a finding, read the affected Feature and Vision or the governing engineering rule and its product purpose. If existing approved intent covers it, choose useful execution aids or work directly. If it changes intent, seek the relevant human Feature/document decision first. A scratchpad entry or lower-level record supplies context, not authority. Preserve the source and disposition of the finding; optional records use descriptive names and cite their governing context. Never split an unapproved product decision into Tasks to evade the human boundary.
 
 ### Running a Spike to Reduce Uncertainty
 
-**Goal**: Answer a specific question that's blocking decisions on a Feature or Epic.
-
-**Flow**:
-
-1. `/spike-create [hint]` — Spike captured in DRAFT, time-box estimated
-2. `/spike-elaborate` — Question and expected output sharpened; **Gate 1**: gate authority holder approves (per *Gate Authority Split*) → ELABORATED
-3. `/spike-plan` — Investigation approach defined; **Gate 2**: gate authority holder approves (per *Gate Authority Split*) → PLANNED
-4. `/spike-implement` — Implementer runs investigation within time-box; findings captured in Investigation Notes
-5. Knowledge note produced and indexed; recommendation captured in spike
-6. `/spike-review` — **Gate 3**: gate authority holder approves (per *Gate Authority Split*) → APPROVED; spike file remains as activity record, knowledge note is the durable artefact
-
-**Rules applied**: Spike Output Is Knowledge; Three Hard Gates; Supervisor Distinct From Implementer; Gate Authority Split.
-
----
+A Spike is an optional time-boxed investigation, linked to the affected Feature or governing decision. Define the question, output and time/cost limits; research within existing authority; save reusable knowledge and a recommendation. State an inconclusive result when the time-box expires. No mandatory Spike approval stages apply, but a new external cost, access need or consequential choice still requires the human decision. An investigation result cannot approve its own resulting Feature change.
 
 ## Version History
+
+### 2026-11-12 - Reference repair
+
+- Describe Epics as optional delivery groups without the superseded phase-model comparison. Factual alignment within the approved Feature-level governance design; no new Feature delivery acceptance is recorded. The preserved v1.8 history contains an obsolete TASK-029 relative link; the record is now [archived here](tasks/archive/TASK-029-acceptance-criteria-cite-governing-rules.md).
+
+### 2026-11-01 - v2.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-08-26 - v1.8
 

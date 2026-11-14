@@ -9,7 +9,7 @@
 - **Created**: [YYYY-MM-DD]
 - **Updated**: [YYYY-MM-DD]
 
-> **Status** moves through the unified lifecycle, but the meaningful transitions for a spike are `ELABORATED → IMPLEMENTED` (investigation done) and `APPROVED` (output captured as knowledge note). Spikes are disposable — the knowledge note is the durable artefact.
+> Optional execution record. Progress labels describe actual work; no fixed lifecycle or mandatory human gates apply. Preserve the approved Feature or governing maintenance-rule reference. Self-tests do not constitute independent approval.
 
 ---
 
@@ -84,7 +84,7 @@
 
 ## Review
 
-[Filled during review (Gate 3).]
+[Record verification honestly; independent review and human Feature acceptance are distinct.]
 
 ### Verification
 

@@ -1,15 +1,11 @@
 # /task-plan
 
-Plan a task's implementation (Gate 2).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to plan this task.
+Pass Type `task`, Verb `plan`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `task`
-- **Verb**: `plan`
-- **Target**: Task ID from `$ARGUMENTS` (must be in ELABORATED status). If empty, list candidate ELABORATED tasks and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will read the task's Requirements, Development Guide, and Technical Design; draft the implementation Plan (approach, steps, dependencies, risks); and present it. Gate 2 requires explicit user approval to transition ELABORATED → PLANNED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

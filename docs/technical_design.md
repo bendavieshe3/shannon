@@ -1,8 +1,8 @@
 # Technical Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-10-17
-**Approved**: 2026-10-17
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -17,7 +17,7 @@ Commands (user-facing, thin)
     │
     ├── Invoke Skills (framework logic, reusable)
     │       │
-    │       └── Spawn Subagents (context-heavy work)
+    │       └── Optional authorised Subagents (context-heavy work)
     │               - Read multiple docs
     │               - Check alignment
     │               - Draft elaborations
@@ -26,7 +26,7 @@ Commands (user-facing, thin)
     └── Project-specific extensions (optional per-project customisation)
 ```
 
-Each layer has a single, clear responsibility. Commands accept user input and route to the right skill. Skills encode the framework's process logic — how to elaborate, how to plan, how to enforce gates, how to instantiate templates. Subagents handle the reading and synthesis that would otherwise bloat the main conversation context.
+Each layer has a single, clear responsibility. Commands accept user input and route to the right skill. Skills encode the framework's process logic — how to elaborate, how to plan, how to enforce gates, how to instantiate templates. Implementation delegation is optional and requires the applicable authorisation; independent review remains separate.
 
 ### Commands
 
@@ -46,7 +46,7 @@ Four skills exist:
 |---|---|
 | `project-setup` | Initialise a new project with Shannon |
 | `project-documentation` | Manage mandated documents (create, review, approve) |
-| `work-items` | Manage all work item types through their lifecycle |
+| `work-items` | Feature gates and agent-managed execution; optional lower-level records |
 | `shannon-supervisor` | Continuous health vigilance and goal decomposition (see *Supervisor* below) |
 
 Each skill consists of:
@@ -58,19 +58,13 @@ Skills are responsible for:
 
 - Process logic (how to elaborate, plan, implement, review)
 - Document relationship enforcement (what aligns to what at each stage)
-- Quality gate enforcement (no transition past a gate without explicit approval by the directing party; the implementer cannot approve its own work)
+- Feature gate enforcement (human requirements/approach/delivery decisions); independent review is distinct from self-tests
 - Template instantiation
 - Index updates
 
 ### Subagents
 
-Ephemeral processes spawned by skills for context-heavy operations. The subagent reads documents, drafts updates directly into work item files, and returns a structured summary to the main conversation. The main agent presents the summary to the directing party.
-
-Benefits:
-
-- **Context management** — Main conversation stays focused; subagent absorbs the document reading
-- **Model optimisation** — Subagents can use faster, cheaper models for routine reading
-- **Parallelism** — Multiple read-only subagents (e.g. cross-cutting alignment checks against several documents) can run concurrently. Subagents performing writes operate sequentially within a single skill invocation; the file-based model assumes cooperative access (see Security Model)
+Optional helpers for context-heavy operations, used only when separately authorised and useful. They are not mandatory steps for Feature elaboration, planning or implementation. The implementer may read/draft directly. An independent reviewer must not be the implementer; changing a prompt or role label within the same continuing implementer does not supply independent review. Authorised concurrent helpers coordinate writes and return source-linked evidence.
 
 ### Supervisor
 
@@ -124,11 +118,11 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Mandated Document | `./docs/<name>.md` | One file per document; status tracked in frontmatter |
 | Feature | `./docs/features/FEAT-XXX-slug.md` | Plus an entry in `feature_index.md` |
 | Epic | `./docs/epics/EPIC-XXX-slug.md` | Plus an entry in `epic_index.md` |
-| Task | `./docs/tasks/TASK-XXX-slug.md` (or `./docs/tasks/archive/` when APPROVED) | Plus an entry in `task_index.md` |
+| Task | `./docs/tasks/TASK-XXX-slug.md` (or `./docs/tasks/archive/` after an authorised archive move) | Plus an entry in `task_index.md` |
 | Spike | `./spikes/SPIKE-XXX-slug.md` | Project root, not under `docs/`; plus entry in `spike_index.md` |
 | Knowledge Note | `./docs/knowledge/<slug>.md` | Plus entry in `knowledge_index.md` |
 | Supervisor Report | `./docs/supervisor/report-YYYY-MM-DD.md` | A Knowledge Note subtype per conceptual_design § Domain Model → *Knowledge Note*; ID is the report's ISO date. Indexed in `knowledge_index.md` like any other note |
-| Supervisor Configuration | `./.claude/shannon-supervisor.json` | Per-project gate-authority ceilings and supervisor settings; schema sketched below |
+| Supervisor Configuration | `./.claude/shannon-supervisor.json` | Report settings; legacy gate fields have no authority |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
 
 ### ID Allocation
@@ -147,27 +141,9 @@ Reports are never overwritten — each cadence run produces a new dated file. If
 
 ### Supervisor Configuration
 
-The Epic and Spike gate-authority ceilings are configurable per project (per conceptual_design § Business Rules → *Gate Authority Split*; technology_stack § Supervisor Tooling → *Configuration storage*). Shannon stores supervisor configuration at `./.claude/shannon-supervisor.json`.
+The optional `./.claude/shannon-supervisor.json` controls report presentation/storage, for example `{"report_directory": "docs/supervisor"}`. Missing configuration uses defaults; malformed configuration is reported and refused.
 
-Schema sketch:
-
-```json
-{
-  "epic_gate_authority": "supervisor",
-  "spike_gate_authority": "supervisor",
-  "report_directory": "docs/supervisor",
-  "scheduler_documented_in": "docs/development_guide.md"
-}
-```
-
-Fields:
-
-- **`epic_gate_authority`** — `"supervisor"` (default) or `"directing_party"` (reserved by the directing party for this project). Uniform across all Epics in the project — no per-Epic toggling at this version
-- **`spike_gate_authority`** — `"supervisor"` (default) or `"directing_party"`. Uniform across all Spikes in the project — no per-Spike toggling at this version
-- **`report_directory`** — Where supervisor reports land; default `docs/supervisor` per § Supervisor Report Files. Configurable for projects that prefer a different convention
-- **`scheduler_documented_in`** — Pointer to where the project's scheduler choice is documented (per § Cadence → *Scheduler*); not a functional setting, just a discoverability aid
-
-Absent fields take the supervisor-authority default. A project that has not reserved any gate authority may omit the file entirely.
+Legacy `epic_gate_authority` and `spike_gate_authority` fields are retained as compatibility inputs but do not grant or create approval stages. Report that they no longer govern gate authority. A separately recorded explicit project hold remains an obligation until dispositioned. Human Vision/Feature gates cannot be delegated through configuration. Existing files are not automatically deleted or rewritten.
 
 ### Cadence State
 
@@ -194,13 +170,9 @@ This naming groups related commands when listed (all `feature-*` commands appear
 
 ### Lifecycle Verbs
 
-Every work item type supports the same five verbs:
+All five command names remain available. Features use create, elaborate (Gate 1), plan (Gate 2), implement and review (Gate 3). `/feature-implement` performs delivery directly; it does not merely route to an Epic.
 
-- `create [hint]` — Create in DRAFT
-- `elaborate [ID]` — Elaborate to ELABORATED (Gate 1)
-- `plan [ID]` — Plan to PLANNED (Gate 2)
-- `implement [ID]` — Execute; IMPLEMENTING ↔ IMPLEMENTED
-- `review [ID]` — Verify and approve; REVIEW → APPROVED (Gate 3)
+Epic/Task/Spike verbs are optional agent-managed record operations. Their invocation does not require a particular prior progress label or a human approval stage. Scope, governing intent and actual verification remain required. Compatibility labels may be retained honestly; lower-level APPROVED in an old record is historical and cannot be treated as Feature acceptance.
 
 ### Document Verbs
 
@@ -232,43 +204,11 @@ This redundancy guards against silent skill-loading failures.
 
 ### Cascading Operations: Batch Preparation, Individual Gates
 
-When the directing party invokes an operation on a higher-level work item (e.g. `/epic-plan`), the implementer does bulk preparation for the entire subtree — including drafting elaborations and plans for child work items — but each child still passes through its own gate individually. No new statuses are introduced; the batch preparation happens invisibly behind the standard lifecycle commands.
-
-**Approach**:
-
-1. Implementer plans the parent (epic, in this example) and writes the plan into its file
-2. Implementer identifies the child tasks needed
-3. Implementer creates each child task in DRAFT, with a *prepared elaboration draft* and a *prepared plan draft* stored in the relevant sections of the task file (marked clearly as "prepared during EPIC-XXX planning, not yet reviewed")
-4. Implementer presents a summary of the parent plan and the prepared children to the directing party
-5. When the directing party later runs `/task-elaborate TASK-XXX`, the subagent surfaces the prepared elaboration instead of starting fresh; same for `/task-plan TASK-XXX`. Each child still requires its own Gate 1 and Gate 2 approval
-
-**Rationale**: Preserves the *Unified Status Lifecycle* rule from conceptual_design.md — no work item type carries a unique status sequence and no transition skips a gate. The bulk-preparation benefit is realised by reusing draft content at the moment each child's gate is invoked, not by extending the status model. This minimises framework surface area while still saving the directing party from approving N empty drafts.
-
-**Trade-off**: Prepared drafts may go stale if the directing party delays approving children long enough for the parent or sibling work to change. The implementer should warn when surfacing a stale prepared draft and offer to refresh.
+This retained section name records a superseded mechanism. Current delivery is Feature-led: human Gate 2 authorises the approach and consequential trade-offs, not a mandatory child hierarchy. Agents may prepare execution notes or child records when useful, but each child has no mandatory human gate. Maintain existing indexes only for records actually used; no speculative child creation is required. Link implementation, verification and independent-review evidence from the Feature. Preserve existing identifiers/history rather than bulk-renaming or archiving them.
 
 ### Document Alignment Check
 
-When a higher-level document is approved, lower-level documents should be checked for misalignment. The same algorithm runs as part of every `/document-review` invocation, so the target document is checked against everything above and (optionally) below it in the authority graph.
-
-**Approach**:
-
-1. The `project-documentation` skill spawns a subagent for each relevant document neighbour in the authority graph
-2. Each subagent reads its assigned document plus the target document
-3. Subagent returns a structured finding report (schema below)
-4. Skill aggregates findings and surfaces them to the directing party as review candidates and (for upstream-change cascades) candidate follow-up work items
-
-**Finding schema**: Each finding belongs to one of four categories:
-
-- **Drift** — A lower-doc statement contradicts a higher-doc commitment. Must be resolved before the lower doc can remain APPROVED
-- **Gap** — A higher-doc commitment that the lower doc should elaborate but doesn't. May or may not block approval depending on materiality
-- **Internal contradiction** — A self-contradiction or stale reference within the document being reviewed
-- **Strength** — Notable cleanly-aligned elaboration. Reported for signal, not action
-
-Findings cite the specific section or line being commented on. The aggregating skill presents categorised findings; the directing party decides which to apply inline, which to defer to scratchpad, and which to ignore.
-
-**Trade-offs**: Alignment checks consume tokens. Run them on document approval (and on `/document-review` invocations) rather than on every save. Subagent reads are parallelisable across neighbours since they are read-only.
-
----
+Read the target document, relevant higher-authority neighbours and affected Features/implementation; cite actual governing sections. The agent can do this directly or use separately authorised helpers. Classify Drift, Gap, Internal contradiction and Strength; report unknowns rather than inventing findings. Maintain factual alignment within approved intent, and return consequential changes to the human. Do not create a human gate for each mechanical documentation correction.
 
 ## Security Model
 
@@ -284,9 +224,7 @@ The file-based model assumes cooperative access. Concurrent writes by multiple a
 
 ### Gate Enforcement
 
-The *Supervisor Distinct From Implementer* rule (conceptual_design § Business Rules) is enforced by convention, not by technical control. The rule's substance is an agent-identity constraint: the agent approving any gate is not the same agent that produced the work under review, regardless of which role holds gate authority per *Gate Authority Split*. Skills and commands are written to refuse self-approval flows (e.g. an implementer subagent does not call its own `*-review` command); a directing party or supervisor holding gate authority is responsible for not approving work they themselves implemented. Future versions may add architectural enforcement (e.g. agent identity checks at gate transitions); the current version trusts the skill protocol.
-
----
+The human owns Vision and Feature requirements/approach/delivery gates. Optional Epics/Tasks/Spikes have no mandatory approval gates. Meaning-changing document decisions, scope/cost/access changes and explicit project holds remain human decisions. Enforcement by Markdown instructions is a convention, not a technical security boundary; real tool permissions and repository protection remain in force. Independent technical review must come from a reviewer who did not implement the change, and is separate from human product acceptance.
 
 ## Cadence
 
@@ -346,6 +284,11 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 ---
 
 ## Version History
+
+### 2026-11-01 - v2.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-10-17 - v1.4
 

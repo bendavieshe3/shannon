@@ -8,7 +8,7 @@
 
 **Format**: `[SPIKE-ID](./path.md) — STATUS — Spike Name #tags`
 
-**Status**: `DRAFT | ELABORATED | PLANNED | IMPLEMENTING | IMPLEMENTED | REVIEW | APPROVED`
+**Status**: optional progress labels, recorded honestly; no mandatory human gates or sequence. Existing legacy labels remain historical evidence.
 
 **Output**: The durable artefact of a spike is its knowledge note in `./docs/knowledge/`. The spike file itself is the activity record.
 

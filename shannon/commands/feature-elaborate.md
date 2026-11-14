@@ -1,17 +1,11 @@
 # /feature-elaborate
 
-Elaborate a feature's requirements (Gate 1).
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to elaborate this feature.
+Pass Type `feature`, Verb `elaborate`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `feature`
-- **Verb**: `elaborate`
-- **Target**: Feature ID from `$ARGUMENTS` (e.g. `FEAT-001`). If empty, list candidate DRAFT features and ask.
+This is human Feature Gate 1 — requirements and acceptance criteria. Record actual explicit approval, reusing approval already supplied for this exact decision. The implementer cannot approve its own work.
 
-The skill will spawn a subagent to read the Vision and other required documents, draft the Requirements section, and present alignment findings. Gate 1 requires explicit user approval to transition DRAFT → ELABORATED.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
-
-After approval, resume the original conversation topic.
+If the skill does not activate, report “Error: work-items skill failed to activate.”

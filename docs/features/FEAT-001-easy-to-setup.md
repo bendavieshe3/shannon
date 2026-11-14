@@ -91,7 +91,7 @@ This feature is foundational. Every other Shannon capability depends on a develo
 
 ### Context
 
-- **Vision**: § Key Features ("Mandated Project Documentation"), § Success Metrics ("Setup time under 5 minutes")
+- **Vision**: § Key Features ("Mandated Project Documentation"), § Measurable Targets ("Setup time" under 5 minutes)
 - **Technology Stack**: Markdown-based, no build step, git as primary distribution
 - **Technical Design**: File-based deployment into `.claude/` and `docs/`
 

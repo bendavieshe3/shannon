@@ -1,15 +1,11 @@
 # /task-implement
 
-Execute a task's plan.
+You MUST invoke the `work-items` skill.
 
-You MUST invoke the `work-items` skill to implement this task.
+Pass Type `task`, Verb `implement`, and Target/hint from `$ARGUMENTS`. Resolve an unambiguous target from context; ask only if scope remains ambiguous.
 
-Pass:
-- **Type**: `task`
-- **Verb**: `implement`
-- **Target**: Task ID from `$ARGUMENTS` (must be in PLANNED status). If empty, list candidate PLANNED tasks and ask.
+Execute within the approved Feature or governing maintenance rule. No routine lower-level human gates apply; preserve independent technical review and escalate material divergence.
 
-The skill will mark the task IMPLEMENTING, execute the plan, update the Activity Log with significant decisions, and mark IMPLEMENTED when complete. The user may iterate between IMPLEMENTING, IMPLEMENTED, and REVIEW without crossing a gate.
+Optional execution records may retain legacy progress labels without a fixed gate sequence. Existing explicit holds and access/cost/publication permissions remain in force.
 
-If the `work-items` skill does not activate, report:
-"Error: work-items skill failed to activate."
+If the skill does not activate, report “Error: work-items skill failed to activate.”

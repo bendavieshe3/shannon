@@ -1,8 +1,8 @@
 # Product Vision
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-05-28
-**Approved**: 2026-05-28
+**Last Reviewed**: 2026-11-01
+**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
 
@@ -20,7 +20,7 @@ The result is the same productivity tax that plagued teams before AI: the develo
 
 ## Vision Statement
 
-Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; a directing party — human, or an agent acting in the directing-party role distinct from the implementer — supplies vision and review at high-leverage gates. Projects built with Shannon stay aligned to their intent from adoption through full maturity, without the directing party ever having to remember which document said what. Between gates, a supervisor role — distinct from the implementer, and optionally distinct from the directing party — sustains project health: detecting drift, surfacing strategic opportunities, approving routine work, and converting the directing party's high-level intent into candidate work items.
+Shannon is the framework that lets solo developers and knowledge workers build high-quality software with AI in a sustained state of flow. The implementing AI carries the burden of documentation, context, and coherence; the human directing party supplies Vision and Feature decisions, with independent technical review distinct from implementation. Projects built with Shannon stay aligned to their intent from adoption through full maturity, without the directing party ever having to remember which document said what. Between gates, a supervisor role — distinct from the implementer, and optionally distinct from the directing party — sustains project health: detecting drift, surfacing strategic opportunities, approving routine work, and converting the directing party's high-level intent into candidate work items.
 
 ---
 
@@ -32,11 +32,11 @@ The implementing AI reads, maintains, and cross-references documentation. The di
 
 ### 2. **Strategic External Review**
 
-Three quality gates at high-leverage points — requirements elaboration, implementation planning, and completion review. No code review, no micromanagement. A directing party intervenes where independent judgement compounds; the implementer handles the rest. The directing party is most often a human, but may be an agent acting in the directing-party role — provided that agent is *not* the same agent doing the implementation. The framework treats the directing role as a role, not a species — and reserves the term *supervisor* for the distinct vigilance role introduced in Principle 5.
+Human judgement governs the Vision and Features. Three Feature gates approve requirements and acceptance criteria, the approach and consequential trade-offs, and the delivered capability against evidence. The implementer chooses decomposition and execution below an approved Feature without mandatory Epic, Task or Spike gates. Independent technical review remains separate from the implementer; the human accepts product outcomes rather than reviewing every line of code.
 
 ### 3. **Complete Traceability**
 
-Code traces back to tasks; tasks to epics or features; features to the vision. Nothing significant gets built without a clear "why." The framework makes drift between intent and implementation visible before it becomes expensive.
+Everything extends traceably from the Vision. Governing documents and Features explain intent; implementation and verification evidence show how it is delivered. Features cite the Vision and relevant design decisions. Significant changes and tests identify the Feature they serve; maintenance traces through the governing engineering rule and its product purpose. Traceability does not require a separate identifier for every internal action.
 
 ### 4. **Adaptive Coherence**
 
@@ -44,7 +44,7 @@ Coherence is dynamic, not static. The framework absorbs change — new understan
 
 ### 5. **Continuous Health Vigilance**
 
-Between the directing party's high-leverage interventions, the framework continuously watches for the conditions that erode coherence: documents drifting out of alignment, work items stuck mid-lifecycle, indexes diverging from their source-of-truth bodies, scratchpad items aging without resolution, opportunities to adopt new tools going unnoticed. A **supervisor** role — distinct from the implementer, and optionally distinct from the directing party — performs this vigilance on a cadence, reports up, and absorbs routine gate decisions so the directing party intervenes only on the consequential ones. The framework's promise of "drift in days, not refactors" becomes a continuous commitment rather than a hope.
+Between the directing party's high-leverage interventions, the framework continuously watches for the conditions that erode coherence: documents drifting out of alignment, work items stuck mid-lifecycle, indexes diverging from their source-of-truth bodies, scratchpad items aging without resolution, opportunities to adopt new tools going unnoticed. A **supervisor** role — distinct from the implementer, and optionally distinct from the directing party — performs this vigilance on a cadence, reports up, and surfaces consequential decisions without adding lower-level approval gates. The framework's promise of "drift in days, not refactors" becomes a continuous commitment rather than a hope.
 
 ---
 
@@ -52,15 +52,15 @@ Between the directing party's high-leverage interventions, the framework continu
 
 - **Mandated Project Documentation** — Six core documents (vision, technology stack, conceptual design, technical design, development guide, UX guide) that together describe the project at every relevant scope, with explicit authority relationships between them.
 
-- **Unified Work Item Model** — Features, Epics, Tasks, and Spikes share a single status lifecycle and a single file structure. Learn the model once; apply it everywhere.
+- **Feature-led Delivery** — Features are persistent, human-governed capabilities. Epics, Tasks and Spikes are optional execution aids; no mandatory hierarchy or lower-level human gates.
 
-- **Three Quality Gates** — Explicit approval gates at requirements elaboration, planning, and completion. Built into the lifecycle, not bolted on. Approval comes from a directing party — human, or an agent acting in the directing-party role, distinct from the implementer. For Task gates (and Epic gates by default) the supervisor role introduced in Principle 5 holds delegated approval authority; see Target Users § *Three roles, configurably separable*.
+- **Three Feature Gates** — Requirements, approach and delivery remain explicit human decisions. Agents manage implementation within the approved scope, with testing and independent technical review.
 
 - **Knowledge Base** — Research notes, implementation details, and document extensions captured as the project runs. Spikes produce knowledge notes as their primary output.
 
 - **Lightweight Idea Capture** — A pre-workflow scratchpad (`docs/scratchpad.md`) for ideas, half-formed work, and unprocessed TODOs that don't yet belong to a formal work item. Items get processed periodically: promoted to Features, Epics, Tasks, or Spikes; moved to knowledge notes when they harden into durable findings; or dropped. The scratchpad is the deliberate middle between losing thoughts and forcing premature classification.
 
-- **Supervisor Role** — A continuous-vigilance role distinct from the implementer (and optionally distinct from the directing party). Audits project health on a cadence, produces dated reports, and exercises delegated gate authority for routine work — by default approving Task-level gates and the promotion of scratchpad items to Tasks, with Epic-level gate authority configurable per project. Vision and Feature gates always remain with the directing party. Designed to be invokable both interactively (during a directing-party session) and autonomously (on a cadence the project configures).
+- **Supervisor Role** — Continuous health vigilance, drift detection and synthesis. It can help organise authorised execution but does not approve Vision or Feature gates or manufacture gates for optional work items.
 
 ---
 
@@ -78,18 +78,11 @@ Both personas direct AI rather than write code themselves. The framework must ma
 
 ### Three roles, configurably separable
 
-Shannon names three roles:
+- **Directing party** — the human who owns the Vision and approves Feature requirements, approach and delivered behaviour. Consequential changes to approved meaning return here.
+- **Implementer** — the agent that reads relevant context, chooses and revises implementation plans, maintains documents and traceability, tests, and returns concrete evidence.
+- **Supervisor/reviewer** — a distinct reviewer provides independent technical judgement; a supervisor may also audit project health. Neither can stand in for the human's Vision/Feature authority. The implementer cannot approve its own work by changing role labels.
 
-- **Implementer** — the AI that writes code, maintains documentation, and drafts work items for review.
-- **Directing party** — the source of vision and high-leverage decisions. Always retains gate authority over the Vision document and over Features. A human (Architect or Gardener) is the most common occupant; an agent acting in the directing-party role is supported.
-- **Supervisor** — performs continuous health vigilance and absorbs the routine gate workload so the directing party's interventions stay high-leverage. By default the supervisor holds Task-level gate authority and may promote scratchpad items into Tasks autonomously. Epic-level gate authority sits with the supervisor by default but may be reserved by the directing party per project. Scratchpad promotion to an Epic always requires directing-party approval, because Epics live under Features the directing party owns.
-
-Two constraints govern role assignment:
-
-1. **Supervisor ≠ implementer.** Gate integrity requires that the agent performing the work is not the same as the agent approving it. This constraint is absolute.
-2. **Supervisor = directing party is permitted.** In solo configurations one person can occupy both roles — the supervisor's value (cadence-driven vigilance, routine gate absorption) still applies, just without a second party. In fuller configurations the supervisor is an agent and the human only consumes its synthesis and exercises the gates it cannot.
-
-Gate authority therefore has a fixed floor (Vision + Features always with the directing party) and a configurable ceiling for the supervisor (Tasks always, Epics by default, Features and Vision never).
+The agent may work directly against an approved Feature or use Epics, Tasks and Spikes where they help. Factual documentation upkeep within approved intent is agent work; changing approved meaning, scope, acceptance criteria, access or cost requires the relevant human decision. Existing external-action and publication permissions remain in force.
 
 ### Retrospective adoption
 
@@ -105,7 +98,7 @@ Outcomes that indicate the vision is being realised. Split honestly: targets we 
 
 Targets with a clear instrumentation path. Each names what is measured and how.
 
-- **Setup time** — From `/shannon-setup` to first task in PLANNED status: under 5 minutes. *Measured by timestamps on `/shannon-setup` invocation and first Gate 2 approval.*
+- **Setup time** — From `/shannon-setup` to first Feature approach approved: under 5 minutes. *Measured by timestamps on `/shannon-setup` invocation and first Gate 2 approval.*
 - **Planning approval rate** — AI-drafted plans approved at Gate 2 without revision: 80%+. *Measured by tracking Gate 2 approvals versus revision cycles in the work-item Activity Log.*
 - **Documentation upkeep ratio** — Session time spent in `/document-*` commands: under 10% of total session time. *Measured with session-time tracking on document-related commands (requires instrumentation in the project-documentation skill).*
 
@@ -121,7 +114,7 @@ Commitments without a clean measurement path. They guide judgement when measurab
 
 ## Future Vision
 
-Beyond solo development: Shannon's coherence model — explicit authority graphs, unified work item lifecycles, AI-managed cross-references — is a candidate for any setting where humans direct AI on long-running projects. Knowledge workers managing research programmes, designers running multi-month projects, technical writers maintaining living documentation, operators of long-horizon agent fleets — all face variants of the same context-management problem.
+Beyond solo development: Shannon's coherence model — explicit authority graphs, feature-level governance, AI-managed cross-references — is a candidate for any setting where humans direct AI on long-running projects. Knowledge workers managing research programmes, designers running multi-month projects, technical writers maintaining living documentation, operators of long-horizon agent fleets — all face variants of the same context-management problem.
 
 The framework deliberately avoids language and framework lock-in. Markdown files, conventional directory layouts, and Claude Code slash commands are the only requirements. The bet is that what Shannon does for software projects can extend, with little adaptation, to any structured creative endeavour.
 
@@ -130,6 +123,11 @@ The supervisor role generalises naturally: any setting where humans direct long-
 ---
 
 ## Version History
+
+### 2026-11-01 - v3.0
+
+- Substantive revision approved by Ben: preserve all six documents and alignment, trace everything from the Vision, retain human Feature gates, and let agents manage execution below Features. Independent review remains distinct from implementation. Historical work records and identifiers are preserved.
+
 
 ### 2026-05-28 - v2.4
 

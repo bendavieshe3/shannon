@@ -1,5 +1,8 @@
 # FEAT-[XXX]: [Feature Name - Product Characteristic]
 
+> Legacy example, retained for reference. Its phase commands and lifecycle examples are superseded. This is not an active Feature definition or the current template; use [the shipped Feature template](../../shannon/skills/work-items/templates/feature.md).
+
+
 **ID**: FEAT-[XXX]
 **State**: STABLE | ACTIVE
 **Type**: Core Capability | Enhancement | Infrastructure

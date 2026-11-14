@@ -32,21 +32,21 @@ You read only — you may not modify any file. Your tool access is restricted to
 
 ## Process
 
-1. Read each index file and build a table of every work item it lists, with the status the index records.
+1. Read existing indexes and build a table of the records they list. Missing optional Epic/Task/Spike indexes or directories are not gaps; no child hierarchy is required for Feature delivery.
 2. For each listed item, read its body. Compare the body's Metadata Status against the status the index records.
 3. **Audit indexes.** Where the index and the body disagree on status, that is a lifecycle defect. Apply the *Source-of-truth body before derived artefacts* rule: the body is authoritative, the index is the derived artefact — so when they disagree, the body wins and the index is reported as drift.
-4. **Detect stuck or stale items.** Read each body's Updated date and Activity Log. An item that has sat in a non-terminal status (DRAFT, ELABORATED, PLANNED, IMPLEMENTING, IMPLEMENTED, REVIEW) well past its last activity may be stuck. An item whose Activity Log shows a gate was approved but whose Status was never advanced is stuck. Surface these as findings; where you cannot tell whether an item is genuinely stalled or simply paused on purpose, label the finding uncertain.
-5. **Cross-check derived bookkeeping.** Where an index carries a derived token the body governs — for example a Feature's `(Partial)` suffix, or an archived-Task link that should point into `./docs/tasks/archive/` once the body reads APPROVED — verify the index reflects the body. A mismatch is index drift, body authoritative.
-6. Return your finding fragment using the canonical four-category schema described below.
+4. **Detect stuck or stale items.** Read each body's Updated date and Activity Log. An item that has sat in a non-terminal status (DRAFT, ELABORATED, PLANNED, IMPLEMENTING, IMPLEMENTED, REVIEW) well past its last activity may be stuck. A Feature whose Activity Log records actual human gate approval but whose Status was never advanced has bookkeeping drift. Optional execution labels have no required sequence or human gates. Deliberate holds and historical evidence are not missing approvals. Surface these as findings; where you cannot tell whether an item is genuinely stalled or simply paused on purpose, label the finding uncertain.
+5. **Cross-check derived bookkeeping.** Where an index carries a derived token the body governs — for example a Feature's `(Partial)` suffix, or an archived-Task link that should point into `./docs/tasks/archive/` after an actually authorised move — verify the index reflects the body. A mismatch is index drift, body authoritative.
+6. Never require child completion/approval to accept a Feature or infer human acceptance from children. Preserve old logs; check actual current obligations, not superseded lower-level gates. Return your finding fragment using the canonical four-category schema described below.
 
 ## Return shape — canonical four-category schema
 
 Return a structured finding fragment using exactly these four categories — the canonical schema the supervisor's aggregator expects:
 
 - **Drift** — An index entry the body contradicts: the index records one status (or derived token, or archive location) and the body records another. Cite the specific index entry AND the specific work-item body (file path and Metadata Status / Activity Log line).
-- **Gap** — A lifecycle obligation the project silently fails to meet: an item missing from an index it should appear in, an approved gate whose status transition was never recorded, an archived body whose index link was never repointed. Cite the specific item and the missing bookkeeping.
+- **Gap** — A lifecycle obligation the project silently fails to meet: an item missing from an index it should appear in, a human-approved Feature gate whose status transition was never recorded, an archived body whose index link was never repointed. Cite the specific item and the missing bookkeeping.
 - **Internal contradiction** — An inconsistency within the lifecycle records themselves: a body whose Metadata Status disagrees with its own Activity Log, or two indexes that disagree about the same item. Cite both contradicting locations.
-- **Strength** — A lifecycle discipline the project lives well that is worth preserving so future work does not accidentally undo it — for example indexes that stay in lockstep with bodies, or clean archive-on-approval hygiene. Cite the specific index and body.
+- **Strength** — A lifecycle discipline the project lives well that is worth preserving so future work does not accidentally undo it — for example indexes that stay in lockstep with bodies, or accurate links after authorised archival. Cite the specific index and body.
 
 Each finding must cite the specific work item, index entry, or section being commented on so the supervisor's aggregator can navigate directly to the source and the directing party can verify the finding without re-deriving it.
 
