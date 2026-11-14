@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md)
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #conventions #supervisor #audit-log
 - **Created**: 2026-10-23
-- **Updated**: 2026-10-23
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -85,7 +85,7 @@ One bullet, sibling to *Optional state file is gitignored*. Take the path from `
 
 ### Documents Updated
 
-- *None yet.*
+- `docs/development_guide.md` v2.1: § Git Workflow → Supervisor Report Files gains *Audit log is never committed*, with location, the Shannon blanket ignore versus the targeted ignore `/shannon-setup` installs, and precedent EPIC-009 AC#5 and TASK-017; run working files and run logs added under the same rule
 
 ---
 
@@ -109,4 +109,5 @@ One bullet, sibling to *Optional state file is gitignored*. Take the path from `
 
 ## Activity Log
 
+- **2026-11-14** — IMPLEMENTED in `development_guide.md` v2.1, delivered directly under FEAT-008 in the finish-to-vision push (Vision v3.0: optional records carry no human gates, so the remaining Task gates lapse; the directing party approved finishing the work, 2026-11-14). Independent review rides the pull request.
 - **2026-10-23** — DRAFT: Task created during `/epic-plan EPIC-012` (Gate 2 pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during EPIC-012 planning, not yet reviewed".

@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: — (orphan Task; no parent Epic — see § Context)
 - **Feature**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Tags**: #framework #work-items #archive #cross-references
 - **Created**: 2026-10-17
-- **Updated**: 2026-10-24
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -109,6 +109,7 @@ Task files link their parent as `../epics/…` and `../features/…`. On APPROVE
 
 [Timestamped entries recording the history. Newest at the top.]
 
+- **2026-11-14** — IMPLEMENTED. Both halves are on `master`: the one-time sweep (PR #7) and the archive-depth rule, now in `work-items/SKILL.md` § Optional archive and existing indexes after the Feature-level governance rewrite. Link check over `docs/tasks/archive/` still reports 0 broken. Under Vision v3.0 this orphan Task carries no gate of its own.
 - **2026-10-24** — Skill-side fix, approved by Ben 2026-10-24 as an ordinary PR ahead of formal elaboration: `work-items/SKILL.md` § Process: Review → Gate 3 now rewrites a moved Task's relative links for the archive depth and repoints inbound links to its old path; the `task_index.md` template and this project's index note it. Deployed `.claude/` copy still needs a re-copy after merge. Status left DRAFT for Ben to settle
 - **2026-10-23** — One-time sweep (PR #7, approved by Ben 2026-10-23): 116 broken relative links across all 28 archived Tasks repointed; link check over `docs/tasks/archive/` reports 0 broken
 - **2026-10-17** — DRAFT: Task created from the scratchpad item "Archived Tasks carry broken relative links" by the 2026-10-17 triage. Scope widened from TASK-001…021 to all 28 archived Tasks, as checked at triage

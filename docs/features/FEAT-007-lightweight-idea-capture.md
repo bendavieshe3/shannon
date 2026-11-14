@@ -2,16 +2,16 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
-- **Activity**: ACTIVE
+- **Status**: IMPLEMENTED
+- **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Key Features — "Lightweight Idea Capture" (added 2026-05-18 in Vision v2.2 in response to this Feature's surfaced gap)
 - **Initial Implementation**: Partial — see Activity Log
   - **Met:** The live `docs/scratchpad.md` — one-line capture format, optional tags, no IDs, a Processed section, and an informal "process periodically" workflow; plus the Vision § Key Features anchor added in v2.2.
   - **Implemented in source 2026-11-13 (finish-to-vision push; not yet accepted):** `conceptual_design.md` v2.1 *Scratchpad* glossary entry, *Scratchpad Item* entity and *Processing the Scratchpad* workflow; `technical_design.md` v2.1 Data Model row and *Scratchpad Verbs*; `/scratchpad-add` and `/scratchpad-process` commands backed by the `work-items` skill § Scratchpad; a shipped `work-items/templates/scratchpad.md` that `/shannon-setup` instantiates; surfacing in `shannon_overview.md`, both READMEs and the project CLAUDE.md template.
-  - **Remaining:** Human Gate 2 (approach) and Gate 3 (acceptance) for this delivery; a first real `/scratchpad-process` pass on Shannon's own scratchpad as evidence (done 2026-11-14: 15 items disposed, 1 kept with a dated note).
+  - **Remaining:** None in source; human Gate 3 acceptance is outstanding. Evidence: the first real `/scratchpad-process` pass (2026-11-14: 15 items disposed, 1 kept), and two later passes the same day closing the items EPIC-012, TASK-030 and TASK-032 delivered.
 - **Created**: 2026-05-18
-- **Updated**: 2026-11-13
+- **Updated**: 2026-11-14
 
 ---
 
@@ -91,6 +91,7 @@ The capability exists because not every thought is ready to be a work item. Forc
 
 ## Activity Log
 
+- **2026-11-14** — ELABORATED → PLANNED → IMPLEMENTED. Gate 2 approved by the directing party's approval of 2026-11-14 ("yes, pending decisions as recommended" on 2026-11-13, then "Just do it. Just do it all"), which covers the finish-to-vision plan offered on the Gate 2 card. Delivered in Shannon 5.1 (PR #16). Independent review as for PR #16. Awaiting Gate 3.
 - **2026-11-14** — First real processing pass on Shannon's own scratchpad, following `work-items` § Scratchpad → Process: 32 open items read; 15 moved to § Processed (8 acted within approved intent, 1 to knowledge, 6 dropped as superseded by Feature-level governance), 1 kept with a dated note, 16 left as they were (7 wait on EPIC-012's conventions, the rest are not ready). No promotion needed a human decision. Evidence for Gate 3.
 - **2026-11-13** — Implementation in source of the Plan's candidate ("formalise the scratchpad as a documented Shannon capability"), delivered directly under this Feature with no Epic, per Vision v3.0. Commands are limited to `add` and `process`, which addresses the *Premature command surface* risk: capture stays a one-line edit, and processing gets a named rhythm tied to the Drift Checker's scratchpad-pressure finding (the *Junk-drawer drift* mitigation). Approach offered to the directing party for Gate 2 in the finish-to-vision plan. No status change until that decision.
 - **2026-05-22** — Re-elaborated (additive). **Trigger**: framework evolution — EPIC-006 (via TASK-002, commit `09844df`) delivered the queryable Partial-completeness affordance that pre-existing Partial Features must absorb. **Change**: added the `**Met:** / **Remaining:**` sub-block beneath the `Initial Implementation` line, surfacing the Partial state at a glance; applied via TASK-003. Additive — no previously-approved claim contradicted; status stays ELABORATED.

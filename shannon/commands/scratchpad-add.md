@@ -9,7 +9,7 @@ Pass:
 - **Verb**: `add`
 - **Item**: `$ARGUMENTS`
 
-If `$ARGUMENTS` is empty, ask the user for the idea in one line.
+If `$ARGUMENTS` is empty, ask the directing party for the idea in one line.
 
 If the `work-items` skill does not activate, report:
 "Error: work-items skill failed to activate. Please confirm `./.claude/skills/work-items/` is present."

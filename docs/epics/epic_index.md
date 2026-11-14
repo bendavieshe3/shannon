@@ -3,7 +3,7 @@
 - [EPIC-001](./EPIC-001-basic-installation.md) — DRAFT (MET, recorded under FEAT-001, 2026-11-13) — Basic Installation (FEAT-001) #setup #install
 - [EPIC-002](./EPIC-002-smart-installation.md) — DRAFT (DELIVERED directly under FEAT-001, 2026-11-13) — Smart Installation (FEAT-001) #setup #install
 - [EPIC-003](./EPIC-003-version-management.md) — DRAFT (DELIVERED directly under FEAT-001, 2026-11-13) — Version Management (FEAT-001) #setup #versioning
-- [EPIC-004](./EPIC-004-distribution-channels.md) — DRAFT (decision pending, 2026-11-13) — Distribution Channels (FEAT-001) #setup #distribution
+- [EPIC-004](./EPIC-004-distribution-channels.md) — DRAFT (SUPERSEDED by the distribution cut, 2026-11-14) — Distribution Channels (FEAT-001) #setup #distribution
 - [EPIC-005](./EPIC-005-v6-skills-and-claude-template.md) — APPROVED — V6 Vocabulary in Skills and CLAUDE.md Template (FEAT-006) #v6 #framework
 - [EPIC-006](./EPIC-006-work-item-lifecycle-maturation.md) — APPROVED — Work Item Lifecycle Maturation: Re-elaboration + Queryable Completeness (FEAT-003) #framework #work-items
 - [EPIC-007](./EPIC-007-work-item-conventions-from-dogfooding.md) — APPROVED — Work-Item Conventions Surfaced Through Dogfooding (FEAT-003) #framework #conventions #work-items
@@ -11,7 +11,7 @@
 - [EPIC-009](./EPIC-009-health-reporting-surface.md) — APPROVED — Health Reporting Surface (FEAT-009) #supervisor #phase-2 #skill #hooks #reporting
 - [EPIC-010](./EPIC-010-synthesis-and-reports.md) — APPROVED — Synthesis and Reports (FEAT-009) #supervisor #phase-3 #goal-decomposition #hooks #presentation
 - [EPIC-011](./EPIC-011-autonomic-invocation.md) — DRAFT (MECHANISM DELIVERED under FEAT-009; scheduler activation held, 2026-11-13) — Autonomic Invocation (FEAT-009) #supervisor #phase-4 #headless #scheduler #cadence
-- [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — PLANNED — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
+- [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — IMPLEMENTED (2026-11-14) — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
 - [EPIC-013](./EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — V6 Vocabulary in Command Files (FEAT-006) #v6 #framework #commands
 - [EPIC-014](./EPIC-014-work-item-conventions-round-2.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (FEAT-003) #framework #conventions
 - [EPIC-015](./EPIC-015-document-consultation-at-elaborate-and-plan.md) — DRAFT (DELIVERED directly under FEAT-003, 2026-11-13) — Document Consultation at Elaborate and Plan (FEAT-003) #framework #work-items #alignment

@@ -12,4 +12,4 @@ This command is idempotent. If Shannon is already installed, the skill reports t
 If the `project-setup` skill does not activate, report:
 "Error: project-setup skill failed to activate. Please confirm `./.claude/skills/project-setup/SKILL.md` is present."
 
-After setup completes, the skill recommends the next command (typically `/document-review vision.md`). Surface that recommendation to the user.
+After setup completes, the skill recommends the next command (typically `/document-review vision.md`). Surface that recommendation to the directing party.

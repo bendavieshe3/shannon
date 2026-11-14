@@ -34,7 +34,7 @@ For re-elaboration, follow `conceptual_design.md` § Re-elaborating a Work Item:
 
 ### Plan — Gate 2
 
-Read the Feature requirements and the sections that bear on the approach in `technology_stack.md`, `technical_design.md`, `development_guide.md` and `conceptual_design.md` (and `ux_guide.md` when user-facing). Record each in Plan § Documents Consulted, as at elaboration, and name any contradiction the approach would create. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
+Read the Feature requirements and the sections that bear on the approach in `technology_stack.md`, `technical_design.md`, `development_guide.md` and `conceptual_design.md` (and `ux_guide.md` when user-facing). Record each in Plan § Documents Consulted, as at elaboration, and name any contradiction the approach would create. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands. When the approach creates a skill, include its thin command entry point in the plan: commands are how people reach skills (`technical_design.md` § System Architecture). Precedent: EPIC-009 planned the supervisor skill without `/shannon-report`, which TASK-020 had to add.
 
 ### Implement — agent-managed delivery
 

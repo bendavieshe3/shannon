@@ -1,0 +1,218 @@
+# AGENTS.md
+
+Repository rules for every coding agent (Claude Code, Codex and others). Claude Code reads this file through `CLAUDE.md`, which imports it.
+
+## What This Repository Is
+
+This is **Shannon** — a documentation and workflow framework for AI-assisted development with Claude Code. It provides:
+
+1. **Mandated document templates** for project documentation (six core documents)
+2. **Feature-led delivery** with three human Feature gates and optional Epic, Task and Spike execution aids
+3. **Knowledge base structure** for research, implementation details, and document extensions
+4. **Slash commands** built on a Commands + Skills + Subagents architecture
+
+This is **not** a traditional software project. It is a meta-framework for organising how AI (Claude Code) and humans collaborate on software projects. The framework is plain Markdown — no build step, no network calls. The one exception is the optional supervisor's small `bash` scripts (hooks and the unattended runner), which need `bash` and `jq`.
+
+## Repository Structure
+
+```
+shannon/                                  # Shannon deployables (source)
+├── commands/                             # Thin command files (delegate to skills)
+│   ├── README.md
+│   ├── shannon-setup.md / shannon-update.md
+│   ├── document-create.md / document-review.md
+│   ├── feature-{create,elaborate,plan,implement,review}.md
+│   ├── epic-{create,elaborate,plan,implement,review}.md
+│   ├── task-{create,elaborate,plan,implement,review}.md
+│   ├── spike-{create,elaborate,plan,implement,review}.md
+│   ├── scratchpad-{add,process}.md
+│   └── shannon-{report,goal}.md
+│
+├── skills/                               # Framework logic + templates
+│   ├── project-setup/
+│   │   ├── SKILL.md
+│   │   └── templates/CLAUDE.md
+│   ├── project-documentation/
+│   │   ├── SKILL.md
+│   │   └── templates/
+│   │       ├── vision.md
+│   │       ├── technology_stack.md
+│   │       ├── conceptual_design.md
+│   │       ├── technical_design.md
+│   │       ├── development_guide.md
+│   │       ├── ux_guide.md
+│   │       ├── knowledge_note.md
+│   │       └── knowledge_index.md
+│   ├── work-items/
+│   │   ├── SKILL.md
+│   │   └── templates/
+│   │       ├── feature.md  / feature_index.md
+│   │       ├── epic.md     / epic_index.md
+│   │       ├── task.md     / task_index.md
+│   │       ├── spike.md    / spike_index.md
+│   │       └── scratchpad.md
+│   └── shannon-supervisor/               # SKILL.md, checkers/, hooks/, scripts/, templates/
+│
+└── guides/                               # User-facing documentation
+    ├── shannon_overview.md
+    └── CHANGELOG.md                      # Framework version source of truth
+
+docs/                                     # Shannon's own documentation (dogfooding)
+├── vision.md
+├── technology_stack.md
+├── conceptual_design.md
+├── technical_design.md
+├── development_guide.md
+├── ux_guide.md
+├── features/
+├── epics/
+├── tasks/
+└── knowledge/
+
+spikes/                                   # Disposable exploratory work (project root)
+tests/                                    # Case scripts for shipped executables (never deployed)
+```
+
+## Core Concepts
+
+### Four-Layer Architecture
+
+```
+Documentation Layer (six mandated documents + knowledge base)
+    ↓ informs
+Vision Layer (supreme authority)
+    ↓ elaborates into
+Feature Layer (human-governed capabilities; optional execution aids)
+    ↓ produces
+Implementation
+```
+
+### Work Items
+
+Features retain `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Epics, Tasks and Spikes are optional agent-managed records with no mandatory sequence or human gates. Preserve their identifiers and history. Direct Feature implementation requires no children.
+
+### Three Quality Gates
+
+Human Feature gates approve (1) requirements/acceptance criteria, (2) approach/consequential trade-offs and (3) delivered capability against evidence. Vision and consequential changes to approved meaning remain human-owned. Reuse exact explicit approvals; never infer acceptance from silence, self-tests or a merged pull request. Independent technical review remains separate from implementation and human acceptance.
+
+### Document Authority Graph
+
+```
+              Vision (supreme)
+             /              \
+    Technology Stack    Conceptual Design
+             \              /
+              Technical Design
+                    |
+          ┌─────────┴─────────┐
+    Development Guide      UX Guide
+```
+
+Lower documents must enable higher ones. Drift is a defect.
+
+### Implementation Layers
+
+- **Commands** — thin entry points; delegate to skills
+- **Skills** — reusable framework logic with templates
+- **Subagents** — optional, separately authorised help; independent technical review must remain distinct from implementation
+
+## How to Use This Repository
+
+### Understanding the System
+
+Read in this order:
+
+1. `shannon/guides/shannon_overview.md` — Complete walkthrough
+2. `shannon/skills/*/SKILL.md` — Canonical behaviour of each skill
+3. `shannon/commands/README.md` — Command reference
+
+### Deploying into a New Project
+
+```bash
+mkdir -p /path/to/new-project/.claude
+cp -r shannon/commands /path/to/new-project/.claude/commands
+cp -r shannon/skills   /path/to/new-project/.claude/skills
+cp -r shannon/guides   /path/to/new-project/.claude/guides
+```
+
+Then in the new project:
+
+```
+/shannon-setup
+```
+
+This instantiates mandated documents and walks through initial vision content.
+
+### Workflow in a New Project
+
+Approve the Vision and relevant governing meaning. Capture a Feature, approve its requirements with `/feature-elaborate`, approve approach with `/feature-plan`, then `/feature-implement` delivers directly. Agents choose useful decomposition, maintain relevant documents and trace implementation/checks/review from the Feature. `/feature-review` presents evidence for human acceptance. Optional Epic/Task/Spike commands remain available without routine human gates.
+
+## Improving This Repository
+
+When working on Shannon itself:
+
+1. **Command changes** — `shannon/commands/` (keep them thin)
+2. **Skill changes** — `shannon/skills/<name>/SKILL.md` (where workflow logic lives)
+3. **Template changes** — `shannon/skills/<name>/templates/`
+4. **Guide changes** — `shannon/guides/`
+5. **Shannon's own docs** — `docs/` (dogfooding)
+
+Shannon eats its own dog food: changes to templates should be reflected in `docs/` to validate that the templates produce coherent project documentation.
+
+## What NOT to Do
+
+❌ Don't add code beyond the supervisor's shipped scripts and their case scripts in `tests/`
+❌ Don't introduce build steps or runtime dependencies
+❌ Don't commit without testing changes against a real project workflow
+❌ Don't add features that increase maintenance burden without commensurate value
+❌ Don't add mandatory child hierarchies or human gates below Features
+
+## Key Design Principles
+
+1. **Plain text** — All files readable without special tools
+2. **AI does the bookkeeping** — Cross-references, status transitions, alignment checks
+3. **Humans direct, AI executes** — Gates exist where human judgement compounds; AI handles the rest
+4. **Knowledge accumulates** — Implementation details and learnings captured, not lost
+5. **Flat file structure** — No databases, no complex tooling
+6. **Single source of truth** — Templates ship inside skills; skills ship inside `.claude/`; no duplication
+
+## Environment Context
+
+This repository is one project inside Ben's wider agent estate (**xDDS** — Cross-Domain Delivery System). Shannon itself is runtime-agnostic Markdown, but the session working on it is not, and the surrounding conventions matter.
+
+- **Ben**: IT professional, ex-software engineer. Values directness; dislikes hand-holding and padding. He is the **directing party** for every gate in this repo.
+- **This project's situation record is SIT-026**, at `~/Documents/Vaults/general-vault/Areas/Situations/SIT-026-Shannon-Development-Framework/README.md` in the Obsidian vault. Since 2026-08-20 the situation and the project are worked **together, from this directory**: the session doing framework work maintains that README. Re-read it fresh from disk when picking work up; do not rely on cached context.
+- **The situation registry** at `~/xdds/shared/situation-registry.md` is the cross-agent index and the source of truth for SIT IDs.
+- **SIT-004 (Second Age Transition) is the estate's strategic source of truth.** If work here reaches an estate-level architectural call — multi-runtime support, skill-library layout, cross-agent conventions — **surface it to SIT-004 rather than deciding locally.** Shannon-internal design decisions remain Shannon's own.
+- **Two different skill systems, easily confused:**
+  - **Shannon skills** — `shannon/skills/*/SKILL.md`, deployed into a project's `.claude/`. Plain Markdown, hand-authored, governed by this repo's own lifecycle.
+  - **xDDS skills** — `~/xdds/skills/`, mounted at `~/.claude/skills/`. Governed by the estate's three-layer taxonomy and **always built via `xdds-skill-creator`**. That rule does **not** apply to Shannon skills.
+- **Other agent runtimes.** Codex Desktop derived `.agents/` and `.codex/` from `.claude/` at first launch (2026-07-24). They are another runtime's deployment artefacts, are gitignored, and are **not** Shannon source. `AGENTS.md` is this repository's committed rules file. Multi-runtime support is a stated estate goal but not yet a Shannon commitment — see SIT-004.
+
+## Working Conventions
+
+- **Identifiers**: confirm the exact `SIT-XXX` / `FEAT-XXX` / `EPIC-XXX` / `TASK-XXX` before acting; bare numerics zero-pad (`7` → `TASK-007`). **Gloss every ID in plain language on first use each turn** — "TASK-025 (the SessionStart health-summary hook)", never a bare number. When asking Ben to choose, state what each option *is* and what it costs; he is not a lookup table.
+- **Version control**: the remote is **public** (`github.com/bendavieshe3/shannon`) — a push is publication, not just backup. Never commit secrets, runtime artefacts, or another runtime's config. Commit cadence and the pre-commit checklist are ratified in `docs/development_guide.md` § Git Workflow; the **Push Cadence** subsection there governs when to push. Per Ben's global instruction, **do not commit before running or testing the change**.
+- **Before acting**: read the relevant mandated document and work-item file before proposing new structure. Pause and confirm before any rename, delete, `mv`/`rsync`, or other hard-to-reverse operation — list exactly what would change and wait for a yes.
+- **Scope fidelity**: deliver what was asked at the scope intended. Make routine judgement calls; check in only when readings diverge materially. If a better approach is apparent, say so in a sentence and continue as asked.
+- **Research**: Shannon tracks a moving target — Claude Code's feature surface. When a question has an online answer (release notes, hook APIs, subagent behaviour, SDK capability), **search rather than answering from memory**, and cite what you found. Spikes are the place for that research; knowledge notes are where it lands durably.
+- **Where output goes**: framework work → `shannon/`; Shannon's own project documentation → `docs/`; durable findings → `docs/knowledge/`; pre-workflow ideas → `docs/scratchpad.md`; situation state → the SIT-026 README. Scratch work goes in the session scratchpad directory, never the repo.
+
+## Getting Help
+
+- **System overview**: `shannon/guides/shannon_overview.md`
+- **Skill definitions**: `shannon/skills/*/SKILL.md`
+- **Command reference**: `shannon/commands/README.md`
+- **Shannon's own dogfood docs**: `docs/`
+
+---
+
+**Remember**: Shannon works because AI reads documentation for context, preserves Vision-to-Feature-to-evidence traceability, and captures knowledge for the future. The framework's value comes from the discipline of using it — not bypassing it.
+
+## Landing changes
+
+**Land code through a pull request.** The default branch changes only by merging a reviewed pull request: commit on a branch, push it, and open a pull request. Never push to the default branch.
+
+A pull request merges only after a reviewer who did not write or push to it has approved its current head commit, with no open change requests. Fix what a reviewer raises on the same branch and ask for a fresh review. The full rules are in `docs/development_guide.md` § Git Workflow.
+
+*Why:* a reviewer outside the session catches what its author cannot see.

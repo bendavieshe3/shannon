@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: IMPLEMENTED
 - **Type**: Task
 - **Parent**: [EPIC-012](../epics/EPIC-012-development-conventions-from-supervisor-build-out.md)
 - **Feature**: [FEAT-008](../features/FEAT-008-development-discipline.md)
 - **Tags**: #framework #development-guide #conventions #precedent #sweep
 - **Created**: 2026-10-23
-- **Updated**: 2026-10-23
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Tasks are archived to `./archive/` once APPROVED.
 
@@ -89,7 +89,7 @@ State the rule in one short bullet at the head of § Code Style → Patterns to 
 
 ### Documents Updated
 
-- *None yet.*
+- `docs/development_guide.md` v2.1: § Code Style → Patterns to Follow opens with the precedent requirement. Sweep of post-bootstrapping conventions: Source-of-truth body (TASK-003, present), Acceptance criteria cite the governing rule (TASK-029 et al., present), the four EPIC-012 bullets (present), Placeholders (TASK-038), Shipped-executable test (TASK-016/017/025), Branching, Repository Rules, Commits (run-before-commit, attribution, no Git commit hooks), Pull Requests and the CI/CD rules for future checks (PR #15, added in each body), Commit Cadence's unattended-run sentence (FEAT-009, added), Distribution (FEAT-001 Gate 2, added), Push Cadence (TASK-007, added), Multi-Agent Coordination (v1.2 G1, added), Supervisor Report Files (v1.4 cascade, added), Supervisor audit log (TASK-017). Patterns to Follow still reads as rules: no bullet carries more than one precedent line. EPIC-012's single Guide version is the v2.1 entry
 
 ---
 
@@ -113,4 +113,5 @@ State the rule in one short bullet at the head of § Code Style → Patterns to 
 
 ## Activity Log
 
+- **2026-11-14** — IMPLEMENTED in `development_guide.md` v2.1, delivered directly under FEAT-008 in the finish-to-vision push (Vision v3.0: optional records carry no human gates, so the remaining Task gates lapse; the directing party approved finishing the work, 2026-11-14). Independent review rides the pull request.
 - **2026-10-23** — DRAFT: Task created during `/epic-plan EPIC-012` (Gate 2 pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during EPIC-012 planning, not yet reviewed".

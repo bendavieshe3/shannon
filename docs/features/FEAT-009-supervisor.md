@@ -2,13 +2,13 @@
 
 ## Metadata
 
-- **Status**: PLANNED
+- **Status**: IMPLEMENTED
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #5 *Continuous Health Vigilance* (primary); § Key Features *Supervisor Role* (substantive commitment); § Target Users *Three roles, configurably separable* (role model); § Future Vision *supervisor portability* (forward generalisation)
-- **Initial Implementation**: Built through Shannon — interactive reporting/synthesis delivered; autonomous cadence and portability still require separate validation. See Plan and Activity Log.
+- **Initial Implementation**: Built through Shannon — interactive reporting, the unattended runner and portability delivered and validated (2026-11-14). Scheduling a run for Shannon itself is a per-project choice, not yet made. See Plan and Activity Log.
 - **Created**: 2026-05-29
-- **Updated**: 2026-11-13
+- **Updated**: 2026-11-14
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`.
 > **Activity** indicates current development state: `STABLE` (no active implementation) or `ACTIVE` (implementation in progress). Activity is descriptive state, orthogonal to Status.
@@ -194,6 +194,7 @@ Outcomes that indicate the Feature is being realised. Split honestly: Measurable
 
 ## Activity Log
 
+- **2026-11-14** — PLANNED → IMPLEMENTED. The finish-to-vision approach (Gate 2 for the remaining mechanism) approved by the directing party's approval of 2026-11-14 ("yes, pending decisions as recommended" on 2026-11-13, then "Just do it. Just do it all"), which covers the finish-to-vision plan offered on the Gate 2 card. Delivered in Shannon 5.1 (PR #16): PreCompact and Stop hooks with per-run working directories, `scripts/cadence-run.sh` (unattended run in a throwaway worktree, report-only commit on its own branch, throttle), the write-guard absolute-path fix, checker frontmatter Claude Code reads, and supervisor wiring by `/shannon-setup`. Evidence: a live end-to-end cadence run in a fixture (report committed, worktree removed, about $0.49); case scripts in `tests/supervisor/` (16, 13 and 10 cases); setup into a Node project wired the hooks once each (portability). Independent review: an independent reviewer approved at db33cc0. Not done, by design: scheduling `cadence-run.sh` for Shannon itself, which adds a recurring model cost on the directing party's machine; the cron and launchd lines are in `technical_design.md` § Cadence. Awaiting Gate 3.
 - **2026-11-13** — Autonomy mechanism and portability implemented in source, directly under this Feature (finish-to-vision push). **Delivered:** PreCompact and Stop hooks (scripts, snippets, 11 unit checks); checker fragments saved to disk as each returns; the `cadence-run.sh` runner (throttle, worktree outside `.claude/`, scoped headless run without `--bare`, the runner commits one report per run on a `supervisor/report-*` branch, optional push, no git write tools for the model); muted findings in the state file; checkers spawned with their model alias; `SKILL.md` frontmatter; `/shannon-setup` wiring of all five hooks, config, ignores and report directory; and `technical_design.md` § Cadence rewritten. **Defect fixed:** the PreToolUse write-guard compared raw paths, but Write and Edit pass absolute paths, so every scoped write was refused. It now makes paths project-relative and refuses `..`, with 14 unit checks. **Live evidence:** in a scratch project, `cadence-run.sh` throttled a second run, then ran all three checkers and wrote the report and index entry under the active write-guard. It committed `Supervisor report 2026-11-13` on its own branch and cleaned up the worktree (about USD 0.49 per run). **Not done, by design:** no scheduler is enabled for Shannon itself, and nothing is deployed to the directing party's machine. Those remain the named scheduler, deployment and cost holds. Awaiting Gate 3 with the other Features.
 - **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains PLANNED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
 
