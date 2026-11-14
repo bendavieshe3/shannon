@@ -47,33 +47,54 @@ This Task gives the Guide a Test Level for shipped executables and reconciles th
 
 ## Plan
 
-*Prepared during EPIC-012 planning, not yet reviewed. Surfaces at `/task-plan TASK-033` (Gate 2).*
+*Prepared during EPIC-012 planning; reviewed and refined at `/task-plan TASK-033` on 2026-10-24. Gate 2 pending.*
 
 ### Approach
 
-Scope the opening sentence to templates and prompts, add one Test Level, and add a short clause to each sibling claim. Draw the Test Level's wording from what the three precedent Tasks actually did (run the script against crafted hook-event JSON on stdin, check the output and exit code), stated as a rule, not as a copy of any one Task's test log.
+Every change is in `development_guide.md`, and every one is additive (AC#5 ruling, 2026-10-24). Five pieces:
+
+1. **Opening sentence scoped.** § Testing Strategy's opening becomes, in substance: *Shannon's templates and prompts have no unit tests because they have no units; their correctness is the correctness of templates and prompts in the eyes of Claude Code and a real user. Scripts a skill ships are the exception, and have their own level below.*
+2. **New Test Level, fourth in the list.** Named **Shipped-executable test**. Its body states the AC#2 rule in three parts: run directly against controlled inputs (environment variables, hook event JSON on stdin, fixture files, a temporary output path) so no live project state is read or written; the Task's ACs enumerate the cases with expected exit code, output or side effect; the Task records the cases and results. It ends with the precedent line *Worked precedent: TASK-016, TASK-017, TASK-025.* The three existing levels are untouched apart from the scoping the opening already gives them.
+3. **What to Test and Pre-Commit Checklist (AC#3).** One What to Test bullet: *every shipped executable passes its enumerated cases before commit*. One checklist item: *If a shipped executable changed, its cases were run and passed*.
+4. **Four sibling clauses (AC#4).** Each keeps its claim and gains one clause naming the level. Draft wording:
+   - § Build and Run → Test: "…no automated test suite for Shannon itself; shipped executables are tested by hand under the shipped-executable Test Level."
+   - § Git Workflow → Commits: "**No Git commit hooks** — Shannon has no automated test suite for a Git hook to run (shipped-executable tests are run by hand); this is unrelated to the Claude Code hooks the supervisor ships."
+   - § Testing Strategy → Instrumentation: "Distinct from testing (including the hand-run shipped-executable level), instrumentation is…"
+   - § CI/CD → Pipeline Stages: "…no automated tests (shipped-executable tests are run by hand before commit), and no deployment target."
+5. **Version History.** Opens `### Unreleased (EPIC-012)` above the v1.5 entry with this Task's bullet (AC#6). `**Last Reviewed**` is not touched; the fold does that.
+
+The level's wording is drawn from what the precedents did, stated as a rule, not copied from any one Task's test log (§ Code Style → Patterns to Follow → *Acceptance criteria cite the governing rule*).
+
+**Verification substrings** (Step 7). Each lands in plain prose, with no Markdown inside it:
+
+- `Shipped-executable test` (the level's name)
+- `Worked precedent: TASK-016, TASK-017, TASK-025`
+- `templates and prompts have no unit tests`
+- `shipped-executable` in each of the four sibling sections, plus `Claude Code hooks` in § Git Workflow → Commits
+- `Unreleased (EPIC-012)` and `TASK-033` in § Version History
+- Negative check: `Shannon has no unit tests because Shannon has no units` no longer appears.
 
 ### Steps
 
-1. Re-read `development_guide.md` as landed on master, not as any earlier Task planned it (per § Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts*; the cross-Task case is not yet codified, but this is the Epic's first Task, so the landed state is the v1.5 Guide), and confirm the target section's current wording.
-2. Read the three precedent Tasks' test records and extract the common discipline.
-3. Scope the § Testing Strategy opening sentence; add the shipped-executables Test Level with its precedents.
-4. Add the What to Test line and the Pre-Commit Checklist item (AC#3).
-5. Add the scoping clause (or rewrite) at § Build and Run → Test, § Git Workflow → Commits (with the Git-hooks disambiguation), § Testing Strategy → Instrumentation and § CI/CD → Pipeline Stages.
-6. Add this Task's bullet under § Version History → `Unreleased (EPIC-012)` (this Task opens the heading at the top of § Version History).
-7. Verify: grep each verification substring named in the ACs against the landed Guide; render the Guide with pandoc; check every new cross-reference resolves.
-8. `git diff --stat` scope check against the scope-guard AC.
+1. Re-read `development_guide.md` as landed on master (§ Code Style → Patterns to Follow → *Source-of-truth body before derived artefacts*). This is the Epic's first Task, so the landed state is v1.5. Confirm each target section's current wording against the Approach drafts.
+2. Scope the § Testing Strategy opening sentence (Approach 1).
+3. Add the Shipped-executable test level with its precedent line (Approach 2).
+4. Add the What to Test bullet and the Pre-Commit Checklist item (Approach 3).
+5. Add the four sibling clauses (Approach 4).
+6. Open `### Unreleased (EPIC-012)` at the top of § Version History with this Task's bullet: section amended, route (work item, not `/document-review`), classification additive (Gate 1 ruling).
+7. Verify: grep every verification substring and the negative check; render the Guide with pandoc; check the Guide's relative links still resolve.
+8. `git diff --stat`: only `development_guide.md`, this Task file, `task_index.md` and the EPIC-012 Tasks line (if it carries status) change (AC#7).
 
 ### Dependencies
 
-- EPIC-012 PLANNED (Gate 2)
-- `development_guide.md` v1.5 APPROVED
+- TASK-033 ELABORATED (Gate 1, 2026-10-24)
+- `development_guide.md` v1.5 APPROVED; no other Guide-amending PR open. EPIC-011 has none in flight.
 
 ### Risks
 
-- **Additive vs substantive misjudged** — the Gate 1 decision is recorded explicitly (AC#5), with the cautious-path rule quoted; a substantive call changes this Task's versioning, not its content.
-- **The level reads as a mandate for an automated suite** — the scoping clause says the tests are run by hand; the level adds no build step and no automated runner.
-- **Out-of-scope gap nearby**: the scripts depend on `bash` and `jq`, which no mandated document names. Not this Task's to fix (AC#7); it sits in `docs/scratchpad.md` § Items.
+- **The level reads as a mandate for an automated suite.** Every sibling clause says the tests are run by hand, and the level adds no build step and no automated runner.
+- **"Hooks" ambiguity left half-fixed.** Only § Git Workflow → Commits uses "commit hooks"; Step 7's `Claude Code hooks` grep pins the disambiguation there. No other "hooks" sentence in the Guide is about Git.
+- **Out-of-scope gap nearby.** The scripts depend on `bash` and `jq`, which no mandated document names. Not this Task's to fix (AC#7); it sits in `docs/scratchpad.md` § Items.
 
 ---
 
@@ -118,3 +139,4 @@ Scope the opening sentence to templates and prompts, add one Test Level, and add
 - **2026-10-23** — DRAFT: Task created during `/epic-plan EPIC-012` (Gate 2 pending) via Cascading Preparation. Prepared elaboration draft (Requirements) and prepared plan draft (Plan) stashed, marked "Prepared during EPIC-012 planning, not yet reviewed".
 - **2026-10-24** — DRAFT (elaboration pass, Gate 1 pending): Prepared Requirements reviewed at `/task-elaborate TASK-033` against EPIC-012 (PLANNED), FEAT-008, `development_guide.md` v1.5, `conceptual_design.md` § Re-reviewing → *Status semantics*, and the three precedent Tasks. Findings (Drift / Gap / Internal contradiction / Strength). **Gap**: AC#2 said only that "the Task records how"; it now states what the precedents actually did (controlled inputs, cases enumerated in ACs with expected results, results recorded), checked against TASK-016 AC#6 (five cases), TASK-017 Step 4 (8/8, temporary log path) and TASK-025 Step 4 (fixtures). **Gap**: the Pre-Commit Checklist and What to Test had no line for shipped executables; new AC#3. **Gap**: § Git Workflow → Commits says "No commit hooks", which now reads ambiguously next to the supervisor's Claude Code hooks; AC#4 asks its clause to disambiguate. **Strength**: the four sibling claims named by Epic AC#1 are the only "no test suite" claims in the Guide; § Code Style's "almost no code" already allows for scripts and needs no change. **Out of scope, already routed**: CLAUDE.md's "Markdown-only" and "no runtime" lines sit with the 2026-10-23 scratchpad item on the hook scripts' `bash`/`jq` runtime. AC#5 now gives the counter-case to the additive recommendation. ACs renumbered (seven). Status stays DRAFT; Gate 1 not given.
 - **2026-10-24** — DRAFT → ELABORATED (Gate 1): Directing party approved the refined Requirements (PR #10, after the review-nit commit `8de80d6`) and ruled the change **additive** per AC#5: `development_guide.md` stays APPROVED, and this Task's bullet goes under `Unreleased (EPIC-012)` with the Epic's single version bump. Next: `/task-plan TASK-033` (Gate 2).
+- **2026-10-24** — ELABORATED (Gate 2 drafted, pending approval): Prepared Plan reviewed at `/task-plan TASK-033` against the Gate-1 Requirements and `development_guide.md` v1.5. **Gap**: the prepared Approach covered only the opening, the level and the sibling clauses; it now includes AC#3 (What to Test, Pre-Commit Checklist) and the Git-hooks disambiguation, with draft wording for each change. **Gap**: Step 7 named no substrings; the Approach now lists them, plus a negative check for the retired sentence. **Strength**: "commit hooks" appears only in § Git Workflow → Commits, so one clause carries the disambiguation. The substantive-path risk is retired by the Gate 1 ruling. Status stays ELABORATED until Gate 2 is approved.
