@@ -1,7 +1,7 @@
 # Technology Stack
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-11-01
+**Last Reviewed**: 2026-11-13
 **Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
@@ -73,6 +73,8 @@ Shannon itself has no external integrations. Projects built with Shannon will ha
 
 Shannon has no runtime dependencies. The only requirement is Claude Code.
 
+The optional supervisor is the one exception. Its hook and unattended-run scripts (`shannon/skills/shannon-supervisor/scripts/`) are `bash` scripts that call `jq` to read hook events and configuration, and `git` for unattended runs. `/shannon-setup` checks that `bash` and `jq` are present and says so when one is missing, because a hook that cannot run `jq` passes everything through rather than failing loudly. A project that does not wire the supervisor needs neither.
+
 ---
 
 ## Security Considerations
@@ -132,6 +134,10 @@ Vision § Core Principles 5 (*Continuous Health Vigilance*) and Vision § Key Fe
 ---
 
 ## Version History
+
+### 2026-11-13 - v2.1
+
+- **§ Key Dependencies** — names the supervisor scripts' runtime (`bash`, `jq`, `git`) and the setup check, closing the scratchpad item *No mandated document names the runtime the shipped hook scripts need*. Factual alignment with shipped source; no change to approved meaning
 
 ### 2026-11-01 - v2.0
 

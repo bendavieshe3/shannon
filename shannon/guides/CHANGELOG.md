@@ -12,6 +12,9 @@ Each entry has a **Summary**, a **Records** list telling `/shannon-update` how e
 - `/shannon-update` upgrades an install from a newer clone. It reports versions, protects local customisations through a hash manifest, backs files up and walks existing records through these notes.
 - `/shannon-setup` installs more safely into existing projects. It backs files up before overwriting, merges `CLAUDE.md` inside `<!-- shannon:begin/end -->` markers and merges `.claude/settings.json`, detects Node, Python, Go and Rust projects, and verifies the result.
 - `/shannon-setup` now wires the supervisor: hook registrations, a default `shannon-supervisor.json`, the audit-log ignore and `docs/supervisor/`.
+- The supervisor gains PreCompact and Stop hooks, so a report survives context compaction and a run cannot end with unassembled findings, and `scripts/cadence-run.sh`, which runs `/shannon-report` unattended in a throwaway worktree and commits only the report. Scheduling it is the project's choice (cron, launchd or similar).
+- The supervisor's write-guard no longer blocks every absolute path, which in practice blocked all supervisor writes once scoped; it refuses `..` segments instead. Its checkers now declare their model and tools in the form Claude Code reads.
+- The supervisor hooks need `bash` and `jq`; `/shannon-setup` checks for both.
 - The scratchpad is part of the framework: a `docs/scratchpad.md` template, `/scratchpad-add` and `/scratchpad-process`.
 - Feature elaboration and planning now record a *Documents Consulted* list, and gates show it.
 
@@ -25,6 +28,7 @@ Each entry has a **Summary**, a **Records** list telling `/shannon-update` how e
 
 - The old lowercase `.claude/skills/{work-items,project-documentation,project-setup}/skill.md` files are no longer shipped. `/shannon-update` lists them as retired; delete them once `SKILL.md` is in place, because a stale copy is confusing to read.
 - Existing `CLAUDE.md` content is kept. The Shannon block is appended once, after your content; remove any duplicated Shannon guidance above it by hand.
+- If you scheduled the supervisor with the old documented `claude --bare -p` command, switch to `scripts/cadence-run.sh`: `--bare` skips skills and hooks, so that command never ran the report.
 - Restart Claude Code sessions after updating so new commands and hooks load.
 
 ## [5.0] - 2026-11-01

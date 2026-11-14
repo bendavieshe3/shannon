@@ -131,6 +131,7 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
 | Run working files | `<report_directory>/.in-progress/YYYY-MM-DD/` | Checker fragments saved as they return, plus a `COMPACTED` marker; never committed |
 | Cadence run logs | `./.claude/supervisor/logs/` | JSON output and stderr of each unattended run; not committed |
+| Supervisor audit log | `./.claude/skills/shannon-supervisor/audit.log` | One line per Bash, Edit or Write call in a supervisor-scoped session, written by the PostToolUse hook; operational telemetry, not committed |
 
 ### ID Allocation
 
@@ -328,7 +329,7 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 
 ### 2026-11-13 - v2.1
 
-- **Unattended supervisor runs (FEAT-009).** § Cadence is rewritten for the shipped runner `cadence-run.sh`. It drops `--bare`, which skipped skill and hook discovery; it allows `Skill` and the subagent tool; the runner, not the model, commits; worktrees sit outside `.claude/`; and it gains cron and launchd examples. § System Architecture → *Hook integration* marks all five hooks shipped and records the write-guard's absolute-path fix. § Data Model adds run working files and run logs; *Supervisor Configuration* gains the optional `cadence` keys; *Cadence State* names the runner's throttle fields. This corrects a contract that could not work as written. It changes no approved meaning: autonomy was already the ratified intent.
+- **Unattended supervisor runs (FEAT-009).** § Cadence is rewritten for the shipped runner `cadence-run.sh`. It drops `--bare`, which skipped skill and hook discovery; it allows `Skill` and the subagent tool; the runner, not the model, commits; worktrees sit outside `.claude/`; and it gains cron and launchd examples. § System Architecture → *Hook integration* marks all five hooks shipped and records the write-guard's absolute-path fix. § Data Model adds run working files, run logs and the audit log, so every supervisor operational artefact is listed in one place; *Supervisor Configuration* gains the optional `cadence` keys; *Cadence State* names the runner's throttle fields. This corrects a contract that could not work as written. It changes no approved meaning: autonomy was already the ratified intent.
 - **Versioned install and update (FEAT-001, FEAT-003 framework-version absorption).** § Data Model adds the installed-version file, install manifest, install backups and changelog; § API Design adds *Installation Verbs* (`/shannon-setup`, `/shannon-update`). Additive.
 - **Documents Consulted at Feature Gates 1 and 2 (FEAT-003, EPIC-015 intent).** § Key Algorithms → *Document Alignment Check* now runs at Feature elaboration and planning, recorded in a *Documents Consulted* list in the Feature template. Additive.
 - **Scratchpad ratified (FEAT-007).** Added the Scratchpad row to § Data Model and § API Design → *Scratchpad Verbs* (`/scratchpad-add`, `/scratchpad-process`, both in the `work-items` skill). Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.
