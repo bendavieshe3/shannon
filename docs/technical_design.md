@@ -129,7 +129,7 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Install backups | `./.claude/.shannon-backup/YYYY-MM-DD/` | Copies of every file an install or update overwrote; never deleted by Shannon |
 | Changelog | `shannon/guides/CHANGELOG.md` (deployed to `./.claude/guides/`) | Version source of truth; each entry's *Records* notes drive framework-version absorption |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
-| Run working files | `<report_directory>/.in-progress/YYYY-MM-DD-HHMMSS/` | One directory per run, opened with a `RUN` marker: checker fragments saved as they return, plus a `COMPACTED` marker; never committed |
+| Run working files | `<report_directory>/.in-progress/YYYY-MM-DD-HHMMSS/` | One directory per run, opened with a `RUN` marker: checker fragments saved as they return, plus a `COMPACTED` marker; never committed. Interactive runs leave theirs for inspection (safe to delete once the report exists); cadence runs leave none |
 | Cadence run logs | `./.claude/supervisor/logs/` | JSON output and stderr of each unattended run; not committed |
 | Supervisor audit log | `./.claude/skills/shannon-supervisor/audit.log` | One line per Bash, Edit or Write call in a supervisor-scoped session, written by the PostToolUse hook; operational telemetry, not committed |
 
