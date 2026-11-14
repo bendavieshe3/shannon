@@ -1,0 +1,15 @@
+{
+  "_comment": "Shippable Claude Code settings.json snippet for the supervisor PreCompact hook. Inert unless SHANNON_SUPERVISOR_SCOPE is set; during a supervisor run it records that context compaction happened in <report_directory>/.in-progress/YYYY-MM-DD/COMPACTED, so the report is assembled from the on-disk checker fragments and notes the compaction. Never blocks.",
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/skills/shannon-supervisor/scripts/precompact-marker.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

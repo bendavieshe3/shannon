@@ -73,7 +73,7 @@ Never delete a file the source does not ship. Make the supervisor's `scripts/*.s
 
 - **Hooks.** Merge each `./.claude/skills/shannon-supervisor/hooks/*.settings.json` snippet into `./.claude/settings.json`. Create the file as `{"hooks": {}}` when missing. For each event, append the snippet's matcher group unless a group with the same `command` is already present. Keep every existing key, event and hook. Drop the snippets' `_comment` keys. Show the merged result.
 - **Configuration.** Write `./.claude/shannon-supervisor.json` as `{"report_directory": "docs/supervisor"}` only if it does not exist.
-- **Audit log.** If the project's `.gitignore` does not already ignore all of `.claude/`, add `.claude/skills/shannon-supervisor/audit.log` (the PostToolUse hook's operational telemetry, never committed).
+- **Ignores.** Add to the project's `.gitignore` whatever it does not already cover: `.claude/skills/shannon-supervisor/audit.log` (PostToolUse telemetry) and `.claude/supervisor/` (cadence state, run logs and worktrees), unless all of `.claude/` is already ignored; and `<report_directory>/.in-progress/` (a run's working fragments). Reports themselves are committed.
 - **Reports.** Create `./docs/supervisor/` when missing.
 
 ### 6. Instantiate documents

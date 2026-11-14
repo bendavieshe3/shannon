@@ -2,7 +2,8 @@
 # PreToolUse write-guard hook for the Shannon supervisor.
 #
 # Inert unless SHANNON_SUPERVISOR_SCOPE is set to a non-empty value. When active,
-# refuses Write/Edit-family operations whose target path is outside the configured
+# refuses Write/Edit-family operations whose target path (relative, or absolute under the
+# project root) is outside the configured
 # report_directory (default docs/supervisor), with an explicit exception for
 # docs/knowledge/knowledge_index.md. Refusal exits 2 (blocking, per the Claude Code hook
 # contract); allow exits 0. Reads the PreToolUse event JSON on stdin.
@@ -38,7 +39,39 @@ esac
 
 target="$(printf '%s' "$input" | jq -r '.tool_input.file_path // ""' 2>/dev/null)"
 [ -z "$target" ] && exit 0
+# Write and Edit pass absolute paths. Make the target relative to the project root before
+# comparing. Candidate roots, first match wins: the git top level of the event's cwd (a
+# supervisor run may sit in a worktree nested inside the main checkout), the event's cwd,
+# CLAUDE_PROJECT_DIR, and the hook's working directory, each also in its physical form
+# (symlinked roots such as macOS /tmp). An absolute path under none of them stays
+# absolute and is refused below.
+case "$target" in
+  /*)
+    event_cwd="$(printf '%s' "$input" | jq -r '.cwd // ""' 2>/dev/null)"
+    top=""
+    [ -n "$event_cwd" ] && top="$(git -C "$event_cwd" rev-parse --show-toplevel 2>/dev/null)"
+    for root in "$top" "$event_cwd" "${CLAUDE_PROJECT_DIR:-}" "$PWD"; do
+      [ -z "$root" ] && continue
+      root="${root%/}"
+      physical="$(cd "$root" 2>/dev/null && pwd -P)"
+      for r in "$root" "$physical"; do
+        [ -z "$r" ] && continue
+        case "$target" in
+          "$r"/*) target="${target#"$r"/}"; break 2 ;;
+        esac
+      done
+    done
+    ;;
+esac
 target="$(normalise "$target")"
+
+# A path with a .. segment could climb out of the report directory; refuse it outright.
+case "/$target/" in
+  */../*)
+    printf "Supervisor scope: refusing write to '%s' — paths containing '..' are not allowed.\n" "$target" >&2
+    exit 2
+    ;;
+esac
 
 # report_directory: configuration override if present, else the default.
 report_dir="$default_report_dir"

@@ -13,7 +13,7 @@ The self-identification line above is emitted **only** for direct slash-command 
 
 This skill is the supervisor — the third role in the Shannon role taxonomy alongside the directing party and the implementer. The supervisor performs continuous health vigilance on the project: detecting document-vs-implementation drift, auditing work-item lifecycle state, surfacing operational drift (scratchpad pressure, uncommitted changes, branch lag), and synthesising findings into reports for the directing party to act on.
 
-The supervisor is invokable both interactively (via slash commands) and autonomously (on a cadence the project configures; autonomous invocation lives in a sibling work item).
+The supervisor is invokable both interactively (via slash commands) and autonomously (on a cadence the project configures; autonomous invocation is described in § Unattended Runs).
 
 ## When to Invoke
 
@@ -71,7 +71,7 @@ The `/shannon-report` contract (above) delegates report construction to this pip
 
 ### Flow
 
-1. **Spawn and collect.** Spawn the three checker subagents (Alignment, Lifecycle, Drift) in parallel per the `/shannon-report` contract; collect each one's finding fragment in the canonical four-category schema: Drift, Gap, Internal contradiction, Strength. If a checker fails to return a fragment, record that — the header reports how many of the three succeeded rather than failing the whole run.
+1. **Spawn and collect.** Spawn the three checker subagents (Alignment, Lifecycle, Drift) in parallel per the `/shannon-report` contract. The checker files under `checkers/` are not registered subagents (Claude Code registers subagents only from `.claude/agents/`), so their frontmatter is enforced only by how you spawn them. Give each subagent the checker file's body as its instructions, set its model to the checker's `model:` alias (`haiku` or `sonnet`), and tell it to stay within the checker's `tools:` list. Collect each one's finding fragment in the canonical four-category schema: Drift, Gap, Internal contradiction, Strength. **As each fragment returns, write it to `<report_directory>/.in-progress/YYYY-MM-DD/<checker>.md`** (alignment, lifecycle or drift) before doing anything else, so findings survive context compaction on disk. If a checker fails to return a fragment, record that. The header reports how many of the three succeeded rather than failing the whole run.
 
 2. **Instantiate the header.** Fill `templates/header.md` with the run date and the diagnostic counts — total findings, stuck-or-stale items (from the Lifecycle fragment), and push lag in commits ahead of the remote (from the Drift fragment) — plus the count of checkers that succeeded. This is the diagnostic half of the hybrid-presentation default. Fill the header's per-category counts line from the same collected fragments' four-category schema, in the fixed order Drift, Gap, Internal contradiction, Strength, rendering a literal `0` for any category that surfaced nothing — all four categories always appear, never blank, never omitted, never collapsed to only the non-zero ones. The four counts partition exactly the finding set the leading total's principal number counts, and therefore sum to it; a finding a checker returned as uncertain is carried as the parenthesised annotation on the total (`9 (+1 uncertain)`) and is never folded into a category, so the per-category line carries bare integers and no annotation syntax of its own. Four counts that do not sum to the leading total mean the aggregation is wrong — treat the mismatch as a defect in this step, not as a rounding of the report.
 
@@ -79,11 +79,11 @@ The `/shannon-report` contract (above) delegates report construction to this pip
 
 4. **Instantiate the footer.** Fill `templates/footer.md` with the run date.
 
-5. **Assemble and write.** Concatenate header + finding sections + footer into a single Markdown body and write it to `<report_directory>/report-YYYY-MM-DD.md` (default `./docs/supervisor/`, per § Configuration). **Reports are never overwritten**: if a report for the current date already exists, write `report-YYYY-MM-DD-2.md` (then `-3`, and so on) — the same-day suffix increments to the next free name.
+5. **Assemble and write.** Build steps 2–4 from the fragment files in `<report_directory>/.in-progress/YYYY-MM-DD/`, not from memory. If that directory holds a `COMPACTED` marker (written by the PreCompact hook), add one line under the header: "Context was compacted during this run; findings were reassembled from the checkers' saved fragments." Concatenate header + finding sections + footer into a single Markdown body and write it to `<report_directory>/report-YYYY-MM-DD.md` (default `./docs/supervisor/`, per § Configuration). **Reports are never overwritten**: if a report for the current date already exists, write `report-YYYY-MM-DD-2.md` (then `-3`, and so on) — the same-day suffix increments to the next free name.
 
 6. **Index the report.** Append an entry for the new report to `./docs/knowledge/knowledge_index.md`, under its *Supervisor Reports* section (created on first use), with the entry's Type label reading *Supervisor Report* (a Knowledge Note subtype) and a project-relative reference to the report file. This write is the explicit exception the PreToolUse write-guard permits (sibling work item); every other write outside the configured report directory is refused.
 
-The configured report directory and `./docs/knowledge/knowledge_index.md` are the only paths this pipeline writes.
+The configured report directory (including its `.in-progress/` working files, which are never committed) and `./docs/knowledge/knowledge_index.md` are the only paths this pipeline writes.
 
 ### Presentation
 
@@ -98,15 +98,29 @@ Both share the same terse form (a leading count, then stuck-or-stale items, then
 
 ## Hook Integration
 
-The supervisor's architecture names five Claude Code hook points. Three ship with this skill (PreToolUse, PostToolUse, SessionStart, each with a registration snippet under `hooks/`); PreCompact and Stop are not yet implemented and are pending EPIC-011 (Autonomic Invocation):
+The supervisor's architecture names five Claude Code hook points, and all five ship with this skill. Each has a script under `scripts/` and a registration snippet under `hooks/`, which `/shannon-setup` merges into `./.claude/settings.json`:
 
 - **PreToolUse** — write-guard refusing writes outside the configured `report_directory`, with an explicit exception for `./docs/knowledge/knowledge_index.md`.
 - **PostToolUse** — audit log recording each Bash, Edit and Write invocation (the registered matcher) with timestamp and arguments, appended to `./.claude/skills/shannon-supervisor/audit.log` (operational telemetry, append-only; written only when the supervisor scope is active).
 - **SessionStart** — terse health summary at session open, implemented as `scripts/sessionstart-summary.sh` (registration snippet `hooks/sessionstart.settings.json`). Reads the most-recent report under the configured `report_directory` (honouring the same-day `-N` suffix) and injects a summary line leading with the **Drift-category count** from the header's `**By category:**` line — where the report header leads with the total. On a report predating that line it names the total and says the per-category breakdown is unavailable rather than deriving one. It states the report's date and age, distinguishes the quiet outcomes (no report / clean run / partial run / unreadable report) so it is never ambiguously silent, and appends a second line noting a partial run when fewer than three checkers ran. It writes nothing and always exits 0. Deliberately **not** `SHANNON_SUPERVISOR_SCOPE`-gated — session orientation must fire in ordinary sessions; muted instead via `.claude/supervisor/state.json`.
-- **PreCompact** *(pending EPIC-011)* — snapshot of in-flight findings to disk before context compaction.
-- **Stop** *(pending EPIC-011)* — completion check on autonomous runs (warn on context threshold or unflushed findings).
+- **PreCompact** — `scripts/precompact-marker.sh`, scope-gated. Findings are already on disk from Report Pipeline step 1, so the hook records that compaction happened (a `COMPACTED` marker in the run's `.in-progress/` directory with time and trigger). The assemble step then rebuilds from the saved fragments and says so in the report. Never blocks.
+- **Stop** — `scripts/stop-flushcheck.sh`, scope-gated. When the run tries to stop with today's fragments on disk but no report written since the first fragment, it blocks the stop once, with the reason "assemble and write the report". It honours `stop_hook_active`, so it cannot loop. A context-size threshold check is not implemented, because the Stop event carries no reliable context-size field.
 
 Hook event activations are not user-message responses and do not emit the self-identification line — the supervisor performs its hook role silently and writes its output to the relevant location (the audit log for PostToolUse, the session context for SessionStart).
+
+## Muted Findings
+
+When the directing party says a finding is intentional ("mute that", "that drift is deliberate"), add it to `muted_findings` in `./.claude/supervisor/state.json`, creating the file if needed, as `{"title": ..., "source": ..., "reason": ..., "muted": "YYYY-MM-DD"}`. Do this in an ordinary session, not inside a scoped run. On later runs, a finding whose source and substance match a muted entry is left out of the counts and the narrative, and the footer says how many findings were muted. A missing or malformed state file means nothing is muted: say so in the report and carry on. Unmute by removing the entry.
+
+## Unattended Runs
+
+`scripts/cadence-run.sh [project-root]` is the entry point a scheduler calls (cron, launchd or any equivalent; the scheduler is the project's choice, see `technical_design.md` § Cadence). It:
+
+1. Skips the run if the last one was less than `cadence.min_interval_hours` ago (default 20), using `.claude/supervisor/state.json`.
+2. Creates a git worktree on a new `supervisor/report-YYYY-MM-DD` branch outside the project (under `$SHANNON_WORKTREE_DIR`, else the temp directory), so an interactive session's working tree is never touched. The worktree must not sit under `.claude/`, because Claude Code refuses writes to any path below a `.claude/` directory.
+3. Runs `claude -p "/shannon-report"` with `SHANNON_SUPERVISOR_SCOPE` set, so the write-guard, audit log, PreCompact and Stop hooks are active. It does **not** use `--bare`, which would skip skill and hook discovery. The model gets read-only tools plus Write and Edit fenced by the write-guard, and never git commit or push.
+4. The script itself commits only the report directory and the knowledge index, as one commit `Supervisor report YYYY-MM-DD`. It pushes the branch only when `cadence.push` is true. The report reaches the main branch through the project's normal review route.
+5. Removes the worktree, keeps the branch, records `last_run_*` in the state file, and logs Claude's JSON output to `.claude/supervisor/logs/`.
 
 ## Failure Modes
 

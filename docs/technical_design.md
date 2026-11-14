@@ -93,15 +93,15 @@ Each checker runs in roughly 30 seconds to 2 minutes and returns a structured fi
 - `/shannon-report` — Run the full audit fan-out and write a dated report
 - `/shannon-goal [intent]` — Decompose a high-level directing-party intent into candidate work items, citing existing artefacts where alignment exists and surfacing gaps where it doesn't
 
-**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. Three have shipped; `PreCompact` and `Stop` are pending [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation). `Stop` has been allocated to EPIC-011 since FEAT-009's plan; `PreCompact` moved there from EPIC-010 by directing-party decision on 2026-08-24:
+**Hook integration**: the supervisor's committed architecture uses five Claude Code hook points to weave vigilance into the interactive session lifecycle. All five ship with the supervisor skill; `PreCompact` and `Stop` were delivered directly under FEAT-009 on 2026-11-13, carrying the intent of [EPIC-011](epics/EPIC-011-autonomic-invocation.md) (Autonomic Invocation) and TASK-026:
 
 | Hook | Role | State |
 |---|---|---|
 | `SessionStart` | Inject a terse health summary (drift count, stuck items, push lag) so the directing party opens a session already oriented | Shipped (EPIC-010) |
-| `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation | Shipped (EPIC-009) |
+| `PreToolUse` | Write-guard — refuse writes outside `docs/supervisor/` from a supervisor-scoped invocation; absolute paths are made project-relative first, and `..` segments are refused | Shipped (EPIC-009); absolute-path fix 2026-11-13 |
 | `PostToolUse` | Log supervisor operations for audit trail | Shipped (EPIC-009) |
-| `PreCompact` | Snapshot in-flight findings before context compaction so the report survives compaction | Pending EPIC-011 |
-| `Stop` | Run a completion check; warn if context is still over threshold or if findings remain unflushed | Pending EPIC-011 |
+| `PreCompact` | Findings are saved to disk as each checker returns; the hook marks that compaction happened so the report is rebuilt from those files and says so | Shipped (FEAT-009, 2026-11-13) |
+| `Stop` | Completion check: block the stop once if checker fragments exist with no report written; no context-size check (the event carries no reliable size field) | Shipped (FEAT-009, 2026-11-13) |
 
 Hook configuration lives in the project's `settings.json` per Claude Code conventions. Event names are written exactly as Claude Code's hooks reference spells them (`PreCompact`, not `preCompact`), since a misspelt key registers nothing; specific hook bodies ship with the supervisor skill.
 
@@ -129,6 +129,8 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Install backups | `./.claude/.shannon-backup/YYYY-MM-DD/` | Copies of every file an install or update overwrote; never deleted by Shannon |
 | Changelog | `shannon/guides/CHANGELOG.md` (deployed to `./.claude/guides/`) | Version source of truth; each entry's *Records* notes drive framework-version absorption |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
+| Run working files | `<report_directory>/.in-progress/YYYY-MM-DD/` | Checker fragments saved as they return, plus a `COMPACTED` marker; never committed |
+| Cadence run logs | `./.claude/supervisor/logs/` | JSON output and stderr of each unattended run; not committed |
 
 ### ID Allocation
 
@@ -146,7 +148,7 @@ Reports are never overwritten — each cadence run produces a new dated file. If
 
 ### Supervisor Configuration
 
-The optional `./.claude/shannon-supervisor.json` controls report presentation/storage, for example `{"report_directory": "docs/supervisor"}`. Missing configuration uses defaults; malformed configuration is reported and refused.
+The optional `./.claude/shannon-supervisor.json` controls report presentation/storage and the unattended runner, for example `{"report_directory": "docs/supervisor", "cadence": {"min_interval_hours": 20, "push": false}}`. Both `cadence` keys are optional and default as shown. Missing configuration uses defaults; malformed configuration is reported and refused.
 
 Legacy `epic_gate_authority` and `spike_gate_authority` fields are retained as compatibility inputs but do not grant or create approval stages. Report that they no longer govern gate authority. A separately recorded explicit project hold remains an obligation until dispositioned. Human Vision/Feature gates cannot be delegated through configuration. Existing files are not automatically deleted or rewritten.
 
@@ -157,7 +159,7 @@ The supervisor is **stateless by default** between cadence runs. Each run reads 
 A narrow optional state file at `./.claude/supervisor/state.json` is permitted for two non-functional concerns:
 
 - **Muted findings** — a finding the directing party explicitly marked as a false positive (e.g. "this document drift is intentional"). Without persistence, the same false positive would re-surface in every report
-- **Throttling** — a record of the last cadence run's timestamp, so a scheduler that fires more often than the supervisor's intended cadence can detect "too soon" and skip
+- **Throttling** — a record of the last cadence run (`last_run_epoch`, `last_run_branch`, `last_run_status`, written by the runner), so a scheduler that fires more often than the supervisor's intended cadence can detect "too soon" and skip
 
 The state file is not authoritative for any lifecycle decision — it is a UX aid for the directing party. A supervisor that finds the state file missing or corrupt proceeds as if stateless and notes the absence in the next report.
 
@@ -255,34 +257,50 @@ The supervisor (§ System Architecture → *Supervisor*) is invokable both inter
 
 ### Headless invocation contract
 
-Autonomous cadence runs invoke the supervisor in headless mode:
+Autonomous cadence runs go through the shipped runner, which a scheduler calls:
 
 ```
-claude --bare -p "<supervisor prompt>" \
-  --allowedTools "Read,Bash(git *)" \
+./.claude/skills/shannon-supervisor/scripts/cadence-run.sh [project-root]
+```
+
+The runner invokes Claude Code headless:
+
+```
+SHANNON_SUPERVISOR_SCOPE=cadence claude -p "/shannon-report" \
+  --allowedTools "Skill,Agent,Task,Read,Glob,Grep,Write,Edit,Bash(git status*),Bash(git log*),Bash(git diff*),..." \
   --output-format json
 ```
 
 The contract Shannon commits to:
 
-- **`--bare`** — skip hook, skill, and plugin discovery beyond what the supervisor needs, for reproducible runs
-- **`-p`** — supervisor prompt (typically `/shannon-report` semantics rendered as a direct instruction)
-- **`--allowedTools`** — explicit allow-list scoped to read operations and read-only git invocations; the supervisor is read-mostly and writes only its dated report. When the cadence run needs to write its report, `--allowedTools` is extended to include `Write(docs/supervisor/*)`; the PreToolUse hook (§ System Architecture → *Supervisor* → *Hook integration*) enforces the path scope at runtime once the invocation sets `SHANNON_SUPERVISOR_SCOPE`. Until EPIC-011's launcher sets that signal the write-guard is inert, so the path scope rests on `--allowedTools` alone
-- **`--output-format json`** — structured output so the scheduler can inspect exit conditions, finding counts, and surface failures
+- **No `--bare`.** `--bare` skips discovery of skills, hooks, commands and CLAUDE.md, so the supervisor skill and its hooks would never load (see [the conventions note](knowledge/claude-code-skill-and-subagent-conventions.md)).
+- **`SHANNON_SUPERVISOR_SCOPE` is set**, which activates the write-guard, audit log, PreCompact and Stop hooks for the run and for no other session.
+- **`--allowedTools`** grants read tools, read-only git, `Skill` (so the command can activate its skill), the subagent tool, and `Write`/`Edit`, which the write-guard fences to the report directory and the knowledge index. The model never gets `git commit` or `git push`; the runner does those itself after the run, so the model's tool grant stays read-only for git.
+- **`--output-format json`**, logged to `.claude/supervisor/logs/`, so failures and cost are inspectable.
 
-### Worktree isolation
+### Worktree isolation and landing
 
-When the cadence overlaps with an interactive directing-party session, the supervisor runs in a temporary worktree so the audit never contaminates the interactive working tree:
+The runner always works in a temporary git worktree on a new `supervisor/report-YYYY-MM-DD` branch at `HEAD`, created outside the project (under `$SHANNON_WORKTREE_DIR`, else the temp directory). An interactive session's working tree is never touched. The worktree must not sit under `.claude/`, because Claude Code refuses writes to any path below a `.claude/` directory. When `.claude/` is not tracked, the runner copies it into the worktree.
 
-```
-claude --worktree audit-check-YYYYMMDD -p "<supervisor prompt>"
-```
-
-The worktree is auto-cleaned after the run if no commits or uncommitted changes remain. Worktree isolation is optional for offline cadences (overnight, weekend) but recommended whenever interactive work might be in flight.
+After the run, the runner commits only the report directory and the knowledge index, as one commit `Supervisor report YYYY-MM-DD`. It pushes the branch when `cadence.push` is true and removes the worktree. The report reaches the main branch through the project's normal review route, which for Shannon itself is a reviewed pull request.
 
 ### Scheduler
 
-The scheduler that triggers cadence runs is the *project's* concern, not Shannon's. A host cron daemon, a `launchd` job, a remote scheduler such as OpenClaw, or any equivalent satisfies the contract — Shannon commits to the headless-invocation pattern, not to a specific scheduler (per technology_stack § Supervisor Tooling). Each project documents its scheduler choice in its own `development_guide.md`.
+The scheduler that calls the runner is the *project's* choice: a cron entry, a `launchd` agent, a remote scheduler, or any equivalent. Two examples:
+
+```
+# crontab: weekdays 07:30
+30 7 * * 1-5  cd /path/to/project && ./.claude/skills/shannon-supervisor/scripts/cadence-run.sh
+```
+
+```
+<!-- ~/Library/LaunchAgents/<label>.plist, inside <dict> -->
+<key>ProgramArguments</key>
+<array><string>/path/to/project/.claude/skills/shannon-supervisor/scripts/cadence-run.sh</string><string>/path/to/project</string></array>
+<key>StartCalendarInterval</key><dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>30</integer></dict>
+```
+
+The scheduler's environment needs `git`, `jq` and `claude` on `PATH` and Claude Code authentication. The runner throttles itself with `cadence.min_interval_hours` (default 20), so a scheduler that fires too often is harmless. Each project records its scheduler choice in its own `development_guide.md`. Turning one on is a cost and access decision for the directing party.
 
 ### Cost note
 
@@ -310,6 +328,7 @@ A single supervisor invocation fans out into three checker subagents (per § Sys
 
 ### 2026-11-13 - v2.1
 
+- **Unattended supervisor runs (FEAT-009).** § Cadence is rewritten for the shipped runner `cadence-run.sh`. It drops `--bare`, which skipped skill and hook discovery; it allows `Skill` and the subagent tool; the runner, not the model, commits; worktrees sit outside `.claude/`; and it gains cron and launchd examples. § System Architecture → *Hook integration* marks all five hooks shipped and records the write-guard's absolute-path fix. § Data Model adds run working files and run logs; *Supervisor Configuration* gains the optional `cadence` keys; *Cadence State* names the runner's throttle fields. This corrects a contract that could not work as written. It changes no approved meaning: autonomy was already the ratified intent.
 - **Versioned install and update (FEAT-001, FEAT-003 framework-version absorption).** § Data Model adds the installed-version file, install manifest, install backups and changelog; § API Design adds *Installation Verbs* (`/shannon-setup`, `/shannon-update`). Additive.
 - **Documents Consulted at Feature Gates 1 and 2 (FEAT-003, EPIC-015 intent).** § Key Algorithms → *Document Alignment Check* now runs at Feature elaboration and planning, recorded in a *Documents Consulted* list in the Feature template. Additive.
 - **Scratchpad ratified (FEAT-007).** Added the Scratchpad row to § Data Model and § API Design → *Scratchpad Verbs* (`/scratchpad-add`, `/scratchpad-process`, both in the `work-items` skill). Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.

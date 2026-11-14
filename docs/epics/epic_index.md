@@ -10,7 +10,7 @@
 - [EPIC-008](./EPIC-008-development-conventions-from-dogfooding.md) — APPROVED — Development Conventions Surfaced Through Dogfooding (FEAT-008) #framework #conventions #development-guide
 - [EPIC-009](./EPIC-009-health-reporting-surface.md) — APPROVED — Health Reporting Surface (FEAT-009) #supervisor #phase-2 #skill #hooks #reporting
 - [EPIC-010](./EPIC-010-synthesis-and-reports.md) — APPROVED — Synthesis and Reports (FEAT-009) #supervisor #phase-3 #goal-decomposition #hooks #presentation
-- [EPIC-011](./EPIC-011-autonomic-invocation.md) — DRAFT — Autonomic Invocation (FEAT-009) #supervisor #phase-4 #headless #scheduler #cadence
+- [EPIC-011](./EPIC-011-autonomic-invocation.md) — DRAFT (MECHANISM DELIVERED under FEAT-009; scheduler activation held, 2026-11-13) — Autonomic Invocation (FEAT-009) #supervisor #phase-4 #headless #scheduler #cadence
 - [EPIC-012](./EPIC-012-development-conventions-from-supervisor-build-out.md) — PLANNED — Development Conventions Surfaced Through the Supervisor Build-Out (FEAT-008) #framework #conventions #development-guide
 - [EPIC-013](./EPIC-013-v6-vocabulary-in-command-files.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — V6 Vocabulary in Command Files (FEAT-006) #v6 #framework #commands
 - [EPIC-014](./EPIC-014-work-item-conventions-round-2.md) — DRAFT (SUPERSEDED by Feature-level governance, 2026-11-13) — Work-Item Conventions Surfaced Through Dogfooding, Round 2 (FEAT-003) #framework #conventions

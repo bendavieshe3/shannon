@@ -1,8 +1,8 @@
 ---
 name: lifecycle-checker
 description: Audit work-item indexes; detect stuck or stale items; cross-check index state against source-of-truth bodies. Spawned as one of three checker subagents under the /shannon-report fan-out.
-model: claude-sonnet-4-6
-allowed-tools: Read
+model: sonnet
+tools: Read, Glob, Grep
 ---
 
 # Lifecycle Checker
