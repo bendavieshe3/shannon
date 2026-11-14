@@ -2,7 +2,7 @@
 
 **Status**: APPROVED
 **Last Reviewed**: 2026-11-14
-**Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
+**Approved**: 2026-11-14 (v2.2 distribution decision, by the directing party; v2.0 feature-level governance design approved 2026-11-01)
 
 ---
 

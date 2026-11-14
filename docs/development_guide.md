@@ -148,6 +148,8 @@ Every change reaches `master` through a reviewed pull request. A reviewer outsid
 
 ### Branching
 
+One long-lived branch, everything else on topic branches (precedent: PR #15, the maintainer's reviewed pull-request standard, ported in v2.1):
+
 - **master** — The single long-lived branch and the default branch. It changes only by merging a pull request; nobody, human or agent, commits or pushes to it directly.
 - **Topic branches** — All work happens on a topic branch cut from the latest `master`, one branch per pull request, preserving Feature or governing engineering-rule traceability. Name it for the work (`docs/dev-guide-landing`, `feat-009-cadence`); an agent may prefix its own name (`claude/…`, `codex/…`). Delete the branch once its pull request has merged.
 
@@ -163,21 +165,23 @@ A GitHub ruleset on `master` enforces these whoever pushes (precedent: PR #15, t
 ### Commits
 
 - **Conventional, but not strict** — Capitalised imperative subject ("Add X", "Refactor Y", "Fix Z"). Body explains "why" when not obvious
-- **Run or test before committing** — the *Pre-Commit Checklist* in § Testing Strategy, plus any check the change itself names
-- **Say who wrote it** — each commit carries the identity of the agent that wrote it; an agent without a GitHub identity of its own commits with an author name or trailer that says which agent it is. No agent commits or pushes under a reviewer's identity
-- **No Git commit hooks** — Shannon has no automated test suite for a Git hook to run (shipped-executable tests are run by hand); this is unrelated to the Claude Code hooks the supervisor ships
+- **Run or test before committing** — the *Pre-Commit Checklist* in § Testing Strategy, plus any check the change itself names (precedent: PR #15, from the maintainer's standing instruction not to commit untested work)
+- **Say who wrote it** — each commit carries the identity of the agent that wrote it; an agent without a GitHub identity of its own commits with an author name or trailer that says which agent it is. No agent commits or pushes under a reviewer's identity (precedent: PR #15, the maintainer's reviewed pull-request standard, ported in v2.1)
+- **No Git commit hooks** — Shannon has no automated test suite for a Git hook to run (shipped-executable tests are run by hand); this is unrelated to the Claude Code hooks the supervisor ships (precedent: PR #15, the maintainer's reviewed pull-request standard, ported in v2.1)
 
 ### Commit Cadence
 
 Commit coherent, checked changes throughout authorised execution; do not wait for an optional work-item gate. Record explicit Feature/document decisions with their source. Feature Gate 3 acceptance remains a human decision distinct from a commit or merge. Never commit before running appropriate checks.
 
-Supervisor reports may be committed as a single checked reporting change under the project's existing contribution permissions. A reporting run neither approves Features nor grants publication authority. An unattended run lands by pull request like any other change: `scripts/cadence-run.sh` (`technical_design.md` § Cadence) commits the report alone on its own `supervisor/report-YYYY-MM-DD` branch, never on `master`, and never force-pushes or rewrites history. It pushes that branch only when `cadence.push` is set; otherwise the next interactive session pushes it and opens the pull request.
+Supervisor reports may be committed as a single checked reporting change under the project's existing contribution permissions. A reporting run neither approves Features nor grants publication authority. An unattended run lands by pull request like any other change: `scripts/cadence-run.sh` (`technical_design.md` § Cadence) commits the report alone on its own `supervisor/report-YYYY-MM-DD` branch, never on `master`, and never force-pushes or rewrites history. It pushes that branch only when `cadence.push` is set; otherwise the next interactive session pushes it and opens the pull request. Precedent: FEAT-009's cadence runner, first exercised in a fixture on 2026-11-13.
 
 ### Push Cadence
 
 Push tested topic-branch commits during authorised work and at handoff, subject to publication permission, and open or update the branch's pull request (precedent: TASK-007 under EPIC-008, adapted to pull-request landing in v2.1). A push is always of a topic branch; `master` moves only by merge. This repository is public: inspect the staged diff for secrets, private deployment details and unrelated changes first. Do not infer human Feature acceptance, live deployment or permission for unattended operation from a push.
 
 ### Pull Requests
+
+These rules come from the same port (precedent: PR #15, the maintainer's reviewed pull-request standard, ported in v2.1):
 
 - **Required for every change** — no direct commits to `master`. A pull request is pull-request-sized: one Feature step, one coherent fix or one document revision
 - **The description is the evidence** — name the Feature or work item (or say it is maintenance), say what changed and why, list the checks run with their results, and say plainly what was not verified
@@ -190,7 +194,7 @@ Push tested topic-branch commits during authorised work and at handoff, subject 
 
 The human directs Vision and Features; the implementer delivers and tests; a distinct reviewer provides independent technical judgement. The human can accept delivered work, including agent-produced work. Optional supervisors audit health without lower-level gate authority.
 
-Delegation is optional and requires the applicable authorisation. Concurrent agents coordinate disjoint changes, re-read before writes and reconcile diffs without silent overwrite. Allocate IDs against current indexes (precedent: the v1.2 Gate 1 review finding G1, from the Cooperative Access convention in `technical_design.md`). The implementer cannot satisfy independent review by changing its own role label. Each agent works on its own topic branch and pull request; when two open pull requests touch the same file, whichever merges second brings the new `master` in, carries its edits across, and is reviewed afresh.
+Delegation is optional and requires the applicable authorisation. Concurrent agents coordinate disjoint changes, re-read before writes and reconcile diffs without silent overwrite. Allocate IDs against current indexes (precedent: the v1.2 Gate 1 review finding G1, from the Cooperative Access convention in `technical_design.md`). The implementer cannot satisfy independent review by changing its own role label. Each agent works on its own topic branch and pull request; when two open pull requests touch the same file, whichever merges second brings the new `master` in, carries its edits across, and is reviewed afresh (precedent: PR #15, ported in v2.1, and the 2026-11-14 port of #13 and #15 across the merged #12).
 
 ### Supervisor Report Files
 
@@ -209,9 +213,11 @@ Supervisor reports are Knowledge Note subtypes (per `conceptual_design.md` § Do
 
 No automated pipeline. Shannon has no compiled artefacts, no automated tests (shipped-executable tests are run by hand before commit), and no deployment target. The pipeline is: edit on a topic branch, run the *Pre-Commit Checklist*, open a pull request, independent review, merge; then deploy into a project and exercise.
 
-If automated checks are added later, each job calls a repository script that runs the same way locally and on CI and needs no secrets. A check becomes required on `master` only after it has passed on a real pull request, and counts only once a deliberately planted failure has been seen to make it fail.
+If automated checks are added later, each job calls a repository script that runs the same way locally and on CI and needs no secrets. A check becomes required on `master` only after it has passed on a real pull request, and counts only once a deliberately planted failure has been seen to make it fail (precedent: PR #15, the maintainer's reviewed pull-request standard, ported in v2.1).
 
 ### Distribution
+
+Precedent: FEAT-001's Gate 2 distribution decision, 2026-11-14.
 
 - **Primary** — `git clone` from GitHub, then copy the `shannon/` tree into the target project's `.claude/`
 - **Upgrade** — pull a newer clone, then `/shannon-update <clone>/shannon` (FEAT-001)
@@ -229,7 +235,7 @@ If automated checks are added later, each job calls a repository script that run
 - Per TASK-036 (Audit Log Named in Supervisor Report Files): § Git Workflow → Supervisor Report Files names the audit log, run working files and run logs as never committed. Work item route; additive
 - Per TASK-037 (Verification Substrings in Plain Prose): § Code Style → Patterns to Follow gains *Verification substrings land in plain prose*. Work item route; additive
 - Per TASK-038 (Placeholder Syntax for Machine-Filled Templates): § Code Style → Template Structure sanctions `{{SLOT}}` for pipeline-filled slots beside `[Placeholder]` for person-filled ones (route (a), as recommended; the directing party approved pending decisions as recommended, 2026-11-13). No template changes. Work item route; additive: it widens the old square-brackets rule to match shipped templates
-- Per TASK-039 (Precedent Named for Every Convention): § Code Style → Patterns to Follow opens with the precedent requirement; § Git Workflow's Push Cadence, Multi-Agent Coordination, Supervisor Report Files and Repository Rules gain their precedents. This entry is EPIC-012's single Guide version (planned as v1.N; v2.1 because v2.0 landed first). Work item route; additive
+- Per TASK-039 (Precedent Named for Every Convention): § Code Style → Patterns to Follow opens with the precedent requirement; § Git Workflow's Branching, Repository Rules, Commits (run-before-commit, attribution, no Git commit hooks), Commit Cadence, Push Cadence, Pull Requests, Multi-Agent Coordination and Supervisor Report Files, and § CI/CD's Pipeline Stages and Distribution, name their precedents in their bodies. This entry is EPIC-012's single Guide version (planned as v1.N; v2.1 because v2.0 landed first). Work item route; additive
 - Ports PR #15 (development guide v1.6, the reviewed pull-request standard the maintainer applies to every development repository, which passed the PR reviewer at fb80c1a) onto v2.0's Feature-level governance. § Git Workflow gains the opening rationale, *Repository Rules*, commit attribution and run-before-commit, topic-branch-only pushes, the pull-request rules (description as evidence, independent review of the current head, human decisions for Feature, Vision and mandated-document approvals only, merge pinned to the approved head, public-safe), and one branch per agent; § Commit Cadence names how an unattended supervisor run lands (FEAT-009's `cadence-run.sh`); § CI/CD → *Pipeline Stages* runs through a pull request and sets rules for future automated checks. #15's gate-authority wording for Task, Epic and Spike gates is dropped: under v2.0 those gates no longer exist. Substantive revision; approved by the directing party 2026-11-14 ("Just do it. Just do it all")
 - Status: APPROVED (2026-11-14)
 

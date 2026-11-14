@@ -108,6 +108,6 @@ The rule to codify: an Epic that adds a new skill with a slash-command surface s
 
 ## Activity Log
 
-- **2026-11-14** — IMPLEMENTED under FEAT-008's conventions: `work-items/SKILL.md` § Feature lifecycle → Plan (the Gate 2 step that replaced Epic planning in Vision v3.0) now asks that a plan creating a skill include its thin command entry point, citing `technical_design.md` § System Architecture and the EPIC-009/TASK-020 precedent. The deployed copy is refreshed at the next `/shannon-update` (on Mars-2, the usual re-copy).
+- **2026-11-14** — IMPLEMENTED under FEAT-008's conventions: `work-items/SKILL.md` § Feature lifecycle → Plan (the Gate 2 step that replaced Epic planning in Vision v3.0) now asks that a plan creating a skill include its thin command entry point, citing `technical_design.md` § System Architecture and the EPIC-009/TASK-020 precedent. The deployed copy is refreshed at the next `/shannon-update`.
 - **2026-11-13** — Re-scoped under the Feature-level governance revision (Vision v3.0). Epics are optional, so the rule now reads as a development convention: work that adds a skill with a slash-command surface also ships its thin command entry point. It lands in `development_guide.md` with the FEAT-008 conventions (after PR #15) as part of the finish-to-vision push, not as a separate work-items skill prompt. Kept as a historical record.
 - **2026-10-17** — DRAFT: Task created from the scratchpad item "Skill-building Epics must scope the command entry point" by the 2026-10-17 triage

@@ -89,7 +89,7 @@ State the rule in one short bullet at the head of § Code Style → Patterns to 
 
 ### Documents Updated
 
-- `docs/development_guide.md` v2.1: § Code Style → Patterns to Follow opens with the precedent requirement. Sweep of post-bootstrapping conventions: Source-of-truth body (TASK-003, present), Acceptance criteria cite the governing rule (TASK-029 et al., present), the four EPIC-012 bullets (present), Placeholders (TASK-038), Shipped-executable test (TASK-016/017/025), Repository Rules and Pull Requests (PR #15, added), Push Cadence (TASK-007, added), Multi-Agent Coordination (v1.2 G1, added), Supervisor Report Files (v1.4 cascade, added), Supervisor audit log (TASK-017). Patterns to Follow still reads as rules: no bullet carries more than one precedent line. EPIC-012's single Guide version is the v2.1 entry
+- `docs/development_guide.md` v2.1: § Code Style → Patterns to Follow opens with the precedent requirement. Sweep of post-bootstrapping conventions: Source-of-truth body (TASK-003, present), Acceptance criteria cite the governing rule (TASK-029 et al., present), the four EPIC-012 bullets (present), Placeholders (TASK-038), Shipped-executable test (TASK-016/017/025), Branching, Repository Rules, Commits (run-before-commit, attribution, no Git commit hooks), Pull Requests and the CI/CD rules for future checks (PR #15, added in each body), Commit Cadence's unattended-run sentence (FEAT-009, added), Distribution (FEAT-001 Gate 2, added), Push Cadence (TASK-007, added), Multi-Agent Coordination (v1.2 G1, added), Supervisor Report Files (v1.4 cascade, added), Supervisor audit log (TASK-017). Patterns to Follow still reads as rules: no bullet carries more than one precedent line. EPIC-012's single Guide version is the v2.1 entry
 
 ---
 
