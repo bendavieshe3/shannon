@@ -1,7 +1,7 @@
 # Shannon — System Overview
 
-**Version**: 5.0
-**Last Updated**: 2026-11-01
+**Version**: 5.1 (see [CHANGELOG](CHANGELOG.md))
+**Last Updated**: 2026-11-13
 
 Shannon preserves project intent and context while agents handle execution. Everything extends traceably from the Vision. Human decisions remain at the Vision and Feature level; lower-level activity needs useful evidence, not more handholding.
 
@@ -48,6 +48,10 @@ Reuse actual explicit approval rather than asking twice. Silence, self-tests, te
 
 Read actual implementation, run appropriate checks, maintain affected documents, capture decisions and obtain independent technical review from someone who did not implement the work. Stop affected work for consequential divergence, and continue independent authorised work where useful.
 
+## Idea capture
+
+`docs/scratchpad.md` holds ideas that are not ready to be work items: one line each, optional tags, no IDs. `/scratchpad-add [idea]` captures one. `/scratchpad-process` gives each item a disposition: act on it within an approved Feature, promote it (new Feature scope goes to the human), move it to a knowledge note, drop it, or keep it for later, recording where each disposed item went under § Processed. The supervisor's Drift Checker reports when the scratchpad is under pressure. A scratchpad item is context, never authority.
+
 ## Traceability and resumption
 
 Link significant changes, verification and review to the Feature they serve. Maintenance may cite the governing engineering rule and its product purpose without creating a new Feature. Keep actual revision/diff, decisions and sources, test results or unrun checks, unresolved defects and next action accessible from the Feature. Do not require an identifier for every internal action or a duplicate journal.
@@ -60,8 +64,8 @@ Commands remain thin entry points; the work-items skill holds delivery behaviour
 
 ## Adoption and verification
 
-Copy the source commands, skills and guides into the project's `.claude/` directory when deployment is authorised, then run `/shannon-setup`. Existing deployments do not update themselves when source changes. Preserve real repository, publication, deployment, external-action, credentials and spending permissions.
+Copy the source commands, skills and guides into the project's `.claude/` directory when deployment is authorised, then run `/shannon-setup`. Setup backs up anything it overwrites, keeps your `CLAUDE.md` content outside the Shannon block, merges `.claude/settings.json`, wires the supervisor and records the installed version. Existing deployments do not update themselves: pull a newer Shannon clone and run `/shannon-update <clone>/shannon`, which protects local customisations and carries existing records across versions using the changelog's *Records* notes. Preserve real repository, publication, deployment, external-action, credentials and spending permissions.
 
 Use a direct Feature exercise and an optional-record exercise to check the boundary: preserve intent and evidence, avoid routine lower-level approvals, and stop on material divergence. Source checks, independent review, merge, live exercise and human acceptance are separate claims.
 
-See [command reference](../commands/README.md), [work-items skill](../skills/work-items/skill.md) and the project's six core documents for details.
+See [command reference](../commands/README.md), [work-items skill](../skills/work-items/SKILL.md) and the project's six core documents for details.

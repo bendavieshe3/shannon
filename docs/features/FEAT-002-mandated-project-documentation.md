@@ -54,7 +54,7 @@ This is the foundational capability of Shannon: it makes AI-readable, human-revi
 - **Vision**: § Key Features ("Mandated Project Documentation")
 - **Conceptual Design**: *Mandated Document* entity, *Document Alignment Direction* business rule, and *Creating and Approving a Mandated Document* workflow (including the boundary between draft meaning and approved authority)
 - **Technical Design**: § Key Algorithms → Document Alignment Check (algorithm, four-category schema)
-- **Project files**: `shannon/skills/project-documentation/templates/*` (the six templates), `shannon/skills/project-documentation/skill.md`, `shannon/commands/document-create.md` and `document-review.md`
+- **Project files**: `shannon/skills/project-documentation/templates/*` (the six templates), `shannon/skills/project-documentation/SKILL.md`, `shannon/commands/document-create.md` and `document-review.md`
 
 ---
 

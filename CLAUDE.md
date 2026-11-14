@@ -19,19 +19,21 @@ This is **not** a traditional software project. It is a meta-framework for organ
 shannon/                                  # Shannon deployables (source)
 ├── commands/                             # Thin command files (delegate to skills)
 │   ├── README.md
-│   ├── shannon-setup.md
+│   ├── shannon-setup.md / shannon-update.md
 │   ├── document-create.md / document-review.md
 │   ├── feature-{create,elaborate,plan,implement,review}.md
 │   ├── epic-{create,elaborate,plan,implement,review}.md
 │   ├── task-{create,elaborate,plan,implement,review}.md
-│   └── spike-{create,elaborate,plan,implement,review}.md
+│   ├── spike-{create,elaborate,plan,implement,review}.md
+│   ├── scratchpad-{add,process}.md
+│   └── shannon-{report,goal}.md
 │
 ├── skills/                               # Framework logic + templates
 │   ├── project-setup/
-│   │   ├── skill.md
+│   │   ├── SKILL.md
 │   │   └── templates/CLAUDE.md
 │   ├── project-documentation/
-│   │   ├── skill.md
+│   │   ├── SKILL.md
 │   │   └── templates/
 │   │       ├── vision.md
 │   │       ├── technology_stack.md
@@ -41,16 +43,19 @@ shannon/                                  # Shannon deployables (source)
 │   │       ├── ux_guide.md
 │   │       ├── knowledge_note.md
 │   │       └── knowledge_index.md
-│   └── work-items/
-│       ├── skill.md
-│       └── templates/
-│           ├── feature.md  / feature_index.md
-│           ├── epic.md     / epic_index.md
-│           ├── task.md     / task_index.md
-│           └── spike.md    / spike_index.md
+│   ├── work-items/
+│   │   ├── SKILL.md
+│   │   └── templates/
+│   │       ├── feature.md  / feature_index.md
+│   │       ├── epic.md     / epic_index.md
+│   │       ├── task.md     / task_index.md
+│   │       ├── spike.md    / spike_index.md
+│   │       └── scratchpad.md
+│   └── shannon-supervisor/               # SKILL.md, checkers/, hooks/, scripts/, templates/
 │
 └── guides/                               # User-facing documentation
-    └── shannon_overview.md
+    ├── shannon_overview.md
+    └── CHANGELOG.md                      # Framework version source of truth
 
 docs/                                     # Shannon's own documentation (dogfooding)
 ├── vision.md
@@ -117,7 +122,7 @@ Lower documents must enable higher ones. Drift is a defect.
 Read in this order:
 
 1. `shannon/guides/shannon_overview.md` — Complete walkthrough
-2. `shannon/skills/*/skill.md` — Canonical behaviour of each skill
+2. `shannon/skills/*/SKILL.md` — Canonical behaviour of each skill
 3. `shannon/commands/README.md` — Command reference
 
 ### Deploying into a New Project
@@ -146,7 +151,7 @@ Approve the Vision and relevant governing meaning. Capture a Feature, approve it
 When working on Shannon itself:
 
 1. **Command changes** — `shannon/commands/` (keep them thin)
-2. **Skill changes** — `shannon/skills/<name>/skill.md` (where workflow logic lives)
+2. **Skill changes** — `shannon/skills/<name>/SKILL.md` (where workflow logic lives)
 3. **Template changes** — `shannon/skills/<name>/templates/`
 4. **Guide changes** — `shannon/guides/`
 5. **Shannon's own docs** — `docs/` (dogfooding)
@@ -179,7 +184,7 @@ This repository is one project inside Ben's wider agent estate (**xDDS** — Cro
 - **The situation registry** at `~/xdds/shared/situation-registry.md` is the cross-agent index and the source of truth for SIT IDs.
 - **SIT-004 (Second Age Transition) is the estate's strategic source of truth.** If work here reaches an estate-level architectural call — multi-runtime support, skill-library layout, cross-agent conventions — **surface it to SIT-004 rather than deciding locally.** Shannon-internal design decisions remain Shannon's own.
 - **Two different skill systems, easily confused:**
-  - **Shannon skills** — `shannon/skills/*/skill.md`, deployed into a project's `.claude/`. Plain Markdown, hand-authored, governed by this repo's own lifecycle.
+  - **Shannon skills** — `shannon/skills/*/SKILL.md`, deployed into a project's `.claude/`. Plain Markdown, hand-authored, governed by this repo's own lifecycle.
   - **xDDS skills** — `~/xdds/skills/`, mounted at `~/.claude/skills/`. Governed by the estate's three-layer taxonomy and **always built via `xdds-skill-creator`**. That rule does **not** apply to Shannon skills.
 - **Other agent runtimes.** Codex Desktop derived `.agents/`, `.codex/` and `AGENTS.md` from `.claude/` and CLAUDE.md at first launch (2026-07-24). They are another runtime's deployment artefacts, are gitignored, and are **not** Shannon source. Multi-runtime support is a stated estate goal but not yet a Shannon commitment — see SIT-004.
 
@@ -195,7 +200,7 @@ This repository is one project inside Ben's wider agent estate (**xDDS** — Cro
 ## Getting Help
 
 - **System overview**: `shannon/guides/shannon_overview.md`
-- **Skill definitions**: `shannon/skills/*/skill.md`
+- **Skill definitions**: `shannon/skills/*/SKILL.md`
 - **Command reference**: `shannon/commands/README.md`
 - **Shannon's own dogfood docs**: `docs/`
 

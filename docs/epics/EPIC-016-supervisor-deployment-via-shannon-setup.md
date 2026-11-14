@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-009](../features/FEAT-009-supervisor.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 - **Tags**: #supervisor #setup #portability #deploy
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -19,7 +19,7 @@
 
 ### Overview
 
-`/shannon-setup` copies `shannon/skills/` wholesale (`project-setup/skill.md`), so the supervisor's files reach a new project. The rest of what makes it work does not:
+`/shannon-setup` copies `shannon/skills/` wholesale (`project-setup/SKILL.md`), so the supervisor's files reach a new project. The rest of what makes it work does not:
 
 - the hook registrations merged into `.claude/settings.json`
 - `./.claude/shannon-supervisor.json` (gate-authority ceilings, report directory)
@@ -46,7 +46,7 @@ Running `/shannon-setup` in a fresh project yields a supervisor that runs `/shan
 ### Context
 
 - **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md). Ideal State *Portability to non-Shannon-self projects* already aspires to this (*Responsible Promotion* step 4: yes)
-- **Also touches**: FEAT-001 (Easy to Set Up) through `project-setup/skill.md`; EPIC-001 (Basic Installation, DRAFT) doesn't cover the supervisor
+- **Also touches**: FEAT-001 (Easy to Set Up) through `project-setup/SKILL.md`; EPIC-001 (Basic Installation, DRAFT) doesn't cover the supervisor
 - **Depends on**: EPIC-012 (FEAT-008 development conventions, PR #3) for the audit-log and shipping-source conventions; EPIC-011 for the hook set it should install (PreCompact and Stop are pending there)
 - **Technical Design**: § Data Model → *Supervisor Configuration*; § System Architecture → *Supervisor* → *Hook integration*
 
@@ -111,6 +111,5 @@ Running `/shannon-setup` in a fresh project yields a supervisor that runs `/shan
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Delivered directly under FEAT-009 and FEAT-001 (Vision v3.0): `/shannon-setup` merges the shipped hook snippets without clobbering existing entries, writes a default `shannon-supervisor.json` when absent, adds the audit-log ignore when `.claude/` is tracked, creates `docs/supervisor/`, and the knowledge-index template carries a *Supervisor Reports* section. Live-tested by installing into a scratch project that already had a user hook. Running `/shannon-report` there is part of the FEAT-009 autonomy work. Kept as a historical record.
 - **2026-10-18** — DRAFT: Epic created by the 2026-10-17 triage from the installer halves of two FEAT-008 scratchpad items (audit-log convention; shipping-source mirror), on directing-party approval

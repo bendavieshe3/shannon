@@ -51,8 +51,8 @@ The doc-half — `development_guide.md`:
 
 The skill-half — the two-touch, per the EPIC-008 precedent:
 
-- [x] **AC#7** — `shannon/skills/work-items/skill.md` § Process: Elaborate carries a step-adjoining soft prompt at the point acceptance criteria are drafted, in the same italicised form § Process: Plan and § Process: Review use for the meta-gap prompt, and cross-referencing the § Code Style pattern by name
-- [x] **AC#8** — Source and deployed copies of the work-items skill are byte-identical after the edit (`shannon/skills/work-items/skill.md` and `.claude/skills/work-items/skill.md`)
+- [x] **AC#7** — `shannon/skills/work-items/SKILL.md` § Process: Elaborate carries a step-adjoining soft prompt at the point acceptance criteria are drafted, in the same italicised form § Process: Plan and § Process: Review use for the meta-gap prompt, and cross-referencing the § Code Style pattern by name
+- [x] **AC#8** — Source and deployed copies of the work-items skill are byte-identical after the edit (`shannon/skills/work-items/SKILL.md` and `.claude/skills/work-items/SKILL.md`)
 
 Scope:
 
@@ -65,7 +65,7 @@ Scope:
 - **Parent Feature**: [FEAT-008](../../features/FEAT-008-development-discipline.md) — Development Discipline. **Orphan Task**: FEAT-008's only Epic, [EPIC-008](../../epics/EPIC-008-development-conventions-from-dogfooding.md), is APPROVED and closed, and this convention is too small to warrant a new Epic. Orphan Tasks follow the Task default at all three gates per `conceptual_design.md` § Business Rules → *Gate Authority Split* → *Orphan Tasks*: *"The absence of a parent Epic does not promote gate authority to the directing party; orphan-ness is a parentage attribute, not an authority attribute."*
 - **Note — the parent Feature is DRAFT.** FEAT-008 reads DRAFT in both its body and `feature_index.md` despite EPIC-008 having been APPROVED on 2026-05-27 and its Ideal State bullets marked met. This is a known reconciliation item (SIT-026 working plan T03) and is a Feature-gate matter, so it is not resolved here. It does not block this Task, but a Task whose parent Feature is DRAFT is worth flagging rather than passing over.
 - **This Task is the meta-gap routing channel firing.** FEAT-008 § Ideal State bullet 3 commits to exactly this: *"a routing channel for 'this resolved a framework-general ambiguity → route it back' so the discipline of capturing learnings is visible at the moments of action"*. The item was captured in `docs/scratchpad.md` at TASK-027's Gate 2, strengthened at EPIC-010's Gate 3 when the third instance appeared, and promoted here. The channel EPIC-008 built is what carried it.
-- **Precedent for shape**: EPIC-008 landed its conventions as a **two-touch** — the doc-half in `development_guide.md` and the skill-half as step-adjoining prompts in `shannon/skills/work-items/skill.md` (TASK-007 + TASK-010), each half cross-referencing the other. A convention that only lives in a Guide is one nobody reads at the moment of action.
+- **Precedent for shape**: EPIC-008 landed its conventions as a **two-touch** — the doc-half in `development_guide.md` and the skill-half as step-adjoining prompts in `shannon/skills/work-items/SKILL.md` (TASK-007 + TASK-010), each half cross-referencing the other. A convention that only lives in a Guide is one nobody reads at the moment of action.
 - **Durable record**: `docs/knowledge/meta-gap-routing-channel.md` — the Extension knowledge note describing this channel.
 
 ---
@@ -81,8 +81,8 @@ A two-touch landing, per the EPIC-008 precedent: the rule in the Development Gui
 ### Steps
 
 1. **`docs/development_guide.md` § Code Style → *Patterns to Follow*** — add the named pattern *Acceptance criteria cite the governing rule* immediately after *Source-of-truth body before derived artefacts*, covering AC#1–AC#6.
-2. **`shannon/skills/work-items/skill.md` § Process: Elaborate** — add the step-adjoining soft prompt directly under the section heading, matching the italicised form used by § Process: Plan and § Process: Review (AC#7).
-3. **Sync the deployed copy** — `.claude/skills/work-items/skill.md` (AC#8). Verified in sync before the edit.
+2. **`shannon/skills/work-items/SKILL.md` § Process: Elaborate** — add the step-adjoining soft prompt directly under the section heading, matching the italicised form used by § Process: Plan and § Process: Review (AC#7).
+3. **Sync the deployed copy** — `.claude/skills/work-items/SKILL.md` (AC#8). Verified in sync before the edit.
 4. **Verify** — `diff` source against deploy; `grep` the pattern name in both the Guide and the skill; `git status` the changed-file set against the AC#9 guard.
 5. **Bookkeeping** — Activity Log entries, `task_index.md` status, then archive on Gate 3 approval per `conceptual_design.md` § Business Rules → *Approved Tasks Are Archived*.
 
@@ -105,8 +105,8 @@ Landed in the planned editing order — Guide body, skill source, deployed copy,
 
 - **`docs/development_guide.md` § Code Style → *Patterns to Follow*** — new bullet *Acceptance criteria cite the governing rule*, placed immediately after *Source-of-truth body before derived artefacts*. Structured as: positive rule; the two failure forms as a nested list with the reason each fails; the corroborating-evidence allowance including the grep-substring case; a short paragraph naming *why* the pull toward the example exists; then the three-instance worked precedent and the cross-reference to the companion scope-guard rule.
 - **`docs/development_guide.md` changelog** — new **v1.5** entry (2026-08-28), classified additive per `conceptual_design.md` § Re-reviewing → *Status semantics*; document stays APPROVED across the bump. The entry records that the amendment arrived via a work item rather than `/document-review`, naming the v1.8 rule that permits it. `**Last Reviewed**` moved to 2026-08-28.
-- **`shannon/skills/work-items/skill.md` § Process: Elaborate** — step-adjoining soft prompt added directly under the section heading, in the same italicised single-paragraph form § Process: Plan and § Process: Review use, and cross-referencing the § Code Style pattern by name.
-- **`.claude/skills/work-items/skill.md`** — deployed copy re-synced by direct copy. Verified in sync *before* the edit as well as after, so no pre-existing drift was masked.
+- **`shannon/skills/work-items/SKILL.md` § Process: Elaborate** — step-adjoining soft prompt added directly under the section heading, in the same italicised single-paragraph form § Process: Plan and § Process: Review use, and cross-referencing the § Code Style pattern by name.
+- **`.claude/skills/work-items/SKILL.md`** — deployed copy re-synced by direct copy. Verified in sync *before* the edit as well as after, so no pre-existing drift was masked.
 
 The § Testing Strategy → Pre-Commit Checklist parenthetical naming the *matching soft prompts* in § Process: Plan and § Process: Review was deliberately left unchanged: those two are the meta-gap prompt, and the new Elaborate prompt is a different prompt about a different thing. Widening the parenthetical would have conflated them.
 
@@ -128,7 +128,7 @@ All nine acceptance criteria verified against the working tree:
 | #6 | Cross-reference to `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* present |
 | #7 | Prompt present under § Process: Elaborate, matching the italicised form of the § Process: Plan and § Process: Review prompts, cross-referencing the pattern by name |
 | #8 | `diff` of source against deployed copy reports identical |
-| #9 | Changed set is `docs/development_guide.md`, `shannon/skills/work-items/skill.md` (plus the gitignored deployed copy) and this Task's own file and index entry. No other mandated document, template, checker, hook or command file touched |
+| #9 | Changed set is `docs/development_guide.md`, `shannon/skills/work-items/SKILL.md` (plus the gitignored deployed copy) and this Task's own file and index entry. No other mandated document, template, checker, hook or command file touched |
 
 Pre-Commit Checklist (`development_guide.md` § Testing Strategy) walked: cross-reference paths correct in both directions; no stale references introduced; dry-run of `/task-elaborate` reads coherently with the new prompt in place.
 
@@ -145,5 +145,5 @@ Pre-Commit Checklist (`development_guide.md` § Testing Strategy) walked: cross-
 - **2026-08-26** — **Unblocked.** `conceptual_design.md` v1.8 APPROVED at Gate 1, encoding the 2026-08-25 ruling as § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide*. This Task may now amend `development_guide.md` directly under the corrected rule; scope stands as a single Task with both halves. Ready for `/task-elaborate TASK-029`.
 - **2026-08-28** — **ELABORATED** (Gate 1, supervisor authority): nine acceptance criteria drafted, splitting the doc-half (AC#1–#6), the skill-half (AC#7–#8) and the scope guard (AC#9). Criteria written under the convention they establish — each cites the governing rule or the § Code Style / § Process location, with the three instances appearing as precedent rather than as the assertion.
 - **2026-08-28** — **PLANNED** (Gate 2, supervisor authority): two-touch approach per the EPIC-008 precedent, editing order per *Source-of-truth body before derived artefacts*. Risks recorded: prompt fatigue in § Process: Elaborate (mitigated by scoping the prompt to AC drafting rather than adding a second general meta-gap prompt), and source-vs-deploy drift (mitigated by an explicit sync step; the general concern stays with SIT-026 T13).
-- **2026-08-28** — **IMPLEMENTED**: `development_guide.md` **v1.5** (additive; stays APPROVED) carries the *Acceptance criteria cite the governing rule* pattern; `shannon/skills/work-items/skill.md` § Process: Elaborate carries the step-adjoining prompt; deployed copy re-synced. First amendment of the Development Guide by a work item under the `conceptual_design.md` v1.8 rule that made it legitimate.
+- **2026-08-28** — **IMPLEMENTED**: `development_guide.md` **v1.5** (additive; stays APPROVED) carries the *Acceptance criteria cite the governing rule* pattern; `shannon/skills/work-items/SKILL.md` § Process: Elaborate carries the step-adjoining prompt; deployed copy re-synced. First amendment of the Development Guide by a work item under the `conceptual_design.md` v1.8 rule that made it legitimate.
 - **2026-08-28** — **APPROVED** (Gate 3, supervisor authority): all nine ACs verified; Pre-Commit Checklist walked; no new meta-gap. Archived per `conceptual_design.md` § Business Rules → *Approved Tasks Are Archived*.

@@ -1,8 +1,8 @@
 ---
 name: drift-checker
 description: Scratchpad pressure, uncommitted changes, branch lag. Spawned as one of three checker subagents under the /shannon-report fan-out.
-model: claude-haiku-4-5-20251001
-allowed-tools: Read, Bash(git log:*), Bash(git diff:*), Bash(git status), Bash(git branch:*)
+model: haiku
+tools: Read, Glob, Grep, Bash(git log:*), Bash(git diff:*), Bash(git status), Bash(git branch:*)
 ---
 
 # Drift Checker

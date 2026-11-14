@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-003](../features/FEAT-003-unified-work-item-model.md)
 - **Created**: 2026-10-18
-- **Updated**: 2026-10-18
+- **Updated**: 2026-11-13
 - **Tags**: #framework #conventions #conceptual-design #work-items
 
 > **Status** moves through the unified lifecycle: `DRAFT → ELABORATED → PLANNED → IMPLEMENTING ↔ IMPLEMENTED ↔ REVIEW → APPROVED`. Approved epics remain as historical records of how the parent feature evolved.
@@ -22,7 +22,7 @@
 Three work-item conventions are in use but not codified. EPIC-007 settled the first round.
 
 1. **A re-elaboration trigger for siblings.** `conceptual_design.md` § Re-elaborating a Work Item names three triggers: upstream cascade, downstream gap, framework evolution. It has twice had to fit "a sibling Feature implements part of my scope" (FEAT-009 against FEAT-006, 2026-05-29 and 2026-07-12) under *downstream gap*, which assumes a child surfaced the gap.
-2. **Cascading Preparation as one named workflow.** The Feature-plan → Epic and Epic-plan → Task cases share one mechanism, but it is named only in `work-items/skill.md` § Process: Plan and in `technical_design.md` § Key Algorithms → *Cascading Operations*. It has no § Key Workflows entry in `conceptual_design.md`.
+2. **Cascading Preparation as one named workflow.** The Feature-plan → Epic and Epic-plan → Task cases share one mechanism, but it is named only in `work-items/SKILL.md` § Process: Plan and in `technical_design.md` § Key Algorithms → *Cascading Operations*. It has no § Key Workflows entry in `conceptual_design.md`.
 3. **The *Future Epics* forward-deferral paragraph.** FEAT-009 § Plan names Phase 5+ work with deferral rationale instead of creating DRAFT stubs. The pattern is sound, but it is not part of the Feature domain model or the Plan process.
 
 All three are work-item workflow conventions, so they sit under FEAT-003 rather than FEAT-008, per FEAT-008's split.
@@ -108,6 +108,5 @@ All three are work-item workflow conventions, so they sit under FEAT-003 rather 
 
 ## Activity Log
 
-[Timestamped entries recording the history. Newest at the top.]
-
+- **2026-11-13** — Superseded by the Feature-level governance revision (Vision v3.0). Items 2 (*Cascading Preparation*) and 3 (*Future Epics* paragraph) only applied to a mandatory Feature → Epic → Task hierarchy, which no longer exists: Epics are optional and a Feature Plan names its approach, not a child list. Item 1 (a sibling-scope re-elaboration trigger) still applies to Features. That revision already names it: `conceptual_design.md` § Re-elaborating a Work Item lists "sibling change" among the triggers to record. Nothing remains for this Epic to deliver. Kept as a historical record.
 - **2026-10-18** — DRAFT: Epic created from three scratchpad items (sibling re-elaboration trigger; Cascading Preparation naming; forward-deferral pattern) by the 2026-10-17 triage, on directing-party approval

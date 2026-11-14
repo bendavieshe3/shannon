@@ -73,11 +73,28 @@
 - **Conceptual Design**: [entities or rules this feature touches]
 - [Other documents]
 
+### Documents Consulted
+
+[Filled at elaboration (Gate 1). One line per document the requirements must align to: the section read and what it constrains, or "read; nothing bears on this Feature". The human reviewer sees from this list which documents shaped the requirements and which were skipped.]
+
+- `vision.md` § [section] — [constraint]
+- `conceptual_design.md` § [section] — [constraint]
+- `ux_guide.md` § [section] — [constraint, or nothing relevant]
+
 ---
 
 ## Plan
 
 [Approach, consequential trade-offs, dependencies and verification strategy for human Gate 2. Do not require a child hierarchy.]
+
+### Documents Consulted
+
+[Filled at planning (Gate 2). One line per document the approach must align to: the section read and what it constrains, or "read; nothing bears on this approach".]
+
+- `technology_stack.md` § [section] — [constraint]
+- `technical_design.md` § [section] — [constraint]
+- `development_guide.md` § [section] — [constraint]
+- `conceptual_design.md` § [section] — [constraint, or nothing relevant]
 
 ### Approach
 

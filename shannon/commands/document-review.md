@@ -16,6 +16,6 @@ The skill will:
 3. Ask the user to explicitly approve the document for the DRAFT → APPROVED transition
 
 If the `project-documentation` skill does not activate, report:
-"Error: project-documentation skill failed to activate. Please confirm `./.claude/skills/project-documentation/skill.md` is present."
+"Error: project-documentation skill failed to activate. Please confirm `./.claude/skills/project-documentation/SKILL.md` is present."
 
 After approval, suggest re-reviewing any lower documents in the authority graph that are already APPROVED — they may now be misaligned.

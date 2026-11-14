@@ -11,6 +11,6 @@ Pass:
 If `$ARGUMENTS` is empty, ask the user which document to create.
 
 If the `project-documentation` skill does not activate, report:
-"Error: project-documentation skill failed to activate. Please confirm `./.claude/skills/project-documentation/skill.md` is present."
+"Error: project-documentation skill failed to activate. Please confirm `./.claude/skills/project-documentation/SKILL.md` is present."
 
 After the document is drafted, resume the original conversation topic. The user can run `/document-review [path]` when ready to approve.

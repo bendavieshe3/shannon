@@ -1,7 +1,7 @@
 # UX Guide
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-11-01
+**Last Reviewed**: 2026-11-13
 **Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
@@ -107,6 +107,8 @@ The supervisor is never ambiguously quiet. Silence from a vigilance role is indi
 At a Feature gate, show the concrete decision and wait for explicit human approval. Gate 1 approves requirements and acceptance criteria; Gate 2 approves approach and consequential trade-offs; Gate 3 accepts delivered capability against verification and independent review.
 
 For example: “The onboarding Feature now has observable acceptance criteria [summary]. Approve these requirements, or describe changes.”
+
+At Gates 1 and 2, show the *Documents Consulted* list alongside the decision, with any contradiction first, so the human can see which documents shaped it and which were skipped.
 
 Record and reuse approval already supplied for the exact decision. Silence never supplies approval. The implementer and supervisor cannot approve Feature delivery on the human's behalf. Epics, Tasks and Spikes have no mandatory human gates; announce useful progress without asking permission for routine execution. No automatic archive movement follows a legacy APPROVED label.
 
@@ -242,6 +244,10 @@ Index updates and cross-reference maintenance happen silently as part of the gat
 ---
 
 ## Version History
+
+### 2026-11-13 - v2.1
+
+- § Gate Approval: at Gates 1 and 2, show the Feature's *Documents Consulted* list with any contradiction first (FEAT-003, document consultation at elaborate and plan). Additive; stays APPROVED.
 
 ### 2026-11-01 - v2.0
 

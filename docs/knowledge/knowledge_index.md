@@ -2,6 +2,8 @@
 
 ## Research
 
+- **[claude-code-skill-and-subagent-conventions.md](./claude-code-skill-and-subagent-conventions.md)** - SPIKE-001: Claude Code needs `SKILL.md` (lowercase `skill.md` does not load, tested); frontmatter, subagent registration and `--bare` effects on Shannon's skills and supervisor
+
 - **[note-name].md** - [One-line description]
 
 **Example**:

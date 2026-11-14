@@ -1,7 +1,7 @@
 # Conceptual Design
 
 **Status**: APPROVED
-**Last Reviewed**: 2026-11-01
+**Last Reviewed**: 2026-11-13
 **Approved**: 2026-11-01 (feature-level governance design; implementation pending independent review)
 
 ---
@@ -19,6 +19,7 @@
 - **Authority Graph** — The directed relationship between documents. Lower documents must align to and enable higher ones.
 - **Skill** — A reusable unit of framework logic, with templates, invoked by commands. Skills are where Shannon's behaviour lives.
 - **Command** — A user-invoked entry point. Thin — its job is to identify what to do and delegate to a skill.
+- **Scratchpad** — The project's pre-workflow capture file, `docs/scratchpad.md`: one-line ideas with no ID, status or parent, processed periodically into a work item, a knowledge note, or nothing. Context, never authority.
 - **Knowledge Note** — A captured piece of research, implementation detail, or document extension. Lives in the knowledge base.
 
 ---
@@ -35,6 +36,7 @@ A Shannon-managed software project. Contains a vision, mandated documents, work 
 - **Mandated Documents** — The six core documents describing the project
 - **Work Items** — Features, Epics, Tasks, and Spikes
 - **Knowledge Base** — Notes capturing learnings and elaborations
+- **Scratchpad** — Unprocessed ideas awaiting a disposition (see *Scratchpad Item*)
 
 **Relationships**:
 
@@ -42,6 +44,7 @@ A Shannon-managed software project. Contains a vision, mandated documents, work 
 - Contains zero or more **Mandated Documents** (vision is always present; others as relevant)
 - Contains zero or more **Features**, **Tasks**, **Spikes** (Epics exist under Features)
 - Contains zero or more **Knowledge Notes**
+- Contains one **Scratchpad** holding zero or more **Scratchpad Items**
 
 ### Work Item
 
@@ -152,6 +155,22 @@ A captured piece of project knowledge that doesn't belong in a mandated document
 - May be produced by a **Spike**
 - May be produced by a supervisor audit cycle (Supervisor Report type)
 
+### Scratchpad Item
+
+An idea, half-formed piece of work or unprocessed TODO, captured before it is ready to be classified.
+
+**Attributes**:
+
+- **Title and line** — One line; what and why
+- **Tags** — Optional `#tags`
+- **Disposition** *(once processed)* — Acted on, promoted, moved to knowledge, or dropped, with the date and a pointer. An item kept for later stays unprocessed, with a dated note when something changed
+
+**Relationships**:
+
+- Lives in the project's single `docs/scratchpad.md`, under § Items until processed and § Processed afterwards
+- May become a **Feature** (human decision), an optional **Epic**, **Task** or **Spike**, or a **Knowledge Note**
+- Has no ID, status or parent. It is not a work item and grants no authority
+
 ---
 
 ## Business Rules
@@ -242,11 +261,28 @@ Record the trigger (upstream change, downstream gap, sibling change or framework
 
 Before implementing a finding, read the affected Feature and Vision or the governing engineering rule and its product purpose. If existing approved intent covers it, choose useful execution aids or work directly. If it changes intent, seek the relevant human Feature/document decision first. A scratchpad entry or lower-level record supplies context, not authority. Preserve the source and disposition of the finding; optional records use descriptive names and cite their governing context. Never split an unapproved product decision into Tasks to evade the human boundary.
 
+### Processing the Scratchpad
+
+**Goal**: Keep cheap capture from turning into a junk drawer. Elaborates Vision § Key Features *Lightweight Idea Capture*.
+
+**Flow**:
+
+1. Anyone captures an idea as one line under § Items (`/scratchpad-add` or a direct edit). The implementer also captures framework-general ambiguities it notices during other work (`development_guide.md` § Pre-Commit Checklist).
+2. Periodically, and whenever the supervisor's Drift Checker reports scratchpad pressure, `/scratchpad-process` works the items.
+3. Each item gets one disposition: act within an existing approved Feature or governing rule; promote, where new or changed Feature scope goes to the human as a DRAFT Feature or re-elaboration, and optional Epics, Tasks or Spikes may be created within approved intent; move a durable finding to a knowledge note; drop it with a reason; or keep it for later.
+4. Disposed items move to § Processed with the date and a pointer, so the trail survives.
+
+**Rules applied**: *Responsible Promotion* (a scratchpad item supplies context, not authority); *Gate Authority Split* (only the human approves new Feature scope).
+
 ### Running a Spike to Reduce Uncertainty
 
 A Spike is an optional time-boxed investigation, linked to the affected Feature or governing decision. Define the question, output and time/cost limits; research within existing authority; save reusable knowledge and a recommendation. State an inconclusive result when the time-box expires. No mandatory Spike approval stages apply, but a new external cost, access need or consequential choice still requires the human decision. An investigation result cannot approve its own resulting Feature change.
 
 ## Version History
+
+### 2026-11-13 - v2.1
+
+- **Scratchpad ratified (FEAT-007).** Added the *Scratchpad* glossary entry, the *Scratchpad Item* domain entity and the *Processing the Scratchpad* key workflow. Additive: it ratifies the capability Vision § Key Features *Lightweight Idea Capture* and FEAT-007's approved requirements already name, and contradicts no approved claim. The document stays APPROVED.
 
 ### 2026-11-12 - Reference repair
 

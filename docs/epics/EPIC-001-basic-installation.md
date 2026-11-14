@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-001](../features/FEAT-001-easy-to-setup.md)
 - **Created**: 2026-05-15
-- **Updated**: 2026-05-15
+- **Updated**: 2026-11-13
 
 ---
 
@@ -62,4 +62,5 @@ A developer can clone Shannon, copy the framework into their project's `.claude/
 
 ## Activity Log
 
+- **2026-11-13** — Already met before the finish-to-vision push: the README documents installation, `/shannon-setup` instantiates the mandated documents idempotently from the skill templates and captures the first vision pass. Recorded under FEAT-001 § Plan → Approach. Kept as a historical record.
 - **2026-05-15** — DRAFT: Created as part of refactor; migrated from FEAT-001 Phase 1

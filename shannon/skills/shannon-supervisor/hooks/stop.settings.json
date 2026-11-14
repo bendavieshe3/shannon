@@ -1,0 +1,15 @@
+{
+  "_comment": "Shippable Claude Code settings.json snippet for the supervisor Stop hook. Inert unless SHANNON_SUPERVISOR_SCOPE is set; during a supervisor run it blocks the stop once when the newest run directory holds checker fragments but no report has been written since that run started, telling Claude to assemble the report. Honours stop_hook_active, so it cannot loop.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/skills/shannon-supervisor/scripts/stop-flushcheck.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

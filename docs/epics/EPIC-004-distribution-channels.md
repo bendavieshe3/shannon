@@ -6,7 +6,7 @@
 - **Type**: Epic
 - **Parent**: [FEAT-001](../features/FEAT-001-easy-to-setup.md)
 - **Created**: 2026-05-15
-- **Updated**: 2026-05-15
+- **Updated**: 2026-11-13
 
 ---
 
@@ -66,4 +66,5 @@ A developer can install Shannon through whichever channel matches their workflow
 
 ## Activity Log
 
+- **2026-11-13** — Scope decision offered to the directing party with the finish-to-vision plan: keep git clone and an optional GitHub template repository; drop the curl script and the npm and pip packages, with rationale recorded under FEAT-001. Awaiting that decision.
 - **2026-05-15** — DRAFT: Created as part of refactor; migrated from FEAT-001 Phase 4. Captured the scope concern flagged in the 2025-11-11 FEAT-001 health review (Phase 4 may be overambitious)

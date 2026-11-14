@@ -1,8 +1,8 @@
 ---
 name: alignment-checker
 description: Fast codebase scan for document-vs-implementation drift. Spawned as one of three checker subagents under the /shannon-report fan-out.
-model: claude-haiku-4-5-20251001
-allowed-tools: Read, Bash(git log:*), Bash(git diff:*), Bash(git status)
+model: haiku
+tools: Read, Glob, Grep, Bash(git log:*), Bash(git diff:*), Bash(git status)
 ---
 
 # Alignment Checker

@@ -29,7 +29,17 @@ In your project, inside Claude Code:
 /shannon-setup
 ```
 
-This creates the six mandated documents, the Feature and knowledge directories (optional execution folders may be added when useful), and a project-level `CLAUDE.md` with AI guidance.
+This backs up anything it would overwrite, wires the supervisor's hooks, records the installed version, and creates the six mandated documents, the Feature and knowledge directories (optional execution folders may be added when useful), and a project-level `CLAUDE.md` with AI guidance.
+
+### Update
+
+Pull a newer Shannon clone, then in your project:
+
+```
+/shannon-update /path/to/shannon/shannon
+```
+
+This shows what changed since your installed version (see `shannon/guides/CHANGELOG.md`), asks before replacing any framework file you customised, backs up what it overwrites, and carries existing work items across the version change.
 
 ### Start Working
 
@@ -67,10 +77,14 @@ Everything extends traceably from the Vision through relevant governing document
 
 The human approves Feature requirements/acceptance criteria (Gate 1), approach/consequential trade-offs (Gate 2), and delivered capability against evidence (Gate 3). Vision and consequential changes to approved meaning remain human-owned. Agents maintain factual documentation and execution plans within approved intent. Independent technical review remains distinct from implementation, merge and human acceptance.
 
+### Lightweight Idea Capture
+
+`docs/scratchpad.md` takes one-line ideas that aren't ready to be work items. `/scratchpad-add` captures one; `/scratchpad-process` acts on, promotes, files or drops each item and keeps a trail under § Processed.
+
 ### Commands + Skills + Subagents
 
-- **Commands** — Thin entry points (`/shannon-setup`, `/[type]-[verb]`, `/document-[verb]`)
-- **Skills** — Reusable framework logic with templates (`project-setup`, `project-documentation`, `work-items`)
+- **Commands** — Thin entry points (`/shannon-setup`, `/[type]-[verb]`, `/document-[verb]`, `/scratchpad-[verb]`, `/shannon-report`, `/shannon-goal`)
+- **Skills** — Reusable framework logic with templates (`project-setup`, `project-documentation`, `work-items`, `shannon-supervisor`)
 - **Subagents** — Optional, separately authorised help; independent review must come from someone who did not implement the change
 
 ## Repository Structure
@@ -81,7 +95,8 @@ shannon/                       # Deployable source
 ├── skills/                    # Framework logic + templates
 │   ├── project-setup/
 │   ├── project-documentation/
-│   └── work-items/
+│   ├── work-items/
+│   └── shannon-supervisor/
 └── guides/                    # User-facing documentation
 
 docs/                          # Shannon's own documentation (dogfooding)
@@ -113,7 +128,7 @@ Shannon (the person) proved you can communicate perfectly despite noise if you s
 
 - **Complete walkthrough** — `shannon/guides/shannon_overview.md`
 - **Command reference** — `shannon/commands/README.md`
-- **Skill definitions** — `shannon/skills/*/skill.md`
+- **Skill definitions** — `shannon/skills/*/SKILL.md`
 - **Example application** — `docs/` (Shannon's own dogfood documentation)
 
 ## License

@@ -8,6 +8,9 @@ This file provides guidance to Claude Code when working in this project.
 
 [One or two sentence description of what this project does.]
 
+<!-- shannon:begin -->
+<!-- Shannon manages the text between these markers; /shannon-update replaces it. Put project-specific guidance outside them. -->
+
 ---
 
 ## Documentation System
@@ -75,6 +78,7 @@ Everything traces from the Vision through relevant documents and Features to imp
 ### Project Setup
 
 - `/shannon-setup` — Initialise this project with the Shannon framework
+- `/shannon-update [path]` — Upgrade Shannon from a newer clone, or report the installed version
 
 ### Document Management
 
@@ -85,6 +89,11 @@ Everything traces from the Vision through relevant documents and Features to imp
 
 All four types retain create/elaborate/plan/implement/review commands. Only Feature elaborate/plan/review cross human gates. `/feature-implement` delivers directly; optional verbs do not require prior progress labels. Read the work-items skill and current governing context. Existing indexes must agree with bodies, but missing optional indexes are not defects.
 
+### Idea Capture
+
+- `/scratchpad-add [idea]` — Capture an idea in `docs/scratchpad.md` without classifying it
+- `/scratchpad-process` — Give each scratchpad item a disposition: act, promote, move to knowledge, drop, or keep for later
+
 ## Critical Guardrails
 
 - Read relevant Vision, Feature, design/Guide context and actual implementation before changing it.
@@ -94,6 +103,7 @@ All four types retain create/elaborate/plan/implement/review commands. Only Feat
 - Resolve routine execution details within approved authority. Stop affected work on consequential divergence; continue independent authorised work.
 - Respect existing permissions for publication, deployment, external actions, credentials and spending.
 - Do not silently overwrite another writer, bulk migrate historical records or automatically archive/delete them.
+<!-- shannon:end -->
 
 ## Project-Specific Notes
 

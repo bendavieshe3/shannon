@@ -2,12 +2,12 @@
 
 ## Metadata
 
-- **Status**: DRAFT
+- **Status**: IMPLEMENTED
 - **Type**: Spike
 - **Feature**: [FEAT-009](../docs/features/FEAT-009-supervisor.md)
 - **Time-box**: Half a day
 - **Created**: 2026-10-17
-- **Updated**: 2026-10-17
+- **Updated**: 2026-11-13
 
 > **Status** moves through the unified lifecycle, but the meaningful transitions for a spike are `ELABORATED → IMPLEMENTED` (investigation done) and `APPROVED` (output captured as knowledge note). Spikes are disposable — the knowledge note is the durable artefact.
 
@@ -68,7 +68,7 @@ Half a day. If the documentation is silent on case sensitivity, test discovery d
 
 ## Investigation Notes
 
-[Filled during implementation. Raw findings, dead-ends, surprises. This is the working scratchpad. The polished output goes into the knowledge note.]
+Docs read 2026-11-13 (skills, sub-agents, slash-commands, hooks, headless). The docs don't say whether discovery is case-sensitive, so it was tested in a scratch project with `claude -p` (2.1.325): lowercase failed, uppercase activated. See the knowledge note.
 
 ---
 
@@ -78,11 +78,11 @@ Half a day. If the documentation is silent on case sensitivity, test discovery d
 
 [Link to the knowledge note this spike produced. The note is the durable artefact; this spike file is just the activity record.]
 
-- [Knowledge note path]
+- [claude-code-skill-and-subagent-conventions.md](../docs/knowledge/claude-code-skill-and-subagent-conventions.md)
 
 ### Recommendation
 
-[The recommendation that emerges from the investigation, in one or two sentences. The full reasoning lives in the knowledge note.]
+Rename the three lowercase `skill.md` files to `SKILL.md` (tested: lowercase does not load as a skill), add frontmatter to the supervisor skill, pass checker models when spawning, and drop `--bare` from the headless contract.
 
 ---
 
@@ -105,6 +105,7 @@ Half a day. If the documentation is silent on case sensitivity, test discovery d
 
 ## Activity Log
 
+- **2026-11-13** — IMPLEMENTED (self-tested; under Vision v3.0 no Spike gates apply). Answered within the time-box from Claude Code's docs plus a live discovery test. Output: [knowledge note](../docs/knowledge/claude-code-skill-and-subagent-conventions.md). The rename it recommends waits for the directing party.
 [Timestamped entries recording the history. Newest at the top.]
 
 - **2026-10-17** — DRAFT: Spike created from two merged scratchpad items (`SKILL.md` filename casing; canonical frontmatter keys for subagents and skills) by the 2026-10-17 triage, on supervisor promotion authority (Spike ceiling not reserved)

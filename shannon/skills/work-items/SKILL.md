@@ -8,7 +8,7 @@ When invoked, start with “Activating work-items skill for [type] [verb].”
 
 ## Purpose and inputs
 
-Commands supply Type (`feature`, `epic`, `task`, `spike`), Verb (`create`, `elaborate`, `plan`, `implement`, `review`) and Target ID or hint. Resolve an unambiguous target from current context; ask only when ambiguity affects scope. Read `conceptual_design.md` § Business Rules, the target Feature and relevant documents before affected work. Resolve any other skills by name from the session catalogue.
+Commands supply Type (`feature`, `epic`, `task`, `spike`, or `scratchpad` with verbs `add` and `process`), Verb (`create`, `elaborate`, `plan`, `implement`, `review`) and Target ID or hint. Resolve an unambiguous target from current context; ask only when ambiguity affects scope. Read `conceptual_design.md` § Business Rules, the target Feature and relevant documents before affected work. Resolve any other skills by name from the session catalogue.
 
 ## Authority and traceability
 
@@ -28,13 +28,13 @@ Read the Feature index immediately before allocation. Allocate the next real `FE
 
 ### Elaborate — Gate 1
 
-Read the Vision, relevant governing documents and actual capability. Draft requirements, user stories and observable Feature acceptance criteria; cite governing rules rather than worked examples or stale version pins. Check scope criteria by failure mode rather than literal changed-file counts. Do this directly, or use separately authorised helpers when useful. Present the concrete scope and uncertainties for human approval; only actual approval marks ELABORATED.
+Read the actual capability, and read in full the sections that bear on the Feature in `vision.md`, `conceptual_design.md` and, for anything user-facing, `ux_guide.md`, plus any APPROVED document the Vision Reference or Context names. Record each in the Feature's Requirements § Documents Consulted with the section and what it constrains; write "read; nothing bears on this Feature" rather than leaving a document out. Before presenting, check the draft against those sections and name any contradiction instead of resolving it silently. Draft requirements, user stories and observable Feature acceptance criteria; cite governing rules rather than worked examples or stale version pins. Check scope criteria by failure mode rather than literal changed-file counts. Do this directly, or use separately authorised helpers when useful. Present the concrete scope, the Documents Consulted list and uncertainties for human approval; only actual approval marks ELABORATED.
 
 For re-elaboration, follow `conceptual_design.md` § Re-elaborating a Work Item: record trigger, source revision where applicable and changed meaning. A substantive Feature scope change returns to DRAFT and re-passes the affected human gates. Optional execution notes do not re-pass those gates merely because their plan changes.
 
 ### Plan — Gate 2
 
-Read the Feature requirements, relevant Conceptual/Technical Design, Technology Stack and Guides. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
+Read the Feature requirements and the sections that bear on the approach in `technology_stack.md`, `technical_design.md`, `development_guide.md` and `conceptual_design.md` (and `ux_guide.md` when user-facing). Record each in Plan § Documents Consulted, as at elaboration, and name any contradiction the approach would create. Propose the approach, consequential trade-offs, constraints, dependencies and verification/independent-review plan. The human approves these decisions, not a mandatory list of children. Only actual approval marks PLANNED. Epics/Tasks/Spikes may be identified when helpful; do not create speculative child files or require per-child gate commands.
 
 ### Implement — agent-managed delivery
 
@@ -55,6 +55,26 @@ All existing command names/templates remain usable, but these records are option
 Keep descriptive titles, real IDs where records are created and current body-before-index references. Reuse legacy progress labels honestly; a self-tested result can be IMPLEMENTED, but cannot claim independent review or human approval. Existing APPROVED labels/logs remain historical evidence and are not rewritten automatically. A Spike has a question, time-box and durable knowledge output; an inconclusive result is valid.
 
 Optional child completion must not advance the parent to APPROVED. Feature acceptance stays human. Optional decomposition must not hide an unapproved product decision.
+
+## Scratchpad
+
+`./docs/scratchpad.md` (from `templates/scratchpad.md`) is the pre-workflow capture point: one line per item, optional tags, no IDs, no status. It supplies context, not authority.
+
+### Add
+
+Append the item under § Items as one line, `- **Short title** — what and why. #tags`, keeping the user's wording. Create the file from the template if it is missing. Do not classify, plan or act on the item. When you notice a framework-general ambiguity or idea during other work that has no clear home, capture it the same way.
+
+### Process
+
+Read § Items (or the requested subset), the Feature index and the relevant Features. Give each item exactly one disposition, following `conceptual_design.md` § Key Workflows → *Processing the Scratchpad*:
+
+- **Act within approved intent** — an existing approved Feature or governing rule covers it: do it, or note it on that Feature, citing the item.
+- **Promote** — new or changed Feature scope needs the human: draft a DRAFT Feature or a re-elaboration and present it; nothing is approved by promotion. An optional Epic, Task or Spike may be created when existing approved intent covers it.
+- **Knowledge** — a durable finding moves to a knowledge note through `/document-create knowledge`.
+- **Drop** — no longer relevant; record why.
+- **Keep** — not ready; leave it, and add a one-line dated note only if something changed.
+
+Move each disposed item to § Processed with the date, disposition and a pointer (Feature or record ID, note path, or drop reason). Present the dispositions in one summary and batch any human decisions into one ask. Never delete an item without recording its disposition.
 
 ## Optional archive and existing indexes
 

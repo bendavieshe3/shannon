@@ -35,7 +35,7 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
 - [x] `docs/conceptual_design.md` § Key Workflows contains a canonical **Re-elaborating a Work Item** workflow, modelled on the existing *Re-reviewing an APPROVED Mandated Document* workflow (lines 227–256): triggers, flow, status semantics (additive vs substantive), rules applied
 - [x] Triggers cover at least: upstream cascade (parent re-elaborated), downstream gap (a planned epic/task reveals an unstated parent aspiration), framework evolution (new attribute or workflow that pre-existing work items must absorb)
 - [x] Status semantics are explicit: additive re-elaboration keeps the work item at its current status (ELABORATED or beyond); substantive re-elaboration transitions back to DRAFT and re-passes Gate 1
-- [x] `shannon/skills/work-items/skill.md` § Process: Elaborate recognises re-elaboration as a first-class branch — invoking `*-elaborate` on a non-DRAFT work item enters the re-elaboration flow instead of failing or silently re-running, and the existing failure-mode entry "Wrong status for verb" (line 273) is updated accordingly
+- [x] `shannon/skills/work-items/SKILL.md` § Process: Elaborate recognises re-elaboration as a first-class branch — invoking `*-elaborate` on a non-DRAFT work item enters the re-elaboration flow instead of failing or silently re-running, and the existing failure-mode entry "Wrong status for verb" (line 273) is updated accordingly
 - [x] The Activity Log entry pattern for re-elaboration matches the precedent set by FEAT-003's 2026-05-19 entry (records trigger, upstream commit, what changed)
 
 **F2 — Queryable implementation completeness:**
@@ -60,7 +60,7 @@ Adopters of Shannon can re-elaborate any work item through a canonical workflow 
   - § *Re-elaborating a Work Item* (lines 258–298) — the canonical workflow TASK-001 delivered to close F1; the workflow this very re-elaboration of EPIC-006 follows
   - § *Responsible Promotion* (lines 300–327) — the workflow that produced this Epic; its step 5 now references *Re-elaborating a Work Item* by name (the earlier "not yet ratified — framework gap" flag was removed by TASK-001)
 - **Implementation surface**:
-  - `shannon/skills/work-items/skill.md` — § *Process: Elaborate* (lines 120–153) extended with a re-elaboration branch; § *Failure Modes* (lines 271–276) updated
+  - `shannon/skills/work-items/SKILL.md` — § *Process: Elaborate* (lines 120–153) extended with a re-elaboration branch; § *Failure Modes* (lines 271–276) updated
   - `shannon/skills/work-items/templates/feature.md` — `Initial Implementation` field (line 9) extended or supplemented for queryable Partial state
   - `shannon/skills/work-items/templates/{epic,task,spike}.md` — confirm consistency; re-elaboration applies to all four types even though the metadata surfacing is Feature-specific
   - `docs/features/feature_index.md` — the `(Partial)` annotation pattern is now canonised in the index Notes section (delivered by TASK-002); the follow-up Task must apply the suffix to the FEAT-006 and FEAT-007 entries, which still lack it
