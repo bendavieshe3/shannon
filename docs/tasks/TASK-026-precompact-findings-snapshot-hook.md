@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status**: DRAFT — DEFERRED to EPIC-011 (directing-party decision 2026-08-24)
+- **Status**: DELIVERED directly under FEAT-009, 2026-11-13 (previously DRAFT — DEFERRED to EPIC-011, directing-party decision 2026-08-24)
 - **Type**: Task
 - **Parent**: [EPIC-010](../epics/EPIC-010-synthesis-and-reports.md)
 - **Feature**: [FEAT-009](../features/FEAT-009-supervisor.md)

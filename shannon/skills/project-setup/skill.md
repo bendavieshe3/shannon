@@ -111,7 +111,7 @@ On a first install only, walk the directing party through the Vision template's 
 Report each check as pass or fail:
 
 - Every source file is present in the project with its manifest hash
-- Each skill directory under `./.claude/skills/` contains a `SKILL.md` whose frontmatter starts on line 1 (Claude Code only loads `SKILL.md`)
+- Each skill directory under `./.claude/skills/` contains its skill file (`skill.md` or `SKILL.md`, as shipped) with frontmatter starting on line 1
 - `./.claude/settings.json` is valid JSON and registers each supervisor hook command once
 - `bash` and `jq` are on the PATH (`command -v`); the supervisor hooks need both, and without `jq` they pass everything through silently. A missing one is reported as a warning with the fix, not a failure
 - The six documents, both indexes and the scratchpad exist; `CLAUDE.md` contains exactly one Shannon block

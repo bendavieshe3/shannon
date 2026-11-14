@@ -11,6 +11,6 @@ Pass:
 The skill shows the changelog entries between the installed and available versions and which framework files you have customised, waits for your go-ahead, backs up before writing, and then walks existing records through each version's *Records* notes.
 
 If the `project-setup` skill does not activate, report:
-"Error: project-setup skill failed to activate. Please confirm `./.claude/skills/project-setup/SKILL.md` is present."
+"Error: project-setup skill failed to activate. Please confirm `./.claude/skills/project-setup/skill.md` is present."
 
 When the update finishes, surface the verification results and anything waiting on a human decision, then resume the original conversation topic.
