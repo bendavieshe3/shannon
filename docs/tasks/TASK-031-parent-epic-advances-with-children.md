@@ -20,7 +20,7 @@
 
 ### Overview
 
-Twice now a parent Epic sat at PLANNED while its child Tasks implemented and reached APPROVED: EPIC-009 (diagnosed 2026-07-10) and EPIC-010 eight days after its first child approved (surfaced by the second `/shannon-report` run, 2026-08-20). The question *whether* parents advance is settled: `/epic-review` requires IMPLEMENTED or REVIEW (`shannon/skills/work-items/skill.md` § Process: Review), so they do. What is not written down is *when*, and the ruling lives only in EPIC-009's Activity Log, where nobody planning the next Epic reads it. The Lifecycle checker detects the lag after the fact; nothing prevents it.
+Twice now a parent Epic sat at PLANNED while its child Tasks implemented and reached APPROVED: EPIC-009 (diagnosed 2026-07-10) and EPIC-010 eight days after its first child approved (surfaced by the second `/shannon-report` run, 2026-08-20). The question *whether* parents advance is settled: `/epic-review` requires IMPLEMENTED or REVIEW (`shannon/skills/work-items/SKILL.md` § Process: Review), so they do. What is not written down is *when*, and the ruling lives only in EPIC-009's Activity Log, where nobody planning the next Epic reads it. The Lifecycle checker detects the lag after the fact; nothing prevents it.
 
 This Task merges two scratchpad items: "Do parent Epics advance to IMPLEMENTING…" and "A settled lifecycle ruling does not propagate…".
 
@@ -29,14 +29,14 @@ This Task merges two scratchpad items: "Do parent Epics advance to IMPLEMENTING�
 *Candidate criteria; refined at Gate 1.*
 
 - [ ] `conceptual_design.md` § Business Rules (or the unified lifecycle entry) states when a parent Epic enters IMPLEMENTING relative to its children — candidate: when its first child Task enters IMPLEMENTING — as an additive amendment
-- [ ] `shannon/skills/work-items/skill.md` carries a soft prompt at child-Task transitions (§ Process: Implement and the Gate 3 approval step of § Process: Review) to check whether the parent Epic should advance
+- [ ] `shannon/skills/work-items/SKILL.md` carries a soft prompt at child-Task transitions (§ Process: Implement and the Gate 3 approval step of § Process: Review) to check whether the parent Epic should advance
 - [ ] Precedents named: EPIC-009 (2026-07-10) and EPIC-010 (2026-08-20)
 - [ ] The deployed copy under `./.claude/skills/work-items/` is refreshed from `./shannon/`
 
 ### Context
 
 - **Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md)
-- **Relevant documents**: `conceptual_design.md` § Domain Model → *Work Item* lifecycle and § Business Rules; `shannon/skills/work-items/skill.md` § Process: Implement / Review; `shannon/skills/shannon-supervisor/checkers/lifecycle.md`
+- **Relevant documents**: `conceptual_design.md` § Domain Model → *Work Item* lifecycle and § Business Rules; `shannon/skills/work-items/SKILL.md` § Process: Implement / Review; `shannon/skills/shannon-supervisor/checkers/lifecycle.md`
 - **Related work**: EPIC-009 and EPIC-010 Activity Logs; `docs/knowledge/meta-gap-routing-channel.md` (a ruling recorded only in an Activity Log is invisible to later work)
 
 ---

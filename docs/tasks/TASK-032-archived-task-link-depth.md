@@ -20,13 +20,13 @@
 
 ### Overview
 
-Task files link their parent as `../epics/…` and `../features/…`. On APPROVED they move one level deeper to `docs/tasks/archive/`, where those links resolve to non-existent `docs/tasks/epics/` and `docs/tasks/features/`. The archive step in `shannon/skills/work-items/skill.md` § Process: Review updates the index link but never rewrites body links for the new depth. All 28 archived Tasks are affected, about 103 links (TASK-001 is half-fixed). Navigation-only, but it is a real broken cross-reference a drift check will flag.
+Task files link their parent as `../epics/…` and `../features/…`. On APPROVED they move one level deeper to `docs/tasks/archive/`, where those links resolve to non-existent `docs/tasks/epics/` and `docs/tasks/features/`. The archive step in `shannon/skills/work-items/SKILL.md` § Process: Review updates the index link but never rewrites body links for the new depth. All 28 archived Tasks are affected, about 103 links (TASK-001 is half-fixed). Navigation-only, but it is a real broken cross-reference a drift check will flag.
 
 ### Acceptance Criteria
 
 *Candidate criteria; refined at Gate 1.*
 
-- [ ] The archive step in `shannon/skills/work-items/skill.md` § Process: Review rewrites a Task body's `../` relative links to `../../` when the file moves to `./docs/tasks/archive/`
+- [ ] The archive step in `shannon/skills/work-items/SKILL.md` § Process: Review rewrites a Task body's `../` relative links to `../../` when the file moves to `./docs/tasks/archive/`
 - [ ] A one-pass sweep fixes every archived Task's relative links; a link check over `docs/tasks/archive/` reports zero broken relative links afterwards
 - [ ] The sweep is confirmed with the directing party before it runs, per CLAUDE.md (bulk edit across 28 files)
 - [ ] The deployed copy under `./.claude/skills/work-items/` is refreshed from `./shannon/`
@@ -34,7 +34,7 @@ Task files link their parent as `../epics/…` and `../features/…`. On APPROVE
 ### Context
 
 - **Feature**: [FEAT-003 — Unified Work Item Model](../features/FEAT-003-unified-work-item-model.md) — `conceptual_design.md` § Business Rules → *Approved Tasks Are Archived*
-- **Relevant documents**: `shannon/skills/work-items/skill.md` § Process: Review (archive step); `development_guide.md` § Testing Strategy → Pre-Commit Checklist (cross-reference link check)
+- **Relevant documents**: `shannon/skills/work-items/SKILL.md` § Process: Review (archive step); `development_guide.md` § Testing Strategy → Pre-Commit Checklist (cross-reference link check)
 - **Related work**: TASK-022 (archived matching the broken convention deliberately, pending a systemic fix)
 
 ---
@@ -109,6 +109,6 @@ Task files link their parent as `../epics/…` and `../features/…`. On APPROVE
 
 [Timestamped entries recording the history. Newest at the top.]
 
-- **2026-10-24** — Skill-side fix, approved by Ben 2026-10-24 as an ordinary PR ahead of formal elaboration: `work-items/skill.md` § Process: Review → Gate 3 now rewrites a moved Task's relative links for the archive depth and repoints inbound links to its old path; the `task_index.md` template and this project's index note it. Deployed `.claude/` copy still needs a re-copy after merge. Status left DRAFT for Ben to settle
+- **2026-10-24** — Skill-side fix, approved by Ben 2026-10-24 as an ordinary PR ahead of formal elaboration: `work-items/SKILL.md` § Process: Review → Gate 3 now rewrites a moved Task's relative links for the archive depth and repoints inbound links to its old path; the `task_index.md` template and this project's index note it. Deployed `.claude/` copy still needs a re-copy after merge. Status left DRAFT for Ben to settle
 - **2026-10-23** — One-time sweep (PR #7, approved by Ben 2026-10-23): 116 broken relative links across all 28 archived Tasks repointed; link check over `docs/tasks/archive/` reports 0 broken
 - **2026-10-17** — DRAFT: Task created from the scratchpad item "Archived Tasks carry broken relative links" by the 2026-10-17 triage. Scope widened from TASK-001…021 to all 28 archived Tasks, as checked at triage

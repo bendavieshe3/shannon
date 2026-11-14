@@ -13,7 +13,7 @@ Independent technical review is distinct from implementation/self-tests and huma
 ## Implementation map
 
 - Governing rules: six documents under `docs/`, especially Conceptual Design business rules and Technical Design lifecycle/gate sections.
-- Executable instructions: [work-items](../../shannon/skills/work-items/skill.md), twenty type/verb commands, project setup/documentation skills and their templates.
+- Executable instructions: [work-items](../../shannon/skills/work-items/SKILL.md), twenty type/verb commands, project setup/documentation skills and their templates.
 - Supervisor: report/goal authority and lifecycle-checker interpretation; report format and hook scripts remain intact.
 - Navigation: root README, source/project CLAUDE guidance, overview, existing Feature definitions and index.
 

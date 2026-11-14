@@ -128,7 +128,7 @@ Shannon (the person) proved you can communicate perfectly despite noise if you s
 
 - **Complete walkthrough** — `shannon/guides/shannon_overview.md`
 - **Command reference** — `shannon/commands/README.md`
-- **Skill definitions** — `shannon/skills/*/skill.md`
+- **Skill definitions** — `shannon/skills/*/SKILL.md`
 - **Example application** — `docs/` (Shannon's own dogfood documentation)
 
 ## License

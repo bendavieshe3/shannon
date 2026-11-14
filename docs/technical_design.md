@@ -51,7 +51,7 @@ Four skills exist:
 
 Each skill consists of:
 
-- `skill.md` — Skill definition: purpose, invocation contract, process logic (the supervisor ships its manifest as `SKILL.md`; which casing Claude Code's skill discovery requires is an open question, see `scratchpad.md`)
+- `SKILL.md` — Skill definition, with YAML frontmatter (`name`, `description`) starting on line 1: purpose, invocation contract, process logic. Claude Code discovers a skill only by this exact filename; a lowercase `skill.md` does not load (SPIKE-001, [knowledge note](./knowledge/claude-code-skill-and-subagent-conventions.md))
 - `templates/` — Markdown templates the skill instantiates
 
 Skills are responsible for:

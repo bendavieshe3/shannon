@@ -19,7 +19,7 @@
 
 ### Overview
 
-A field report from another project running an older Shannon found that implementer agents do not consistently read the mandated documents during `*-elaborate` and `*-plan`. The *Work Item ↔ Document Relationships* table in `shannon/skills/work-items/skill.md` names what each verb must align to, but enforcement is prose-level. Checking at triage (2026-10-17) found three gaps:
+A field report from another project running an older Shannon found that implementer agents do not consistently read the mandated documents during `*-elaborate` and `*-plan`. The *Work Item ↔ Document Relationships* table in `shannon/skills/work-items/SKILL.md` names what each verb must align to, but enforcement is prose-level. Checking at triage (2026-10-17) found three gaps:
 
 - The Plan subagent's instructions read "Informed By" and never "Must Align To".
 - The Feature and Epic templates have no relevant-documents slot. The Task and Spike templates do.
@@ -40,7 +40,7 @@ A work item's Requirements and Plan visibly trace to the documents the relations
 *Candidate criteria; refined at Gate 1.*
 
 - [ ] The Plan subagent reads the "Must Align To" documents as well as "Informed By"
-- [ ] The remedy chosen at Gate 1 from (a), (b) and (c) is implemented in `work-items/skill.md` and, if (c), every work-item template
+- [ ] The remedy chosen at Gate 1 from (a), (b) and (c) is implemented in `work-items/SKILL.md` and, if (c), every work-item template
 - [ ] Verified on one real elaborate and plan pass whose gate review can see which documents were consulted
 
 ### Context

@@ -120,7 +120,7 @@ Before committing template, command, or skill changes:
 - [ ] No stale references to removed concepts (e.g. "phases", "code_style_guide.md")
 - [ ] Cross-references are correct paths
 - [ ] At least a mental dry-run of the affected workflow
-- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. The capture responsibility also appears in `shannon/skills/work-items/skill.md` § Feature lifecycle → Implement — agent-managed delivery.
+- [ ] Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. The capture responsibility also appears in `shannon/skills/work-items/SKILL.md` § Feature lifecycle → Implement — agent-managed delivery.
 
 ### Instrumentation
 
@@ -204,7 +204,7 @@ None. Shannon has no compiled artefacts, no automated tests, and no deployment t
 
 - Per TASK-029 — Acceptance Criteria Cite Governing Rules, Not Version-Pinned References — one additive amendment codifying a convention surfaced through three shipped defects across two Epics:
   - **§ Code Style → Patterns to Follow** — new bullet *Acceptance criteria cite the governing rule*, sibling to *Source-of-truth body before derived artefacts*. Names both failure forms (a worked example read as a specification; a version-pinned document citation), states the corroborating-evidence allowance, and names why the pull toward the example exists (an example is testable where Guide prose is not). Cites three instances as worked precedent — TASK-022 AC#2, the TASK-023 prepared draft, EPIC-010 AC#1/AC#2. Cross-references `conceptual_design.md` § Business Rules → *Scope-Boundary Acceptance Criteria Use Cross-Type Guards* as companion AC-writing rule
-- Companion skill-half landed in the same Task per the EPIC-008 two-touch precedent: `shannon/skills/work-items/skill.md` § Process: Elaborate carries a step-adjoining soft prompt at the moment acceptance criteria are drafted, pointing back at this pattern
+- Companion skill-half landed in the same Task per the EPIC-008 two-touch precedent: `shannon/skills/work-items/SKILL.md` § Process: Elaborate carries a step-adjoining soft prompt at the moment acceptance criteria are drafted, pointing back at this pattern
 - Amended **by a work item rather than `/document-review`**, per `conceptual_design.md` v1.8 § Business Rules → *Work Items Consume the UX Guide; May Refine the Development Guide* — the Development Guide describes the process work items execute, so the amendment rides TASK-029's own gates
 - Classified as **additive amendment per `conceptual_design.md` § Re-reviewing → *Status semantics*** — no existing approved claim contradicted; document stays APPROVED across the bump (no DRAFT transition)
 - Status: APPROVED (2026-08-28)

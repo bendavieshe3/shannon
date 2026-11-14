@@ -13,7 +13,7 @@ What file name, casing and frontmatter does Claude Code need for skills and suba
 
 **Skill file name.** Claude Code's skills documentation (https://code.claude.com/docs/en/skills) says every skill needs a `SKILL.md` file. It does not say whether lowercase works, so it was tested directly (Claude Code 2.1.325, headless `claude -p`, a scratch project with Shannon's source copied into `.claude/`):
 
-- With `.claude/skills/work-items/skill.md` (lowercase, as shipped), `/scratchpad-add` could not activate the skill. The agent reported that "the loader expects `SKILL.md`", then read the file by hand and followed it.
+- With `.claude/skills/work-items/SKILL.md` (lowercase, as shipped), `/scratchpad-add` could not activate the skill. The agent reported that "the loader expects `SKILL.md`", then read the file by hand and followed it.
 - After renaming the file to `SKILL.md`, the same command invoked the Skill tool with `skill: "work-items"`, and the skill's self-identification line appeared ("Activating work-items skill for scratchpad add.").
 
 So `work-items`, `project-documentation` and `project-setup` do not load as skills today. Every command that delegates to them works only because the model falls back to reading the file. Only `shannon-supervisor`, which ships `SKILL.md`, loads properly.
@@ -28,7 +28,9 @@ So `work-items`, `project-documentation` and `project-setup` do not load as skil
 
 ## Recommendations
 
-1. Rename the three lowercase `skill.md` files to `SKILL.md` in `shannon/skills/` and update live references. Historical records keep their wording. This is a rename, so it waits for the directing party's yes.
+All four were applied on 2026-11-14 in Shannon 5.1 (PR #16): the rename with the directing party's go-ahead, and the rest under FEAT-001 and FEAT-009.
+
+1. Rename the three lowercase `skill.md` files to `SKILL.md` in `shannon/skills/` and update live references. Historical records keep their wording. On a case-insensitive filesystem, rename through a temporary name.
 2. Give `shannon-supervisor/SKILL.md` `name`/`description` frontmatter.
 3. Have the supervisor spawn each checker with the model alias from its frontmatter (`haiku`/`sonnet`), and write checker tool limits as `tools`. Registering checkers under `.claude/agents/` is the stronger option, but it adds an install step; revisit it with `/shannon-setup` supervisor deployment.
 4. Revise the headless contract in `technical_design.md` § Cadence: no `--bare`, and `Skill` in `--allowedTools`.

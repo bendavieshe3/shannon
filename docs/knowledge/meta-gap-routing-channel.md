@@ -3,14 +3,14 @@
 ## Metadata
 
 - **Type**: Extension
-- **Historical Related To**: `docs/development_guide.md` § Testing Strategy → Pre-Commit Checklist (the canonical checklist line); `docs/development_guide.md` § Git Workflow → Push Cadence (the paired cadence convention); `shannon/skills/work-items/skill.md` § Process: Plan (Gate 2) + § Process: Review (Gate 3) (the step-adjoining soft prompts)
+- **Historical Related To**: `docs/development_guide.md` § Testing Strategy → Pre-Commit Checklist (the canonical checklist line); `docs/development_guide.md` § Git Workflow → Push Cadence (the paired cadence convention); `shannon/skills/work-items/SKILL.md` § Process: Plan (Gate 2) + § Process: Review (Gate 3) (the step-adjoining soft prompts)
 - **Tags**: #framework #development-guide #work-items #meta-gap #routing-channel #FEAT-008 #EPIC-008 #EPIC-007
 - **Created**: 2026-05-27
 - **Last Updated**: 2026-11-12 (current routing clarification; original implementation evidence preserved)
 
 ## Current routing responsibility
 
-The Feature-level governance revision replaces the Plan/Review soft prompts described in this historical implementation note. Current capture responsibility lives in [the Development Guide's Pre-Commit Checklist](../development_guide.md#pre-commit-checklist) and [the work-items skill's implementation flow](../../shannon/skills/work-items/skill.md#implement--agent-managed-delivery). Agents capture reusable learnings during implementation; consequential changes to approved meaning require a human document or Feature decision. Optional Tasks and Epics add no gates.
+The Feature-level governance revision replaces the Plan/Review soft prompts described in this historical implementation note. Current capture responsibility lives in [the Development Guide's Pre-Commit Checklist](../development_guide.md#pre-commit-checklist) and [the work-items skill's implementation flow](../../shannon/skills/work-items/SKILL.md#implement--agent-managed-delivery). Agents capture reusable learnings during implementation; consequential changes to approved meaning require a human document or Feature decision. Optional Tasks and Epics add no gates.
 
 The original section names, line numbers and approvals below describe the May 2026 implementation, not current instruction locations or deployed-copy verification.
 
@@ -34,9 +34,9 @@ EPIC-008 AC#3 establishes the routing channel at the **lightest viable resolutio
 
 **Touch (a) — the canonical checklist line** at `development_guide.md` § Testing Strategy → Pre-Commit Checklist (line 114, landed by TASK-007 APPROVED 2026-05-24 commit `eac486b`):
 
-> Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/skill.md` § Process: Plan and § Process: Review.)
+> Did this work resolve a **framework-general ambiguity surfaced during this work — a convention, workflow gap, or rule clarification that future work items would otherwise re-derive**? If yes, capture it in `scratchpad.md` for promotion or open a follow-up work item against the relevant mandated document. (See also the matching soft prompts in `shannon/skills/work-items/SKILL.md` § Process: Plan and § Process: Review.)
 
-**Touch (b) — the step-adjoining soft prompts** at `shannon/skills/work-items/skill.md` (landed by TASK-010 APPROVED 2026-05-27 commit `9c45433`), each mirroring the verbatim trigger phrase as plain prose:
+**Touch (b) — the step-adjoining soft prompts** at `shannon/skills/work-items/SKILL.md` (landed by TASK-010 APPROVED 2026-05-27 commit `9c45433`), each mirroring the verbatim trigger phrase as plain prose:
 
 - **§ Process: Plan (Gate 2)** at line 174 — directing the planning subagent at *the moment of planning*
 - **§ Process: Review (Gate 3)** at line 236 — directing the review subagent at *the moment of review*
@@ -66,7 +66,7 @@ The recursive-dogfood character of the EPIC-007 + EPIC-008 pair is structural: *
 
 EPIC-008 has the additional property that it **both codifies the channel and is itself a product of the channel**. The Pre-Commit Checklist line and skill prompts are *the channel*; EPIC-008 reached approval via the same routing mechanism (scratchpad capture → Epic creation → ratification into mandated doc + skill).
 
-A particularly pleasing structural recursion played out at TASK-010's Gate 3: the review subagent reading `shannon/skills/work-items/skill.md` § Process: Review (Gate 3) encountered the very step-adjoining soft prompt the Task lands at line 236 — directed at itself — asking whether *this work* resolved a framework-general ambiguity. The honest answer at Gate 3 was yes: the work resolves the framework-general meta-gap of "how do framework-general resolutions reach the framework at the moments of action"; the channel codified is the resolution. **The channel processes its own implementing Task.**
+A particularly pleasing structural recursion played out at TASK-010's Gate 3: the review subagent reading `shannon/skills/work-items/SKILL.md` § Process: Review (Gate 3) encountered the very step-adjoining soft prompt the Task lands at line 236 — directed at itself — asking whether *this work* resolved a framework-general ambiguity. The honest answer at Gate 3 was yes: the work resolves the framework-general meta-gap of "how do framework-general resolutions reach the framework at the moments of action"; the channel codified is the resolution. **The channel processes its own implementing Task.**
 
 ---
 
@@ -77,9 +77,9 @@ A particularly pleasing structural recursion played out at TASK-010's Gate 3: th
 - `docs/development_guide.md` § Testing Strategy → Pre-Commit Checklist (line 114) — the canonical checklist line
 - `docs/development_guide.md` § Git Workflow → Push Cadence (lines 149–156) — the paired cadence convention
 - `docs/development_guide.md` § Version History v1.3 (lines 190–199) — names EPIC-008 by ID + EPIC-007 as contemporaneous sibling exercise (AC#7(i))
-- `shannon/skills/work-items/skill.md` § Process: Plan (Gate 2), step-adjoining at line 174 — Gate-2 soft prompt
-- `shannon/skills/work-items/skill.md` § Process: Review (Gate 3), step-adjoining at line 236 — Gate-3 soft prompt
-- `.claude/skills/work-items/skill.md` — re-synced byte-identical from source per TASK-005 precedent
+- `shannon/skills/work-items/SKILL.md` § Process: Plan (Gate 2), step-adjoining at line 174 — Gate-2 soft prompt
+- `shannon/skills/work-items/SKILL.md` § Process: Review (Gate 3), step-adjoining at line 236 — Gate-3 soft prompt
+- `.claude/skills/work-items/SKILL.md` — re-synced byte-identical from source per TASK-005 precedent
 
 ### Work items
 
@@ -104,7 +104,7 @@ A small framework-general observation surfaced during TASK-010's implementation 
 
 ### The problem
 
-When editing a skill or document with multiple sections that share repeating subsection names — e.g. `shannon/skills/work-items/skill.md` has `### 1. Identify Target` appearing under **both** `## Process: Plan (Gate 2)` AND `## Process: Review (Gate 3)` (and under other `## Process: *` sections too) — using a subsection name alone as an Edit-tool anchor is unsafe. The Edit tool may match the wrong section, partially overlap an adjacent landing, or silently revise text the implementer did not intend to touch.
+When editing a skill or document with multiple sections that share repeating subsection names — e.g. `shannon/skills/work-items/SKILL.md` has `### 1. Identify Target` appearing under **both** `## Process: Plan (Gate 2)` AND `## Process: Review (Gate 3)` (and under other `## Process: *` sections too) — using a subsection name alone as an Edit-tool anchor is unsafe. The Edit tool may match the wrong section, partially overlap an adjacent landing, or silently revise text the implementer did not intend to touch.
 
 ### The technique
 
@@ -134,7 +134,7 @@ The full-section-header prefix disambiguates and confines the match to the empty
 
 ### Worked example
 
-TASK-010 applied this technique to land two step-adjoining soft prompts at `shannon/skills/work-items/skill.md` § Process: Plan (line 174) and § Process: Review (line 236) without disturbing the four pre-existing TASK-009 step-internal prompts (lines 187 + 195 in the post-TASK-010 state) that sit within the same § Process: Plan section.
+TASK-010 applied this technique to land two step-adjoining soft prompts at `shannon/skills/work-items/SKILL.md` § Process: Plan (line 174) and § Process: Review (line 236) without disturbing the four pre-existing TASK-009 step-internal prompts (lines 187 + 195 in the post-TASK-010 state) that sit within the same § Process: Plan section.
 
 ### Why it belongs in this knowledge note
 

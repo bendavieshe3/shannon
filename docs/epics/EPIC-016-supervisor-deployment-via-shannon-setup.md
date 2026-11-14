@@ -19,7 +19,7 @@
 
 ### Overview
 
-`/shannon-setup` copies `shannon/skills/` wholesale (`project-setup/skill.md`), so the supervisor's files reach a new project. The rest of what makes it work does not:
+`/shannon-setup` copies `shannon/skills/` wholesale (`project-setup/SKILL.md`), so the supervisor's files reach a new project. The rest of what makes it work does not:
 
 - the hook registrations merged into `.claude/settings.json`
 - `./.claude/shannon-supervisor.json` (gate-authority ceilings, report directory)
@@ -46,7 +46,7 @@ Running `/shannon-setup` in a fresh project yields a supervisor that runs `/shan
 ### Context
 
 - **Parent Feature**: [FEAT-009 — Supervisor](../features/FEAT-009-supervisor.md). Ideal State *Portability to non-Shannon-self projects* already aspires to this (*Responsible Promotion* step 4: yes)
-- **Also touches**: FEAT-001 (Easy to Set Up) through `project-setup/skill.md`; EPIC-001 (Basic Installation, DRAFT) doesn't cover the supervisor
+- **Also touches**: FEAT-001 (Easy to Set Up) through `project-setup/SKILL.md`; EPIC-001 (Basic Installation, DRAFT) doesn't cover the supervisor
 - **Depends on**: EPIC-012 (FEAT-008 development conventions, PR #3) for the audit-log and shipping-source conventions; EPIC-011 for the hook set it should install (PreCompact and Stop are pending there)
 - **Technical Design**: § Data Model → *Supervisor Configuration*; § System Architecture → *Supervisor* → *Hook integration*
 

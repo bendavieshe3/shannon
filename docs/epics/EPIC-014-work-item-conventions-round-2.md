@@ -22,7 +22,7 @@
 Three work-item conventions are in use but not codified. EPIC-007 settled the first round.
 
 1. **A re-elaboration trigger for siblings.** `conceptual_design.md` § Re-elaborating a Work Item names three triggers: upstream cascade, downstream gap, framework evolution. It has twice had to fit "a sibling Feature implements part of my scope" (FEAT-009 against FEAT-006, 2026-05-29 and 2026-07-12) under *downstream gap*, which assumes a child surfaced the gap.
-2. **Cascading Preparation as one named workflow.** The Feature-plan → Epic and Epic-plan → Task cases share one mechanism, but it is named only in `work-items/skill.md` § Process: Plan and in `technical_design.md` § Key Algorithms → *Cascading Operations*. It has no § Key Workflows entry in `conceptual_design.md`.
+2. **Cascading Preparation as one named workflow.** The Feature-plan → Epic and Epic-plan → Task cases share one mechanism, but it is named only in `work-items/SKILL.md` § Process: Plan and in `technical_design.md` § Key Algorithms → *Cascading Operations*. It has no § Key Workflows entry in `conceptual_design.md`.
 3. **The *Future Epics* forward-deferral paragraph.** FEAT-009 § Plan names Phase 5+ work with deferral rationale instead of creating DRAFT stubs. The pattern is sound, but it is not part of the Feature domain model or the Plan process.
 
 All three are work-item workflow conventions, so they sit under FEAT-003 rather than FEAT-008, per FEAT-008's split.

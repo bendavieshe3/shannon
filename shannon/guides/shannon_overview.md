@@ -68,4 +68,4 @@ Copy the source commands, skills and guides into the project's `.claude/` direct
 
 Use a direct Feature exercise and an optional-record exercise to check the boundary: preserve intent and evidence, avoid routine lower-level approvals, and stop on material divergence. Source checks, independent review, merge, live exercise and human acceptance are separate claims.
 
-See [command reference](../commands/README.md), [work-items skill](../skills/work-items/skill.md) and the project's six core documents for details.
+See [command reference](../commands/README.md), [work-items skill](../skills/work-items/SKILL.md) and the project's six core documents for details.

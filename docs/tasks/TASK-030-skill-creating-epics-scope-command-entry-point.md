@@ -20,7 +20,7 @@
 
 ### Overview
 
-EPIC-009 decomposed the supervisor into skill skeleton → checkers → report pipeline → hooks → dogfood, but never scoped the thin `/shannon-report` command file. The skill's contract existed in `SKILL.md` prose with no invocation surface, which Shannon's Commands + Skills + Subagents architecture requires. The dogfood caught it and corrective TASK-020 fixed it. TASK-022 later shipped `/shannon-goal` skill and command together, so the lesson was applied once, but only informally: nothing in `shannon/skills/work-items/skill.md` § Process: Plan prompts for it.
+EPIC-009 decomposed the supervisor into skill skeleton → checkers → report pipeline → hooks → dogfood, but never scoped the thin `/shannon-report` command file. The skill's contract existed in `SKILL.md` prose with no invocation surface, which Shannon's Commands + Skills + Subagents architecture requires. The dogfood caught it and corrective TASK-020 fixed it. TASK-022 later shipped `/shannon-goal` skill and command together, so the lesson was applied once, but only informally: nothing in `shannon/skills/work-items/SKILL.md` § Process: Plan prompts for it.
 
 The rule to codify: an Epic that adds a new skill with a slash-command surface scopes the command-layer entry point as an explicit Task or acceptance criterion.
 
@@ -28,7 +28,7 @@ The rule to codify: an Epic that adds a new skill with a slash-command surface s
 
 *Candidate criteria; refined at Gate 1.*
 
-- [ ] `shannon/skills/work-items/skill.md` § Process: Plan carries a prompt that a skill-creating Epic's decomposition includes the thin command entry point, citing `technical_design.md` § System Architecture (commands delegate to skills) as the governing rule
+- [ ] `shannon/skills/work-items/SKILL.md` § Process: Plan carries a prompt that a skill-creating Epic's decomposition includes the thin command entry point, citing `technical_design.md` § System Architecture (commands delegate to skills) as the governing rule
 - [ ] The prompt names EPIC-009 / TASK-020 as the worked precedent
 - [ ] The deployed copy under `./.claude/skills/work-items/` is refreshed from `./shannon/`
 
