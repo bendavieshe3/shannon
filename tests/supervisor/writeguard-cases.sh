@@ -2,9 +2,11 @@
 # Shipped-executable cases for scripts/pretool-writeguard.sh (development_guide.md § Testing Strategy).
 # Usage: tests/supervisor/writeguard-cases.sh [path/to/pretool-writeguard.sh]
 # Works in a fresh temporary git repository; touches nothing in this checkout.
-G=$(cd "$(dirname "${1:-shannon/skills/shannon-supervisor/scripts/pretool-writeguard.sh}")" && pwd)/$(basename "${1:-pretool-writeguard.sh}"); T=$(mktemp -d); mkdir -p $T/proj; cd $T/proj; git init -q; mkdir -p wt; git worktree add -q -b w $T/proj/.claude/wt 2>/dev/null || { git commit -q --allow-empty -m i; git worktree add -q -b w $T/proj/.claude/wt; }
+G=$(cd "$(dirname "${1:-shannon/skills/shannon-supervisor/scripts/pretool-writeguard.sh}")" && pwd)/$(basename "${1:-pretool-writeguard.sh}"); export GIT_AUTHOR_NAME=shannon-tests GIT_AUTHOR_EMAIL=tests@example.invalid GIT_COMMITTER_NAME=shannon-tests GIT_COMMITTER_EMAIL=tests@example.invalid
+T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
+mkdir -p "$T/proj"; cd "$T/proj"; git init -q; mkdir -p wt; git worktree add -q -b w "$T/proj/.claude/wt" 2>/dev/null || { git commit -q --allow-empty -m i; git worktree add -q -b w "$T/proj/.claude/wt"; }
 P=$PWD; W=$P/.claude/wt; pass=0; fail=0
-t(){ printf '%s' "$3" | env $4 $G >/dev/null 2>&1; rc=$?; if [ "$rc" = "$2" ]; then pass=$((pass+1)); echo "PASS $1"; else fail=$((fail+1)); echo "FAIL $1 (rc=$rc)"; fi; }
+t(){ printf '%s' "$3" | env $4 "$G" >/dev/null 2>&1; rc=$?; if [ "$rc" = "$2" ]; then pass=$((pass+1)); echo "PASS $1"; else fail=$((fail+1)); echo "FAIL $1 (rc=$rc)"; fi; }
 t "inert without scope" 0 '{"tool_name":"Write","tool_input":{"file_path":"/etc/x"}}' "X=1"
 t "relative report path allowed" 0 '{"tool_name":"Write","tool_input":{"file_path":"docs/supervisor/r.md"}}' "SHANNON_SUPERVISOR_SCOPE=1"
 t "absolute report path allowed (cwd)" 0 '{"tool_name":"Write","cwd":"'$P'","tool_input":{"file_path":"'$P'/docs/supervisor/r.md"}}' "SHANNON_SUPERVISOR_SCOPE=1"

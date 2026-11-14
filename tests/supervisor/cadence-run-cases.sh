@@ -2,8 +2,10 @@
 # Shipped-executable cases for scripts/cadence-run.sh, with a fake `claude` on PATH
 # (development_guide.md § Testing Strategy). No model is called. Usage:
 #   tests/supervisor/cadence-run-cases.sh [path/to/cadence-run.sh] [work-dir]
-# Defaults: the script in this checkout, and a new temporary directory.
-C=$(cd "$(dirname "${1:-shannon/skills/shannon-supervisor/scripts/cadence-run.sh}")" && pwd)/$(basename "${1:-cadence-run.sh}"); W=${2:-$(mktemp -d)}; pass=0; fail=0
+# Defaults: the script in this checkout, and a new temporary directory (removed on exit).
+export GIT_AUTHOR_NAME=shannon-tests GIT_AUTHOR_EMAIL=tests@example.invalid GIT_COMMITTER_NAME=shannon-tests GIT_COMMITTER_EMAIL=tests@example.invalid
+C=$(cd "$(dirname "${1:-shannon/skills/shannon-supervisor/scripts/cadence-run.sh}")" && pwd)/$(basename "${1:-cadence-run.sh}"); pass=0; fail=0
+if [ -n "$2" ]; then W=$2; else W=$(mktemp -d); trap 'rm -rf "$W"' EXIT; fi
 ck(){ if [ "$2" = "$3" ]; then pass=$((pass+1)); echo "PASS $1"; else fail=$((fail+1)); echo "FAIL $1 got[$3]"; fi; }
 mkdir -p "$W/bin" "$W/wt"
 cat > "$W/bin/claude" <<'EOF'
@@ -11,6 +13,7 @@ cat > "$W/bin/claude" <<'EOF'
 [ "${FAKE_MODE:-ok}" = "ok" ] || { echo '{"is_error":true}'; exit 1; }
 mkdir -p docs/supervisor docs/knowledge
 echo "# report" > "docs/supervisor/report-$(date +%Y-%m-%d).md"
+echo "stray" > docs/stray.md
 [ "${FAKE_INDEX:-yes}" = yes ] && echo "- report" >> docs/knowledge/knowledge_index.md
 echo '{"result":"ok"}'
 EOF

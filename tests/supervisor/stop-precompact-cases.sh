@@ -2,8 +2,9 @@
 # Shipped-executable cases for scripts/stop-flushcheck.sh and scripts/precompact-marker.sh
 # (development_guide.md § Testing Strategy). Usage:
 #   tests/supervisor/stop-precompact-cases.sh [scripts-dir] [work-dir]
-# Defaults: the supervisor's scripts in this checkout, and a new temporary directory.
-D=$(cd "${1:-shannon/skills/shannon-supervisor/scripts}" && pwd); W=${2:-$(mktemp -d)}; pass=0; fail=0
+# Defaults: the supervisor's scripts in this checkout, and a new temporary directory (removed on exit).
+D=$(cd "${1:-shannon/skills/shannon-supervisor/scripts}" && pwd); pass=0; fail=0
+if [ -n "$2" ]; then W=$2; else W=$(mktemp -d); trap 'rm -rf "$W"' EXIT; fi
 ck(){ if [ "$2" = "$3" ]; then pass=$((pass+1)); echo "PASS $1"; else fail=$((fail+1)); echo "FAIL $1 got[$3]"; fi; }
 setup(){ mkdir -p "$W/$1/.claude" "$W/$1/docs/my reports"; cd "$W/$1"; echo '{"report_directory":"docs/my reports"}' > .claude/shannon-supervisor.json; R="docs/my reports"; }
 st(){ printf '%s' "${1:-{\}}" | SHANNON_SUPERVISOR_SCOPE=1 bash "$D/stop-flushcheck.sh" | jq -r '.decision // empty' 2>/dev/null; }
@@ -29,7 +30,7 @@ ck "run2 report: allow" "" "$(st)"
 
 setup b
 r3="$R/.in-progress/2026-11-10-100000"; mkdir -p "$r3"; date > "$r3/RUN"; echo x > "$r3/drift.md"
-touch -d '3 days ago' "$r3/RUN"
+touch -t 200001010000 "$r3/RUN"
 ck "run older than 24h ignored" "" "$(st)"
 pc auto; ck "precompact ignores stale run" "0" "$(find "$R" -name COMPACTED | wc -l)"
 r4="$R/.in-progress/2026-11-14-110000"; mkdir -p "$r4"; date > "$r4/RUN"
