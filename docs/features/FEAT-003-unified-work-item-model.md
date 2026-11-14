@@ -2,15 +2,15 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: IMPLEMENTED
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Key Features — "Feature-led Delivery"
 - **Initial Implementation**: Partial — the unified model itself is retrospective (templates, skill, commands predate this Feature). Of four aspirational criteria (three added 2026-05-19, one added 2026-05-24): three now met (re-elaboration workflow via EPIC-006 / TASK-001; queryable completeness via EPIC-006 / TASK-002; upstream lessons-into-framework-rules via EPIC-007 / TASK-008 doc amendments + TASK-009 skill prompts, APPROVED 2026-05-27), one remaining (framework-version absorption). See Met / Remaining below.
   - **Met:** The retrospective unified model — four work-item types on one status lifecycle, with shared templates, skill, and commands — plus three aspirational criteria: the *Re-elaborating a Work Item* workflow (EPIC-006 / TASK-001) and queryable implementation completeness (EPIC-006 / TASK-002), and upstream lessons-into-framework-rules (EPIC-007 / TASK-008 doc amendments at `conceptual_design.md` v1.6 + TASK-009 skill prompts at `work-items/SKILL.md`, APPROVED 2026-05-27).
-  - **Remaining:** One aspirational criterion — framework-version absorption: framework changes (new attributes, workflows, status-model evolution) absorbed by existing work-item files via canonical re-elaboration, so adopters never recreate work items to accommodate framework evolution. **Implemented in source 2026-11-13 (not yet accepted):** each `shannon/guides/CHANGELOG.md` entry carries *Records* notes (additive, meaning, document), and `/shannon-update` walks existing records through them, re-elaborating with trigger *framework evolution* where meaning changes. Live-tested: a fixture 5.2 note added a metadata line to an existing Feature as a recorded re-elaboration, with no record recreated.
+  - **Remaining:** None in source. Framework-version absorption and *Documents Consulted* shipped in Shannon 5.1 (PR #16); human Gate 3 acceptance is outstanding.
 - **Created**: 2026-05-18
-- **Updated**: 2026-11-01
+- **Updated**: 2026-11-14
 
 ---
 
@@ -78,6 +78,7 @@ Orphan Tasks under this Feature (no parent Epic; EPIC-007 is APPROVED and closed
 
 ## Activity Log
 
+- **2026-11-14** — ELABORATED → PLANNED → IMPLEMENTED. The new Ideal State bullet (documents consulted at Gates 1 and 2; Gate 1) and the approach (Gate 2) approved by the directing party's approval of 2026-11-14 ("yes, pending decisions as recommended" on 2026-11-13, then "Just do it. Just do it all"), which covers the finish-to-vision plan offered on the Gate 2 card. Delivered in Shannon 5.1 (PR #16): Feature template *Documents Consulted* subsections, skill steps that record them and flag contradictions, `technical_design.md` § Document Alignment Check, and changelog *Records* notes walked by `/shannon-update`. Live evidence: `/feature-elaborate` surfaced a planted contradiction; an update applied a *meaning* note as a re-elaboration. Independent review as for PR #16. Awaiting Gate 3.
 - **2026-11-13** — Framework-version absorption implemented in source through changelog *Records* notes and `/shannon-update` (see FEAT-001 § Plan → Approach). Awaiting Gate 2 for the approach and Gate 3 for acceptance.
 - **2026-11-13** — Re-elaboration proposed (additive). **Trigger**: downstream gap. EPIC-015 (document consultation at elaborate and plan) needed an Ideal State anchor before it could proceed, per *Responsible Promotion*. **Change**: one new Ideal State bullet (documents consulted at elaborate and plan). Implemented in source directly under this Feature: a *Documents Consulted* list in the Feature template at Requirements and Plan, `work-items` skill Elaborate and Plan steps that read named documents and record them, `technical_design.md` § *Document Alignment Check* and `ux_guide.md` § *Gate Approval* (both v2.1, additive). Awaiting human Gate 1 for the bullet and Gate 2 for the approach (finish-to-vision plan); no status change.
 - **2026-11-13** — Plan bookkeeping (no status change): backlog reconciled to Vision v3.0. EPIC-014, TASK-031 and SPIKE-002 are superseded and TASK-030 folds into the FEAT-008 conventions; each record's Activity Log gives the reason. The remaining FEAT-003 work (framework-version absorption, document consultation at elaborate and plan) is delivered directly under this Feature in the finish-to-vision push.

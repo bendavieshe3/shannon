@@ -1,6 +1,6 @@
 # Shannon — System Overview
 
-**Version**: 5.1 (see [CHANGELOG](CHANGELOG.md))
+**Version**: 5.2 (see [CHANGELOG](CHANGELOG.md))
 **Last Updated**: 2026-11-13
 
 Shannon preserves project intent and context while agents handle execution. Everything extends traceably from the Vision. Human decisions remain at the Vision and Feature level; lower-level activity needs useful evidence, not more handholding.

@@ -4,6 +4,17 @@ The newest `## [x.y]` heading is the framework version; `/shannon-setup` and `/s
 
 Each entry has a **Summary**, a **Records** list telling `/shannon-update` how existing work items and documents absorb the change, and, when one is needed, a **Migration** list for steps the directing party must take. A *Records* note is **additive** (nothing to do until a record is next touched), **meaning** (re-elaborate the affected records with trigger *framework evolution*), or **document** (re-review the named sections of the project's own documents).
 
+## [5.2] - 2026-11-14
+
+### Summary
+
+- Command files call the human the *directing party* throughout, matching the skills and documents.
+- When a Feature's approach creates a skill, `work-items` Plan asks that the plan include the skill's command entry point.
+
+### Records
+
+- **additive** — No change to existing records.
+
 ## [5.1] - 2026-11-13
 
 ### Summary

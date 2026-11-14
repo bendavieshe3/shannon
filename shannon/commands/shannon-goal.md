@@ -13,4 +13,4 @@ Pass:
 If the `shannon-supervisor` skill does not activate, report:
 "Error: shannon-supervisor skill failed to activate. Please confirm `./.claude/skills/shannon-supervisor/SKILL.md` is present."
 
-When the candidate list is rendered, surface it to the user and resume the original conversation topic.
+When the candidate list is rendered, surface it to the directing party and resume the original conversation topic.

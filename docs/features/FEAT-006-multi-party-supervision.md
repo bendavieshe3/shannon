@@ -2,15 +2,15 @@
 
 ## Metadata
 
-- **Status**: ELABORATED
+- **Status**: IMPLEMENTED
 - **Activity**: STABLE
 - **Type**: Feature
 - **Vision Reference**: § Core Principles #2 ("Strategic External Review")
 - **Initial Implementation**: Partial — prior vocabulary delivery is recorded below; this governance revision still needs independent review and live validation. Earlier Met/Remaining details are historical context; current requirements supersede delegated gate authority.
   - **Met:** Document-layer V6 alignment — the six mandated documents use directing-party / implementer vocabulary; the *Supervisor Distinct From Implementer* business rule is named; cooperative-access conventions are documented. **Plus (EPIC-005 APPROVED):** the implementation-layer vocabulary sweep of the 3 skill definitions + the CLAUDE.md template, including the self-approval-refusal language in those skills.
-  - **Remaining:** The V6 vocabulary sweep of the 22 command files (candidate Epic B) and the self-approval-refusal wording in them; a multi-agent configuration — a supervisor + implementer pair distinct from the human — exercised in practice. *(FEAT-009's supervisor — EPIC-009 APPROVED 2026-07-11 — delivers the supervising-agent role's existence and operation, but has not yet been exercised as a directing party over a separate implementer, so this last item stays open.)*
+  - **Remaining:** None in source; human Gate 3 acceptance is outstanding. The command sweep is done (the Feature-level governance revision rewrote every command; the 2026-11-14 pass replaced the last "the user" with "the directing party"), and the multi-agent configuration has been exercised in practice (see Activity Log, 2026-11-14).
 - **Created**: 2026-05-18
-- **Updated**: 2026-11-01
+- **Updated**: 2026-11-14
 
 ---
 
@@ -75,6 +75,7 @@ Promote each candidate to a real Epic via `/epic-create` when ready to schedule 
 
 ## Activity Log
 
+- **2026-11-14** — ELABORATED → IMPLEMENTED under the directing party's approval of 2026-11-14 ("pending decisions as recommended", then "Just do it. Just do it all"). Command vocabulary: every command file names the directing party; none asks a human to approve a lower-level gate. Live multi-agent exercise, on Shannon itself: an implementer session built PR #16; two reviewers that neither wrote nor pushed it reviewed each head, the gDDS developer bot (Daria; findings fixed, approved at db33cc0) and the PR-reviewer routine (FAIL then PASS across four heads); the directing party decides acceptance; the supervisor's `/shannon-report` audits health without gate authority. Separate sessions coordinated on disjoint pull requests (#11, #12, #13, #15, #16) and reconciled overlaps by porting rather than overwriting. Awaiting Gate 3.
 - **2026-11-13** — Plan bookkeeping (no status change): EPIC-013 is superseded. The Feature-level governance revision rewrote all twenty work-item commands, and no command now says "explicit user approval". The command-file half of *Remaining* is therefore met in source, pending that revision's acceptance. A multi-agent configuration exercised in practice is still open.
 - **2026-11-12** — Clarification of the approved governance revision: approval of its requirements and implementation approach is not acceptance of this Feature's whole delivered capability. Overall Status remains ELABORATED; this repair records no Feature Gate 3 acceptance. Independent review and any remaining delivery or live-validation work remain outstanding.
 

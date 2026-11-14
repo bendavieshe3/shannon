@@ -8,12 +8,12 @@ Pass:
 - **Action**: `review`
 - **Target**: The document path from `$ARGUMENTS` (e.g. `vision.md`, `docs/technical_design.md`)
 
-If `$ARGUMENTS` is empty, ask the user which document to review.
+If `$ARGUMENTS` is empty, ask the directing party which document to review.
 
 The skill will:
 1. Run an alignment subagent across the document authority graph
 2. Present alignment findings (drift, gaps)
-3. Ask the user to explicitly approve the document for the DRAFT → APPROVED transition
+3. Ask the directing party to explicitly approve the document for the DRAFT → APPROVED transition
 
 If the `project-documentation` skill does not activate, report:
 "Error: project-documentation skill failed to activate. Please confirm `./.claude/skills/project-documentation/SKILL.md` is present."
