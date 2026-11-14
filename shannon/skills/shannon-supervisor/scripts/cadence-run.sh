@@ -19,7 +19,11 @@
 #    origin remote exists. The report reaches the main branch through the project's
 #    normal review route (for Shannon itself, a reviewed pull request).
 # 5. Removes the worktree, keeps the branch, records last_run, and exits with the run's
-#    status. Needs: git, jq, claude on PATH, and Claude Code authentication available to
+#    status. last_run_epoch records every attempt, including a failed one, on purpose: a
+#    broken setup (no auth, missing tool) is retried after min_interval_hours rather than
+#    on every scheduler tick, since each attempt costs a model run. last_report_branch is
+#    set only when a report was committed; a failed run's branch is deleted.
+#    Needs: git, jq, claude on PATH, and Claude Code authentication available to
 #    the scheduler's environment.
 set -euo pipefail
 
@@ -79,6 +83,7 @@ SHANNON_SUPERVISOR_SCOPE=cadence claude -p "/shannon-report" \
 status=$?
 set -e
 
+committed=false
 git add -- "$report_dir" docs/knowledge/knowledge_index.md 2>/dev/null || true
 git reset -q -- "$report_dir/.in-progress" 2>/dev/null || true
 if ! git diff --cached --quiet; then
@@ -88,6 +93,7 @@ if ! git diff --cached --quiet; then
   if [ "$push" = "true" ] && git remote get-url origin >/dev/null 2>&1; then
     git push -q -u origin "$branch" || status=3
   fi
+  committed=true
   echo "cadence-run: committed report on $branch"
 else
   echo "cadence-run: no report produced (claude exit status $status); see $log" >&2
@@ -97,10 +103,11 @@ fi
 
 cd "$root"
 mkdir -p "$(dirname "$state")"
-if [ -f "$state" ] && jq empty "$state" 2>/dev/null; then
-  jq --argjson t "$now" --arg b "$branch" --argjson s "$status" '.last_run_epoch=$t | .last_run_branch=$b | .last_run_status=$s' "$state" > "$state.tmp"
+{ [ -f "$state" ] && jq empty "$state" 2>/dev/null; } || echo '{}' > "$state"
+if [ "$committed" = "true" ]; then
+  jq --argjson t "$now" --arg b "$branch" --argjson s "$status" '.last_run_epoch=$t | .last_run_status=$s | .last_report_branch=$b | del(.last_run_branch)' "$state" > "$state.tmp"
 else
-  jq -n --argjson t "$now" --arg b "$branch" --argjson s "$status" '{last_run_epoch:$t, last_run_branch:$b, last_run_status:$s}' > "$state.tmp"
+  jq --argjson t "$now" --argjson s "$status" '.last_run_epoch=$t | .last_run_status=$s | del(.last_run_branch)' "$state" > "$state.tmp"
 fi
 mv "$state.tmp" "$state"
 exit "$status"

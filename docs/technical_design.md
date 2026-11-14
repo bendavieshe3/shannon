@@ -129,7 +129,7 @@ Shannon's "data" is the file structure. Mapping conceptual entities to physical 
 | Install backups | `./.claude/.shannon-backup/YYYY-MM-DD/` | Copies of every file an install or update overwrote; never deleted by Shannon |
 | Changelog | `shannon/guides/CHANGELOG.md` (deployed to `./.claude/guides/`) | Version source of truth; each entry's *Records* notes drive framework-version absorption |
 | Cadence State (optional) | `./.claude/supervisor/state.json` | Optional inter-run state file; see *Cadence State* below |
-| Run working files | `<report_directory>/.in-progress/YYYY-MM-DD/` | Checker fragments saved as they return, plus a `COMPACTED` marker; never committed |
+| Run working files | `<report_directory>/.in-progress/YYYY-MM-DD-HHMMSS/` | One directory per run, opened with a `RUN` marker: checker fragments saved as they return, plus a `COMPACTED` marker; never committed |
 | Cadence run logs | `./.claude/supervisor/logs/` | JSON output and stderr of each unattended run; not committed |
 | Supervisor audit log | `./.claude/skills/shannon-supervisor/audit.log` | One line per Bash, Edit or Write call in a supervisor-scoped session, written by the PostToolUse hook; operational telemetry, not committed |
 
@@ -160,7 +160,7 @@ The supervisor is **stateless by default** between cadence runs. Each run reads 
 A narrow optional state file at `./.claude/supervisor/state.json` is permitted for two non-functional concerns:
 
 - **Muted findings** — a finding the directing party explicitly marked as a false positive (e.g. "this document drift is intentional"). Without persistence, the same false positive would re-surface in every report
-- **Throttling** — a record of the last cadence run (`last_run_epoch`, `last_run_branch`, `last_run_status`, written by the runner), so a scheduler that fires more often than the supervisor's intended cadence can detect "too soon" and skip
+- **Throttling** — a record of the last cadence run (`last_run_epoch` and `last_run_status` for every attempt, failed ones included so a broken setup is not retried on every tick, and `last_report_branch` when a report was committed; written by the runner), so a scheduler that fires more often than the supervisor's intended cadence can detect "too soon" and skip
 
 The state file is not authoritative for any lifecycle decision — it is a UX aid for the directing party. A supervisor that finds the state file missing or corrupt proceeds as if stateless and notes the absence in the next report.
 
