@@ -6,7 +6,7 @@ Each script works in a new temporary directory, so it neither reads nor changes 
 
 | Script | Covers | Cases |
 |---|---|---|
-| `supervisor/writeguard-cases.sh` | `scripts/pretool-writeguard.sh` | Inert outside scope; relative and absolute paths into the report directory; nested worktree; the knowledge-index exception; refusal of other project files, paths outside the project, the prefix trick, `..` escapes; NotebookEdit's `notebook_path`; reads pass |
+| `supervisor/writeguard-cases.sh` | `scripts/pretool-writeguard.sh` | Inert outside scope; relative and absolute paths into the report directory; nested worktree; the knowledge-index exception; refusal of other project files, paths outside the project, the prefix trick, `..` escapes; NotebookEdit's `notebook_path`; reads pass. Every case runs in a project path containing a space |
 | `supervisor/stop-precompact-cases.sh` | `scripts/stop-flushcheck.sh`, `scripts/precompact-marker.sh` | Per-run directories: block once with fragments and no report; `stop_hook_active`; a same-day rerun ignores the earlier report; PreCompact marks only the open run; runs older than 24 hours ignored; a report directory containing a space |
 | `supervisor/cadence-run-cases.sh` | `scripts/cadence-run.sh` | Uses a fake `claude`, so no model runs. Failed run (branch deleted, attempt recorded); throttled retry; successful run commits only the report and index; state fields; a report without an index is still committed |
 
